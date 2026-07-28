@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 
 const Header = () => {
-  // Состояние для активной вкладки. По умолчанию выбрана первая.
   const [activeTab, setActiveTab] = useState("Անհատ");
 
-  // Список всех вкладок для удобства отрисовки
   const tabs = [
     "Անհատ",
     "Բիզնես",
@@ -14,9 +12,9 @@ const Header = () => {
   ];
 
   return (
-    <div className="relative flex items-center justify-between w-full px-3 md:px-5 lg:px-8 border-b border-gray-200 bg-white">
-      {/* Левая часть — вкладки */}
-      <div className="flex items-center gap-2.5 md:gap-3 lg:gap-6 whitespace-nowrap text-[11px] md:text-[12px] lg:text-[13px]">
+    <div className="relative flex items-center justify-between w-full px-3 sm:px-5 md:px-8 border-b border-gray-200 bg-white">
+      {/* Левая часть: Вкладки (показываются с md) */}
+      <div className="hidden md:flex items-center gap-1.5 lg:gap-3 text-[11px] lg:text-[13px] whitespace-nowrap">
         {tabs.map((tab) => (
           <p
             key={tab}
@@ -32,10 +30,31 @@ const Header = () => {
         ))}
       </div>
 
-      {/* Правая часть — «Հետադարձ կապ» и иконки */}
-      <div className="flex items-center gap-2 md:gap-3 lg:gap-4 whitespace-nowrap ml-auto pl-2">
-        <div className="flex items-center gap-1 cursor-pointer py-2.5 -mt-[1px] border-t-[3px] border-transparent">
-          <p className="text-[11px] md:text-[12px] lg:text-[13px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
+      {/* Правая часть: Прижата вправо, сгруппирована и отодвинута от правого края на 20px (mr-[20px]) */}
+      <div className="flex items-center justify-end gap-3 sm:gap-4 lg:gap-6 whitespace-nowrap ml-auto py-2.5 mr-[20px]">
+        {/* Кнопка "Առցանց հայտեր" */}
+        <div className="hidden lg:flex items-center gap-1 cursor-pointer">
+          <p className="text-[11px] lg:text-[13px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
+            Առցանց հայտեր
+          </p>
+          <svg
+            className="w-2.5 h-2.5 stroke-[rgb(100,0,220)]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </div>
+
+        {/* Кнопка "Հետադարձ կապ" */}
+        <div className="flex items-center gap-1 cursor-pointer">
+          <p className="text-[11px] lg:text-[13px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
             Հետադարձ կապ
           </p>
           <svg
@@ -53,7 +72,8 @@ const Header = () => {
           </svg>
         </div>
 
-        <div className="flex items-center gap-2 md:gap-3 text-gray-700">
+        {/* Иконки */}
+        <div className="flex items-center gap-2 sm:gap-2.5 text-gray-700">
           <svg
             className="w-4 h-4 cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
             fill="currentColor"
