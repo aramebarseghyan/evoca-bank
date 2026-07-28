@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Header = () => {
+const Header1 = () => {
   const [activeTab, setActiveTab] = useState("Անհատ");
 
   const tabs = [
@@ -15,8 +15,7 @@ const Header = () => {
 
   return (
     <div className="w-full border-b border-gray-200 bg-white">
-      <div className="relative mx-auto flex items-center justify-between w-full max-w-[1440px] px-4 sm:px-6 md:px-8 xl:px-10">
-        {/* Левая часть: Табы (Скрыты на мобильных) */}
+      <div className="relative mx-auto flex items-center justify-between w-full max-w-360 px-4 sm:px-6 md:px-8 xl:px-10">
         <div className="hidden md:flex items-center gap-2 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6 text-[11px] lg:text-[12px] 2xl:text-[13px] whitespace-nowrap">
           {tabs.map((tab) => (
             <p
@@ -24,7 +23,7 @@ const Header = () => {
               onClick={() => setActiveTab(tab.name)}
               className={`${
                 tab.xlOnly ? "hidden xl:block" : ""
-              } cursor-pointer py-3 lg:py-3.5 2xl:py-4 border-t-[3px] transition-all duration-200 -mt-[1px] ${
+              } cursor-pointer pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7 border-t-[3px] transition-all duration-200 -mt-px ${
                 activeTab === tab.name
                   ? "text-[rgb(100,0,220)] font-bold border-[rgb(100,0,220)]"
                   : "text-gray-800 font-medium border-transparent hover:text-[rgb(100,0,220)]"
@@ -35,9 +34,7 @@ const Header = () => {
           ))}
         </div>
 
-        {/* Правая часть: Ссылки и Иконки */}
-        {/* Убрали justify-between, теперь justify-end прижимает всё вправо. gap-5 задает расстояние между текстом и иконками */}
-        <div className="flex items-center w-full md:w-auto justify-end gap-5 md:gap-5 lg:gap-6 2xl:gap-8 whitespace-nowrap ml-auto py-3 lg:py-3.5 2xl:py-4">
+        <div className="flex items-center w-full md:w-auto justify-end gap-5 md:gap-5 lg:gap-6 2xl:gap-8 whitespace-nowrap ml-auto pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7">
           <div className="flex items-center gap-3 lg:gap-4 2xl:gap-6">
             <div className="hidden lg:flex items-center gap-1 cursor-pointer group">
               <p className="text-[11px] lg:text-[12px] 2xl:text-[13px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
@@ -59,11 +56,9 @@ const Header = () => {
             </div>
 
             <div className="flex items-center gap-1 cursor-pointer group">
-              {/* Увеличен шрифт на мобилке: text-[14px] */}
               <p className="text-[14px] md:text-[11px] lg:text-[12px] 2xl:text-[13px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
                 Հետադարձ կապ
               </p>
-              {/* Увеличена стрелочка на мобилке: w-3.5 h-3.5 */}
               <svg
                 className="w-3.5 h-3.5 md:w-2.5 md:h-2.5 2xl:w-3 2xl:h-3 stroke-[rgb(100,0,220)] mt-[1px]"
                 fill="none"
@@ -80,10 +75,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Блок иконок */}
-          {/* Увеличены отступы на мобилке: gap-4 */}
           <div className="flex items-center gap-4 md:gap-2 lg:gap-3 2xl:gap-4 text-gray-900">
-            {/* Увеличены иконки на мобилке: w-5 h-5 */}
             <svg
               className="w-5 h-5 md:w-3.5 md:h-3.5 lg:w-4 lg:h-4 2xl:w-[18px] 2xl:h-[18px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
               fill="currentColor"
@@ -130,4 +122,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header1;
