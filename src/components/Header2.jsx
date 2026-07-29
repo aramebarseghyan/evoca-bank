@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const Header2 = () => {
-  const [activeTab, setActiveTab] = useState("Վարկեր");
+  // Меняем начальное значение с "Վարկեր" на null
+  const [activeTab, setActiveTab] = useState(null);
 
   const navItems = [
     { label: "Վարկեր", showOn: "md" },
