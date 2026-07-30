@@ -53,15 +53,15 @@ function BiometricSection() {
   }, []);
 
   return (
-    <section className="w-full bg-white py-10 md:py-14 xl:py-16 2xl:py-24 px-4 sm:px-6 md:px-8 xl:px-16 2xl:px-20 flex flex-col items-start xl:flex-row xl:items-center justify-center xl:justify-between max-w-[1200px] 2xl:max-w-[1440px] mx-auto select-none overflow-hidden gap-10 xl:gap-14 2xl:gap-24">
-      {/* 1. Блок биометрического сканирования */}
-      <div className="relative w-[300px] sm:w-[350px] md:w-[380px] xl:w-[460px] 2xl:w-[520px] h-[330px] sm:h-[380px] md:h-[410px] xl:h-[470px] 2xl:h-[530px] self-center xl:self-auto xl:mx-0 flex items-center justify-center shrink-0">
-        {/* Анимированные пунктирные круги на фоне */}
+    <section className="w-full bg-white py-12 md:py-16 lg:py-20 2xl:py-28 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-20 flex flex-col items-center lg:flex-row lg:items-center justify-center lg:justify-between xl:justify-center max-w-[1240px] 2xl:max-w-[1480px] mx-auto select-none overflow-hidden gap-10 lg:gap-10 xl:gap-16 2xl:gap-24">
+      {/* 1. Բիոմետրիկ սկանավորման բլոկ (ձախ կողմում xl-ի համար) */}
+      <div className="relative w-[340px] sm:w-[400px] md:w-[450px] lg:w-[480px] xl:w-[540px] 2xl:w-[600px] h-[360px] sm:h-[420px] md:h-[470px] lg:h-[510px] xl:h-[570px] 2xl:h-[630px] self-center lg:self-auto lg:mx-0 flex items-center justify-center shrink-0 xl:order-1">
+        {/* Անիմացված շրջանակներ */}
         <div className="absolute inset-x-0 top-0 bottom-4 2xl:bottom-6 rounded-full border border-dashed border-purple-200/60 pointer-events-none animate-[spin_60s_linear_infinite]" />
-        <div className="absolute inset-x-6 top-6 bottom-10 2xl:bottom-12 rounded-full border border-purple-100 pointer-events-none" />
+        <div className="absolute inset-x-6 top-6 bottom-10 lg:bottom-12 rounded-full border border-purple-100 pointer-events-none" />
 
-        {/* Фиолетовый треугольник */}
-        <div className="absolute top-6 sm:top-7 md:top-8 xl:top-10 2xl:top-12 w-[270px] sm:w-[310px] md:w-[350px] xl:w-[410px] 2xl:w-[460px] h-[220px] sm:h-[260px] md:h-[290px] xl:h-[340px] 2xl:h-[380px] z-0 flex items-center justify-center drop-shadow-md">
+        {/* Մանուշակագույն եռանկյուն */}
+        <div className="absolute top-6 sm:top-7 md:top-8 lg:top-10 2xl:top-12 w-[300px] sm:w-[350px] md:w-[400px] lg:w-[430px] xl:w-[490px] 2xl:w-[540px] h-[250px] sm:h-[290px] md:h-[330px] lg:h-[360px] xl:h-[410px] 2xl:h-[460px] z-0 flex items-center justify-center drop-shadow-md">
           <svg
             viewBox="0 0 300 270"
             className="w-full h-full"
@@ -70,31 +70,32 @@ function BiometricSection() {
           >
             <path
               d="M 22 20 C 10 20 2 30 8 43 L 138 255 C 144 265 156 265 162 255 L 292 43 C 298 30 290 20 278 20 Z"
-              fill="#6200EE"
+              fill="#6000ff"
             />
           </svg>
         </div>
 
-        {/* Контейнер с лицом и SVG-сеткой */}
-        <div className="absolute top-1 sm:top-2 md:top-3 xl:top-4 2xl:top-5 w-[220px] sm:w-[255px] md:w-[290px] xl:w-[340px] 2xl:w-[385px] h-[92%] z-10 flex items-center justify-center overflow-visible">
+        {/* Դեմքի և SVG ցանցի միասնական կոնտեյներ */}
+        <div className="absolute top-1 sm:top-2 md:top-3 lg:top-4 w-[240px] sm:w-[280px] md:w-[320px] lg:w-[350px] xl:w-[400px] 2xl:w-[450px] h-[92%] z-10 flex items-center justify-center overflow-visible translate-y-3 sm:translate-y-4 md:translate-y-5 lg:translate-y-6">
           {faces.map((faceUrl, index) => (
             <img
               key={index}
               src={faceUrl}
               alt={`Biometric Scan ${index + 1}`}
-              className={`absolute top-0 w-full h-full object-contain object-top transition-all duration-700 ease-in-out ${
+              className={`absolute top-0 left-0 w-full h-full object-contain object-top transition-all duration-700 ease-in-out ${
                 index === currentFaceIndex
-                  ? "opacity-100 scale-100 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
-                  : "opacity-0 scale-105 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-105"
               }`}
             />
           ))}
 
-          {/* SVG-сетка поверх лица */}
+          {/* SVG-ցանց */}
           <svg
             key={animKey}
-            className="absolute inset-0 w-full h-full pointer-events-none z-20 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
+            className="absolute top-0 left-0 w-full h-full pointer-events-none z-20"
             viewBox="0 0 200 200"
+            preserveAspectRatio="xMidYMin meet"
             fill="none"
           >
             <path
@@ -121,31 +122,34 @@ function BiometricSection() {
         </div>
       </div>
 
-      {/* 2. Текстовый блок и QR-код */}
-      {/* Ավելացվել են max-w-[340px] sm:max-w-[440px] md:max-w-[500px] սահմանափակումները */}
-      <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] xl:max-w-[520px] 2xl:max-w-[600px] flex flex-col items-start text-left shrink-0 self-start">
-        <h2 className="text-[21px] sm:text-[25px] md:text-[27px] xl:text-[31px] 2xl:text-[38px] font-bold text-[#1c1d21] leading-[1.25] mb-3 xl:mb-4 2xl:mb-6">
-          Դարձիր Evocabank-ի հաճախորդ բիոմետրիկ նույնականացմամբ
+      {/* 2. Տեքստային բլոկ և QR-կոդ (աջ կողմում xl-ի համար) */}
+      <div className="w-full max-w-[360px] sm:max-w-[460px] md:max-w-[520px] lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] flex flex-col items-start text-left shrink-0 self-center lg:pr-4 xl:order-2">
+        {/* Վերնագիրը (h2)՝ 2 ՏՈՂՈՎ xl և 2xl էկրանների համար */}
+        <h2 className="text-[22px] sm:text-[26px] md:text-[28px] lg:text-[28px] xl:text-[34px] 2xl:text-[42px] font-bold text-[#1c1d21] leading-[1.25] mb-4 lg:mb-5 2xl:mb-7">
+          Դարձիր Evocabank-ի հաճախորդ
+          <br className="hidden xl:block" /> բիոմետրիկ նույնականացմամբ
         </h2>
 
-        <p className="text-[13.5px] sm:text-[14.5px] md:text-[16px] xl:text-[15px] 2xl:text-[18px] text-[#6c747e] leading-[1.6] font-normal mb-6 xl:mb-8 2xl:mb-10">
-          Սկանավորիր QR կոդը, ներբեռնիր EvocaTOUCH հարմարավետ հավելվածը, ստեղծիր
-          քո հաշիվը և ստացիր քարտ
+        {/* Նկարագրությունը (p)՝ 3 ՏՈՂՈՎ xl և 2xl էկրանների համար */}
+        <p className="text-[14px] sm:text-[15px] md:text-[16px] lg:text-[15px] xl:text-[16.5px] 2xl:text-[20px] text-[#6c747e] leading-[1.6] font-normal mb-7 lg:mb-9 2xl:mb-12">
+          Սկանավորիր QR կոդը, ներբեռնիր EvocaTOUCH
+          <br className="hidden xl:block" /> հարմարավետ հավելվածը, ստեղծիր քո
+          հաշիվը և<br className="hidden xl:block" /> ստացիր քարտ
         </p>
 
-        {/* Кнопка (Mobile/Tablet) */}
-        <button className="xl:hidden self-start min-w-[210px] sm:min-w-[230px] py-2.5 px-10 md:px-12 bg-[#6200EE] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[14px] md:text-[15px] transition-all shadow-md">
+        {/* Մոբայլ կոճակ */}
+        <button className="lg:hidden self-start min-w-[210px] sm:min-w-[230px] py-3 px-10 md:px-12 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[14px] transition-all shadow-md">
           Իմանալ ավելին
         </button>
 
-        {/* QR + Кнопка (Desktop) */}
-        <div className="hidden xl:flex items-end justify-between w-full max-w-[460px] 2xl:max-w-[520px] pt-1">
+        {/* QR + Կոճակ բլոկ */}
+        <div className="hidden lg:flex items-end justify-between w-full lg:max-w-[460px] xl:max-w-[540px] 2xl:max-w-[640px] pt-1 xl:-mt-10 2xl:-mt-10">
           <img
             src={qrCode}
             alt="EvocaTOUCH QR Code"
-            className="w-[125px] h-[125px] 2xl:w-[150px] 2xl:h-[150px] object-contain shrink-0"
+            className="w-[125px] h-[125px] xl:w-[145px] xl:h-[145px] 2xl:w-[170px] 2xl:h-[170px] object-contain shrink-0"
           />
-          <button className="py-3 px-10 2xl:py-3.5 2xl:px-12 bg-[#6200EE] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[15px] 2xl:text-[17px] transition-all shadow-md mb-1">
+          <button className="py-3 px-9 lg:py-3.5 lg:px-10 xl:py-4 xl:px-12 2xl:py-4.5 2xl:px-14 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[15px] lg:text-[16px] xl:text-[17px] 2xl:text-[19px] transition-all shadow-md mb-1">
             Իմանալ ավելին
           </button>
         </div>

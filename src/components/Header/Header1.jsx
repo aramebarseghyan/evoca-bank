@@ -14,35 +14,43 @@ const Header1 = () => {
   ];
 
   return (
-    <div className="w-full border-b border-gray-200 bg-white 2xl:mt-[20px]">
-      <div className="relative mx-auto flex items-center justify-between w-full max-w-360 px-4 sm:px-6 md:px-8 xl:px-10">
-        {/* md:flex-ը փոխարինվել է lg:flex-ով  */}
-        <div className="hidden lg:flex items-center gap-2 lg:gap-4 xl:gap-5 2xl:gap-6 text-[13px] lg:text-[14px] 2xl:text-[15px] whitespace-nowrap">
+    <div className="w-full border-b border-gray-100 bg-white 2xl:mt-[10px]">
+      {/* Контейнер строго совпадает с Header2 для идеальной линии */}
+      <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
+        {/* ЛЕВАЯ ЧАСТЬ: Вкладки (Tabs) */}
+        <div className="hidden lg:flex items-center lg:gap-3 xl:gap-5 2xl:gap-6">
           {tabs.map((tab) => (
             <p
               key={tab.name}
               onClick={() => setActiveTab(tab.name)}
-              className={`${
-                tab.xlOnly ? "hidden xl:block" : ""
-              } cursor-pointer pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7 border-t-[3px] transition-all duration-200 -mt-px ${
-                activeTab === tab.name
-                  ? "text-[rgb(100,0,220)] font-bold border-[rgb(100,0,220)]"
-                  : "text-gray-800 font-medium border-transparent hover:text-[rgb(100,0,220)]"
-              }`}
+              className={`
+                ${tab.xlOnly ? "hidden xl:block" : "block"}
+                cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
+                border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
+                lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
+                ${
+                  activeTab === tab.name
+                    ? "text-[#6000ff] font-bold border-[#6000ff]"
+                    : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
+                }
+              `}
             >
               {tab.name}
             </p>
           ))}
         </div>
 
-        <div className="flex items-center w-full lg:w-auto justify-end gap-5 md:gap-5 lg:gap-6 2xl:gap-8 whitespace-nowrap ml-auto pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7">
-          <div className="flex items-center gap-3 lg:gap-4 2xl:gap-6">
-            <div className="hidden lg:flex items-center gap-1 cursor-pointer group">
-              <p className="text-[13px] lg:text-[14px] 2xl:text-[15px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
+        {/* ПРАВАЯ ЧАСТЬ: Ссылки и Иконки */}
+        <div className="flex items-center shrink-0 ml-auto gap-4 md:gap-5 lg:gap-6 2xl:gap-8 pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5">
+          {/* Текстовые ссылки */}
+          <div className="flex items-center gap-4 lg:gap-5 2xl:gap-6">
+            {/* Առցանց հայտեր */}
+            <div className="hidden lg:flex items-center gap-1.5 cursor-pointer group">
+              <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
                 Առցանց հայտեր
               </p>
               <svg
-                className="w-[12px] h-[12px] 2xl:w-[14px] 2xl:h-[14px] stroke-[rgb(100,0,220)] mt-[1px]"
+                className="w-[12px] h-[12px] xl:w-[14px] xl:h-[14px] stroke-[#6000ff] transition-transform group-hover:translate-x-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -56,12 +64,13 @@ const Header1 = () => {
               </svg>
             </div>
 
-            <div className="flex items-center gap-1 cursor-pointer group">
-              <p className="text-[16px] md:text-[13px] lg:text-[14px] 2xl:text-[15px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
+            {/* Հետադարձ կապ */}
+            <div className="flex items-center gap-1.5 cursor-pointer group">
+              <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
                 Հետադարձ կապ
               </p>
               <svg
-                className="w-[16px] h-[16px] md:w-[12px] md:h-[12px] 2xl:w-[14px] 2xl:h-[14px] stroke-[rgb(100,0,220)] mt-[1px]"
+                className="w-[12px] h-[12px] xl:w-[14px] xl:h-[14px] stroke-[#6000ff] transition-transform group-hover:translate-x-1"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -76,9 +85,10 @@ const Header1 = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-4 md:gap-2 lg:gap-3 2xl:gap-4 text-gray-900">
+          {/* Иконки (глобус, телефон, лупа, бургер) */}
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-4 lg:gap-5 2xl:gap-6 text-[#222222]">
             <svg
-              className="w-[22px] h-[22px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
+              className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="currentColor"
               viewBox="0 0 640 640"
             >
@@ -86,7 +96,7 @@ const Header1 = () => {
             </svg>
 
             <svg
-              className="w-[22px] h-[22px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
+              className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="currentColor"
               viewBox="0 0 640 640"
             >
@@ -94,7 +104,7 @@ const Header1 = () => {
             </svg>
 
             <svg
-              className="w-[22px] h-[22px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
+              className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="currentColor"
               viewBox="0 0 640 640"
             >
@@ -102,7 +112,7 @@ const Header1 = () => {
             </svg>
 
             <svg
-              className="w-[22px] h-[22px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
+              className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="currentColor"
               viewBox="0 0 640 640"
             >
@@ -110,7 +120,7 @@ const Header1 = () => {
             </svg>
 
             <svg
-              className="w-[22px] h-[22px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[rgb(100,0,220)] transition-colors"
+              className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="currentColor"
               viewBox="0 0 640 640"
             >
