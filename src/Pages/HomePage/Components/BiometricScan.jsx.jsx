@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import face1 from "/src/assets/face1.png";
 import face2 from "/src/assets/face2.png";
 import face3 from "/src/assets/face3.png";
+import qrCode from "/src/assets/biometric-section-QR-Code.png";
 
 const faces = [face1, face2, face3];
 
@@ -38,8 +39,6 @@ function BiometricSection() {
   useEffect(() => {
     if (faces.length <= 1) return;
 
-    // Анимация срабатывает раз в 1.8 с (1.2 с рисовка + 0.6 с пауза)
-    // Лицо меняется после каждых 2-х срабатываний сетки
     const interval = setInterval(() => {
       setAnimKey((prev) => {
         const next = prev + 1;
@@ -54,12 +53,15 @@ function BiometricSection() {
   }, []);
 
   return (
-    <section className="w-full bg-white py-8 px-4 flex flex-col items-center justify-center select-none overflow-hidden">
-      <div className="relative w-[330px] sm:w-[360px] h-[370px] sm:h-[400px] mx-auto flex items-center justify-center mb-4">
-        <div className="absolute inset-x-0 top-8 bottom-0 rounded-full border border-dashed border-purple-200/50 pointer-events-none animate-[spin_60s_linear_infinite]" />
-        <div className="absolute inset-x-6 top-14 bottom-6 rounded-full border border-purple-100 pointer-events-none" />
+    <section className="w-full bg-white py-10 md:py-14 xl:py-16 2xl:py-24 px-4 sm:px-6 md:px-8 xl:px-16 2xl:px-20 flex flex-col items-start xl:flex-row xl:items-center justify-center xl:justify-between max-w-[1200px] 2xl:max-w-[1440px] mx-auto select-none overflow-hidden gap-10 xl:gap-14 2xl:gap-24">
+      {/* 1. Блок биометрического сканирования */}
+      <div className="relative w-[300px] sm:w-[350px] md:w-[380px] xl:w-[460px] 2xl:w-[520px] h-[330px] sm:h-[380px] md:h-[410px] xl:h-[470px] 2xl:h-[530px] self-center xl:self-auto xl:mx-0 flex items-center justify-center shrink-0">
+        {/* Анимированные пунктирные круги на фоне */}
+        <div className="absolute inset-x-0 top-0 bottom-4 2xl:bottom-6 rounded-full border border-dashed border-purple-200/60 pointer-events-none animate-[spin_60s_linear_infinite]" />
+        <div className="absolute inset-x-6 top-6 bottom-10 2xl:bottom-12 rounded-full border border-purple-100 pointer-events-none" />
 
-        <div className="absolute bottom-1 w-[310px] sm:w-[340px] h-[260px] sm:h-[290px] z-0 flex items-center justify-center drop-shadow-md">
+        {/* Фиолетовый треугольник */}
+        <div className="absolute top-6 sm:top-7 md:top-8 xl:top-10 2xl:top-12 w-[270px] sm:w-[310px] md:w-[350px] xl:w-[410px] 2xl:w-[460px] h-[220px] sm:h-[260px] md:h-[290px] xl:h-[340px] 2xl:h-[380px] z-0 flex items-center justify-center drop-shadow-md">
           <svg
             viewBox="0 0 300 270"
             className="w-full h-full"
@@ -73,24 +75,25 @@ function BiometricSection() {
           </svg>
         </div>
 
-        <div className="absolute top-0 bottom-1 w-[270px] sm:w-[300px] z-10 flex items-center justify-center overflow-visible">
+        {/* Контейнер с лицом и SVG-сеткой */}
+        <div className="absolute top-1 sm:top-2 md:top-3 xl:top-4 2xl:top-5 w-[220px] sm:w-[255px] md:w-[290px] xl:w-[340px] 2xl:w-[385px] h-[92%] z-10 flex items-center justify-center overflow-visible">
           {faces.map((faceUrl, index) => (
             <img
               key={index}
               src={faceUrl}
               alt={`Biometric Scan ${index + 1}`}
-              className={`absolute bottom-0 w-full h-[99%] object-contain object-bottom transition-opacity duration-700 ease-in-out ${
+              className={`absolute top-0 w-full h-full object-contain object-top transition-all duration-700 ease-in-out ${
                 index === currentFaceIndex
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-105"
+                  ? "opacity-100 scale-100 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
+                  : "opacity-0 scale-105 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
               }`}
             />
           ))}
 
-          {/* Перезапуск анимации по ключу animKey */}
+          {/* SVG-сетка поверх лица */}
           <svg
             key={animKey}
-            className="absolute inset-0 w-full h-full pointer-events-none z-20"
+            className="absolute inset-0 w-full h-full pointer-events-none z-20 translate-y-3 sm:translate-y-4 md:translate-y-5 xl:translate-y-6"
             viewBox="0 0 200 200"
             fill="none"
           >
@@ -118,19 +121,34 @@ function BiometricSection() {
         </div>
       </div>
 
-      <div className="w-full max-w-[340px] mx-auto flex flex-col items-start text-left">
-        <h2 className="text-[19px] sm:text-[21px] font-bold text-gray-900 leading-snug mb-2.5">
+      {/* 2. Текстовый блок и QR-код */}
+      {/* Ավելացվել են max-w-[340px] sm:max-w-[440px] md:max-w-[500px] սահմանափակումները */}
+      <div className="w-full max-w-[340px] sm:max-w-[440px] md:max-w-[500px] xl:max-w-[520px] 2xl:max-w-[600px] flex flex-col items-start text-left shrink-0 self-start">
+        <h2 className="text-[21px] sm:text-[25px] md:text-[27px] xl:text-[31px] 2xl:text-[38px] font-bold text-[#1c1d21] leading-[1.25] mb-3 xl:mb-4 2xl:mb-6">
           Դարձիր Evocabank-ի հաճախորդ բիոմետրիկ նույնականացմամբ
         </h2>
 
-        <p className="text-[13.5px] text-gray-500 leading-relaxed font-normal mb-5">
+        <p className="text-[13.5px] sm:text-[14.5px] md:text-[16px] xl:text-[15px] 2xl:text-[18px] text-[#6c747e] leading-[1.6] font-normal mb-6 xl:mb-8 2xl:mb-10">
           Սկանավորիր QR կոդը, ներբեռնիր EvocaTOUCH հարմարավետ հավելվածը, ստեղծիր
-          քո հաշիվը և ստացիր քարտը։
+          քո հաշիվը և ստացիր քարտ
         </p>
 
-        <button className="self-center w-full max-w-[280px] py-3 px-6 bg-[#6200EE] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[14px] transition-all shadow-md">
+        {/* Кнопка (Mobile/Tablet) */}
+        <button className="xl:hidden self-start min-w-[210px] sm:min-w-[230px] py-2.5 px-10 md:px-12 bg-[#6200EE] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[14px] md:text-[15px] transition-all shadow-md">
           Իմանալ ավելին
         </button>
+
+        {/* QR + Кнопка (Desktop) */}
+        <div className="hidden xl:flex items-end justify-between w-full max-w-[460px] 2xl:max-w-[520px] pt-1">
+          <img
+            src={qrCode}
+            alt="EvocaTOUCH QR Code"
+            className="w-[125px] h-[125px] 2xl:w-[150px] 2xl:h-[150px] object-contain shrink-0"
+          />
+          <button className="py-3 px-10 2xl:py-3.5 2xl:px-12 bg-[#6200EE] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[15px] 2xl:text-[17px] transition-all shadow-md mb-1">
+            Իմանալ ավելին
+          </button>
+        </div>
       </div>
 
       <style jsx>{`

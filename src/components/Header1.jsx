@@ -16,7 +16,8 @@ const Header1 = () => {
   return (
     <div className="w-full border-b border-gray-200 bg-white 2xl:mt-[20px]">
       <div className="relative mx-auto flex items-center justify-between w-full max-w-360 px-4 sm:px-6 md:px-8 xl:px-10">
-        <div className="hidden md:flex items-center gap-2 md:gap-3 lg:gap-4 xl:gap-5 2xl:gap-6 text-[13px] lg:text-[14px] 2xl:text-[15px] whitespace-nowrap">
+        {/* md:flex-ը փոխարինվել է lg:flex-ով  */}
+        <div className="hidden lg:flex items-center gap-2 lg:gap-4 xl:gap-5 2xl:gap-6 text-[13px] lg:text-[14px] 2xl:text-[15px] whitespace-nowrap">
           {tabs.map((tab) => (
             <p
               key={tab.name}
@@ -34,7 +35,7 @@ const Header1 = () => {
           ))}
         </div>
 
-        <div className="flex items-center w-full md:w-auto justify-end gap-5 md:gap-5 lg:gap-6 2xl:gap-8 whitespace-nowrap ml-auto pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7">
+        <div className="flex items-center w-full lg:w-auto justify-end gap-5 md:gap-5 lg:gap-6 2xl:gap-8 whitespace-nowrap ml-auto pt-3 pb-5 lg:pt-3.5 lg:pb-6 2xl:pt-4 2xl:pb-7">
           <div className="flex items-center gap-3 lg:gap-4 2xl:gap-6">
             <div className="hidden lg:flex items-center gap-1 cursor-pointer group">
               <p className="text-[13px] lg:text-[14px] 2xl:text-[15px] font-medium text-[rgb(100,0,220)] font-['Montserratarm-Medium',Helvetica,Arial,sans-serif]">
