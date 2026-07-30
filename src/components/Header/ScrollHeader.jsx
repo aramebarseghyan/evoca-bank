@@ -49,7 +49,6 @@ const ScrollHeader = () => {
             />
           </div>
 
-          {/* Навигационные ссылки слева (рядом с логотипом) */}
           <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
             {navItems.map((item) => {
               const isActive = activeTab === item.label;

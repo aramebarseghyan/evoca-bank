@@ -54,13 +54,10 @@ function BiometricSection() {
 
   return (
     <section className="w-full bg-white py-12 md:py-16 lg:py-20 2xl:py-28 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16 2xl:px-20 flex flex-col items-center lg:flex-row lg:items-center justify-center lg:justify-between xl:justify-center max-w-[1240px] 2xl:max-w-[1480px] mx-auto select-none overflow-hidden gap-10 lg:gap-10 xl:gap-16 2xl:gap-24">
-      {/* 1. Բիոմետրիկ սկանավորման բլոկ (ձախ կողմում xl-ի համար) */}
       <div className="relative w-[340px] sm:w-[400px] md:w-[450px] lg:w-[480px] xl:w-[540px] 2xl:w-[600px] h-[360px] sm:h-[420px] md:h-[470px] lg:h-[510px] xl:h-[570px] 2xl:h-[630px] self-center lg:self-auto lg:mx-0 flex items-center justify-center shrink-0 xl:order-1">
-        {/* Անիմացված շրջանակներ */}
         <div className="absolute inset-x-0 top-0 bottom-4 2xl:bottom-6 rounded-full border border-dashed border-purple-200/60 pointer-events-none animate-[spin_60s_linear_infinite]" />
         <div className="absolute inset-x-6 top-6 bottom-10 lg:bottom-12 rounded-full border border-purple-100 pointer-events-none" />
 
-        {/* Մանուշակագույն եռանկյուն */}
         <div className="absolute top-6 sm:top-7 md:top-8 lg:top-10 2xl:top-12 w-[300px] sm:w-[350px] md:w-[400px] lg:w-[430px] xl:w-[490px] 2xl:w-[540px] h-[250px] sm:h-[290px] md:h-[330px] lg:h-[360px] xl:h-[410px] 2xl:h-[460px] z-0 flex items-center justify-center drop-shadow-md">
           <svg
             viewBox="0 0 300 270"
