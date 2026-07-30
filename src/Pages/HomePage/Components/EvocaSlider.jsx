@@ -109,7 +109,7 @@ function EvocaSlider() {
                     slideIsLight ? "text-gray-900" : "text-white"
                   }`}
                 >
-                  {/* Изображение слайда — смещено на 100px вправо на 2xl */}
+                  {/* Изображение слайда */}
                   <div
                     className="w-full md:w-1/2 h-[260px] md:h-[440px] 2xl:h-[500px] flex justify-center items-center pt-4 md:pt-0 pb-2 px-4 overflow-hidden 2xl:translate-x-[100px]"
                     data-swiper-parallax="-300"
@@ -122,6 +122,7 @@ function EvocaSlider() {
                     />
                   </div>
 
+                  {/* Текстовый блок */}
                   <div
                     className="w-full md:w-1/2 pb-20 md:pb-0 relative z-10 text-left flex flex-col items-start 2xl:-translate-x-[50px]"
                     data-swiper-parallax="-150"
@@ -137,12 +138,13 @@ function EvocaSlider() {
                       </p>
                     )}
 
+                    {/* Мобильная кнопка Evocabank (w-full на мобильных, w-auto на ПК) */}
                     <a
                       href={slide.link || "#"}
-                      className={`inline-flex items-center justify-center py-3 px-8 md:py-3.5 md:px-10 2xl:py-4 2xl:px-12 font-medium rounded-full transition-all duration-300 text-center text-[15px] md:text-[17px] 2xl:text-[18px] tracking-wide shadow-sm active:scale-95 ${
+                      className={`w-full md:w-auto inline-flex items-center justify-center py-3.5 px-6 md:py-3.5 md:px-10 2xl:py-4 2xl:px-12 font-medium rounded-full transition-all duration-300 text-center text-[16px] md:text-[17px] 2xl:text-[18px] tracking-wide shadow-md active:scale-95 ${
                         slideIsLight
-                          ? "bg-[#6200EE] text-white hover:bg-[#5000C9] hover:shadow-md"
-                          : "bg-white text-[#6200EE] hover:bg-gray-100 hover:shadow-md"
+                          ? "bg-[#6200EE] text-white hover:bg-[#5000C9]"
+                          : "bg-[#6200EE] text-white md:bg-white md:text-[#6200EE] hover:bg-[#5000C9] md:hover:bg-gray-100"
                       }`}
                     >
                       {slide.buttonText || "Իմանալ ավելին"}
