@@ -254,7 +254,8 @@ const CardSlider = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center w-[300px] xl:w-[350px] shrink-0 pr-4">
+        {/* 3. Աջ կողմ: Տեքստ և Կոճակ (Поднят на 130px только для 2xl) */}
+        <div className="flex flex-col justify-center w-[300px] xl:w-[350px] shrink-0 pr-4 2xl:-translate-y-[130px]">
           <h2 className="text-[28px] xl:text-[34px] font-semibold text-[#1A1F36] mb-5 text-left leading-tight">
             {cards[activeIndex]?.title}
           </h2>
