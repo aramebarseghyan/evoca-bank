@@ -88,7 +88,7 @@ const CardSlider = () => {
   }
 
   return (
-    <div className="w-full bg-[#F4F7FF] flex flex-col pt-8 pb-12 px-5 font-sans min-h-screen 2xl:min-h-0 relative">
+    <div className="w-full bg-[#F4F7FF] flex flex-col pt-8 pb-12 xl:pb-4 px-5 font-sans min-h-screen xl:min-h-0 relative">
       <style>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
@@ -162,7 +162,7 @@ const CardSlider = () => {
       {/* ========================================= */}
       {/* LG DESKTOP ՏԱՐԲԵՐԱԿ (≥1024px)             */}
       {/* ========================================= */}
-      <div className="hidden lg:flex flex-row w-full max-w-7xl mx-auto items-center justify-between min-h-[600px] gap-8 xl:gap-12 px-4 xl:px-10">
+      <div className="hidden lg:flex flex-row w-full max-w-7xl mx-auto items-center justify-between min-h-[600px] xl:min-h-[550px] gap-8 xl:gap-12 px-4 xl:px-10">
         {/* 1. Ձախ կողմ: Ուղղահայաց սլայդեր (Փոքր քարտեր) */}
         <div className="flex flex-col items-center w-[180px] xl:w-[200px] h-[550px] relative shrink-0">
           <button className="swiper-button-prev-desktop flex justify-center items-center w-full pb-4 text-[#5A00C8] cursor-pointer disabled:opacity-30 disabled:cursor-default transition-opacity z-10">
