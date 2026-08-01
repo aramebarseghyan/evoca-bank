@@ -253,7 +253,8 @@ const EvocaBackground = () => {
       {/* ========================================================
           XL & 2XL DESKTOP LAYOUT (от 1280px и выше)
          ======================================================== */}
-      <div className="hidden xl:block relative w-full max-w-[1440px] 2xl:max-w-[1650px] mx-auto min-h-[980px] 2xl:min-h-[1100px] overflow-hidden rounded-tl-[240px] rounded-bl-[100px] bg-[#6F00FF]">
+      {/* 2xl:max-w-full ապահովում է, որ 1920px և ավելի մեծ էկրանների դեպքում այն լինի ամբողջ լայնությամբ */}
+      <div className="hidden xl:block relative w-full max-w-[1440px] 2xl:max-w-full mx-auto min-h-[980px] 2xl:min-h-[1100px] overflow-hidden rounded-tl-[240px] rounded-bl-[100px] bg-[#6F00FF]">
         {/* ФОН */}
         <div className="absolute top-[280px] 2xl:top-[340px] right-0 w-[96%] h-[460px] 2xl:h-[520px] pointer-events-none z-0">
           <img
