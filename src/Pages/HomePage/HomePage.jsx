@@ -5,6 +5,7 @@ import EvocaBackground from "./Components/EvocaBackground.jsx";
 import EvocaSlider from "./Components/EvocaSlider";
 import LoanCalculator from "./Components/LoanCalculator.jsx";
 import MobilePromo from "./Components/MobilePromo.jsx";
+import Partners from "./Components/Partners.jsx";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <CardSlider></CardSlider>
       <LoanCalculator></LoanCalculator>
       <MobilePromo></MobilePromo>
+      <Partners></Partners>
     </>
   );
 };
