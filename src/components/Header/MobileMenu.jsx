@@ -465,23 +465,24 @@ const MobileMenu = ({ isOpen, onClose }) => {
       {/* ==================================================== */}
       <div className="hidden lg:flex w-full h-full flex-row overflow-hidden">
         {/* Left Side (Dark panel) */}
-        <div className="w-[45%] xl:w-[40%] bg-[#1a1a1a] relative shrink-0">
+        {/* Added 2xl:w-[35%] for wider screens */}
+        <div className="w-[45%] xl:w-[40%] 2xl:w-[35%] bg-[#1a1a1a] relative shrink-0 transition-all duration-300">
           <div
             className="absolute inset-0 z-0 bg-cover bg-left bg-no-repeat opacity-40 mix-blend-screen"
             style={{ backgroundImage: `url(${leftPhoto})` }}
           />
           <div className="absolute inset-0 z-0 bg-black/60 mix-blend-multiply" />
 
-          <div className="relative z-10 w-full h-full overflow-y-auto custom-scrollbar flex flex-col items-end pt-12 pr-12">
+          <div className="relative z-10 w-full h-full overflow-y-auto custom-scrollbar flex flex-col items-end pt-12 pr-12 2xl:pr-16">
             <div className="flex justify-end mb-16 w-full mt-4 shrink-0 pr-4">
               <img
                 src={evocabankLogo}
                 alt="Evocabank"
-                className="h-[65px] w-auto object-contain filter brightness-0 invert"
+                className="h-[65px] 2xl:h-[75px] w-auto object-contain filter brightness-0 invert"
               />
             </div>
 
-            <ul className="flex flex-col w-full mt-2 pb-16 shrink-0 items-end gap-2">
+            <ul className="flex flex-col w-full mt-2 pb-16 shrink-0 items-end gap-2 2xl:gap-3">
               {menuData.links.map((link, idx) => {
                 const isActive = desktopActiveIndex === idx;
                 return (
@@ -491,7 +492,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     className="relative w-full py-4 flex justify-end items-center cursor-pointer group pr-8"
                   >
                     <span
-                      className={`text-[23px] font-bold transition-colors z-20 tracking-wide text-right ${
+                      className={`text-[23px] 2xl:text-[25px] font-bold transition-colors z-20 tracking-wide text-right ${
                         isActive
                           ? "text-[#8e3df3]"
                           : "text-white group-hover:text-gray-300"
@@ -511,32 +512,33 @@ const MobileMenu = ({ isOpen, onClose }) => {
         </div>
 
         {/* Right Side (Purple panel with Submenus) */}
-        <div className="w-[55%] xl:w-[60%] bg-[#5200e8] relative flex flex-col px-12 xl:px-24 py-16 overflow-y-auto overflow-x-hidden custom-scrollbar">
+        {/* Added 2xl:w-[65%] and 2xl:px-32 to balance the columns */}
+        <div className="w-[55%] xl:w-[60%] 2xl:w-[65%] bg-[#5200e8] relative flex flex-col px-12 xl:px-24 2xl:px-32 py-16 overflow-y-auto overflow-x-hidden custom-scrollbar transition-all duration-300">
           {/* Background Decor Elements */}
           <img
             src={logoV}
             alt=""
-            className="absolute -bottom-10 -right-10 w-[700px] xl:w-[900px] opacity-[0.06] z-0 pointer-events-none"
+            className="absolute -bottom-10 -right-10 w-[700px] xl:w-[900px] 2xl:w-[1100px] opacity-[0.06] z-0 pointer-events-none"
           />
           <img
             src={onlineBankingShape2}
             alt=""
-            className="absolute top-[45%] left-[50%] w-10 opacity-20 z-0 pointer-events-none"
+            className="absolute top-[45%] left-[50%] w-10 2xl:w-14 opacity-20 z-0 pointer-events-none"
           />
           <img
             src={evocaBestShape2}
             alt=""
-            className="absolute bottom-[20%] right-[15%] w-10 opacity-20 z-0 pointer-events-none"
+            className="absolute bottom-[20%] right-[15%] w-10 2xl:w-14 opacity-20 z-0 pointer-events-none"
           />
 
           {/* Top Right Controls */}
-          <div className="absolute top-10 right-10 flex items-center gap-5 z-50">
+          <div className="absolute top-10 right-10 2xl:top-14 2xl:right-14 flex items-center gap-5 z-50">
             <button
               onClick={onClose}
               className="text-white cursor-pointer hover:scale-110 transition-transform"
             >
               <svg
-                className="w-8 h-8"
+                className="w-8 h-8 2xl:w-10 2xl:h-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -552,38 +554,46 @@ const MobileMenu = ({ isOpen, onClose }) => {
           </div>
 
           {/* Menu Content */}
-          <div className="relative z-10 flex flex-col gap-12 mt-12 pb-24 w-full max-w-[500px]">
+          {/* Added 2xl:gap-x-24 to separate the columns nicely */}
+          <div className="relative z-10 block columns-1 xl:columns-2 xl:gap-x-16 2xl:gap-x-24 mt-12 2xl:mt-16 pb-24 w-full max-w-[500px] xl:max-w-none">
             {menuData.links[desktopActiveIndex]?.children &&
             menuData.links[desktopActiveIndex].children.length > 0 ? (
               menuData.links[desktopActiveIndex].children.map(
                 (section, sectionIdx) => (
-                  <div key={sectionIdx} className="flex flex-col">
-                    <h3 className="text-white font-bold text-[24px] mb-5 tracking-wide">
+                  <div
+                    key={sectionIdx}
+                    className="flex flex-col break-inside-avoid mb-12 2xl:mb-14"
+                  >
+                    {/* Section Title or Parent Link */}
+                    <h3
+                      className={`text-white font-bold text-[24px] 2xl:text-[26px] mb-5 tracking-wide ${
+                        !section.children || section.children.length === 0
+                          ? "cursor-pointer hover:text-gray-200 transition-colors"
+                          : ""
+                      }`}
+                      onClick={() => {
+                        if (
+                          !section.children ||
+                          section.children.length === 0
+                        ) {
+                          onClose();
+                        }
+                      }}
+                    >
                       {section.name}
                     </h3>
 
                     {section.children && section.children.length > 0 && (
-                      <ul className="flex flex-col gap-4">
+                      <ul className="flex flex-col gap-4 2xl:gap-5">
                         {section.children.map((item, i) => (
                           <li key={i}>
                             <span
                               onClick={onClose}
-                              className="text-white text-[15px] font-normal cursor-pointer hover:opacity-75 transition-opacity flex items-center gap-2 group w-max"
+                              className="text-white text-[15px] 2xl:text-[16px] font-normal cursor-pointer hover:opacity-75 transition-opacity flex items-start gap-2 group max-w-full"
                             >
-                              {item.name}
-                              <svg
-                                className="w-4 h-4 text-white shrink-0"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
+                              <span className="flex-1 break-words text-left">
+                                {item.name}
+                              </span>
                             </span>
                           </li>
                         ))}
@@ -596,11 +606,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
               <div className="flex flex-col justify-center h-full pt-10">
                 <button
                   onClick={onClose}
-                  className="text-white font-bold text-[28px] xl:text-[32px] cursor-pointer hover:text-[#d0bfff] transition-colors flex items-center gap-4 text-left group w-max"
+                  className="text-white font-bold text-[28px] xl:text-[32px] 2xl:text-[36px] cursor-pointer hover:text-[#d0bfff] transition-colors flex items-center gap-4 text-left group w-max"
                 >
                   <span>{menuData.links[desktopActiveIndex]?.name}</span>
                   <svg
-                    className="w-8 h-8 transform group-hover:translate-x-2 transition-transform"
+                    className="w-8 h-8 2xl:w-10 2xl:h-10 transform group-hover:translate-x-2 transition-transform"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -613,7 +623,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     />
                   </svg>
                 </button>
-                <p className="text-white/70 text-[16px] mt-3">
+                <p className="text-white/70 text-[16px] 2xl:text-[18px] mt-3">
                   Սեղմեք՝ էջին անցնելու և մենյուն փակելու համար
                 </p>
               </div>
