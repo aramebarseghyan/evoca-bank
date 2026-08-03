@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+// Убедитесь, что путь к логотипу правильный
 import logo from "../../assets/img/logo.png";
 
-const ScrollHeader = () => {
+const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState(null);
 
@@ -38,9 +39,8 @@ const ScrollHeader = () => {
       `}
     >
       <div className="flex items-center justify-between mx-auto w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 h-[60px] sm:h-[70px] md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {/* ЛЕВАЯ ЧАСТЬ: Логотип + Ссылки сразу рядом */}
+        {/* ЛЕВАЯ ЧАСТЬ */}
         <div className="flex items-center gap-5 md:gap-6 lg:gap-8 xl:gap-10">
-          {/* Логотип V */}
           <div className="shrink-0 flex items-center">
             <img
               src={logo}
@@ -52,7 +52,6 @@ const ScrollHeader = () => {
           <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
             {navItems.map((item) => {
               const isActive = activeTab === item.label;
-
               const displayClass =
                 item.showOn === "lg"
                   ? "hidden lg:block"
@@ -83,13 +82,17 @@ const ScrollHeader = () => {
           </nav>
         </div>
 
-        {/* ПРАВАЯ ЧАСТЬ: Кнопка EvocaONLINE и бургер-меню */}
+        {/* ПРАВАЯ ЧАСТЬ */}
         <div className="flex items-center shrink-0 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
           <button className="bg-[#6000ff] text-white font-bold text-[11px] sm:text-[12px] lg:text-[13px] py-[7px] px-[14px] sm:py-[8px] sm:px-[18px] lg:py-[10px] lg:px-[24px] rounded-full hover:opacity-90 transition-all whitespace-nowrap cursor-pointer tracking-wide">
             EvocaONLINE
           </button>
 
-          <button className="flex flex-col justify-center items-center gap-[4px] lg:gap-[5px] w-[24px] h-[24px] lg:w-[28px] lg:h-[28px] cursor-pointer">
+          {/* Кнопка открытия меню */}
+          <button
+            onClick={onOpenMenu}
+            className="flex flex-col justify-center items-center gap-[4px] lg:gap-[5px] w-[24px] h-[24px] lg:w-[28px] lg:h-[28px] cursor-pointer"
+          >
             <span className="w-[18px] sm:w-[20px] lg:w-[24px] h-[2px] bg-[#1a1a1a] block rounded-full transition-all"></span>
             <span className="w-[18px] sm:w-[20px] lg:w-[24px] h-[2px] bg-[#1a1a1a] block rounded-full transition-all"></span>
             <span className="w-[18px] sm:w-[20px] lg:w-[24px] h-[2px] bg-[#1a1a1a] block rounded-full transition-all"></span>
