@@ -7,7 +7,8 @@ import LatestNews from "./Components/LatestNews.jsx";
 import LoanCalculator from "./Components/LoanCalculator.jsx";
 import MobilePromo from "./Components/MobilePromo.jsx";
 import Partners from "./Components/Partners.jsx";
-import RatesAndAddressesSection from "./Components/RatesAndAddressesSection.jsx"; 
+import RatesAndAddressesSection from "./Components/RatesAndAddressesSection.jsx";
+import TestimonialCarousel from "./Components/TestimonialCarousel.jsx";
 
 const HomePage = () => {
   return (
@@ -21,7 +22,8 @@ const HomePage = () => {
       <MobilePromo />
       <Partners />
       <LatestNews />
-      <RatesAndAddressesSection /> 
+      <RatesAndAddressesSection />
+      <TestimonialCarousel></TestimonialCarousel>
     </>
   );
 };
