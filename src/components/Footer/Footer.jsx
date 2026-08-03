@@ -1,6 +1,12 @@
 import Footer1 from "./Footer1";
+import Footer2 from "./Footer2";
 
 const Footer = () => {
-  return <Footer1></Footer1>;
+  return (
+    <>
+      <Footer1></Footer1>
+      <Footer2></Footer2>
+    </>
+  );
 };
 export default Footer;

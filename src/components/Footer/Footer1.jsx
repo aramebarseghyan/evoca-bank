@@ -1,7 +1,7 @@
 import React from "react";
 import evocaLogo from "../../assets/img/evocaLogo.png";
 
-// --- ИКОՆКИ СОЦСЕТЕЙ (SVG) ---
+// --- ИКОՆԿԻ СОЦСЕТЕЙ (SVG) ---
 const FacebookIcon = () => (
   <svg
     width="18"
@@ -64,11 +64,11 @@ const LinkedInIcon = () => (
 
 const Footer1 = () => {
   return (
-    <footer className="bg-white py-12 2xl:py-20 border-t border-[#eee]">
-      <div className="max-w-[1400px] mx-auto px-6 xl:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6 xl:gap-8 2xl:gap-12 items-start">
+    <footer className="bg-white py-10 sm:py-12 2xl:py-20 border-t border-[#eee]">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 xl:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 xl:gap-8 2xl:gap-12 items-start">
           {/* 1. Левый блок: Логотип, адрес, копирайт */}
-          <div className="flex flex-col gap-6 2xl:gap-10">
+          <div className="flex flex-col gap-5 sm:gap-6 2xl:gap-10">
             <div className="flex items-center">
               <img
                 src={evocaLogo}
@@ -77,15 +77,15 @@ const Footer1 = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-4 2xl:gap-6">
-              <p className="text-[#333] text-[12.5px] xl:text-[13px] 2xl:text-[14px] font-normal leading-relaxed m-0 max-w-[200px]">
+            <div className="flex flex-col gap-3.5 sm:gap-4 2xl:gap-6">
+              <p className="text-[#333] text-[13px] sm:text-[12.5px] xl:text-[13px] 2xl:text-[14px] font-normal leading-relaxed m-0">
                 ք. Երևան, 0010, <br /> Հանրապետության 44/2
               </p>
-              <p className="text-[#555] text-[12.5px] xl:text-[13px] 2xl:text-[14px] leading-relaxed m-0 max-w-[240px]">
+              <p className="text-[#555] text-[13px] sm:text-[12.5px] xl:text-[13px] 2xl:text-[14px] leading-relaxed m-0">
                 Evocabank-ը վերահսկվում է Հայաստանի Հանրապետության Կենտրոնական
                 բանկի կողմից
               </p>
-              <p className="text-[#999] text-[10.5px] xl:text-[11px] 2xl:text-[12px] m-0 mt-2 uppercase tracking-wide">
+              <p className="text-[#999] text-[11px] sm:text-[10.5px] xl:text-[11px] 2xl:text-[12px] m-0 mt-1 uppercase tracking-wide">
                 1990 - 2026, © ԲՈԼՈՐ <br />
                 ԻՐԱՎՈՒՆՔՆԵՐԸ ՊԱՇՏՊԱՆՎԱԾ ԵՆ
               </p>
@@ -93,15 +93,15 @@ const Footer1 = () => {
           </div>
 
           {/* 2. Второй блок: Բանկի մասին */}
-          <div className="flex flex-col gap-4 2xl:gap-6">
-            <h3 className="text-[#111] font-bold text-[14px] xl:text-[15px] 2xl:text-[16px]">
+          <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
+            <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Բանկի մասին
             </h3>
-            <ul className="flex flex-col gap-3.5 2xl:gap-5 m-0 p-0 list-none">
+            <ul className="flex flex-col gap-3 sm:gap-3.5 2xl:gap-5 m-0 p-0 list-none">
               <li>
                 <a
                   href="#about"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Մեր մասին
                 </a>
@@ -109,7 +109,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#management"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Ղեկավարություն
                 </a>
@@ -117,7 +117,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#shareholders"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Բաժնետերեր
                 </a>
@@ -125,7 +125,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#reports"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հաշվետվություններ
                 </a>
@@ -133,7 +133,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#legal"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Իրավական ակտեր
                 </a>
@@ -141,7 +141,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#tariffs"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Սակագներ
                 </a>
@@ -149,7 +149,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#property"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Օտարվող գույք
                 </a>
@@ -157,7 +157,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#developers"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Կառուցապատողներ
                 </a>
@@ -165,7 +165,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#partners"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Գործընկեր ավտոսրահներ
                 </a>
@@ -173,7 +173,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#tariffs-archive"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Սակագների արխիվ
                 </a>
@@ -182,15 +182,15 @@ const Footer1 = () => {
           </div>
 
           {/* 3. Третий блок: Օգտակար հղումներ */}
-          <div className="flex flex-col gap-4 2xl:gap-6">
-            <h3 className="text-[#111] font-bold text-[14px] xl:text-[15px] 2xl:text-[16px]">
+          <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
+            <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Օգտակար հղումներ
             </h3>
-            <ul className="flex flex-col gap-3.5 2xl:gap-5 m-0 p-0 list-none">
+            <ul className="flex flex-col gap-3 sm:gap-3.5 2xl:gap-5 m-0 p-0 list-none">
               <li>
                 <a
                   href="#customer-rights"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Հաճախորդի իրավունքները <br />
                   (Բողոքների ներկայացման կանոններ)
@@ -199,7 +199,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#residency"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Հաճախորդի ռեզիդենտության <br />
                   չափանիշներ
@@ -208,7 +208,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#regulation"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Կարգավորում
                 </a>
@@ -216,7 +216,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#privacy"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Գաղտնիության քաղաքականություն
                 </a>
@@ -224,7 +224,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#ombudsman"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Ֆին. հաշտարար
                 </a>
@@ -232,7 +232,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#financial-crimes"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Ֆինանսական հանցագործությունների <br />
                   կանխարգելում
@@ -241,7 +241,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#cardholders"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Հղումներ Բանկի քարտապանների <br />
                   համար
@@ -251,15 +251,15 @@ const Footer1 = () => {
           </div>
 
           {/* 4. Четвертый блок - Այլ հղումներ */}
-          <div className="flex flex-col gap-4 2xl:gap-6">
-            <h3 className="text-[#111] font-bold text-[14px] xl:text-[15px] 2xl:text-[16px]">
+          <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
+            <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Այլ հղումներ
             </h3>
-            <ul className="flex flex-col gap-3.5 2xl:gap-5 m-0 p-0 list-none">
+            <ul className="flex flex-col gap-3 sm:gap-3.5 2xl:gap-5 m-0 p-0 list-none">
               <li>
                 <a
                   href="#evocaonline"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   EvocaONLINE
                 </a>
@@ -267,7 +267,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#safes"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Պահատուփեր
                 </a>
@@ -275,7 +275,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#faq"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հաճախ տրվող հարցեր
                 </a>
@@ -283,7 +283,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#announcements"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հայտարարություններ
                 </a>
@@ -291,7 +291,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#library"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Dlibrary
                 </a>
@@ -299,7 +299,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#bulletins"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Բուլետիններ
                 </a>
@@ -307,7 +307,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#feedback"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հետադարձ կապ
                 </a>
@@ -315,7 +315,7 @@ const Footer1 = () => {
               <li>
                 <a
                   href="#sitemap"
-                  className="text-[#444] text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors"
+                  className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Կայքի քարտեզ
                 </a>
@@ -324,9 +324,9 @@ const Footer1 = () => {
           </div>
 
           {/* 5. Пятый блок - Соцсети, маркеты, контакты */}
-          <div className="flex flex-col gap-8 2xl:gap-10 xl:mt-[2px]">
+          <div className="flex flex-col gap-6 sm:gap-8 2xl:gap-10 xl:mt-[2px]">
             {/* Иконки соцсетей */}
-            <div className="flex items-center gap-3.5 2xl:gap-5">
+            <div className="flex items-center gap-4 sm:gap-3.5 2xl:gap-5">
               <a
                 href="#facebook"
                 aria-label="Facebook"
@@ -365,7 +365,7 @@ const Footer1 = () => {
             </div>
 
             {/* Бейджи приложений */}
-            <div className="flex items-center gap-2.5 2xl:gap-3.5">
+            <div className="flex items-center gap-3 sm:gap-2.5 2xl:gap-3.5">
               <a
                 href="#appstore"
                 className="block hover:opacity-95 transition-opacity"
@@ -373,7 +373,7 @@ const Footer1 = () => {
                 <img
                   src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
                   alt="App Store"
-                  className="h-[32px] 2xl:h-[36px] w-auto"
+                  className="h-[34px] sm:h-[32px] 2xl:h-[36px] w-auto"
                 />
               </a>
               <a
@@ -383,34 +383,34 @@ const Footer1 = () => {
                 <img
                   src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
                   alt="Google Play"
-                  className="h-[32px] 2xl:h-[36px] w-auto"
+                  className="h-[34px] sm:h-[32px] 2xl:h-[36px] w-auto"
                 />
               </a>
             </div>
 
             {/* Ссылки и контакты */}
-            <div className="flex flex-col gap-4 2xl:gap-6">
+            <div className="flex flex-col gap-3.5 sm:gap-4 2xl:gap-6">
               <a
                 href="#branches"
-                className="text-[#7100FF] font-medium text-[13px] 2xl:text-[14px] hover:underline leading-relaxed max-w-[150px] 2xl:max-w-[180px]"
+                className="text-[#7100FF] font-medium text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:underline leading-relaxed"
               >
                 Բանկի հասցեները և աշխատաժամերը
               </a>
               <a
                 href="#contact"
-                className="text-[#7100FF] font-medium text-[13px] 2xl:text-[14px] hover:underline"
+                className="text-[#7100FF] font-medium text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:underline"
               >
                 Կապ մեզ հետ
               </a>
               <a
                 href="tel:+37410605555"
-                className="text-[#7100FF] font-medium text-[13px] 2xl:text-[14px] hover:underline mt-1 2xl:mt-2"
+                className="text-[#7100FF] font-medium text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:underline mt-1 2xl:mt-2"
               >
                 +374 10 605555
               </a>
               <a
                 href="tel:8444"
-                className="text-[#7100FF] font-medium text-[13px] 2xl:text-[14px] hover:underline"
+                className="text-[#7100FF] font-medium text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:underline"
               >
                 8444
               </a>
