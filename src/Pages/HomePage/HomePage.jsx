@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer/Footer.jsx";
 import MainHeader from "../../components/MainHeader";
 import BiometricScan from "./Components/BiometricScan.jsx";
 import CardSlider from "./Components/CardSlider.jsx";
@@ -24,6 +25,7 @@ const HomePage = () => {
       <LatestNews />
       <RatesAndAddressesSection />
       <TestimonialCarousel></TestimonialCarousel>
+      <Footer></Footer>
     </>
   );
 };
