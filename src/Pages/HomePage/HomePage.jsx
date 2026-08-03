@@ -7,20 +7,23 @@ import LatestNews from "./Components/LatestNews.jsx";
 import LoanCalculator from "./Components/LoanCalculator.jsx";
 import MobilePromo from "./Components/MobilePromo.jsx";
 import Partners from "./Components/Partners.jsx";
+import RatesAndAddressesSection from "./Components/RatesAndAddressesSection.jsx"; 
 
 const HomePage = () => {
   return (
     <>
-      <MainHeader></MainHeader>
-      <EvocaSlider></EvocaSlider>
-      <BiometricScan></BiometricScan>
-      <EvocaBackground></EvocaBackground>
-      <CardSlider></CardSlider>
-      <LoanCalculator></LoanCalculator>
-      <MobilePromo></MobilePromo>
-      <Partners></Partners>
-      <LatestNews></LatestNews>
+      <MainHeader />
+      <EvocaSlider />
+      <BiometricScan />
+      <EvocaBackground />
+      <CardSlider />
+      <LoanCalculator />
+      <MobilePromo />
+      <Partners />
+      <LatestNews />
+      <RatesAndAddressesSection /> 
     </>
   );
 };
+
 export default HomePage;

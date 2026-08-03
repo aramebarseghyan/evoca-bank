@@ -68,7 +68,7 @@ const ExchangeRates = () => {
   ];
 
   return (
-    <section className="w-full bg-[#fcfcfc] py-6 px-4 select-none">
+    <div className="w-full select-none">
       {/* Текст предупреждения */}
       <div className="mb-6">
         <p className="text-[#222222] text-[15px] sm:text-[16px] leading-[1.6] font-medium text-left">
@@ -80,7 +80,7 @@ const ExchangeRates = () => {
         </p>
       </div>
 
-      {/* Табы сверху: перенос «Ռուբլու կանխիկ մուտք» на следующую строку */}
+      {/* Табы сверху */}
       <div className="flex flex-col items-start gap-2 mb-4">
         {/* Первая строка табов */}
         <div className="flex flex-wrap items-center gap-2">
@@ -125,7 +125,7 @@ const ExchangeRates = () => {
         </div>
       </div>
 
-      {/* Основной контейнер виджета: на md и выше снова включаем grid в 2 колонки */}
+      {/* Основной контейнер виджета */}
       <div
         className="bg-white rounded-3xl p-5 border border-[#f5f5f5]"
         style={{
@@ -307,7 +307,7 @@ const ExchangeRates = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
