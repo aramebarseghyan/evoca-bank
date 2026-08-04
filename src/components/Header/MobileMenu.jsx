@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Импортируем хук навигации
+import { useNavigate } from "react-router-dom";
 import evocabankLogo from "../../assets/img/evocabank.png";
 import leftPhoto from "../../assets/img/left-photo.jpg";
 
@@ -7,7 +7,6 @@ import onlineBankingShape2 from "../../assets/img/online-banking__shape2.png";
 import evocaBestShape2 from "../../assets/img/evoca-best-shape2.png";
 import logoV from "../../assets/img/logo.png";
 
-// Добавляем свойство `path` к конечным ссылкам, куда нужно переходить
 const menuData = {
   title: "Գլխավոր",
   links: [
@@ -40,17 +39,17 @@ const menuData = {
             {
               name: "Քարտերի տրամադրում և սպասարկում",
               hasArrow: false,
-              path: "/cards-service",
+              path: "/cards-provision-and-service",
             },
             {
               name: "Սոցիալական ապահովության վճարային քարտեր",
               hasArrow: false,
-              path: "/social-cards",
+              path: "/pension-cards",
             },
             {
               name: "Evoca Benefits",
               hasArrow: false,
-              path: "/evoca-benefits",
+              path: "/evoca_benefits",
             },
           ],
         },
@@ -91,13 +90,42 @@ const menuData = {
         {
           name: "Փոխանցումներ",
           hasArrow: true,
-          children: [],
+          children: [
+            {
+              name: "Դրամական փոխանցումներ",
+              hasArrow: false,
+              path: "/money-transfers",
+            },
+            {
+              name: "Վճարային համակարգեր",
+              hasArrow: false,
+              path: "/payment-systems",
+            },
+          ],
           path: "/transfers",
         },
         {
           name: "Արժեթղթեր",
           hasArrow: true,
-          children: [],
+          children: [
+            {
+              name: "Ներդրումային ծառայություններ",
+              hasArrow: false,
+              path: "/investment-services",
+            },
+            { name: "Պարտատոմսեր", hasArrow: false, path: "/bonds" },
+            {
+              name: "ՀԿԴ ծառայություններ",
+              hasArrow: false,
+              path: "/depository-services",
+            },
+            {
+              name: "Ռեպո/Հակադարձ Ռեպո գործարքներ",
+              hasArrow: false,
+              path: "/repo-transactions",
+            },
+            { name: "EvocaINVEST", hasArrow: false, path: "/evocainvest" },
+          ],
           path: "/securities",
         },
         { name: "EvocaSALARY", hasArrow: false, path: "/evocasalary" },
@@ -105,7 +133,6 @@ const menuData = {
         { name: "Evoca codes", hasArrow: false, path: "/evoca-codes" },
       ],
     },
-    // ... Остальные пункты меню настраиваются аналогично, добавляя `path`
     {
       name: "Բիզնես",
       hasArrow: true,
@@ -117,7 +144,6 @@ const menuData = {
             { name: "Բիզնես վարկեր", hasArrow: false, path: "/business-loans" },
           ],
         },
-        // ... (можешь добавить path для остальных пунктов)
       ],
     },
     {
@@ -145,7 +171,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
 
-  // Инициализируем хук навигации
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -164,12 +189,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  // Единая функция для перехода по ссылке
   const navigateToPage = (path) => {
     if (path) {
       navigate(path);
     }
-    onClose(); // Закрываем меню после клика
+    onClose();
   };
 
   const handleForward = (link) => {
@@ -186,7 +210,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
         setActiveIndex((prev) => prev + 1);
       }, 10);
     } else {
-      // Если детей нет, значит это страница — переходим
       navigateToPage(link.path);
     }
   };
@@ -208,7 +231,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
     >
       {/* MOBILE LAYOUT */}
       <div className="lg:hidden flex flex-col w-full h-full relative bg-[#5200e8]">
-        {/* Шапка моб. меню */}
         <div className="flex justify-between items-center px-6 py-5 shrink-0 z-10 bg-[#5200e8]">
           <img
             src={evocabankLogo}
@@ -381,7 +403,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       if (hasValidChildren) {
                         setDesktopActiveIndex(idx);
                       } else {
-                        // Если это главная ссылка без детей (например, "Блог")
                         navigateToPage(link.path);
                       }
                     }}
@@ -478,7 +499,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                           {section.children.map((item, i) => (
                             <li key={i}>
                               <span
-                                onClick={() => navigateToPage(item.path)} // Передаем путь при клике
+                                onClick={() => navigateToPage(item.path)}
                                 className="text-white text-[15px] 2xl:text-[16px] font-normal cursor-pointer hover:opacity-75 transition-opacity flex items-start gap-2 group max-w-full"
                               >
                                 <span className="flex-1 break-words text-left">

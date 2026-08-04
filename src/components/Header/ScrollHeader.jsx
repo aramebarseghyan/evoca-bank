@@ -1,29 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom"; // <-- Импорты
-import logo from "../../assets/img/logo.png";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation(); // <-- Получаем текущий URL
+  const location = useLocation();
 
-  const navItems = [
+  const isBusinessMode =
+    location.pathname.startsWith("/business-") ||
+    location.pathname === "/leasing-evoca" ||
+    location.pathname === "/v-pos-terminal" ||
+    location.pathname === "/individual-safe-deposit-boxes";
+
+  const individualNavItems = [
     { label: "Վարկեր", path: "/loans", showOn: "md" },
     { label: "Քարտեր", path: "/cards", showOn: "md" },
     { label: "Ավանդներ", path: "/deposits", showOn: "md" },
     { label: "Հաշիվներ", path: "/accounts", showOn: "lg" },
     { label: "Փոխանցումներ", path: "/transfers", showOn: "lg" },
     { label: "Արժեթղթեր", path: "/securities", showOn: "xl" },
-    { label: "EvocaSALARY", path: "/salary", showOn: "xl" },
-    { label: "EvocaTOUCH", path: "/touch", showOn: "2xl" },
+    { label: "EvocaSALARY", path: "/evocasalary", showOn: "xl" },
+    { label: "EvocaTOUCH", path: "/evocatouch", showOn: "2xl" },
   ];
+
+  const businessNavItems = [
+    { label: "Վարկեր", path: "/business-loans", showOn: "md" },
+    { label: "Լիզինգ", path: "/leasing-evoca", showOn: "md" },
+    {
+      label: "Հաշիվներ",
+      path: "/business-account-opening-and-services",
+      showOn: "md",
+    },
+    { label: "Ավանդներ", path: "/business-classical-deposit", showOn: "lg" },
+    {
+      label: "Արժեթղթերի շուկա",
+      path: "/business-investment-services",
+      showOn: "lg",
+    },
+    {
+      label: "Առևտրի ֆինանսավորում",
+      path: "/business-trade-finance",
+      showOn: "xl",
+    },
+    { label: "Դիջիթալ", path: "/v-pos-terminal", showOn: "xl" },
+    { label: "Այլ", path: "/individual-safe-deposit-boxes", showOn: "2xl" },
+  ];
+
+  const navItems = isBusinessMode ? businessNavItems : individualNavItems;
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -31,12 +58,15 @@ const ScrollHeader = ({ onOpenMenu }) => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-transform duration-300 ${
-        isScrolled ? "translate-y-0" : "-translate-y-full"
+      className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 ease-in-out ${
+        isScrolled
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-full opacity-0 pointer-events-none"
       }`}
     >
+      <div className="absolute inset-0 bg-white -z-10" />
+
       <div className="flex items-center justify-between mx-auto w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 h-[60px] sm:h-[70px] md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {/* ЛЕВАЯ ЧАСТЬ */}
         <div className="flex items-center gap-5 md:gap-6 lg:gap-8 xl:gap-10">
           <div className="shrink-0 flex items-center">
             <Link to="/">
@@ -50,7 +80,11 @@ const ScrollHeader = ({ onOpenMenu }) => {
 
           <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path; // <-- Проверка активной ссылки
+              const isActive =
+                location.pathname === item.path ||
+                (!isBusinessMode &&
+                  item.path === "/loans" &&
+                  location.pathname === "/");
 
               const displayClass =
                 item.showOn === "lg"
@@ -78,7 +112,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
           </nav>
         </div>
 
-        {/* ПРАВАЯ ЧАСТЬ */}
         <div className="flex items-center shrink-0 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
           <button className="bg-[#6000ff] text-white font-bold text-[11px] sm:text-[12px] lg:text-[13px] py-[7px] px-[14px] sm:py-[8px] sm:px-[18px] lg:py-[10px] lg:px-[24px] rounded-full hover:opacity-90 transition-all whitespace-nowrap cursor-pointer tracking-wide">
             EvocaONLINE
