@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-// Убедитесь, что путь к логотипу правильный
+import { Link, useLocation } from "react-router-dom"; // <-- Импорты
 import logo from "../../assets/img/logo.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeTab, setActiveTab] = useState(null);
+  const location = useLocation(); // <-- Получаем текущий URL
 
   const navItems = [
-    { label: "Վարկեր", showOn: "md" },
-    { label: "Քարտեր", showOn: "md" },
-    { label: "Ավանդներ", showOn: "md" },
-    { label: "Հաշիվներ", showOn: "lg" },
-    { label: "Փոխանցումներ", showOn: "lg" },
-    { label: "Արժեթղթեր", showOn: "xl" },
-    { label: "EvocaSALARY", showOn: "xl" },
-    { label: "EvocaTOUCH", showOn: "2xl" },
+    { label: "Վարկեր", path: "/loans", showOn: "md" },
+    { label: "Քարտեր", path: "/cards", showOn: "md" },
+    { label: "Ավանդներ", path: "/deposits", showOn: "md" },
+    { label: "Հաշիվներ", path: "/accounts", showOn: "lg" },
+    { label: "Փոխանցումներ", path: "/transfers", showOn: "lg" },
+    { label: "Արժեթղթեր", path: "/securities", showOn: "xl" },
+    { label: "EvocaSALARY", path: "/salary", showOn: "xl" },
+    { label: "EvocaTOUCH", path: "/touch", showOn: "2xl" },
   ];
 
   useEffect(() => {
@@ -25,33 +25,33 @@ const ScrollHeader = ({ onOpenMenu }) => {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div
-      className={`
-        fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-transform duration-300
-        ${isScrolled ? "translate-y-0" : "-translate-y-full"}
-      `}
+      className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-transform duration-300 ${
+        isScrolled ? "translate-y-0" : "-translate-y-full"
+      }`}
     >
       <div className="flex items-center justify-between mx-auto w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 h-[60px] sm:h-[70px] md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
         {/* ЛЕВАЯ ЧАСТЬ */}
         <div className="flex items-center gap-5 md:gap-6 lg:gap-8 xl:gap-10">
           <div className="shrink-0 flex items-center">
-            <img
-              src={logo}
-              alt="Evocabank"
-              className="h-[36px] sm:h-[40px] md:h-[45px] lg:h-[48px] w-auto object-contain cursor-pointer transition-all"
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Evocabank"
+                className="h-[36px] sm:h-[40px] md:h-[45px] lg:h-[48px] w-auto object-contain cursor-pointer transition-all"
+              />
+            </Link>
           </div>
 
           <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
             {navItems.map((item) => {
-              const isActive = activeTab === item.label;
+              const isActive = location.pathname === item.path; // <-- Проверка активной ссылки
+
               const displayClass =
                 item.showOn === "lg"
                   ? "hidden lg:block"
@@ -62,13 +62,9 @@ const ScrollHeader = ({ onOpenMenu }) => {
                       : "";
 
               return (
-                <a
+                <Link
                   key={item.label}
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveTab(item.label);
-                  }}
+                  to={item.path}
                   className={`font-bold transition-colors cursor-pointer md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] ${displayClass} ${
                     isActive
                       ? "text-[#6000ff]"
@@ -76,7 +72,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -88,7 +84,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
             EvocaONLINE
           </button>
 
-          {/* Кнопка открытия меню */}
           <button
             onClick={onOpenMenu}
             className="flex flex-col justify-center items-center gap-[4px] lg:gap-[5px] w-[24px] h-[24px] lg:w-[28px] lg:h-[28px] cursor-pointer"

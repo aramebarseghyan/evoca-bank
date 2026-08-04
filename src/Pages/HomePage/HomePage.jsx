@@ -1,5 +1,3 @@
-import Footer from "../../components/Footer/Footer.jsx";
-import MainHeader from "../../components/MainHeader";
 import BiometricScan from "./Components/BiometricScan.jsx";
 import CardSlider from "./Components/CardSlider.jsx";
 import EvocaBackground from "./Components/EvocaBackground.jsx";
@@ -14,7 +12,6 @@ import TestimonialCarousel from "./Components/TestimonialCarousel.jsx";
 const HomePage = () => {
   return (
     <>
-      <MainHeader />
       <EvocaSlider />
       <BiometricScan />
       <EvocaBackground />
@@ -24,8 +21,7 @@ const HomePage = () => {
       <Partners />
       <LatestNews />
       <RatesAndAddressesSection />
-      <TestimonialCarousel></TestimonialCarousel>
-      <Footer></Footer>
+      <TestimonialCarousel />
     </>
   );
 };

@@ -1,71 +1,115 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+
+// Импортируем логотип
+import logo from "../../assets/img/evocabank.png";
 
 const Header2 = () => {
-  const [activeTab, setActiveTab] = useState(null);
+  const location = useLocation();
 
-  const navItems = [
-    { label: "Վարկեր", showOn: "md" },
-    { label: "Քարտեր", showOn: "md" },
-    { label: "Ավանդներ", showOn: "md" },
-    { label: "Հաշիվներ", showOn: "lg" },
-    { label: "Փոխանցումներ", showOn: "lg" },
-    { label: "Արժեթղթեր", showOn: "xl" },
-    { label: "EvocaSALARY", showOn: "xl" },
-    { label: "EvocaTOUCH", showOn: "2xl" },
+  // 1. Проверяем текущий раздел по URL
+  const isBusiness = location.pathname.startsWith("/business");
+  const isAbout =
+    location.pathname.startsWith("/about") ||
+    location.pathname.includes("general-information");
+  const isNews = location.pathname.startsWith("/news");
+  const isBlog = location.pathname.startsWith("/blog");
+  const isCareer =
+    location.pathname.startsWith("/career") ||
+    location.pathname.startsWith("/culture");
+
+  // 2. Меню для раздела "Անհատ" (Физические лица)
+  const individualMenu = [
+    { name: "Վարկեր", path: "/loans" },
+    { name: "Քարտեր", path: "/cards" },
+    { name: "Ավանդներ", path: "/deposits" },
+    { name: "Հաշիվներ", path: "/accounts" },
+    { name: "Փոխանցումներ", path: "/transfers" },
+    { name: "Արժեթղթեր", path: "/securities" },
+    { name: "EvocaSALARY", path: "/evocasalary" },
+    { name: "EvocaTOUCH", path: "/evocatouch" },
   ];
 
+  // 3. Меню для раздела "Բիզնես" (Бизнес)
+  const businessMenu = [
+    { name: "Վարկեր", path: "/business/loans" },
+    { name: "Լիզինգ", path: "/business/leasing" },
+    { name: "Հաշիվներ", path: "/business/accounts" },
+    { name: "Ավանդներ", path: "/business/deposits" },
+    { name: "Արժեթղթերի շուկա", path: "/business/securities-market" },
+    { name: "Առևտրի ֆինանսավորում", path: "/business/trade-finance" },
+    { name: "Դիջիթալ", path: "/business/digital" },
+    { name: "Այլ", path: "/business/other" },
+  ];
+
+  // 4. Меню для раздела "Մեր մասին" (О нас)
+  const aboutMenu = [
+    { name: "Evoca-ի մասին", path: "/about/general-information" },
+    { name: "Սակագներ", path: "/about/tariffs" },
+    { name: "Հաշվետվություններ", path: "/about/reports" },
+    { name: "Հայտարարություններ", path: "/about/announcements" },
+  ];
+
+  // 5. Меню для раздела "Կարիերա" (Карьера)
+  const careerMenu = [
+    { name: "Evoca Լայֆ", path: "/career/life" },
+    { name: "Աշխատանք և պրակտիկա", path: "/career/jobs" },
+  ];
+
+  // 6. Выбираем, какой массив рендерить
+  let currentMenu = individualMenu;
+  if (isBusiness) {
+    currentMenu = businessMenu;
+  } else if (isAbout) {
+    currentMenu = aboutMenu;
+  } else if (isCareer) {
+    currentMenu = careerMenu;
+  } else if (isNews || isBlog) {
+    currentMenu = []; // В разделах Новости и Блог меню отсутствует
+  }
+
   return (
-    <header className="w-full bg-white">
-      <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 py-3 md:py-4 lg:py-1 xl:py-2 2xl:py-3 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {/* Логотип */}
-        <div className="shrink-0 flex items-center">
-          <img
-            src="https://myreloc.com/wp-content/uploads/2022/07/evocabank.png"
-            alt="Evocabank"
-            className="w-[120px] sm:w-[150px] md:w-[210px] md:h-[45px] lg:w-[170px] lg:h-auto xl:w-[220px] 2xl:w-[240px] object-contain cursor-pointer"
-          />
-        </div>
+    <div className="w-full bg-white border-b border-gray-100 shadow-sm">
+      <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] py-4 lg:py-5">
+        {/* ЛОГОТИП */}
+        <Link to="/" className="shrink-0 cursor-pointer mr-8">
+          <img src={logo} alt="Evocabank" className="h-16 lg:h-17" />
+        </Link>
 
-        {/* Навигация (работает начиная с md) */}
-        <nav className="hidden md:flex items-center md:gap-x-6 lg:gap-x-8 xl:gap-x-7 2xl:gap-x-8 md:mr-16 lg:mr-24 xl:mr-20 2xl:mr-24">
-          {navItems.map((item) => {
-            const isActive = activeTab === item.label;
-
-            const displayClass =
-              item.showOn === "lg"
-                ? "hidden lg:block"
-                : item.showOn === "xl"
-                  ? "hidden xl:block"
-                  : item.showOn === "2xl"
-                    ? "hidden 2xl:block"
-                    : "";
+        {/* НАВИГАЦИЯ */}
+        <div className="hidden lg:flex items-center gap-4 xl:gap-6 w-full">
+          {currentMenu.map((item) => {
+            const isActive =
+              location.pathname === item.path ||
+              (item.path === "/loans" && location.pathname === "/");
 
             return (
-              <a
-                key={item.label}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveTab(item.label);
-                }}
-                className={`font-bold transition-colors cursor-pointer md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] ${displayClass} ${
-                  isActive
-                    ? "text-[#6000ff]"
-                    : "text-[#222222] hover:text-[#6000ff]"
-                }`}
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`
+                  text-[14px] xl:text-[15px] font-bold transition-colors whitespace-nowrap
+                  ${
+                    isActive
+                      ? "text-[#6000ff]"
+                      : "text-[#222222] hover:text-[#6000ff]"
+                  }
+                `}
               >
-                {item.label}
-              </a>
+                {item.name}
+              </Link>
             );
           })}
-        </nav>
+        </div>
 
-        {/* Кнопка */}
-        <button className="bg-[#6000ff] text-white font-bold text-[11px] sm:text-[12px] px-4 py-2 md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] md:py-2.5 md:px-7 lg:py-3 lg:px-9 xl:py-3 xl:px-9 2xl:py-3.5 2xl:px-10 rounded-full hover:opacity-90 transition-opacity whitespace-nowrap cursor-pointer">
-          EvocaONLINE
-        </button>
+        {/* КНОПКА EvocaONLINE */}
+        <div className="shrink-0 ml-auto pl-4">
+          <button className="bg-[#6000ff] hover:bg-[#5000d6] text-white font-bold text-[13px] lg:text-[14px] px-5 py-2.5 rounded-full transition-colors">
+            EvocaONLINE
+          </button>
+        </div>
       </div>
-    </header>
+    </div>
   );
 };
 

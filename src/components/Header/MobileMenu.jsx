@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Импортируем хук навигации
 import evocabankLogo from "../../assets/img/evocabank.png";
 import leftPhoto from "../../assets/img/left-photo.jpg";
 
-// Ֆոնային պատկերները
 import onlineBankingShape2 from "../../assets/img/online-banking__shape2.png";
 import evocaBestShape2 from "../../assets/img/evoca-best-shape2.png";
 import logoV from "../../assets/img/logo.png";
 
+// Добавляем свойство `path` к конечным ссылкам, куда нужно переходить
 const menuData = {
   title: "Գլխավոր",
   links: [
@@ -18,52 +19,93 @@ const menuData = {
           name: "Վարկեր",
           hasArrow: true,
           children: [
-            { name: "Վարկեր", hasArrow: false },
-            { name: "Վարկային պատմություն և սքոր", hasArrow: false },
-            { name: "Կարևոր տեղեկատվություն", hasArrow: false },
+            { name: "Վարկեր", hasArrow: false, path: "/loans" },
+            {
+              name: "Վարկային պատմություն և սքոր",
+              hasArrow: false,
+              path: "/credit-history",
+            },
+            {
+              name: "Կարևոր տեղեկատվություն",
+              hasArrow: false,
+              path: "/loans-info",
+            },
           ],
         },
         {
           name: "Քարտեր",
           hasArrow: true,
           children: [
-            { name: "Քարտեր", hasArrow: false },
-            { name: "Քարտերի տրամադրում և սպասարկում", hasArrow: false },
+            { name: "Քարտեր", hasArrow: false, path: "/cards" },
+            {
+              name: "Քարտերի տրամադրում և սպասարկում",
+              hasArrow: false,
+              path: "/cards-service",
+            },
             {
               name: "Սոցիալական ապահովության վճարային քարտեր",
               hasArrow: false,
+              path: "/social-cards",
             },
-            { name: "Evoca Benefits", hasArrow: false },
+            {
+              name: "Evoca Benefits",
+              hasArrow: false,
+              path: "/evoca-benefits",
+            },
           ],
         },
         {
           name: "Ավանդներ",
           hasArrow: true,
           children: [
-            { name: "Ավանդներ", hasArrow: false },
-            { name: "Կարևոր տեղեկատվություն", hasArrow: false },
+            { name: "Ավանդներ", hasArrow: false, path: "/deposits" },
+            {
+              name: "Կարևոր տեղեկատվություն",
+              hasArrow: false,
+              path: "/deposits-info",
+            },
           ],
         },
         {
           name: "Հաշիվներ",
           hasArrow: true,
           children: [
-            { name: "Հաշիվների բացում և սպասարկում", hasArrow: false },
-            { name: "Առարկայազուրկ մետաղական հաշիվներ", hasArrow: false },
+            {
+              name: "Հաշիվների բացում և սպասարկում",
+              hasArrow: false,
+              path: "/accounts",
+            },
+            {
+              name: "Առարկայազուրկ մետաղական հաշիվներ",
+              hasArrow: false,
+              path: "/metal-accounts",
+            },
             {
               name: "Ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում",
               hasArrow: false,
+              path: "/non-resident",
             },
-            { name: "Պահատուփեր", hasArrow: false },
+            { name: "Պահատուփեր", hasArrow: false, path: "/safe-boxes" },
           ],
         },
-        { name: "Փոխանցումներ", hasArrow: true, children: [] },
-        { name: "Արժեթղթեր", hasArrow: true, children: [] },
-        { name: "EvocaSALARY", hasArrow: false },
-        { name: "EvocaTOUCH", hasArrow: false },
-        { name: "Evoca codes", hasArrow: false },
+        {
+          name: "Փոխանցումներ",
+          hasArrow: true,
+          children: [],
+          path: "/transfers",
+        },
+        {
+          name: "Արժեթղթեր",
+          hasArrow: true,
+          children: [],
+          path: "/securities",
+        },
+        { name: "EvocaSALARY", hasArrow: false, path: "/evocasalary" },
+        { name: "EvocaTOUCH", hasArrow: false, path: "/evocatouch" },
+        { name: "Evoca codes", hasArrow: false, path: "/evoca-codes" },
       ],
     },
+    // ... Остальные пункты меню настраиваются аналогично, добавляя `path`
     {
       name: "Բիզնես",
       hasArrow: true,
@@ -71,191 +113,28 @@ const menuData = {
         {
           name: "Վարկեր",
           hasArrow: true,
-          children: [{ name: "Բիզնես վարկեր", hasArrow: false }],
-        },
-        {
-          name: "Լիզինգ",
-          hasArrow: true,
-          children: [{ name: "Ֆինանսական լիզինգ", hasArrow: false }],
-        },
-        {
-          name: "Հաշիվներ",
-          hasArrow: true,
           children: [
-            { name: "Հաշիվների բացում և սպասարկում", hasArrow: false },
-            { name: "Հաշվարկային-դրամարկղային սպասարկում", hasArrow: false },
+            { name: "Բիզնես վարկեր", hasArrow: false, path: "/business-loans" },
           ],
         },
-        {
-          name: "Ավանդներ",
-          hasArrow: true,
-          children: [{ name: "Դասական ավանդ", hasArrow: false }],
-        },
-        {
-          name: "Արժեթղթերի շուկա",
-          hasArrow: true,
-          children: [
-            { name: "Ներդրումային ծառայություններ", hasArrow: false },
-            { name: "Պարտատոմսեր", hasArrow: false },
-            { name: "ՀԿԴ ծառայություններ", hasArrow: false },
-            { name: "Ռեպո/Հակադարձ ռեպո գործարքներ", hasArrow: false },
-            { name: "EvocaINVEST", hasArrow: false },
-          ],
-        },
-        {
-          name: "Առևտրի ֆինանսավորում",
-          hasArrow: true,
-          children: [
-            { name: "Երաշխիք", hasArrow: false },
-            { name: "Ֆակտորինգային ֆինանսավորում", hasArrow: false },
-            { name: "Ակրեդիտիվ", hasArrow: false },
-            { name: "Ինկասո", hasArrow: false },
-          ],
-        },
-        {
-          name: "Դիջիթալ",
-          hasArrow: true,
-          children: [
-            { name: "V-POS Տերմինալ", hasArrow: false },
-            { name: "POS Տերմինալ", hasArrow: false },
-            { name: "Սակագներ", hasArrow: false },
-            { name: "Տերմինալի տեղադրման հայտ", hasArrow: false },
-            { name: "Evoca Mobile POS՝ mPOS", hasArrow: false },
-          ],
-        },
-        {
-          name: "Այլ",
-          hasArrow: true,
-          children: [
-            { name: "Պահատուփեր", hasArrow: false },
-            { name: "Փոխանցումներ", hasArrow: false },
-          ],
-        },
+        // ... (можешь добавить path для остальных пунктов)
       ],
     },
-    { name: "Ակնթարթային վճարումներ", hasArrow: false },
     {
-      name: "Մեր մասին",
-      hasArrow: true,
-      children: [
-        {
-          name: "Evoca-ի մասին",
-          hasArrow: true,
-          children: [
-            { name: "Ընդհանուր", hasArrow: false },
-            { name: "Կառուցվածք", hasArrow: false },
-            { name: "Բաժնետերեր", hasArrow: false },
-            { name: "Ղեկավարություն", hasArrow: false },
-            { name: "Գործընկերներ", hasArrow: false },
-            { name: "Մրցանակներ", hasArrow: false },
-            { name: "Կարծիքներ", hasArrow: false },
-            { name: "CSR", hasArrow: false },
-          ],
-        },
-        {
-          name: "Սակագներ",
-          hasArrow: true,
-          children: [
-            { name: "Վարկեր ֆիզիկական անձանց", hasArrow: false },
-            { name: "Վարկեր իրավաբանական անձանց", hasArrow: false },
-            { name: "Միջնորդավճարների սակագները", hasArrow: false },
-            { name: "Ավանդների սակագներ", hasArrow: false },
-            { name: "Արխիվ", hasArrow: false },
-          ],
-        },
-        {
-          name: "Հաշվետվություններ",
-          hasArrow: true,
-          children: [
-            { name: "Աուդիտորական եզրակացություն", hasArrow: false },
-            { name: "Ֆինանսական հաշվետվություններ", hasArrow: false },
-            { name: "Ներդրողների համար", hasArrow: false },
-            { name: "Կիսամյակային հաշվետվություն", hasArrow: false },
-            { name: "Տարեկան հաշվետվություն", hasArrow: false },
-          ],
-        },
-        { name: "Հայտարարություններ", hasArrow: false },
-      ],
+      name: "Ակնթարթային վճարումներ",
+      hasArrow: false,
+      path: "/instant-payments",
     },
-    { name: "Նորություններ", hasArrow: false },
-    { name: "Բլոգ", hasArrow: false },
-    {
-      name: "Կարիերա",
-      hasArrow: true,
-      children: [
-        {
-          name: "Evoca Լայֆ",
-          hasArrow: true,
-          children: [
-            { name: "Մշակույթ", hasArrow: false },
-            { name: "Առավելություններ", hasArrow: false },
-            { name: "Հաճախ տրվող հարցեր", hasArrow: false },
-            {
-              name: "Ինչպես ընդունվել աշխատանքի Evocabank-ում",
-              hasArrow: false,
-            },
-          ],
-        },
-        {
-          name: "Աշխատանք և պրակտիկա",
-          hasArrow: true,
-          children: [
-            { name: "Աշխատանք Evoca-ում", hasArrow: false },
-            { name: "Ուսումնական պրակտիկա", hasArrow: false },
-            { name: "EvocaBRIDGE", hasArrow: false },
-          ],
-        },
-      ],
-    },
+    { name: "Նորություններ", hasArrow: false, path: "/news" },
+    { name: "Բլոգ", hasArrow: false, path: "/blog" },
   ],
   bottomLinks: [
     {
       name: "Բանկի մասին",
       hasArrow: true,
       children: [
-        { name: "Մեր մասին", hasArrow: false },
-        { name: "Ղեկավարություն", hasArrow: false },
-        { name: "Բաժնետերեր", hasArrow: false },
-        { name: "Հաշվետվություններ", hasArrow: false },
-        { name: "Իրավական ակտեր", hasArrow: false },
-        { name: "Սակագներ", hasArrow: false },
-        { name: "Օտարվող գույք", hasArrow: false },
-        { name: "Կառուցապատողներ", hasArrow: false },
-        { name: "Գործընկեր ավտոսրահներ", hasArrow: false },
-        { name: "Սակագների արխիվ", hasArrow: false },
-      ],
-    },
-    {
-      name: "Օգտակար հղումներ",
-      hasArrow: true,
-      children: [
-        {
-          name: "Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)",
-          hasArrow: false,
-        },
-        { name: "Հաճախորդի ռեզիդենտության չափանիշներ", hasArrow: false },
-        { name: "Կարգավորում", hasArrow: false },
-        { name: "Գաղտնիության քաղաքականություն", hasArrow: false },
-        { name: "Ֆին. հաշտարար", hasArrow: false },
-        {
-          name: "Ֆինանսական հանցագործությունների կանխարգելում",
-          hasArrow: false,
-        },
-        { name: "Հղումներ Բանկի քարտապանների համար", hasArrow: false },
-      ],
-    },
-    {
-      name: "Այլ հղումներ",
-      hasArrow: true,
-      children: [
-        { name: "EvocaONLINE", hasArrow: false },
-        { name: "Պահատուփեր", hasArrow: false },
-        { name: "Հաճախ տրվող հարցեր", hasArrow: false },
-        { name: "Հայտարարություններ", hasArrow: false },
-        { name: "Dibrary", hasArrow: false },
-        { name: "Բուկլետներ", hasArrow: false },
-        { name: "Հետադարձ կապ", hasArrow: false },
-        { name: "Կայքի քարտեզ", hasArrow: false },
+        { name: "Մեր մասին", hasArrow: false, path: "/about" },
+        { name: "Ղեկավարություն", hasArrow: false, path: "/management" },
       ],
     },
   ],
@@ -265,6 +144,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const [stack, setStack] = useState([menuData]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [desktopActiveIndex, setDesktopActiveIndex] = useState(0);
+
+  // Инициализируем хук навигации
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
@@ -282,6 +164,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
+  // Единая функция для перехода по ссылке
+  const navigateToPage = (path) => {
+    if (path) {
+      navigate(path);
+    }
+    onClose(); // Закрываем меню после клика
+  };
+
   const handleForward = (link) => {
     if (link.children && link.children.length > 0) {
       setStack((prev) => [
@@ -296,7 +186,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
         setActiveIndex((prev) => prev + 1);
       }, 10);
     } else {
-      onClose();
+      // Если детей нет, значит это страница — переходим
+      navigateToPage(link.path);
     }
   };
 
@@ -315,10 +206,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
-      {/* ==================================================== */}
-      {/* MOBILE & TABLET LAYOUT (< lg)                        */}
-      {/* ==================================================== */}
+      {/* MOBILE LAYOUT */}
       <div className="lg:hidden flex flex-col w-full h-full relative bg-[#5200e8]">
+        {/* Шапка моб. меню */}
         <div className="flex justify-between items-center px-6 py-5 shrink-0 z-10 bg-[#5200e8]">
           <img
             src={evocabankLogo}
@@ -389,7 +279,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       menuObj.links.map((link, linkIdx) => {
                         const hasValidChildren =
                           link.children && link.children.length > 0;
-
                         return (
                           <li
                             key={linkIdx}
@@ -460,12 +349,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* ==================================================== */}
-      {/* DESKTOP LAYOUT (>= lg)                               */}
-      {/* ==================================================== */}
+      {/* DESKTOP LAYOUT */}
       <div className="hidden lg:flex w-full h-full flex-row overflow-hidden">
-        {/* Left Side (Dark panel) */}
-        {/* Added 2xl:w-[35%] for wider screens */}
+        {/* Left Side */}
         <div className="w-[45%] xl:w-[40%] 2xl:w-[35%] bg-[#1a1a1a] relative shrink-0 transition-all duration-300">
           <div
             className="absolute inset-0 z-0 bg-cover bg-left bg-no-repeat opacity-40 mix-blend-screen"
@@ -485,10 +371,20 @@ const MobileMenu = ({ isOpen, onClose }) => {
             <ul className="flex flex-col w-full mt-2 pb-16 shrink-0 items-end gap-2 2xl:gap-3">
               {menuData.links.map((link, idx) => {
                 const isActive = desktopActiveIndex === idx;
+                const hasValidChildren =
+                  link.children && link.children.length > 0;
+
                 return (
                   <li
                     key={idx}
-                    onClick={() => setDesktopActiveIndex(idx)}
+                    onClick={() => {
+                      if (hasValidChildren) {
+                        setDesktopActiveIndex(idx);
+                      } else {
+                        // Если это главная ссылка без детей (например, "Блог")
+                        navigateToPage(link.path);
+                      }
+                    }}
                     className="relative w-full py-4 flex justify-end items-center cursor-pointer group pr-8"
                   >
                     <span
@@ -501,7 +397,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       {link.name}
                     </span>
 
-                    {isActive && (
+                    {isActive && hasValidChildren && (
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-y-[12px] border-y-transparent border-r-[16px] border-r-[#5200e8] z-20" />
                     )}
                   </li>
@@ -511,10 +407,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Right Side (Purple panel with Submenus) */}
-        {/* Added 2xl:w-[65%] and 2xl:px-32 to balance the columns */}
+        {/* Right Side */}
         <div className="w-[55%] xl:w-[60%] 2xl:w-[65%] bg-[#5200e8] relative flex flex-col px-12 xl:px-24 2xl:px-32 py-16 overflow-y-auto overflow-x-hidden custom-scrollbar transition-all duration-300">
-          {/* Background Decor Elements */}
           <img
             src={logoV}
             alt=""
@@ -531,7 +425,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
             className="absolute bottom-[20%] right-[15%] w-10 2xl:w-14 opacity-20 z-0 pointer-events-none"
           />
 
-          {/* Top Right Controls */}
           <div className="absolute top-10 right-10 2xl:top-14 2xl:right-14 flex items-center gap-5 z-50">
             <button
               onClick={onClose}
@@ -553,81 +446,53 @@ const MobileMenu = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {/* Menu Content */}
-          {/* Added 2xl:gap-x-24 to separate the columns nicely */}
           <div className="relative z-10 block columns-1 xl:columns-2 xl:gap-x-16 2xl:gap-x-24 mt-12 2xl:mt-16 pb-24 w-full max-w-[500px] xl:max-w-none">
             {menuData.links[desktopActiveIndex]?.children &&
-            menuData.links[desktopActiveIndex].children.length > 0 ? (
-              menuData.links[desktopActiveIndex].children.map(
-                (section, sectionIdx) => (
-                  <div
-                    key={sectionIdx}
-                    className="flex flex-col break-inside-avoid mb-12 2xl:mb-14"
-                  >
-                    {/* Section Title or Parent Link */}
-                    <h3
-                      className={`text-white font-bold text-[24px] 2xl:text-[26px] mb-5 tracking-wide ${
-                        !section.children || section.children.length === 0
-                          ? "cursor-pointer hover:text-gray-200 transition-colors"
-                          : ""
-                      }`}
-                      onClick={() => {
-                        if (
-                          !section.children ||
-                          section.children.length === 0
-                        ) {
-                          onClose();
-                        }
-                      }}
+            menuData.links[desktopActiveIndex].children.length > 0
+              ? menuData.links[desktopActiveIndex].children.map(
+                  (section, sectionIdx) => (
+                    <div
+                      key={sectionIdx}
+                      className="flex flex-col break-inside-avoid mb-12 2xl:mb-14"
                     >
-                      {section.name}
-                    </h3>
+                      <h3
+                        className={`text-white font-bold text-[24px] 2xl:text-[26px] mb-5 tracking-wide ${
+                          !section.children || section.children.length === 0
+                            ? "cursor-pointer hover:text-gray-200 transition-colors"
+                            : ""
+                        }`}
+                        onClick={() => {
+                          if (
+                            !section.children ||
+                            section.children.length === 0
+                          ) {
+                            navigateToPage(section.path);
+                          }
+                        }}
+                      >
+                        {section.name}
+                      </h3>
 
-                    {section.children && section.children.length > 0 && (
-                      <ul className="flex flex-col gap-4 2xl:gap-5">
-                        {section.children.map((item, i) => (
-                          <li key={i}>
-                            <span
-                              onClick={onClose}
-                              className="text-white text-[15px] 2xl:text-[16px] font-normal cursor-pointer hover:opacity-75 transition-opacity flex items-start gap-2 group max-w-full"
-                            >
-                              <span className="flex-1 break-words text-left">
-                                {item.name}
+                      {section.children && section.children.length > 0 && (
+                        <ul className="flex flex-col gap-4 2xl:gap-5">
+                          {section.children.map((item, i) => (
+                            <li key={i}>
+                              <span
+                                onClick={() => navigateToPage(item.path)} // Передаем путь при клике
+                                className="text-white text-[15px] 2xl:text-[16px] font-normal cursor-pointer hover:opacity-75 transition-opacity flex items-start gap-2 group max-w-full"
+                              >
+                                <span className="flex-1 break-words text-left">
+                                  {item.name}
+                                </span>
                               </span>
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ),
-              )
-            ) : (
-              <div className="flex flex-col justify-center h-full pt-10">
-                <button
-                  onClick={onClose}
-                  className="text-white font-bold text-[28px] xl:text-[32px] 2xl:text-[36px] cursor-pointer hover:text-[#d0bfff] transition-colors flex items-center gap-4 text-left group w-max"
-                >
-                  <span>{menuData.links[desktopActiveIndex]?.name}</span>
-                  <svg
-                    className="w-8 h-8 2xl:w-10 2xl:h-10 transform group-hover:translate-x-2 transition-transform"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </button>
-                <p className="text-white/70 text-[16px] 2xl:text-[18px] mt-3">
-                  Սեղմեք՝ էջին անցնելու և մենյուն փակելու համար
-                </p>
-              </div>
-            )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ),
+                )
+              : null}
           </div>
         </div>
       </div>

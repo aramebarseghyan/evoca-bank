@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Header1 = ({ onOpenMenu }) => {
-  const [activeTab, setActiveTab] = useState("Անհատ");
+  const location = useLocation();
 
   const tabs = [
-    { name: "Անհատ", xlOnly: false },
-    { name: "Բիզնես", xlOnly: false },
-    { name: "Ակնթարթային վճարումներ", xlOnly: false },
-    { name: "Մեր մասին", xlOnly: false },
-    { name: "Նորություններ", xlOnly: false },
-    { name: "Բլոգ", xlOnly: true },
-    { name: "Կարիերա", xlOnly: true },
+    { name: "Անհատ", path: "/loans", xlOnly: false },
+    { name: "Բիզնես", path: "/business", xlOnly: false },
+    {
+      name: "Ակնթարթային վճարումներ",
+      path: "/instant-payments",
+      xlOnly: false,
+    },
+    { name: "Մեր մասին", path: "/about", xlOnly: false },
+    { name: "Նորություններ", path: "/news", xlOnly: false },
+    { name: "Բլոգ", path: "/blog", xlOnly: true },
+    { name: "Կարիերա", path: "/career", xlOnly: true },
   ];
 
   return (
@@ -18,25 +23,46 @@ const Header1 = ({ onOpenMenu }) => {
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
         {/* ЛЕВАЯ ЧАСТЬ */}
         <div className="hidden lg:flex items-center lg:gap-3 xl:gap-5 2xl:gap-6">
-          {tabs.map((tab) => (
-            <p
-              key={tab.name}
-              onClick={() => setActiveTab(tab.name)}
-              className={`
-                ${tab.xlOnly ? "hidden xl:block" : "block"}
-                cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
-                border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
-                lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
-                ${
-                  activeTab === tab.name
-                    ? "text-[#6000ff] font-bold border-[#6000ff]"
-                    : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
-                }
-              `}
-            >
-              {tab.name}
-            </p>
-          ))}
+          {tabs.map((tab) => {
+            // ЛОГИКА АКТИВНОСТИ
+            let isActive = false;
+
+            if (tab.name === "Անհատ") {
+              // Вкладка "Անհատ" активна, если мы НЕ находимся в других главных разделах
+              const isOtherSection = [
+                "/business",
+                "/about",
+                "/instant-payments",
+                "/news",
+                "/blog",
+                "/career",
+              ].some((prefix) => location.pathname.startsWith(prefix));
+              isActive = !isOtherSection;
+            } else {
+              // Для остальных вкладок проверяем, начинается ли путь с их URL (например, /about/tariffs -> true)
+              isActive = location.pathname.startsWith(tab.path);
+            }
+
+            return (
+              <Link
+                key={tab.name}
+                to={tab.path}
+                className={`
+                  ${tab.xlOnly ? "hidden xl:block" : "block"}
+                  cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
+                  border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
+                  lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
+                  ${
+                    isActive
+                      ? "text-[#6000ff] font-bold border-[#6000ff]"
+                      : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
+                  }
+                `}
+              >
+                {tab.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* ПРАВАЯ ЧАСТЬ */}
@@ -111,7 +137,6 @@ const Header1 = ({ onOpenMenu }) => {
               <path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" />
             </svg>
 
-            {/* Вот этот SVG (Бургер-меню) теперь открывает меню */}
             <svg
               onClick={onOpenMenu}
               className="w-[18px] h-[18px] md:w-[16px] md:h-[16px] lg:w-[18px] lg:h-[18px] xl:w-[19px] xl:h-[19px] 2xl:w-[20px] 2xl:h-[20px] cursor-pointer hover:text-[#6000ff] transition-colors"
