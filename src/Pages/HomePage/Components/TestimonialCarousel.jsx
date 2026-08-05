@@ -55,15 +55,15 @@ const TestimonialCard = ({ testimonial }) => {
         ))}
       </div>
 
-      {/* 2. Блок текста */}
-      <div className="relative py-1 flex items-center justify-center w-full">
-        <QuoteIcon className="absolute top-0 left-0 sm:left-4 lg:left-12 xl:left-24 2xl:left-32 w-5 lg:w-6 xl:w-7 h-auto" />
+      {/* 2. Блок текста с кавычками по бокам (flex, без наложения) */}
+      <div className="relative py-2 flex items-center justify-between w-full max-w-[320px] sm:max-w-[500px] lg:max-w-[650px] xl:max-w-[750px] mx-auto px-2">
+        <QuoteIcon className="shrink-0 w-5 lg:w-6 xl:w-7 h-auto self-start mt-1" />
 
-        <p className="text-[#424242] text-[14px] sm:text-[16px] lg:text-[17px] xl:text-[17px] leading-[1.4] lg:leading-[1.6] font-medium font-sans text-center max-w-[280px] sm:max-w-[450px] lg:max-w-[550px] xl:max-w-[650px] px-2 mx-auto">
+        <p className="text-[#424242] text-[14px] sm:text-[16px] lg:text-[17px] xl:text-[17px] leading-[1.4] lg:leading-[1.6] font-medium font-sans text-center px-3 sm:px-4 flex-1 m-0">
           {text}
         </p>
 
-        <QuoteIcon className="absolute bottom-0 right-0 sm:right-4 lg:right-12 xl:right-24 2xl:right-32 rotate-180 w-5 lg:w-6 xl:w-7 h-auto" />
+        <QuoteIcon className="shrink-0 rotate-180 w-5 lg:w-6 xl:w-7 h-auto self-end mb-1" />
       </div>
 
       {/* 3. Блок имени и должности */}
@@ -154,7 +154,7 @@ const TestimonialCarousel = () => {
 
       {/* Общая обертка с адаптивным максимальным размером */}
       <div className="relative w-full max-w-[450px] md:max-w-[750px] lg:max-w-[1100px] xl:max-w-[1250px] 2xl:max-w-[1400px] flex justify-center items-center px-4 lg:px-10 xl:px-16">
-        {/* --- Декорации слева (Ձեռքը փոքրացված է xl/2xl-ի համար և հեռացված ֆիգուրից) --- */}
+        {/* --- Декорации слева --- */}
         <img
           src={hand2}
           alt="Hand OK"
@@ -206,7 +206,7 @@ const TestimonialCarousel = () => {
           </Swiper>
         </div>
 
-        {/* --- Декорации справа (Ձեռքը փոքրացված է xl/2xl-ի համար և հեռացված ֆիգուրից) --- */}
+        {/* --- Декорации справа --- */}
         <img
           src={hand1}
           alt="Hand Like"

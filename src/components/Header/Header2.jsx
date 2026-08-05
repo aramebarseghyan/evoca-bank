@@ -240,7 +240,7 @@ const Header2 = () => {
             <img
               src={evocabankLogo}
               alt="Evocabank"
-              className="h-[36px] lg:h-[44px] object-contain"
+              className="h-[66px] lg:h-[74px] object-contain"
             />
           </Link>
 
