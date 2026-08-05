@@ -10,6 +10,9 @@ import PageHeader from "./components/PageHeader";
 import HomePage from "./Pages/HomePage/HomePage";
 import LoansPage from "./Pages/LoansPage/LoansPage";
 
+// ---> ДОБАВЬ ЭТОТ ИМПОРТ (укажи правильный путь к файлу) <---
+import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
+
 function App() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -22,6 +25,13 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
+
+          {/* ---> ДОБАВЬ ЭТОТ РОУТ <--- */}
+          <Route
+            path="/credit-history-and-score"
+            element={<CreditHistoryPage />}
+          />
+
           <Route path="/cards" element={<div />} />
           <Route path="*" element={<div />} />
         </Routes>
