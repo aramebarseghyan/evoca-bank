@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
 import LoanProductCard from "./LoanProductCard";
-import { db } from "../../../firebase"
+import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
-const LoanList = () => {
+const LoanList = ({ activeFilter }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Функция для получения данных из базы Firebase
   useEffect(() => {
     const fetchLoans = async () => {
       try {
-        // Делаем запрос к коллекции 'loans' в Firestore
         const querySnapshot = await getDocs(collection(db, "loans"));
-
-        // Превращаем полученные документы в удобный массив объектов
         const loansList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
         setProducts(loansList);
       } catch (error) {
-        console.error("Ошибка при загрузке данных из Firebase:", error);
+        console.error("Error fetching data from Firebase:", error);
       } finally {
         setLoading(false);
       }
@@ -31,30 +26,52 @@ const LoanList = () => {
     fetchLoans();
   }, []);
 
-  // Если данные еще грузятся
+  const filteredProducts = products.filter((product) => {
+    if (activeFilter === "all") return true;
+    if (product.type === activeFilter || product.categoryId === activeFilter)
+      return true;
+
+    const title = (product.title || "").toLowerCase();
+
+    if (activeFilter === "online" && title.includes("օնլայն")) return true;
+    if (
+      activeFilter === "mortgage" &&
+      (title.includes("հիփոթեք") || title.includes("հիփոթեքային"))
+    )
+      return true;
+    if (
+      activeFilter === "auto" &&
+      (title.includes("ավտո") || title.includes("մեքենա"))
+    )
+      return true;
+    if (activeFilter === "secured" && title.includes("գրավով")) return true;
+    if (activeFilter === "unsecured" && title.includes("անգրավ")) return true;
+    if (activeFilter === "credit" && title.includes("ապառիկ")) return true;
+
+    return false;
+  });
+
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <p className="text-gray-500 text-lg">Загрузка карточек...</p>
+        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
       </div>
     );
   }
 
-  // Если в базе пусто
-  if (products.length === 0) {
+  if (filteredProducts.length === 0) {
     return (
       <div className="flex justify-center items-center py-20">
         <p className="text-gray-500 text-lg">
-          В базе данных пока нет карточек.
+          Այս կատեգորիայում դեռ վարկեր չկան.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-md mx-auto p-4 space-y-6">
-      {/* Перебираем все карточки из Firebase и выводим их через компонент */}
-      {products.map((product) => (
+    <div className="w-full space-y-12">
+      {filteredProducts.map((product) => (
         <LoanProductCard key={product.id} product={product} />
       ))}
     </div>

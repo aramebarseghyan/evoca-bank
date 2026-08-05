@@ -1,12 +1,19 @@
+import React, { useState } from "react";
 import FilterDropdown from "./Components/FilterDropdown";
 import LoanList from "./Components/LoanList";
 
 const LoansPage = () => {
+  const [activeFilter, setActiveFilter] = useState("all");
+
   return (
-    <>
-      <FilterDropdown></FilterDropdown>
-      <LoanList></LoanList>
-    </>
+    <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-10">
+      <FilterDropdown
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+      />
+      <LoanList activeFilter={activeFilter} />
+    </div>
   );
 };
+
 export default LoansPage;
