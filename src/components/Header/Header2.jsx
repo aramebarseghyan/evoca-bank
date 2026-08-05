@@ -8,12 +8,10 @@ const Header2 = () => {
   const rawPath = location.pathname;
   const cleanPath = normalizePath(rawPath);
 
-  // Ищем группу по очищенному пути
   const activeGroup = subNavigationGroups.find((g) =>
     g.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)),
   );
 
-  // Информационные разделы (О нас / Тарифы / Отчеты)
   const aboutRelatedPaths = [
     "/about",
     "/structure",
@@ -37,7 +35,6 @@ const Header2 = () => {
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
   );
 
-  // Разделы Карьеры
   const evocaLifePaths = [
     "/culture",
     "/advantages",
@@ -56,12 +53,10 @@ const Header2 = () => {
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
   );
 
-  // Определяем режим (Бизнес / Физические лица)
   const isBusinessMode = activeGroup
     ? activeGroup.isBusiness
     : cleanPath.includes("business");
 
-  // Пункты меню для физических лиц (Անհատ)
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", display: "flex" },
     { label: "Քարտեր", path: "/cards", display: "flex" },
@@ -81,7 +76,6 @@ const Header2 = () => {
     { label: "EvocaTOUCH", path: "/evocatouch", display: "hidden 2xl:flex" },
   ];
 
-  // Пункты меню для бизнеса (Բիզնես)
   const businessNavItems = [
     { label: "Վարկեր", path: "/business-loans", display: "flex" },
     { label: "Լիզինգ", path: "/leasing-evoca", display: "flex" },
@@ -113,7 +107,6 @@ const Header2 = () => {
     },
   ];
 
-  // Пункты меню для раздела "О нас"
   const aboutNavItems = [
     { label: "Evoca-ի մասին", path: "/about", display: "flex" },
     { label: "Սակագներ", path: "/tariffs", display: "flex" },
@@ -121,13 +114,11 @@ const Header2 = () => {
     { label: "Հայտարարություններ", path: "/announcements", display: "flex" },
   ];
 
-  // Пункты меню для раздела "Карьера"
   const careerNavItems = [
     { label: "Evoca Լայֆ", path: "/culture", display: "flex" },
     { label: "Աշխատանք և պրակտիկա", path: "/work-at-evoca", display: "flex" },
   ];
 
-  // Выбираем правильный набор ссылок
   let currentNavItems;
   if (isAboutMode) {
     currentNavItems = aboutNavItems;
@@ -148,20 +139,89 @@ const Header2 = () => {
     );
   };
 
-  const getLinkClass = (path, extraClasses = "") => {
+  const getLinkClass = (path, index, extraClasses = "") => {
     let isActive = false;
 
-    // Логика активности для раздела Карьеры
-    if (path === "/culture") {
-      isActive = evocaLifePaths.some(
-        (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
-      );
-    } else if (path === "/work-at-evoca") {
-      isActive = workPaths.some(
-        (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
-      );
+    if (isAboutMode) {
+      if (path === "/about") {
+        const subAbout = [
+          "/about",
+          "/structure",
+          "/shareholders",
+          "/management",
+          "/partners",
+          "/awards",
+          "/reviews",
+          "/csr",
+        ];
+        isActive = subAbout.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        );
+      } else if (path === "/tariffs") {
+        isActive =
+          cleanPath === "/tariffs" || cleanPath.startsWith("/tariffs/");
+      } else if (path === "/auditors-opinion") {
+        const reportsPaths = [
+          "/reports",
+          "/auditors-opinion",
+          "/financial-statements",
+          "/for-investors",
+          "/semi-annual-reports",
+          "/annual-reports",
+        ];
+        isActive = reportsPaths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        );
+      } else if (path === "/announcements") {
+        isActive =
+          cleanPath === "/announcements" ||
+          cleanPath.startsWith("/announcements/");
+      }
+    } else if (isCareerMode) {
+      if (path === "/culture") {
+        isActive = evocaLifePaths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        );
+      } else if (path === "/work-at-evoca") {
+        isActive = workPaths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        );
+      }
     } else {
       isActive = isMainItemActive(path);
+    }
+
+    // Եթե գտնվում ենք մաքուր հիմնական էջում (օրինակ՝ /business, /about, /loans),
+    // ապա ավտոմատ ակտիվացնում ենք ցանկի առաջին կետը (index === 0)։
+    const rootPaths = [
+      "/business",
+      "/about",
+      "/career",
+      "/loans",
+      "/instant-payments",
+      "/news",
+      "/blog",
+    ];
+    if (index === 0 && rootPaths.includes(cleanPath)) {
+      isActive = true;
+    }
+
+    // Լրացուցիչ ստուգում. եթե ոչ մի այլ կետ ակտիվ չէ տվյալ ցանկում, կարող ենք առաջինին տալ ակտիվություն
+    const isAnyOtherActive = currentNavItems.some((item, idx) => {
+      if (idx === 0) return false;
+      // Простая проверка активности для остальных
+      return cleanPath.startsWith(item.path);
+    });
+
+    if (
+      index === 0 &&
+      !isAnyOtherActive &&
+      (cleanPath === "/business" ||
+        cleanPath === "/about" ||
+        cleanPath === "/career" ||
+        cleanPath === "/loans")
+    ) {
+      isActive = true;
     }
 
     const textColor = isActive ? "text-[#5800EB]" : "text-[#1C1C1C]";
@@ -172,7 +232,6 @@ const Header2 = () => {
   return (
     <div className="w-full bg-white h-[60px] lg:h-[72px] select-none shadow-sm relative z-40">
       <div className="mx-auto flex items-center justify-between h-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {/* Логотип + Меню */}
         <div className="flex items-center h-full">
           <Link
             to="/"
@@ -186,11 +245,11 @@ const Header2 = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 xl:gap-8 h-full">
-            {currentNavItems.map((item) => (
+            {currentNavItems.map((item, index) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={getLinkClass(item.path, item.display)}
+                className={getLinkClass(item.path, index, item.display)}
               >
                 {item.label}
               </Link>
@@ -198,7 +257,6 @@ const Header2 = () => {
           </nav>
         </div>
 
-        {/* Кнопка EvocaONLINE */}
         <div className="shrink-0">
           <button className="bg-[#5800EB] text-white px-5 py-2 lg:px-7 lg:py-2.5 rounded-full font-bold text-[12px] lg:text-[14px] hover:bg-[#4300B8] transition-colors">
             EvocaONLINE
