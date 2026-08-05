@@ -8,7 +8,6 @@ const SubHeader = () => {
   const rawPath = location.pathname;
   const cleanPath = normalizePath(rawPath);
 
-  // Нахождение активной группы по нормализованному пути
   const activeGroup = subNavigationGroups.find((group) =>
     group.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)),
   );
