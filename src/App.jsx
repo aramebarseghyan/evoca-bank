@@ -9,9 +9,10 @@ import PageHeader from "./components/PageHeader";
 // 2. Импортируем страницы
 import HomePage from "./Pages/HomePage/HomePage";
 import LoansPage from "./Pages/LoansPage/LoansPage";
-
-// ---> ДОБАВЬ ЭТОТ ИМПОРТ (укажи правильный путь к файлу) <---
 import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
+
+// ---> ДОБАВЬ ЭТОТ ИМПОРТ (укажи правильный путь к созданному файлу компонента) <---
+import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
 
 function App() {
   return (
@@ -26,10 +27,15 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
 
-          {/* ---> ДОБАВЬ ЭТОТ РОУТ <--- */}
           <Route
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
+          />
+
+          {/* ---> ДОБАВЬ ЭТОТ РОУТ <--- */}
+          <Route
+            path="/loans-important-information"
+            element={<LoansImportantInfo />}
           />
 
           <Route path="/cards" element={<div />} />
