@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/HomePage/HomePage";
+import LoansPage from "./Pages/LoansPage/LoansPage";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/loans" element={<div />} />
+          <Route path="/loans" element={<LoansPage />} />
           <Route path="/cards" element={<div />} />
           <Route path="*" element={<div />} />
         </Routes>
