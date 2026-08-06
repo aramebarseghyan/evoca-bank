@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
+import evocaBenefitsLogo from "../../assets/img/evoca-benefits.png";
 
 export default function EvocaBenefitsPage() {
   const [benefits, setBenefits] = useState([]);
@@ -89,7 +90,7 @@ export default function EvocaBenefitsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans relative pb-24 overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans relative pb-0 overflow-x-hidden">
       {/* 1. Кастомная шапка */}
       <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-50">
         <div className="w-8 h-8 flex items-center justify-center text-[#5D00E0]">
@@ -98,10 +99,10 @@ export default function EvocaBenefitsPage() {
           </svg>
         </div>
         <div className="flex items-center gap-3">
-          <button className="bg-[#5D00E0] hover:bg-purple-800 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors">
+          <button className="bg-[#5D00E0] hover:bg-purple-800 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer">
             Պատվիրել քարտ
           </button>
-          <button className="text-gray-800 p-1">
+          <button className="text-gray-800 p-1 cursor-pointer">
             <svg
               width="24"
               height="24"
@@ -171,7 +172,7 @@ export default function EvocaBenefitsPage() {
 
       {/* 3. Строка поиска */}
       <div className="px-4 mt-8 flex items-center gap-3 max-w-lg mx-auto">
-        <button className="text-gray-800 shrink-0">
+        <button className="text-gray-800 shrink-0 cursor-pointer">
           <svg
             width="24"
             height="24"
@@ -368,15 +369,161 @@ export default function EvocaBenefitsPage() {
         </div>
       </section>
 
-      {/* 6. Плавающая кнопка чата внизу (Sticky) */}
-      <div className="fixed bottom-0 left-0 right-0 flex justify-center px-4 pb-0 pointer-events-none z-50">
-        <button className="bg-gradient-to-r from-[#8A2BE2] to-[#9400D3] text-white px-6 py-3.5 rounded-t-2xl shadow-[0_-4px_10px_rgba(0,0,0,0.1)] w-full max-w-[320px] pointer-events-auto flex items-center justify-between group cursor-pointer">
-          <span className="font-semibold text-sm">
-            Գրեք մեզ, մենք օնլայն ենք !
-          </span>
-          <div className="w-6 h-6 bg-green-500 rounded-full rounded-tr-none transform group-hover:scale-105 transition-transform"></div>
-        </button>
-      </div>
+      {/* 6. Footer & Contact Details Section */}
+      <footer className="mt-16 bg-white border-t border-gray-100 pt-8 pb-0">
+        <div className="px-4 max-w-lg mx-auto">
+          {/* Logo */}
+          <div className="mb-6">
+            <img
+              src={evocaBenefitsLogo}
+              alt="Evoca Benefits"
+              className="h-12 object-contain"
+            />
+          </div>
+
+          {/* Contact heading */}
+          <h3 className="text-base font-bold text-gray-900 mb-4">
+            Կոնտակտային տվյալներ
+          </h3>
+
+          {/* Phone */}
+          <a
+            href="tel:+37410605555"
+            className="flex items-center gap-3 text-gray-800 mb-3 hover:text-[#5D00E0] transition-colors cursor-pointer"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span className="font-medium text-sm">+374 10 605555</span>
+          </a>
+
+          {/* Contact us */}
+          <a
+            href="#"
+            className="flex items-center gap-3 text-gray-800 mb-8 hover:text-[#5D00E0] transition-colors cursor-pointer"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span className="font-medium text-sm">Կապ մեզ հետ</span>
+          </a>
+
+          {/* Download App title */}
+          <h4 className="text-sm font-bold text-[#5D00E0] mb-3">
+            Ներբեռնել EvocaTOUCH հավելվածը
+          </h4>
+
+          {/* App Badges */}
+          <div className="flex items-center gap-3 mb-8">
+            <a href="#" className="inline-block cursor-pointer">
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="App Store"
+                className="h-10 object-contain"
+              />
+            </a>
+            <a href="#" className="inline-block cursor-pointer">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Google Play"
+                className="h-10 object-contain"
+              />
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Purple Social & Copyright Bar */}
+        <div className="bg-[#5D00E0] text-white pt-6 pb-6 px-4 mt-8">
+          <div className="max-w-lg mx-auto flex flex-col items-center">
+            {/* Social Icons */}
+            <div className="flex items-center gap-6 mb-4">
+              <a
+                href="#"
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect x="2" y="9" width="4" height="12"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
+              <a
+                href="#"
+                className="hover:opacity-80 transition-opacity cursor-pointer"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path>
+                </svg>
+              </a>
+            </div>
+            {/* Copyright */}
+            <p className="text-[10px] sm:text-xs text-center opacity-90 tracking-wide">
+              © 2026 EVOCABANK. ԲՈԼՈՐ ԻՐԱՎՈՒՆՔՆԵՐԸ ՊԱՇՏՊԱՆՎԱԾ ԵՆ
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
