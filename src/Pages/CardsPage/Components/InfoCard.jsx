@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const InfoCard = ({ item }) => {
+  // Проверяем, является ли элемент кредитом/займом (varker), чтобы не выводить карточные условия
+  const isLoan = item.type === "loan" || item.category === "loan";
+
   return (
     <div className="w-full font-sans py-8 border-b border-gray-200 last:border-b-0">
       <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
@@ -18,15 +21,38 @@ const InfoCard = ({ item }) => {
           )}
         </div>
 
-        {/* աջ մաս (Կոնտենտ) */}
+        {/* Աջ մաս (Կոնտենտ) */}
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-tight">
               {item.title}
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">
               {item.description}
             </p>
+
+            {/* Сетка условий отображается только для карт, исключая кредиты (varker) */}
+            {!isLoan && item.conditions && item.conditions.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
+                {item.conditions.map((cond, idx) => (
+                  <div key={idx} className="flex flex-col">
+                    {cond.topLabel && (
+                      <span className="text-sm text-gray-500 mb-1">
+                        {cond.topLabel}
+                      </span>
+                    )}
+                    <span className="text-2xl sm:text-3xl font-bold text-[#5D00E0] mb-1">
+                      {cond.value}
+                    </span>
+                    {(cond.description || cond.label) && (
+                      <span className="text-xs sm:text-sm text-gray-600 leading-snug">
+                        {cond.description || cond.label}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link
@@ -54,6 +80,10 @@ const InfoCard = ({ item }) => {
       </div>
     </div>
   );
+};
+
+InfoCard.defaultProps = {
+  item: {},
 };
 
 export default InfoCard;

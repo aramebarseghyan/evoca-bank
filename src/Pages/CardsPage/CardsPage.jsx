@@ -4,24 +4,28 @@ import FilterDropdown from "./Components/FilterDropdown";
 import InfoList from "./Components/InfoList";
 
 const mockCardFilters = [
-  { id: "all", label: "Բոլորը" },
+  { id: "all", label: "Քարտեր" },
   { id: "premium", label: "Պրեմիում" },
   { id: "gift", label: "Նվեր քարտեր" },
   { id: "digital", label: "Թվային քարտեր" },
   {
     id: "arca",
+    label: "ArCa",
     icon: "https://www.evoca.am/images-cache/menu/1/17485004055849/50x24.png",
   },
   {
     id: "visa",
+    label: "Visa",
     icon: "https://www.evoca.am/images-cache/menu/1/16137249251612/50x24.png",
   },
   {
     id: "mastercard",
+    label: "Mastercard",
     icon: "https://www.evoca.am/images-cache/menu/1/16137249504065/50x24.png",
   },
   {
     id: "unionpay",
+    label: "UnionPay",
     icon: "https://www.evoca.am/images-cache/menu/1/17288945044615/50x24.png",
   },
 ];
