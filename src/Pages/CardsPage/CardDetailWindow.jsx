@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import MobilePromo from "../../Pages/HomePage/Components/MobilePromo";
 
 const CardDetailWindow = () => {
   const { id } = useParams();
@@ -42,14 +43,12 @@ const CardDetailWindow = () => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // Функции для плавного листания слайдера по одной карточке
   const scrollNext = () => {
     if (!sliderRef.current) return;
     const cardWidth = sliderRef.current.children[0]?.offsetWidth || 300;
     const gap = 24;
     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
 
-    // Если дошли до конца, возвращаемся в начало
     if (scrollLeft + clientWidth >= scrollWidth - 10) {
       sliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
     } else {
@@ -76,7 +75,6 @@ const CardDetailWindow = () => {
     }
   };
 
-  // Автопрокрутка каждые 5 секунд
   useEffect(() => {
     if (otherCards.length === 0) return;
     const interval = setInterval(() => {
@@ -305,7 +303,7 @@ const CardDetailWindow = () => {
 
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
-      {/* Верхний серый блок с заголовком и картинкой */}
+      {/* Верхний баннер */}
       <div className="bg-[#f8f9fa] pt-12 pb-16 px-6 sm:px-12 lg:px-24">
         <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row justify-between items-center gap-12">
           <div className="max-w-xl">
@@ -328,8 +326,8 @@ const CardDetailWindow = () => {
         </div>
       </div>
 
+      {/* Основной контент (внутри ограниченного контейнера) */}
       <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-24 py-6">
-        {/* Кнопка возврата и хлебные крошки */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-start gap-8 mb-8">
           <button
             onClick={() => navigate(-1)}
@@ -366,7 +364,6 @@ const CardDetailWindow = () => {
             >
               Քարտեր
             </Link>
-
             {cardData.categoryName && (
               <>
                 <span>/</span>
@@ -378,13 +375,11 @@ const CardDetailWindow = () => {
                 </Link>
               </>
             )}
-
             <span>/</span>
             <span className="text-gray-900 font-medium">{cardData.title}</span>
           </div>
         </div>
 
-        {/* Вкладки (Tabs) */}
         <div className="border-b border-gray-200 mb-12 flex gap-8">
           <button
             onClick={() => setActiveTab("about")}
@@ -408,10 +403,8 @@ const CardDetailWindow = () => {
           </button>
         </div>
 
-        {/* Контент вкладок */}
         {activeTab === "about" ? (
           <div className="space-y-20">
-            {/* Верхняя часть: Описание и карточка условий */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               <div className="lg:col-span-7 space-y-6 text-gray-700 leading-relaxed text-base sm:text-lg">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
@@ -476,7 +469,6 @@ const CardDetailWindow = () => {
               </div>
             </div>
 
-            {/* Нижняя часть: Преимущества карты */}
             <div className="pt-8 space-y-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
                 Քարտի առավելությունները
@@ -492,7 +484,6 @@ const CardDetailWindow = () => {
                       {adv.title}
                     </h3>
                   </div>
-
                   <div className="lg:col-span-8 space-y-4">
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
                       {adv.text}
@@ -543,14 +534,13 @@ const CardDetailWindow = () => {
           </div>
         )}
 
-        {/* Слайдер "Այլ քարտեր" (плавное прокручивание по 1 карточке) */}
+        {/* Секция "Այլ քարտեր" */}
         {otherCards.length > 0 && (
           <div className="mt-20 pt-12 border-t border-gray-200">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
               Այլ քարտեր
             </h2>
             <div className="relative max-w-7xl mx-auto px-12 sm:px-16">
-              {/* Левая стрелка */}
               <button
                 onClick={scrollPrev}
                 className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-[#5D00E0] hover:bg-purple-50 rounded-full transition-colors z-10 cursor-pointer shadow-sm bg-white border border-gray-100"
@@ -570,7 +560,6 @@ const CardDetailWindow = () => {
                 </svg>
               </button>
 
-              {/* Лента карусели */}
               <div
                 ref={sliderRef}
                 className="flex gap-6 overflow-x-auto scrollbar-none scroll-smooth snap-x snap-mandatory py-4 px-2"
@@ -596,7 +585,6 @@ const CardDetailWindow = () => {
                 ))}
               </div>
 
-              {/* Правая стрелка */}
               <button
                 onClick={scrollNext}
                 className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-[#5D00E0] hover:bg-purple-50 rounded-full transition-colors z-10 cursor-pointer shadow-sm bg-white border border-gray-100"
@@ -618,6 +606,11 @@ const CardDetailWindow = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Вынесли MobilePromo за пределы ограничивающего max-w контейнера, чтобы фон был на полный экран (full width) */}
+      <div className="mt-16 w-full">
+        <MobilePromo />
       </div>
     </div>
   );
