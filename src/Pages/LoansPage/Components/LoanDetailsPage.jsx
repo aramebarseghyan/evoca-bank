@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+
+// Swiper импорты
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
 
 // Импорт шейпов из вашей папки assets/img
 import shape1 from "../../../assets/img/shape1.png";
@@ -16,15 +23,18 @@ const LoanDetailsPage = () => {
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
+  const [otherLoans, setOtherLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("Վարկի մասին");
 
   const tabs = ["Վարկի մասին", "Պայմաններ", "Պահանջվող փաստաթղթերի ցանկ"];
 
   useEffect(() => {
-    const fetchLoanDetails = async () => {
+    const fetchLoanData = async () => {
       if (!id) return;
+      setLoading(true);
       try {
+        // Загрузка текущего кредита
         const docRef = doc(db, "loans", id);
         const docSnap = await getDoc(docRef);
 
@@ -33,14 +43,22 @@ const LoanDetailsPage = () => {
         } else {
           console.error("Кредит не найден!");
         }
+
+        // Загрузка других кредитов для слайдера
+        const querySnapshot = await getDocs(collection(db, "loans"));
+        const loansList = querySnapshot.docs
+          .map((docSnapItem) => ({ id: docSnapItem.id, ...docSnapItem.data() }))
+          .filter((item) => item.id !== id);
+
+        setOtherLoans(loansList);
       } catch (error) {
-        console.error("Ошибка при загрузке данных кредита:", error);
+        console.error("Ошибка при загрузке данных:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLoanDetails();
+    fetchLoanData();
   }, [id]);
 
   if (loading) {
@@ -57,7 +75,7 @@ const LoanDetailsPage = () => {
         <p className="text-gray-500 text-lg">Վարկը չի գտնվել:</p>
         <button
           onClick={() => navigate("/loans")}
-          className="px-6 py-2.5 bg-[#5D00E0] text-white rounded-full"
+          className="px-6 py-2.5 bg-[#5D00E0] text-white rounded-full cursor-pointer"
         >
           Վերադառնալ վարկերի ցանկ
         </button>
@@ -344,7 +362,7 @@ const LoanDetailsPage = () => {
         </div>
 
         {/* 4. Контент вкладок */}
-        <div className="pt-10 pb-20">
+        <div className="pt-10 pb-16">
           {activeTab === "Վարկի մասին" && (
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
               <div className="lg:w-[55%] space-y-6 text-[#333333] text-base leading-relaxed">
@@ -584,28 +602,92 @@ const LoanDetailsPage = () => {
         </div>
       </div>
 
-      {/* 5. Фиолетовый баннер в самом низу с плавно и разнонаправленно анимированными шейпами */}
+      {/* 5. Бесконечный слайдер с автопрокруткой каждые 5 секунд */}
+      {otherLoans.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
+            Այլ վարկեր
+          </h2>
+
+          <div className="relative px-2 sm:px-12">
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              loop={true}
+              navigation={{
+                prevEl: ".other-loans-prev",
+                nextEl: ".other-loans-next",
+              }}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+              }}
+              className="pb-6"
+            >
+              {otherLoans.map((loan) => (
+                <SwiperSlide key={loan.id}>
+                  <div
+                    onClick={() => {
+                      navigate(`/loans/${loan.id}`);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="cursor-pointer group flex flex-col items-center text-center gap-3"
+                  >
+                    <div
+                      className={`w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center relative ${loan.imageBgColor || "bg-[#5D00E0]"}`}
+                    >
+                      <img
+                        src={loan.image}
+                        alt={loan.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <h3 className="text-gray-900 font-medium text-sm sm:text-base leading-snug group-hover:text-[#5D00E0] transition-colors line-clamp-2 px-1">
+                      {loan.title}
+                    </h3>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Стрелочки увеличены и отодвинуты от карточек */}
+            <button className="other-loans-prev absolute -left-3 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
+              ‹
+            </button>
+            <button className="other-loans-next absolute -right-3 sm:-right-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
+              ›
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* 6. Фиолетовый баннер в самом низу с плавно и разнонаправленно анимированными шейпами */}
       <div
         className="relative w-full py-32 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
         style={{
           backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
         }}
       >
-        {/* Шейп 1 (Замедлен, движение по диагонали вправо-вверх) */}
+        {/* Шейп 1 */}
         <img
           src={shape1}
           alt="shape"
           className="absolute top-8 left-10 sm:left-20 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
         />
-        {/* Шейп 2 (Движение в противоположную сторону) */}
+        {/* Шейп 2 */}
         <img
           src={shape2}
           alt="shape"
           className="absolute bottom-10 left-16 sm:left-32 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
           style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
         />
-        {/* Шейп 3 (Своя плавная траектория) */}
+        {/* Шейп 3 */}
         <img
           src={shape3}
           alt="shape"
