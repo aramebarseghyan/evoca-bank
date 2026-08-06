@@ -12,7 +12,8 @@ import LoansPage from "./Pages/LoansPage/LoansPage";
 import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
 import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
 import CardsPage from "./Pages/CardsPage/CardsPage";
-import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow"; // Импорт детальной страницы
+import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
+import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService"; // Импорт страницы условий карт
 
 function App() {
   return (
@@ -42,6 +43,12 @@ function App() {
 
           {/* Динамический маршрут для отдельной карты по её ID */}
           <Route path="/cards/:id" element={<CardDetailWindow />} />
+
+          {/* Страница «Քարտերի տրամադրում և սպասարկում» */}
+          <Route
+            path="/cards-provision-and-service"
+            element={<CardsProvisionAndService />}
+          />
 
           <Route path="*" element={<div />} />
         </Routes>
