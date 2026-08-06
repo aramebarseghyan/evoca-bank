@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 
 // 1. Импортируем обертку шапки, подвал и заголовок страниц
@@ -15,19 +15,29 @@ import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
 import CardsPage from "./Pages/CardsPage/CardsPage";
 import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
 import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
-import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage"; // <-- Импорт страницы пенсионных карт
+import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
+import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage"
 
 function App() {
+  const location = useLocation();
+
+  // Проверяем, открыта ли страница без стандартных элементов
+  const isStandalonePage = location.pathname === "/evoca_benefits";
+
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
-      <MainHeader />
 
-      {/* Автоматически отображается на всех страницах, кроме Главной (HomePage) */}
-      <PageHeader />
+      {/* Шапки скрываются для /evoca_benefits */}
+      {!isStandalonePage && <MainHeader />}
+      {!isStandalonePage && <PageHeader />}
 
       <main className="flex-1">
         <Routes>
+          {/* Автономная страница без хедера и футера */}
+          <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
+
+          {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
 
@@ -41,26 +51,22 @@ function App() {
             element={<LoansImportantInfo />}
           />
 
-          {/* Страница списка карт */}
           <Route path="/cards" element={<CardsPage />} />
-
-          {/* Динамический маршрут для отдельной карты по её ID */}
           <Route path="/cards/:id" element={<CardDetailWindow />} />
 
-          {/* Страница «Քարտերի տրամադրում և սպասարկում» */}
           <Route
             path="/cards-provision-and-service"
             element={<CardsProvisionAndService />}
           />
 
-          {/* Страница «Սոցիալական ապահովության վճարային քարտեր» */}
           <Route path="/pension-cards" element={<PensionCardsPage />} />
 
           <Route path="*" element={<div />} />
         </Routes>
       </main>
 
-      <Footer />
+      {/* Футер скрывается для /evoca_benefits */}
+      {!isStandalonePage && <Footer />}
     </div>
   );
 }
