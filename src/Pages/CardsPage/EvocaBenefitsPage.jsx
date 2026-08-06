@@ -8,6 +8,9 @@ export default function EvocaBenefitsPage() {
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(true);
 
+  // Состояние для открытия мобильного меню/фильтров
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
   // Состояние для аккордеона FAQ
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
 
@@ -290,8 +293,32 @@ export default function EvocaBenefitsPage() {
 
       {/* Основной контейнер */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-16">
-        {/* Строка поиска */}
+        {/* Строка поиска с гамбургер-кнопкой для мобильных */}
         <div className="max-w-2xl mx-auto mb-10 flex items-center gap-3">
+          {/* Кнопка гамбургер-меню (только на мобильных/планшетах) */}
+          <button
+            onClick={() => setMobileFiltersOpen(true)}
+            className="md:hidden bg-[#F5F5F5] p-3.5 rounded-full flex items-center justify-center shadow-inner cursor-pointer hover:bg-gray-200 transition-colors shrink-0"
+            aria-label="Open Filters"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-gray-700"
+            >
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          {/* Поле поиска */}
           <div className="flex-1 bg-[#F5F5F5] rounded-full flex items-center px-5 py-3.5 shadow-inner">
             <svg
               width="20"
@@ -314,6 +341,321 @@ export default function EvocaBenefitsPage() {
               className="bg-transparent border-none outline-none ml-3 w-full text-base text-gray-700 placeholder-gray-500"
             />
           </div>
+        </div>
+
+        {/* Выдвижная плавная панель фильтров для мобильных устройств */}
+        <div
+          className={`fixed inset-0 z-50 flex bg-black/50 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
+            mobileFiltersOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <div
+            className={`w-full max-w-xs bg-white h-full p-6 overflow-y-auto shadow-xl flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+              mobileFiltersOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="space-y-6">
+              <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+                <h2 className="text-xl font-bold text-gray-900">Ֆիլտրներ</h2>
+                <button
+                  onClick={() => setMobileFiltersOpen(false)}
+                  className="p-2 text-gray-500 hover:text-gray-900 cursor-pointer"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              {/* Сортировка */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Դասավորել
+                </label>
+                <div className="relative">
+                  <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 outline-none appearance-none cursor-pointer focus:border-[#5D00E0]">
+                    <option>Ըստ հանրաճանաչության</option>
+                    <option>Զեղչի չափի (նվազման)</option>
+                    <option>Այբբենական</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* 1. Քարտատեսակ */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-4">
+                <button
+                  onClick={() => toggleSection("cardType")}
+                  className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+                >
+                  <span>Քարտատեսակ</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`text-gray-500 transition-transform ${openSections.cardType ? "rotate-180" : ""}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {openSections.cardType && (
+                  <div className="space-y-3 pt-1 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+                    {cardTypesList.map((card) => (
+                      <label
+                        key={card.id}
+                        className="flex items-center justify-between cursor-pointer group select-none"
+                      >
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={!!selectedFilters.cardType[card.id]}
+                            onChange={() =>
+                              handleCheckboxChange("cardType", card.id)
+                            }
+                            className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                          />
+                          <span className="text-sm text-gray-700">
+                            {card.label}
+                          </span>
+                        </div>
+                        <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                          {card.count}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 2. Վայր */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-4">
+                <button
+                  onClick={() => toggleSection("location")}
+                  className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+                >
+                  <span>Վայր</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`text-gray-500 transition-transform ${openSections.location ? "rotate-180" : ""}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {openSections.location && (
+                  <div className="space-y-3 pt-1">
+                    {locationList.map((loc) => (
+                      <label
+                        key={loc.id}
+                        className="flex items-center gap-3 cursor-pointer group select-none"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFilters.location[loc.id]}
+                          onChange={() =>
+                            handleCheckboxChange("location", loc.id)
+                          }
+                          className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700">
+                          {loc.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 3. Բենեֆիթ */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-4">
+                <button
+                  onClick={() => toggleSection("benefit")}
+                  className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+                >
+                  <span>Բենեֆիթ</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`text-gray-500 transition-transform ${openSections.benefit ? "rotate-180" : ""}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {openSections.benefit && (
+                  <div className="space-y-3 pt-1">
+                    {benefitList.map((ben) => (
+                      <label
+                        key={ben.id}
+                        className="flex items-center gap-3 cursor-pointer group select-none"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFilters.benefit[ben.id]}
+                          onChange={() =>
+                            handleCheckboxChange("benefit", ben.id)
+                          }
+                          className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700">
+                          {ben.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 4. Ոլորտ */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-4">
+                <button
+                  onClick={() => toggleSection("sector")}
+                  className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+                >
+                  <span>Ոլորտ</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`text-gray-500 transition-transform ${openSections.sector ? "rotate-180" : ""}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {openSections.sector && (
+                  <div className="space-y-3 pt-1 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+                    {sectorList.map((sec) => (
+                      <label
+                        key={sec.id}
+                        className="flex items-center gap-3 cursor-pointer group select-none"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFilters.sector[sec.id]}
+                          onChange={() =>
+                            handleCheckboxChange("sector", sec.id)
+                          }
+                          className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700">
+                          {sec.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 5. Հարթակ */}
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-4">
+                <button
+                  onClick={() => toggleSection("platform")}
+                  className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+                >
+                  <span>Հարթակ</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`text-gray-500 transition-transform ${openSections.platform ? "rotate-180" : ""}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+
+                {openSections.platform && (
+                  <div className="space-y-3 pt-1">
+                    {platformList.map((plat) => (
+                      <label
+                        key={plat.id}
+                        className="flex items-center gap-3 cursor-pointer group select-none"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFilters.platform[plat.id]}
+                          onChange={() =>
+                            handleCheckboxChange("platform", plat.id)
+                          }
+                          className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700">
+                          {plat.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-gray-100 mt-6">
+              <button
+                onClick={() => setMobileFiltersOpen(false)}
+                className="w-full bg-[#5D00E0] text-white py-3 rounded-xl font-bold text-sm cursor-pointer hover:bg-purple-800 transition-colors"
+              >
+                Կիրառել ֆիլտրները
+              </button>
+            </div>
+          </div>
+          <div
+            className="flex-1"
+            onClick={() => setMobileFiltersOpen(false)}
+          ></div>
         </div>
 
         {/* Двухколоночный макет: Слева фильтры, Справа сетка карточек */}
