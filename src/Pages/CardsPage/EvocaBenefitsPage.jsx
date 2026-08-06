@@ -214,17 +214,22 @@ export default function EvocaBenefitsPage() {
       <header className="px-4 pt-3 sticky top-0 z-50 bg-white/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto bg-white rounded-full shadow-sm border border-gray-100 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <div className="w-8 h-8 flex items-center justify-center text-[#5D00E0]">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-                <path d="M12 21L3 6h4.5L12 15l4.5-9H21L12 21z" />
-              </svg>
-            </div>
+            <a href="/" className="flex items-center cursor-pointer">
+              <img
+                src={evocaBenefitsLogo}
+                alt="Evoca Benefits"
+                className="h-7 object-contain"
+              />
+            </a>
           </div>
           <div className="flex items-center gap-3">
-            <button className="bg-[#5D00E0] hover:bg-purple-800 text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition-colors cursor-pointer">
+            <a
+              href="/cards"
+              className="bg-[#5D00E0] hover:bg-purple-800 text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition-colors cursor-pointer inline-flex items-center"
+            >
               Պատվիրել քարտ
-            </button>
-            <button className="text-gray-800 p-1.5 cursor-pointer hover:text-[#5D00E0] transition-colors">
+            </a>
+            <button className="text-gray-800 p-2 cursor-pointer hover:text-[#5D00E0] transition-colors">
               <svg
                 width="20"
                 height="20"
@@ -244,8 +249,47 @@ export default function EvocaBenefitsPage() {
         </div>
       </header>
 
+      {/* Hero секция с заголовком и платежными системами */}
+      <div className="text-center mt-6 mb-10 px-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#5D00E0] mb-6">
+          Բացահայտիր Evoca քարտերի բենեֆիթները
+        </h1>
+        <div className="flex items-center justify-center flex-wrap gap-3 sm:gap-4">
+          {/* VISA */}
+          <div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm flex items-center justify-center">
+            <span className="font-black italic tracking-wider text-[#1434CB] text-lg">
+              VISA
+            </span>
+          </div>
+          {/* Mastercard */}
+          <div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm flex items-center gap-2">
+            <div className="flex -space-x-1.5">
+              <div className="w-4 h-4 rounded-full bg-[#EB001B]"></div>
+              <div className="w-4 h-4 rounded-full bg-[#F79E1B] mix-blend-multiply"></div>
+            </div>
+            <span className="font-bold text-xs tracking-tight text-gray-800">
+              mastercard
+            </span>
+          </div>
+          {/* ArCa */}
+          <div className="px-5 py-2.5 bg-white border border-gray-200 rounded-full shadow-sm flex items-center">
+            <span className="font-extrabold text-[#004B87] text-base">arc</span>
+            <span className="font-extrabold text-[#8DC63F] text-base">a</span>
+          </div>
+          {/* UnionPay */}
+          <div className="px-3.5 py-2 bg-white border border-gray-200 rounded-full shadow-sm flex items-center gap-2">
+            <div className="bg-[#E60012] text-white px-2 py-0.5 rounded-[4px] font-bold text-xs tracking-tight flex items-center">
+              UnionPay
+            </div>
+            <span className="text-xs text-gray-600 font-bold tracking-wider">
+              INTERNATIONAL
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Основной контейнер */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-16">
         {/* Строка поиска */}
         <div className="max-w-2xl mx-auto mb-10 flex items-center gap-3">
           <div className="flex-1 bg-[#F5F5F5] rounded-full flex items-center px-5 py-3.5 shadow-inner">
@@ -712,153 +756,128 @@ export default function EvocaBenefitsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-20 bg-white border-t border-gray-100 pt-12 pb-0">
+      <footer className="mt-20 bg-white border-t border-purple-100 pt-10 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
-            <div>
-              <img
-                src={evocaBenefitsLogo}
-                alt="Evoca Benefits"
-                className="h-8 object-contain mb-4"
-              />
-              <h3 className="text-base font-bold text-gray-900">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            {/* Левая часть: Логотип, Заголовок и Контакты */}
+            <div className="space-y-4 w-full md:w-auto">
+              <a href="/" className="flex items-center cursor-pointer">
+                <img
+                  src={evocaBenefitsLogo}
+                  alt="Evoca Benefits"
+                  className="h-7 object-contain"
+                />
+              </a>
+              <h3 className="text-sm font-bold text-gray-900">
                 Կոնտակտային տվյալներ
               </h3>
+              <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-1">
+                <a
+                  href="tel:+37410605555"
+                  className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer text-sm font-medium"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-gray-600"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <span>+374 10 605555</span>
+                </a>
+                <a
+                  href="#contact"
+                  className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer text-sm font-medium"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-gray-600"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>Կապ մեզ հետ</span>
+                </a>
+              </div>
             </div>
 
-            <div className="flex items-center gap-8 flex-wrap">
-              <a
-                href="tel:+37410605555"
-                className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+            {/* Правая часть: Приложение и бейджи магазинов */}
+            <div className="flex flex-col items-start md:items-end gap-3 w-full md:w-auto">
+              <span className="text-sm font-bold text-[#5D00E0]">
+                Ներբեռնել EvocaTouch հավելվածը
+              </span>
+              <div className="flex items-center gap-3">
+                {/* App Store Badge */}
+                <a
+                  href="https://apps.apple.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-black text-white px-3.5 py-2 rounded-lg flex items-center gap-2.5 hover:opacity-90 transition-opacity"
                 >
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                </svg>
-                <span className="font-medium text-sm">+374 10 605555</span>
-              </a>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.35c.65-.79 1.09-1.89.97-2.99-.94.04-2.08.63-2.74 1.42-.58.68-1.1 1.79-.96 2.88 1.05.08 2.12-.52 2.73-1.31z" />
+                  </svg>
+                  <div className="text-left leading-tight">
+                    <div className="text-[9px] text-gray-300">
+                      Download on the
+                    </div>
+                    <div className="text-xs font-semibold tracking-wide">
+                      App Store
+                    </div>
+                  </div>
+                </a>
 
-              <a
-                href="#"
-                className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                {/* Google Play Badge */}
+                <a
+                  href="https://play.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-black text-white px-3.5 py-2 rounded-lg flex items-center gap-2.5 hover:opacity-90 transition-opacity"
                 >
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                <span className="font-medium text-sm">Կապ մեզ հետ</span>
-              </a>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M3.609 1.814L13.792 12 3.61 22.186a1.5 1.5 0 0 1-.86-1.35V3.164a1.5 1.5 0 0 1 .859-1.35z"
+                      fill="#EA4335"
+                    />
+                    <path
+                      d="M17.5 15.708l-3.708-3.708L3.61 22.186a1.5 1.5 0 0 0 2.155.122l11.735-6.6z"
+                      fill="#FBBC04"
+                    />
+                    <path
+                      d="M17.5 8.292L5.765 1.692a1.5 1.5 0 0 0-2.155.122L13.792 12 17.5 8.292z"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M17.5 8.292l-3.792 3.708 3.792 3.708 3.322-1.868a1.5 1.5 0 0 0 0-3.68L17.5 8.292z"
+                      fill="#4285F4"
+                    />
+                  </svg>
+                  <div className="text-left leading-tight">
+                    <div className="text-[9px] text-gray-300">GET IT ON</div>
+                    <div className="text-xs font-semibold tracking-wide">
+                      Google Play
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
-          </div>
-
-          <div className="mb-8">
-            <h4 className="text-sm font-bold text-[#5D00E0] mb-3">
-              Ներբեռնել EvocaTOUCH հավելվածը
-            </h4>
-            <div className="flex items-center gap-3">
-              <a href="#" className="inline-block cursor-pointer">
-                <img
-                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                  alt="App Store"
-                  className="h-10 object-contain"
-                />
-              </a>
-              <a href="#" className="inline-block cursor-pointer">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                  alt="Google Play"
-                  className="h-10 object-contain"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Purple Social & Copyright Bar */}
-        <div className="bg-[#5D00E0] text-white py-6 px-4">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
-              <a
-                href="#"
-                className="hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="hover:opacity-80 transition-opacity cursor-pointer"
-              >
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path>
-                </svg>
-              </a>
-            </div>
-            <p className="text-xs text-center opacity-90 tracking-wide">
-              © 2026 EVOCABANK. ԲՈԼՈՐ ԻՐԱՎՈՒՆՔՆԵՐԸ ՊԱՇՏՊԱՆՎԱԾ ԵՆ
-            </p>
           </div>
         </div>
       </footer>
