@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import evocaBenefitsLogo from "../../assets/img/evoca-benefits.png";
@@ -8,8 +8,128 @@ export default function EvocaBenefitsPage() {
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(true);
 
-  // Состояние для аккордеона FAQ: 0 означает, что первый пункт открыт с самого начала
+  // Состояние для аккордеона FAQ
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
+
+  // Состояния раскрытия секций фильтров в сайдбаре
+  const [openSections, setOpenSections] = useState({
+    cardType: true,
+    location: false,
+    benefit: false,
+    sector: false,
+    platform: false,
+  });
+
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  // Полные списки фильтров из техзадания
+  const cardTypesList = [
+    { id: "visaInfinite", label: "Visa Infinite", count: 113 },
+    { id: "evocaVisaPlatinum", label: "Evoca Visa Platinum", count: 88 },
+    { id: "evocaTravelCard", label: "Evoca Travel Card", count: 103 },
+    { id: "wilcoVisaInfinite", label: "Wilco Visa Infinite", count: 3 },
+    { id: "visaVision", label: "Visa Vision", count: 89 },
+    { id: "mastercardGold", label: "Mastercard Gold", count: 97 },
+    { id: "visaGold", label: "Visa Gold", count: 97 },
+    { id: "mastercardStandard", label: "Mastercard Standard", count: 89 },
+    { id: "visaClassic", label: "Visa Classic", count: 89 },
+    {
+      id: "mastercardWorldDigital",
+      label: "Mastercard World Digital",
+      count: 88,
+    },
+    { id: "visaDigital", label: "Visa Digital", count: 45 },
+    { id: "arcaClassic", label: "Arca Classic", count: 32 },
+    { id: "visaBusiness", label: "Visa Business", count: 19 },
+    { id: "evocaGiftCard", label: "Evoca Gift Card", count: 12 },
+    {
+      id: "unionPayBusinessPlatinum",
+      label: "UnionPay Business Platinum",
+      count: 8,
+    },
+    { id: "unionPayGold", label: "UnionPay Gold", count: 15 },
+  ];
+
+  const locationList = [
+    { id: "armenia", label: "Հայաստան" },
+    { id: "abroad", label: "Արտերկիր" },
+  ];
+
+  const benefitList = [
+    { id: "cashback", label: "Cashback" },
+    { id: "discount", label: "Զեղչ" },
+    { id: "giftCard", label: "Նվեր-քարտ" },
+  ];
+
+  const sectorList = [
+    { id: "cafes", label: "Սրճարաններ" },
+    { id: "gifts", label: "Նվերներ" },
+    { id: "interior", label: "Ինտերիեր" },
+    { id: "lifestyle", label: "Կենսակերպ" },
+    { id: "tech", label: "Տեխնիկա" },
+    { id: "fashion", label: "Նորաձևություն" },
+    { id: "health", label: "Առողջություն" },
+    { id: "beauty", label: "Գեղեցկություն" },
+    { id: "sport", label: "Սպորտ" },
+    { id: "accessories", label: "Աքսեսուարներ" },
+    { id: "rest", label: "Հանգիստ" },
+  ];
+
+  const platformList = [
+    { id: "online", label: "Օնլայն" },
+    { id: "offline", label: "Օֆլայն" },
+  ];
+
+  // Состояния чекбоксов фильтров
+  const [selectedFilters, setSelectedFilters] = useState({
+    cardType: {},
+    location: {},
+    benefit: {},
+    sector: {},
+    platform: {},
+  });
+
+  const handleCheckboxChange = (category, id) => {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [id]: !prev[category][id],
+      },
+    }));
+  };
+
+  // Логика фильтрации карточек
+  const filteredBenefits = useMemo(() => {
+    return benefits.filter((item) => {
+      const isAnyActive = (category) =>
+        Object.values(selectedFilters[category]).some(Boolean);
+
+      const cardTypeMatch =
+        !isAnyActive("cardType") || selectedFilters.cardType[item.cardType];
+      const locationMatch =
+        !isAnyActive("location") || selectedFilters.location[item.location];
+      const benefitMatch =
+        !isAnyActive("benefit") || selectedFilters.benefit[item.benefitType];
+      const sectorMatch =
+        !isAnyActive("sector") || selectedFilters.sector[item.sector];
+      const platformMatch =
+        !isAnyActive("platform") || selectedFilters.platform[item.platform];
+
+      return (
+        cardTypeMatch &&
+        locationMatch &&
+        benefitMatch &&
+        sectorMatch &&
+        platformMatch
+      );
+    });
+  }, [benefits, selectedFilters]);
 
   // Ссылка для автоматического фокуса на поле поиска
   const searchInputRef = useRef(null);
@@ -84,378 +204,597 @@ export default function EvocaBenefitsPage() {
     fetchBenefits();
   }, []);
 
-  // Функция добавления еще 5 карточек по клику
   const loadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 5);
+    setVisibleCount((prevCount) => prevCount + 6);
   };
 
   return (
     <div className="min-h-screen bg-white font-sans relative pb-0 overflow-x-hidden">
-      {/* 1. Кастомная шапка */}
-      <header className="flex items-center justify-between px-4 py-3 bg-white sticky top-0 z-50">
-        <div className="w-8 h-8 flex items-center justify-center text-[#5D00E0]">
-          <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-            <path d="M12 21L3 6h4.5L12 15l4.5-9H21L12 21z" />
-          </svg>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="bg-[#5D00E0] hover:bg-purple-800 text-white text-sm font-medium px-4 py-2 rounded-full transition-colors cursor-pointer">
-            Պատվիրել քարտ
-          </button>
-          <button className="text-gray-800 p-1 cursor-pointer">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-          </button>
+      {/* 1. Шапка */}
+      <header className="px-4 pt-3 sticky top-0 z-50 bg-white/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto bg-white rounded-full shadow-sm border border-gray-100 px-6 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <div className="w-8 h-8 flex items-center justify-center text-[#5D00E0]">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                <path d="M12 21L3 6h4.5L12 15l4.5-9H21L12 21z" />
+              </svg>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="bg-[#5D00E0] hover:bg-purple-800 text-white text-xs sm:text-sm font-medium px-5 py-2.5 rounded-full transition-colors cursor-pointer">
+              Պատվիրել քարտ
+            </button>
+            <button className="text-gray-800 p-1.5 cursor-pointer hover:text-[#5D00E0] transition-colors">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* 2. Блок Hero с плавающими иконками */}
-      <section className="relative py-12 px-4 max-w-md mx-auto text-center flex flex-col items-center justify-center min-h-[250px]">
-        <h1 className="text-xl sm:text-2xl font-bold text-[#5D00E0] leading-snug relative z-10 max-w-[280px]">
-          Բացահայտիր Evoca քարտերի բենեֆիթները
-        </h1>
-
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-2 left-10 transform -rotate-12 bg-white shadow-md rounded border border-gray-100 px-2 py-1">
-            <div className="flex items-center w-8 h-5">
-              <div className="w-3 h-3 bg-red-500 rounded-full opacity-80 -mr-1"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full opacity-80"></div>
-            </div>
-          </div>
-          <div className="absolute top-8 right-6 transform rotate-12 text-green-500">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M5 6h14c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V8c0-1.1.9-2 2-2zm0 2v8h14V8H5zm7 7c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" />
-            </svg>
-          </div>
-          <div className="absolute bottom-16 left-4 bg-white shadow-md rounded-[20px] border border-gray-100 px-4 py-1.5 flex items-center justify-center">
-            <span className="text-[#1434CB] font-bold italic text-sm">
-              VISA
-            </span>
-          </div>
-          <div className="absolute bottom-14 left-1/2 -translate-x-1/2 bg-white shadow-md rounded-full border border-red-400 px-4 py-1.5 flex items-center justify-center gap-1">
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-red-500 rounded-full opacity-90 -mr-1.5 z-10"></div>
-              <div className="w-4 h-4 bg-yellow-500 rounded-full opacity-90"></div>
-            </div>
-            <span className="text-[10px] font-bold ml-1">mastercard</span>
-          </div>
-          <div className="absolute bottom-16 right-4 bg-white shadow-md rounded-[20px] border border-[#A1D135] px-4 py-1.5 flex items-center justify-center">
-            <span className="text-[#184F90] font-bold text-sm">
-              ar<span className="text-[#A1D135]">ca</span>
-            </span>
-          </div>
-          <div className="absolute bottom-4 left-10 bg-white shadow-sm rounded border border-gray-100 px-2 py-0.5">
-            <span className="text-[#184F90] font-bold text-[10px]">
-              ar<span className="text-[#A1D135]">ca</span>
-            </span>
-          </div>
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-white shadow-sm rounded-[20px] border border-red-500 px-3 py-1 flex items-center justify-center">
-            <span className="text-red-500 font-bold text-[10px]">UnionPay</span>
-          </div>
-          <div className="absolute bottom-0 right-10 transform -rotate-12 bg-[#1434CB] shadow-md rounded px-3 py-1 flex items-center justify-center">
-            <span className="text-white font-bold italic text-xs">VISA</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Строка поиска */}
-      <div className="px-4 mt-8 flex items-center gap-3 max-w-lg mx-auto">
-        <button className="text-gray-800 shrink-0 cursor-pointer">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <div className="flex-1 bg-[#F5F5F5] rounded-full flex items-center px-4 py-3">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#888"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="shrink-0"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input
-            ref={searchInputRef}
-            type="text"
-            placeholder="Որոնել"
-            className="bg-transparent border-none outline-none ml-2 w-full text-sm text-gray-700 placeholder-gray-500"
-          />
-        </div>
-      </div>
-
-      {/* 4. Сетка карточек бенефитов */}
-      <div className="p-4 mt-6 max-w-lg mx-auto grid grid-cols-1 gap-4">
-        {loading ? (
-          <p className="text-center text-gray-500 py-4">Բեռնվում է...</p>
-        ) : (
-          benefits.slice(0, visibleCount).map((item) => {
-            const firstSpaceIndex = item.title.indexOf(" ");
-            const percent =
-              firstSpaceIndex !== -1
-                ? item.title.substring(0, firstSpaceIndex)
-                : item.title;
-            const name =
-              firstSpaceIndex !== -1
-                ? item.title.substring(firstSpaceIndex + 1)
-                : "";
-
-            return (
-              <div
-                key={item.id}
-                className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm bg-white pb-4"
-              >
-                <div className="h-[180px] bg-[#111] flex items-center justify-center relative overflow-hidden">
-                  <img
-                    src={item.imageUrl}
-                    alt={name}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                </div>
-                <div className="px-4 pt-4">
-                  <h3 className="font-bold text-gray-900 text-lg">
-                    <span className="text-[#5D00E0]">{percent}</span> {name}
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
-                    {item.discountType}
-                  </p>
-                  <div className="flex items-center justify-between mt-3">
-                    <span className="text-xs px-3 py-1 bg-gray-100 rounded-md text-gray-700 font-medium">
-                      {item.category}
-                    </span>
-                    {item.socials?.instagram && (
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-gray-700"
-                      >
-                        <rect
-                          x="2"
-                          y="2"
-                          width="20"
-                          height="20"
-                          rx="5"
-                          ry="5"
-                        ></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                      </svg>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })
-        )}
-      </div>
-
-      {/* Кнопка "Загрузить еще" (+5 карточек) */}
-      {!loading && visibleCount < benefits.length && (
-        <div className="flex justify-center mt-4 mb-10">
-          <button
-            onClick={loadMore}
-            className="flex items-center gap-2 text-[#5D00E0] font-bold text-sm px-4 py-2 hover:bg-purple-50 rounded-lg transition-colors cursor-pointer"
-          >
-            Բեռնել ավելին
+      {/* Основной контейнер */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-16">
+        {/* Строка поиска */}
+        <div className="max-w-2xl mx-auto mb-10 flex items-center gap-3">
+          <div className="flex-1 bg-[#F5F5F5] rounded-full flex items-center px-5 py-3.5 shadow-inner">
             <svg
-              width="14"
-              height="14"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
+              stroke="#888"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="shrink-0"
             >
-              <polyline points="6 9 12 15 18 9"></polyline>
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-          </button>
-        </div>
-      )}
-
-      {/* 5. Блок FAQ (Аккордеон) */}
-      <section className="px-4 mt-12 max-w-lg mx-auto">
-        <h2 className="text-xl font-bold text-gray-900 mb-6 text-left">
-          Հաճախ տրվող հարցեր
-        </h2>
-        <div className="flex flex-col gap-3">
-          {faqItems.map((item, index) => {
-            const isOpen = openFaqIndex === index;
-            return (
-              <div
-                key={index}
-                className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
-                  isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
-                }`}
-              >
-                <button
-                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full flex items-center justify-between p-4 text-left font-bold text-gray-900 text-sm sm:text-base focus:outline-none cursor-pointer hover:bg-gray-50 transition-colors"
-                >
-                  <span className="pr-2">{item.question}</span>
-                  <div className="w-7 h-7 flex items-center justify-center shrink-0 text-[#5D00E0]">
-                    {isOpen ? (
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="18 15 12 9 6 15"></polyline>
-                      </svg>
-                    ) : (
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    )}
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div className="px-4 pb-4 pt-1 text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                    {item.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 6. Footer & Contact Details Section */}
-      <footer className="mt-16 bg-white border-t border-gray-100 pt-8 pb-0">
-        <div className="px-4 max-w-lg mx-auto">
-          {/* Logo */}
-          <div className="mb-6">
-            <img
-              src={evocaBenefitsLogo}
-              alt="Evoca Benefits"
-              className="h-12 object-contain"
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Որոնել"
+              className="bg-transparent border-none outline-none ml-3 w-full text-base text-gray-700 placeholder-gray-500"
             />
           </div>
+        </div>
 
-          {/* Contact heading */}
-          <h3 className="text-base font-bold text-gray-900 mb-4">
-            Կոնտակտային տվյալներ
-          </h3>
+        {/* Двухколоночный макет: Слева фильтры, Справа сетка карточек */}
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 items-start">
+          {/* Левый сайдбар с фильтрами */}
+          <aside className="hidden md:block md:col-span-1 lg:col-span-1 space-y-6 sticky top-24">
+            <h2 className="text-xl font-bold text-gray-900">Ֆիլտրներ</h2>
 
-          {/* Phone */}
-          <a
-            href="tel:+37410605555"
-            className="flex items-center gap-3 text-gray-800 mb-3 hover:text-[#5D00E0] transition-colors cursor-pointer"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            <span className="font-medium text-sm">+374 10 605555</span>
-          </a>
+            {/* Сортировка */}
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold text-gray-700">
+                Դասավորել
+              </label>
+              <div className="relative">
+                <select className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 outline-none appearance-none cursor-pointer focus:border-[#5D00E0]">
+                  <option>Ըստ հանրաճանաչության</option>
+                  <option>Զեղչի չափի (նվազման)</option>
+                  <option>Այբբենական</option>
+                </select>
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+              </div>
+            </div>
 
-          {/* Contact us */}
-          <a
-            href="#"
-            className="flex items-center gap-3 text-gray-800 mb-8 hover:text-[#5D00E0] transition-colors cursor-pointer"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            <span className="font-medium text-sm">Կապ մեզ հետ</span>
-          </a>
+            {/* 1. Քարտատեսակ */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <button
+                onClick={() => toggleSection("cardType")}
+                className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+              >
+                <span>Քարտատեսակ</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`text-gray-500 transition-transform ${openSections.cardType ? "rotate-180" : ""}`}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
 
-          {/* Download App title */}
-          <h4 className="text-sm font-bold text-[#5D00E0] mb-3">
-            Ներբեռնել EvocaTOUCH հավելվածը
-          </h4>
+              {openSections.cardType && (
+                <div className="space-y-3 pt-1 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
+                  {cardTypesList.map((card) => (
+                    <label
+                      key={card.id}
+                      className="flex items-center justify-between cursor-pointer group select-none"
+                    >
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={!!selectedFilters.cardType[card.id]}
+                          onChange={() =>
+                            handleCheckboxChange("cardType", card.id)
+                          }
+                          className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                        />
+                        <span className="text-sm text-gray-700 group-hover:text-[#5D00E0] transition-colors">
+                          {card.label}
+                        </span>
+                      </div>
+                      <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+                        {card.count}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          {/* App Badges */}
-          <div className="flex items-center gap-3 mb-8">
-            <a href="#" className="inline-block cursor-pointer">
+            {/* 2. Վայր */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <button
+                onClick={() => toggleSection("location")}
+                className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+              >
+                <span>Վայր</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`text-gray-500 transition-transform ${openSections.location ? "rotate-180" : ""}`}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              {openSections.location && (
+                <div className="space-y-3 pt-1">
+                  {locationList.map((loc) => (
+                    <label
+                      key={loc.id}
+                      className="flex items-center gap-3 cursor-pointer group select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!!selectedFilters.location[loc.id]}
+                        onChange={() =>
+                          handleCheckboxChange("location", loc.id)
+                        }
+                        className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                      />
+                      <span className="text-sm text-gray-700 group-hover:text-[#5D00E0] transition-colors">
+                        {loc.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 3. Բենեֆիթ */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <button
+                onClick={() => toggleSection("benefit")}
+                className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+              >
+                <span>Բենեֆիթ</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`text-gray-500 transition-transform ${openSections.benefit ? "rotate-180" : ""}`}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              {openSections.benefit && (
+                <div className="space-y-3 pt-1">
+                  {benefitList.map((ben) => (
+                    <label
+                      key={ben.id}
+                      className="flex items-center gap-3 cursor-pointer group select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!!selectedFilters.benefit[ben.id]}
+                        onChange={() => handleCheckboxChange("benefit", ben.id)}
+                        className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                      />
+                      <span className="text-sm text-gray-700 group-hover:text-[#5D00E0] transition-colors">
+                        {ben.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 4. Ոլորտ */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <button
+                onClick={() => toggleSection("sector")}
+                className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+              >
+                <span>Ոլորտ</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`text-gray-500 transition-transform ${openSections.sector ? "rotate-180" : ""}`}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              {openSections.sector && (
+                <div className="space-y-3 pt-1 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
+                  {sectorList.map((sec) => (
+                    <label
+                      key={sec.id}
+                      className="flex items-center gap-3 cursor-pointer group select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!!selectedFilters.sector[sec.id]}
+                        onChange={() => handleCheckboxChange("sector", sec.id)}
+                        className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                      />
+                      <span className="text-sm text-gray-700 group-hover:text-[#5D00E0] transition-colors">
+                        {sec.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 5. Հարթակ */}
+            <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
+              <button
+                onClick={() => toggleSection("platform")}
+                className="w-full flex items-center justify-between font-bold text-gray-900 text-base cursor-pointer focus:outline-none"
+              >
+                <span>Հարթակ</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`text-gray-500 transition-transform ${openSections.platform ? "rotate-180" : ""}`}
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              {openSections.platform && (
+                <div className="space-y-3 pt-1">
+                  {platformList.map((plat) => (
+                    <label
+                      key={plat.id}
+                      className="flex items-center gap-3 cursor-pointer group select-none"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!!selectedFilters.platform[plat.id]}
+                        onChange={() =>
+                          handleCheckboxChange("platform", plat.id)
+                        }
+                        className="w-4 h-4 rounded border-gray-300 text-[#5D00E0] focus:ring-[#5D00E0] cursor-pointer"
+                      />
+                      <span className="text-sm text-gray-700 group-hover:text-[#5D00E0] transition-colors">
+                        {plat.label}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+          </aside>
+
+          {/* Правая часть: Сетка карточек с размером lg:grid-cols-2 для меньших карточек в ряд */}
+          <div className="md:col-span-3 lg:col-span-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+              {loading ? (
+                <p className="text-center text-gray-500 py-12 col-span-full">
+                  Բեռնվում է...
+                </p>
+              ) : filteredBenefits.length > 0 ? (
+                filteredBenefits.slice(0, visibleCount).map((item) => {
+                  const firstSpaceIndex = item.title.indexOf(" ");
+                  const percent =
+                    firstSpaceIndex !== -1
+                      ? item.title.substring(0, firstSpaceIndex)
+                      : item.title;
+                  const name =
+                    firstSpaceIndex !== -1
+                      ? item.title.substring(firstSpaceIndex + 1)
+                      : "";
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm bg-white pb-4 hover:shadow-md transition-shadow"
+                    >
+                      <div className="h-[180px] bg-[#111] flex items-center justify-center relative overflow-hidden">
+                        <img
+                          src={item.imageUrl}
+                          alt={name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="px-4 pt-4">
+                        <h3 className="font-bold text-gray-900 text-lg">
+                          <span className="text-[#5D00E0]">{percent}</span>{" "}
+                          {name}
+                        </h3>
+                        <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                          {item.discountType}
+                        </p>
+                        <div className="flex items-center justify-between mt-4">
+                          <span className="text-xs px-3 py-1 bg-gray-100 rounded-md text-gray-700 font-medium">
+                            {item.category}
+                          </span>
+                          {item.socials?.instagram && (
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="text-gray-700"
+                            >
+                              <rect
+                                x="2"
+                                y="2"
+                                width="20"
+                                height="20"
+                                rx="5"
+                                ry="5"
+                              ></rect>
+                              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                              <line
+                                x1="17.5"
+                                y1="6.5"
+                                x2="17.51"
+                                y2="6.5"
+                              ></line>
+                            </svg>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="text-center text-gray-500 py-12 col-span-full">
+                  Ոչինչ չի գտնվել
+                </p>
+              )}
+            </div>
+
+            {/* Кнопка "Загрузить еще" */}
+            {!loading && visibleCount < filteredBenefits.length && (
+              <div className="flex justify-center mt-10 mb-12">
+                <button
+                  onClick={loadMore}
+                  className="flex items-center gap-2 text-[#5D00E0] font-bold text-sm px-6 py-3 hover:bg-purple-50 rounded-xl transition-colors cursor-pointer border border-purple-100"
+                >
+                  Բեռնել ավելին
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* FAQ Секция */}
+        <section className="mt-20 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-left">
+            Հաճախ տրվող հարցեր
+          </h2>
+          <div className="flex flex-col gap-4">
+            {faqItems.map((item, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={index}
+                  className={`rounded-2xl border transition-all duration-200 overflow-hidden bg-white ${
+                    isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
+                  }`}
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between p-5 text-left font-bold text-gray-900 text-base focus:outline-none cursor-pointer hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="pr-4">{item.question}</span>
+                    <div className="w-8 h-8 flex items-center justify-center shrink-0 text-[#5D00E0]">
+                      {isOpen ? (
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                      ) : (
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      )}
+                    </div>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-5 pb-5 pt-1 text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                      {item.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-20 bg-white border-t border-gray-100 pt-12 pb-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
+            <div>
               <img
-                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                alt="App Store"
-                className="h-10 object-contain"
+                src={evocaBenefitsLogo}
+                alt="Evoca Benefits"
+                className="h-8 object-contain mb-4"
               />
-            </a>
-            <a href="#" className="inline-block cursor-pointer">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Google Play"
-                className="h-10 object-contain"
-              />
-            </a>
+              <h3 className="text-base font-bold text-gray-900">
+                Կոնտակտային տվյալներ
+              </h3>
+            </div>
+
+            <div className="flex items-center gap-8 flex-wrap">
+              <a
+                href="tel:+37410605555"
+                className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span className="font-medium text-sm">+374 10 605555</span>
+              </a>
+
+              <a
+                href="#"
+                className="flex items-center gap-2 text-gray-800 hover:text-[#5D00E0] transition-colors cursor-pointer"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span className="font-medium text-sm">Կապ մեզ հետ</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h4 className="text-sm font-bold text-[#5D00E0] mb-3">
+              Ներբեռնել EvocaTOUCH հավելվածը
+            </h4>
+            <div className="flex items-center gap-3">
+              <a href="#" className="inline-block cursor-pointer">
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="App Store"
+                  className="h-10 object-contain"
+                />
+              </a>
+              <a href="#" className="inline-block cursor-pointer">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                  alt="Google Play"
+                  className="h-10 object-contain"
+                />
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Bottom Purple Social & Copyright Bar */}
-        <div className="bg-[#5D00E0] text-white pt-6 pb-6 px-4 mt-8">
-          <div className="max-w-lg mx-auto flex flex-col items-center">
-            {/* Social Icons */}
-            <div className="flex items-center gap-6 mb-4">
+        <div className="bg-[#5D00E0] text-white py-6 px-4">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-6">
               <a
                 href="#"
                 className="hover:opacity-80 transition-opacity cursor-pointer"
@@ -517,8 +856,7 @@ export default function EvocaBenefitsPage() {
                 </svg>
               </a>
             </div>
-            {/* Copyright */}
-            <p className="text-[10px] sm:text-xs text-center opacity-90 tracking-wide">
+            <p className="text-xs text-center opacity-90 tracking-wide">
               © 2026 EVOCABANK. ԲՈԼՈՐ ԻՐԱՎՈՒՆՔՆԵՐԸ ՊԱՇՏՊԱՆՎԱԾ ԵՆ
             </p>
           </div>
