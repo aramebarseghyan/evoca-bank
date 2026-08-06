@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { db } from "../../../firebase";
@@ -8,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const CardSlider = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +41,7 @@ const CardSlider = () => {
 
   const handleDetailsClick = () => {
     if (cards[activeIndex]) {
-      console.log(`: ${cards[activeIndex].title}`);
+      navigate(`/cards/${cards[activeIndex].id}`);
     }
   };
 
@@ -128,7 +130,10 @@ const CardSlider = () => {
         >
           {cards.map((card) => (
             <SwiperSlide key={card.id}>
-              <div className="flex justify-center items-center px-10 py-4">
+              <div
+                className="flex justify-center items-center px-10 py-4 cursor-pointer"
+                onClick={handleDetailsClick}
+              >
                 <img
                   src={card.imageUrl}
                   alt={card.title}
@@ -153,7 +158,7 @@ const CardSlider = () => {
 
         <button
           onClick={handleDetailsClick}
-          className="w-full bg-[#6500D8] active:bg-[#4E00A8] text-white py-[14px] rounded-full text-[16px] font-medium transition-colors shadow-md mt-auto relative"
+          className="w-full bg-[#6500D8] active:bg-[#4E00A8] text-white py-[14px] rounded-full text-[16px] font-medium transition-colors shadow-md mt-auto relative cursor-pointer"
         >
           Մանրամասն
         </button>
@@ -248,13 +253,14 @@ const CardSlider = () => {
               alt={cards[activeIndex]?.title}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
+              onClick={handleDetailsClick}
               style={tiltStyle}
               className="w-full aspect-[1.58] object-contain rounded-2xl cursor-pointer will-change-transform"
             />
           </div>
         </div>
 
-        {/* 3. Աջ կողմ: Տեքստ և Կոճակ (Поднят на 130px только для 2xl) */}
+        {/* 3. Աջ կողմ: Տեքստ և Կոճակ */}
         <div className="flex flex-col justify-center w-[300px] xl:w-[350px] shrink-0 pr-4 2xl:-translate-y-[130px]">
           <h2 className="text-[28px] xl:text-[34px] font-semibold text-[#1A1F36] mb-5 text-left leading-tight">
             {cards[activeIndex]?.title}
@@ -268,7 +274,7 @@ const CardSlider = () => {
 
           <button
             onClick={handleDetailsClick}
-            className="w-[180px] bg-[#6500D8] hover:bg-[#5A00C8] active:bg-[#4E00A8] text-white py-[14px] rounded-full text-[16px] font-medium transition-colors shadow-md relative"
+            className="w-[180px] bg-[#6500D8] hover:bg-[#5A00C8] active:bg-[#4E00A8] text-white py-[14px] rounded-full text-[16px] font-medium transition-colors shadow-md relative cursor-pointer"
           >
             Մանրամասն
           </button>

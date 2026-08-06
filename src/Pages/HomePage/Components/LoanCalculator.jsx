@@ -17,7 +17,7 @@ const LoanCalculator = () => {
 
   return (
     // Ավելացված է 2xl:max-w-[1100px] լայն էկրանների համար
-    <div className="w-full max-w-[900px] xl:max-w-[800px] 2xl:max-w-[1100px] mx-auto p-5 pt-8 font-sans">
+    <div className=" w-full max-w-[900px] xl:max-w-[800px] 2xl:max-w-[1100px] mx-auto p-5 pt-25 font-sans">
       <div className="-mt-[370px] md:-mt-[-30px] -mb-[290px] md:mb-[70px] relative z-10 transition-all">
         {/* Հաշվիչներ վերնագիրը */}
         <h1 className="text-[28px] md:text-[35px] 2xl:text-[40px] font-extrabold text-gray-900 mb-6 2xl:mb-8 tracking-tight px-1">
