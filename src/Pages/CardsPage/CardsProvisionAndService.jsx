@@ -1379,63 +1379,37 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
       </div>
-      <div className="w-full max-w-4xl mx-auto px-3 sm:px-6 py-6 sm:py-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
-          Փաստաթղթեր
-        </h2>
-        <div className="space-y-3">
-          {documentsData.map((doc) => (
-            <a
-              key={doc.id}
-              href={doc.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-3.5 sm:p-4 bg-purple-50/60 hover:bg-purple-100/70 active:bg-purple-200/70 rounded-xl transition-all duration-200 group shadow-sm border border-purple-100/50 gap-3"
-            >
-              <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
-                <div className="text-purple-700 flex-shrink-0">
-                  <svg
-                    className="w-7 h-7 sm:w-8 sm:h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 15l3 3m0 0l3-3m-3 3V9"
-                    />
-                  </svg>
-                </div>
-                <span className="text-gray-800 font-medium text-xs sm:text-sm md:text-base group-hover:text-purple-900 leading-snug break-words">
-                  {doc.title}
-                </span>
-              </div>
-              <div className="text-purple-700 opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2">
-                <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  />
+    <div className="w-full max-w-4xl 2xl:max-w-6xl mx-auto px-3 sm:px-6 py-6 sm:py-8 2xl:mr-[18%]">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Փաստաթղթեր</h2>
+      <div className="space-y-3">
+        {documentsData.map((doc) => (
+          <a
+            key={doc.id}
+            href={doc.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between p-3.5 sm:p-4 bg-purple-50/60 hover:bg-purple-100/70 active:bg-purple-200/70 rounded-xl transition-all duration-200 group shadow-sm border border-purple-100/50 gap-3"
+          >
+            <div className="flex items-center space-x-3 sm:space-x-4 min-w-0 flex-1">
+              <div className="text-purple-700 flex-shrink-0">
+                <svg className="w-7 h-7 sm:w-8 sm:h-8" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 15l3 3m0 0l3-3m-3 3V9" />
                 </svg>
               </div>
-            </a>
-          ))}
-        </div>
+              <span className="text-gray-800 font-medium text-xs sm:text-sm md:text-base group-hover:text-purple-900 leading-snug break-words">
+                {doc.title}
+              </span>
+            </div>
+            <div className="text-purple-700 opacity-60 group-hover:opacity-100 transition-opacity flex-shrink-0 ml-2">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </div>
+          </a>
+        ))}
       </div>
+    </div>
     </div>
   );
 };
