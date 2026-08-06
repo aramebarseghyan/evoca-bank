@@ -20,6 +20,15 @@ const PageHeader = () => {
   const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
+    // Особые данные для страницы пенсионных карт (хлебные крошки и заголовок)
+    if (path === "/pension-cards") {
+      return {
+        section: "Անհատ",
+        category: "Քարտեր",
+        title: "Սոցիալական ապահովության վճարային քարտեր",
+      };
+    }
+
     const group = subNavigationGroups.find((g) =>
       g.paths.some((p) => path === p || path.startsWith(`${p}/`)),
     );
@@ -120,6 +129,7 @@ const PageHeader = () => {
   };
 
   const { section, category, title } = getPageDetails(cleanPath);
+  const isPensionCards = cleanPath === "/pension-cards";
 
   const chevronIcon = (
     <svg
@@ -166,9 +176,12 @@ const PageHeader = () => {
         <span className="text-gray-800 font-medium shrink-0">{title}</span>
       </div>
 
-      <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
-        {title}
-      </h1>
+      {/* Убираем дублирующий крупный заголовок h1 только для страницы /pension-cards */}
+      {!isPensionCards && (
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+          {title}
+        </h1>
+      )}
     </div>
   );
 };
