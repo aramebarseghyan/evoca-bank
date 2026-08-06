@@ -3,6 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 
+// Импорт шейпов из вашей папки assets/img
+import shape1 from "../../../assets/img/shape1.png";
+import shape2 from "../../../assets/img/shape2.png";
+import shape3 from "../../../assets/img/shape3.png";
+import shape4 from "../../../assets/img/shape4.png";
+import shape5 from "../../../assets/img/shape5.png";
+import shape6 from "../../../assets/img/shape6.png";
+
 const LoanDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -57,7 +65,6 @@ const LoanDetailsPage = () => {
     );
   }
 
-  // Стандартные данные таблицы условий
   const defaultTerms = [
     {
       id: "1",
@@ -197,8 +204,28 @@ const LoanDetailsPage = () => {
   const documentsList = product.documentsList || defaultDocuments;
 
   return (
-    <div className="w-full font-sans bg-white min-h-screen pb-20">
-      {/* 1. Hero Секция */}
+    <div className="w-full font-sans bg-white min-h-screen pb-0">
+      {/* Стили для анимаций шейпов */}
+      <style>{`
+        @keyframes floatSlow1 {
+          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+          50% { transform: translateY(-18px) translateX(12px) rotate(8deg); }
+        }
+        @keyframes floatSlow2 {
+          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+          50% { transform: translateY(16px) translateX(-14px) rotate(-10deg); }
+        }
+        @keyframes floatSlow3 {
+          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+          50% { transform: translateY(-14px) translateX(-15px) rotate(12deg); }
+        }
+        @keyframes floatSlow4 {
+          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+          50% { transform: translateY(20px) translateX(10px) rotate(-6deg); }
+        }
+      `}</style>
+
+      {/* 1. Обычная Hero Секция сверху */}
       <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-12 pb-16 px-4 sm:px-8 lg:px-24">
         <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 space-y-6">
@@ -317,8 +344,7 @@ const LoanDetailsPage = () => {
         </div>
 
         {/* 4. Контент вкладок */}
-        <div className="pt-10">
-          {/* ВКЛАДКА "Վարկի մասին" - ТОЧНЫЙ ТЕКСТ ИЗ ДИЗАЙНА */}
+        <div className="pt-10 pb-20">
           {activeTab === "Վարկի մասին" && (
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
               <div className="lg:w-[55%] space-y-6 text-[#333333] text-base leading-relaxed">
@@ -555,6 +581,64 @@ const LoanDetailsPage = () => {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* 5. Фиолетовый баннер в самом низу с плавно и разнонаправленно анимированными шейпами */}
+      <div
+        className="relative w-full py-32 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
+        style={{
+          backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
+        }}
+      >
+        {/* Шейп 1 (Замедлен, движение по диагонали вправо-вверх) */}
+        <img
+          src={shape1}
+          alt="shape"
+          className="absolute top-8 left-10 sm:left-20 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-90 pointer-events-none"
+          style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
+        />
+        {/* Шейп 2 (Движение в противоположную сторону) */}
+        <img
+          src={shape2}
+          alt="shape"
+          className="absolute bottom-10 left-16 sm:left-32 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
+          style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
+        />
+        {/* Шейп 3 (Своя плавная траектория) */}
+        <img
+          src={shape3}
+          alt="shape"
+          className="absolute top-12 right-12 sm:right-24 w-14 sm:w-20 h-14 sm:h-20 object-contain opacity-90 pointer-events-none"
+          style={{ animation: "floatSlow3 8s ease-in-out infinite 0.5s" }}
+        />
+        {/* Шейп 4 */}
+        <img
+          src={shape4}
+          alt="shape"
+          className="absolute bottom-12 right-20 sm:right-40 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-85 pointer-events-none"
+          style={{ animation: "floatSlow4 6.5s ease-in-out infinite 1.5s" }}
+        />
+        {/* Шейп 5 */}
+        <img
+          src={shape5}
+          alt="shape"
+          className="absolute top-1/2 left-6 sm:left-12 -translate-y-1/2 w-8 sm:w-12 h-8 sm:h-12 object-contain opacity-75 pointer-events-none"
+          style={{ animation: "floatSlow2 7.5s ease-in-out infinite 2s" }}
+        />
+        {/* Шейп 6 */}
+        <img
+          src={shape6}
+          alt="shape"
+          className="absolute top-1/2 right-6 sm:right-16 -translate-y-1/2 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
+          style={{ animation: "floatSlow1 8.5s ease-in-out infinite 0.8s" }}
+        />
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-snug">
+            Լավագույն գաղափարներդ կյանքի́ կոչիր Evocabank-ի հետ ու պատրաստ եղիր
+            նոր իրադարձությունների:
+          </h2>
         </div>
       </div>
     </div>
