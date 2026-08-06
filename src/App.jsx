@@ -10,13 +10,14 @@ import ScrollToTop from "./components/ScrollToTop";
 // 2. Импортируем страницы
 import HomePage from "./Pages/HomePage/HomePage";
 import LoansPage from "./Pages/LoansPage/LoansPage";
+import LoanDetailsPage from "./Pages/LoansPage/Components/LoanDetailsPage"
 import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
 import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
 import CardsPage from "./Pages/CardsPage/CardsPage";
 import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
 import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
 import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
-import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage"
+import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
 
 function App() {
   const location = useLocation();
@@ -40,6 +41,9 @@ function App() {
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
+
+          {/* Маршрут для детальной страницы кредита по ID */}
+          <Route path="/loans/:id" element={<LoanDetailsPage />} />
 
           <Route
             path="/credit-history-and-score"

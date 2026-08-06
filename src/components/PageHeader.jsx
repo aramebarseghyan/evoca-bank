@@ -5,13 +5,15 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
-  // Եթե գլխավոր էջն է կամ առանձին քարտի դետալային էջն է (/cards/:id), չենք ցուցադրում
+  // Եթե գլխավոր էջն է, կամ առանձին քարտի/վարկի դետալային էջն է, չենք ցուցադրում
   if (
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
     location.pathname === "/en" ||
     (location.pathname.startsWith("/cards/") &&
+      location.pathname.split("/").length > 2) ||
+    (location.pathname.startsWith("/loans/") &&
       location.pathname.split("/").length > 2)
   ) {
     return null;
@@ -176,7 +178,6 @@ const PageHeader = () => {
         <span className="text-gray-800 font-medium shrink-0">{title}</span>
       </div>
 
-      {/* Убираем дублирующий крупный заголовок h1 только для страницы /pension-cards */}
       {!isPensionCards && (
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
           {title}

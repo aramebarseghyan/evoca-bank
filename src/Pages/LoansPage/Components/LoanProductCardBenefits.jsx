@@ -1,9 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const LoanProductCard = ({ product }) => {
-  // Добавляем консоль лог, чтобы точно видеть, какие данные приходят в карточку
-  console.log("Данные карточки:", product);
+const LoanProductCardBenefits = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleDetailsClick = () => {
+    // Переходим на страницу конкретного кредита по его ID из Firebase
+    navigate(`/loans/${product.id}`);
+  };
 
   return (
     <div className="w-full font-sans py-8 border-b border-gray-200 last:border-b-0">
@@ -49,13 +53,9 @@ const LoanProductCard = ({ product }) => {
               ))}
           </div>
 
-          {/* Мы заменили <button> на <Link> */}
-          <Link
-            to={product.id ? `/loans/${product.id}` : "#"}
-            className="w-full sm:w-auto px-8 py-4 flex items-center justify-center gap-3 bg-[#F3E5F5] text-[#5D00E0] rounded-full font-medium text-base sm:text-lg hover:bg-[#E1BEE7] transition-colors cursor-pointer inline-flex"
-            onClick={() => {
-              if (!product.id) alert("Ошибка: ID кредита отсутствует!");
-            }}
+          <button
+            onClick={handleDetailsClick}
+            className="w-full sm:w-auto px-8 py-4 flex items-center justify-center gap-3 bg-[#F3E5F5] text-[#5D00E0] rounded-full font-medium text-base sm:text-lg hover:bg-[#E1BEE7] transition-colors cursor-pointer"
           >
             {product.buttonText || "Մանրամասն"}
             <svg
@@ -73,11 +73,11 @@ const LoanProductCard = ({ product }) => {
                 strokeLinejoin="round"
               />
             </svg>
-          </Link>
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoanProductCard;
+export default LoanProductCardBenefits;
