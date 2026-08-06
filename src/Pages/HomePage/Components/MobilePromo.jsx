@@ -34,7 +34,6 @@ const LoanDetailsPage = () => {
       if (!id) return;
       setLoading(true);
       try {
-        // Загрузка текущего кредита
         const docRef = doc(db, "loans", id);
         const docSnap = await getDoc(docRef);
 
@@ -44,7 +43,6 @@ const LoanDetailsPage = () => {
           console.error("Кредит не найден!");
         }
 
-        // Загрузка других кредитов для слайдера
         const querySnapshot = await getDocs(collection(db, "loans"));
         const loansList = querySnapshot.docs
           .map((docSnapItem) => ({ id: docSnapItem.id, ...docSnapItem.data() }))
@@ -182,7 +180,7 @@ const LoanDetailsPage = () => {
       id: "12",
       title: "Վարկունակության գնահատում / վարկի հաստատման պայմաններ/",
       content:
-        "• Անկախ վարկի գումարից և բավարար հիմնավորված եկամուտների առկայությունից՝ «ԱՔՌԱ Քրեդիտ Ռեփորթինգ» ՓԲԸ-ից ստացված տեղեկատվության համաձայն Հաճախորդի կամ երաշխավորներից որևէ մեկի FICO (սքོڕը) պետք է լինի 540 և բարձր։\n\n• Առանց եկամուտների վարկավորման դեպքում Հաճախորդը վերջին 1 տարվա ընթացքում չպետք է ունենա վարկային պարտավորությունների գծով դասակարգումներ և մարումների գծով ուշացման օերի հանրագումարը չպետք է գերազանցի 30 օրը։",
+        "• Անկախ վարկի գումարից և բավարար հիմնավորված եկամուտների առկայությունից՝ «ԱՔՌԱ Քրեդիտ Ռեփորթինգ» ՓԲԸ-ից ստացված տեղեկատվության համաձայն Հաճախորդի կամ երաշխավորներից որևէ մեկի FICO (սքոڕը) պետք է լինի 540 և բարձր։\n\n• Առանց եկամուտների վարկավորման դեպքում Հաճախորդը վերջին 1 տարվա ընթացքում չպետք է ունենա վարկային պարտավորությունների գծով դասակարգումներ և մարումների գծով ուշացման օերի հանրագումարը չպետք է գերազանցի 30 օրը։",
     },
     {
       id: "13",
@@ -223,7 +221,6 @@ const LoanDetailsPage = () => {
 
   return (
     <div className="w-full font-sans bg-white min-h-screen pb-0">
-      {/* Стили для анимаций шейпов */}
       <style>{`
         @keyframes floatSlow1 {
           0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
@@ -243,21 +240,26 @@ const LoanDetailsPage = () => {
         }
       `}</style>
 
-      {/* 1. Обычная Hero Секция сверху */}
-      <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-12 pb-16 px-4 sm:px-8 lg:px-24">
-        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
-          <div className="lg:w-1/2 space-y-6">
+      {/* 1. Hero Секция */}
+      <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-8 lg:px-24">
+        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-12">
+          <div className="lg:w-1/2 space-y-4 sm:space-y-6">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
               {product.title}
             </h1>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl">
+            <p className="block sm:hidden text-gray-600 text-sm leading-relaxed">
+              Նոր նպատակներ, անսպասելի ծախսեր կամ վաղուց պլանավորված գնումներ.
+              Evocabank-ի անգրավ սպառողական վարկը կօգնի կյանքի կոչել Ձեր
+              ծրագրերը՝ առանց գույքի գրավադրման:
+            </p>
+            <p className="hidden sm:block text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl">
               {product.description}
             </p>
           </div>
 
           <div className="lg:w-1/2 flex justify-center lg:justify-end">
             <div
-              className={`relative w-64 h-64 sm:w-80 sm:h-80 rounded-full flex items-center justify-center overflow-hidden ${
+              className={`relative w-56 h-56 sm:w-80 sm:h-80 rounded-full flex items-center justify-center overflow-hidden ${
                 product.imageBgColor || "bg-[#FDE047]"
               }`}
             >
@@ -273,11 +275,11 @@ const LoanDetailsPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24">
-        {/* 2. Навигация & Кнопка назад */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6 py-8">
+        {/* 2. Кнопка назад */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 py-6 sm:py-8">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors w-fit cursor-pointer"
+            className="flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors w-fit cursor-pointer text-sm sm:text-base"
           >
             <svg
               width="16"
@@ -296,51 +298,27 @@ const LoanDetailsPage = () => {
             </svg>
             Վերադառնալ
           </button>
-
-          <div className="flex flex-wrap items-center text-sm text-gray-500 gap-2">
-            <span
-              className="hover:text-gray-900 cursor-pointer"
-              onClick={() => navigate("/")}
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M9 22V12H15V22"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <span>›</span>
-            <span className="hover:text-gray-900 cursor-pointer">Անհատ</span>
-            <span>›</span>
-            <span
-              className="hover:text-gray-900 cursor-pointer"
-              onClick={() => navigate("/loans")}
-            >
-              Վարկեր
-            </span>
-            <span>›</span>
-            <span className="text-gray-900 font-medium">{product.title}</span>
-          </div>
         </div>
 
-        {/* 3. Вкладки (Tabs) */}
-        <div className="relative border-b border-gray-200 mt-2">
+        {/* 3. Вкладки (Tabs): Фиолетовые плашки на mobile, десктопные табы на desktop */}
+        <div className="block md:hidden space-y-3 mt-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm transition-colors cursor-pointer flex items-center justify-between ${
+                activeTab === tab
+                  ? "bg-[#5D00E0] text-white shadow-md"
+                  : "bg-[#F0EFEE] text-gray-700"
+              }`}
+            >
+              <span>{tab}</span>
+              <span>›</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="hidden md:block relative border-b border-gray-200 mt-2">
           <div className="flex gap-8 overflow-x-auto no-scrollbar">
             {tabs.map((tab) => (
               <button
@@ -362,38 +340,31 @@ const LoanDetailsPage = () => {
         </div>
 
         {/* 4. Контент вкладок */}
-        <div className="pt-10 pb-16">
+        <div className="pt-6 sm:pt-10 pb-16">
           {activeTab === "Վարկի մասին" && (
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
-              <div className="lg:w-[55%] space-y-6 text-[#333333] text-base leading-relaxed">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 justify-between items-start">
+              <div className="lg:w-[55%] space-y-4 sm:space-y-6 text-[#333333] text-sm sm:text-base leading-relaxed">
                 <p>
                   <span className="font-semibold text-[#5D00E0]">
                     Evocabank
                   </span>
                   -ն առաջարկում է մինչև 10,000,000 ՀՀ դրամ անգրավ սպառողական
                   վարկ՝ պարզ, արագ և հարմար։ Վարկը նախատեսված է Ձեր ամենատարբեր
-                  ֆինանսական կարիքները հոգալու համար՝ անկախ նրանից՝ ցանկանում եք
-                  իրականացնել վաղուց պլանավորված նպատակը, թե լուծել անսպասելի
-                  ծախսերը։
+                  ֆինանսական կարիքները հոգալու համար։
                 </p>
-                <p>
+                <p className="hidden sm:block">
                   Կախված վարկի գումարից, վարկունակությունից և ընտրված
                   պայմաններից՝ վարկը կարող է տրամադրվել առանց երաշխավորի, ինչպես
                   նաև մեկ կամ երկու անձի երաշխավորությամբ։ Այս մոտեցումը
                   հնարավորություն է տալիս ընտրել Ձեզ ամենահարմար տարբերակը։
                 </p>
-                <p>
-                  Մենք անում ենք հնարավոր ամեն բան՝ վարկավորման գործընթացը
-                  պարզեցնելու և արագացնելու համար՝ նվազագույն թղթաբանությամբ և
-                  վարկի արագ ձևակերպմամբ։
-                </p>
               </div>
 
               {/* Правая карточка условий */}
               <div className="lg:w-[45%] w-full">
-                <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-50 overflow-hidden">
-                  <div className="px-8 pt-8 pb-4">
-                    <div className="w-11 h-11 bg-[#5D00E0] rounded-full flex items-center justify-center text-white text-xl font-bold">
+                <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden">
+                  <div className="px-6 sm:px-8 pt-6 sm:pt-8 pb-3 sm:pb-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#5D00E0] rounded-full flex items-center justify-center text-white text-lg sm:text-xl font-bold">
                       ֏
                     </div>
                   </div>
@@ -402,13 +373,13 @@ const LoanDetailsPage = () => {
                       product.conditions.map((cond, idx) => (
                         <div
                           key={idx}
-                          className={`grid grid-cols-2 items-center px-8 py-5 ${idx !== product.conditions.length - 1 ? "border-b border-gray-100" : "pb-8"}`}
+                          className={`grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 ${idx !== product.conditions.length - 1 ? "border-b border-gray-100" : "pb-6 sm:pb-8"}`}
                         >
                           <div>
                             <div className="text-gray-400 text-xs mb-0.5">
                               {cond.prefix}
                             </div>
-                            <div className="text-[#5D00E0] text-[26px] font-bold leading-none">
+                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
                               {cond.value}
                             </div>
                           </div>
@@ -419,34 +390,34 @@ const LoanDetailsPage = () => {
                       ))
                     ) : (
                       <>
-                        <div className="grid grid-cols-2 items-center px-8 py-5 border-b border-gray-100">
+                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
                           <div>
                             <div className="text-gray-400 text-xs mb-0.5">
                               մինչև
                             </div>
-                            <div className="text-[#5D00E0] text-[26px] font-bold leading-none">
+                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
                               10 մլն. ֏
                             </div>
                           </div>
                           <div className="text-[#333333] text-sm">Գումար</div>
                         </div>
-                        <div className="grid grid-cols-2 items-center px-8 py-5 border-b border-gray-100">
+                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
                           <div>
                             <div className="text-gray-400 text-xs mb-0.5">
                               մինչև
                             </div>
-                            <div className="text-[#5D00E0] text-[26px] font-bold leading-none">
+                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
                               60 ամիս
                             </div>
                           </div>
                           <div className="text-[#333333] text-sm">Ժամկետ</div>
                         </div>
-                        <div className="grid grid-cols-2 items-center px-8 py-5 pb-8">
+                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 pb-6 sm:pb-8">
                           <div>
                             <div className="text-gray-400 text-xs mb-0.5">
                               սկսած
                             </div>
-                            <div className="text-[#5D00E0] text-[26px] font-bold leading-none">
+                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
                               19%-ից
                             </div>
                           </div>
@@ -464,7 +435,7 @@ const LoanDetailsPage = () => {
 
           {/* ВКЛАДКА "Պայմաններ" */}
           {activeTab === "Պայմաններ" && (
-            <div className="max-w-5xl mx-auto py-4 animate-fadeIn">
+            <div className="max-w-5xl mx-auto py-2 animate-fadeIn">
               <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                 {termsData.map((item, index) => (
                   <div
@@ -475,8 +446,8 @@ const LoanDetailsPage = () => {
                         : ""
                     }`}
                   >
-                    <div className="md:col-span-4 p-6 bg-[#FAFAFA] border-r border-gray-200 flex gap-4 items-start">
-                      <span className="text-gray-400 font-medium shrink-0 w-6">
+                    <div className="md:col-span-4 p-4 sm:p-6 bg-[#FAFAFA] border-b md:border-b-0 md:border-r border-gray-200 flex gap-3 items-start">
+                      <span className="text-gray-400 font-medium shrink-0 w-5">
                         {index + 1}.
                       </span>
                       <span className="text-gray-900 font-medium text-sm leading-snug">
@@ -484,17 +455,17 @@ const LoanDetailsPage = () => {
                       </span>
                     </div>
 
-                    <div className="md:col-span-8 p-6 flex flex-col justify-center text-gray-700 text-sm leading-relaxed">
+                    <div className="md:col-span-8 p-4 sm:p-6 flex flex-col justify-center text-gray-700 text-sm leading-relaxed">
                       {item.content && (
                         <p className="whitespace-pre-line">{item.content}</p>
                       )}
 
                       {item.subRows && (
-                        <div className="space-y-4 w-full">
+                        <div className="space-y-3 w-full">
                           {item.subRows.map((sub, sIdx) => (
                             <div
                               key={sIdx}
-                              className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3 last:border-0 last:pb-0"
+                              className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-gray-100 pb-2.5 last:border-0 last:pb-0"
                             >
                               <span className="text-gray-600">{sub.label}</span>
                               <span className="font-semibold text-gray-900">
@@ -507,13 +478,13 @@ const LoanDetailsPage = () => {
 
                       {item.tableRows && (
                         <div className="w-full overflow-x-auto">
-                          <table className="w-full text-left border-collapse">
+                          <table className="w-full text-left border-collapse min-w-[280px]">
                             <thead>
                               <tr className="border-b border-gray-200 text-gray-400 text-xs font-medium">
                                 {item.tableHeader.map((th, thIdx) => (
                                   <th
                                     key={thIdx}
-                                    className="pb-3 pr-4 font-medium"
+                                    className="pb-2 pr-3 font-medium"
                                   >
                                     {th}
                                   </th>
@@ -529,7 +500,7 @@ const LoanDetailsPage = () => {
                                   {row.map((cell, cIdx) => (
                                     <td
                                       key={cIdx}
-                                      className={`py-3 pr-4 text-sm ${cIdx > 0 ? "font-semibold text-gray-900" : "text-gray-600"}`}
+                                      className={`py-2.5 pr-3 text-xs sm:text-sm ${cIdx > 0 ? "font-semibold text-gray-900" : "text-gray-600"}`}
                                     >
                                       {cell}
                                     </td>
@@ -542,21 +513,21 @@ const LoanDetailsPage = () => {
                       )}
 
                       {item.subRowsCustom && (
-                        <div className="space-y-4">
+                        <div className="space-y-3">
                           {item.subRowsCustom.map((sc, scIdx) => (
                             <div
                               key={scIdx}
-                              className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center border-b border-gray-100 pb-3 last:border-0 last:pb-0"
+                              className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 items-center border-b border-gray-100 pb-2.5 last:border-0 last:pb-0"
                             >
                               <div>
                                 <div className="text-gray-500 text-xs">
                                   {sc.leftTitle}
                                 </div>
-                                <div className="font-semibold text-gray-900">
+                                <div className="font-semibold text-gray-900 text-xs sm:text-sm">
                                   {sc.leftVal}
                                 </div>
                               </div>
-                              <div className="text-gray-700 font-medium sm:text-right">
+                              <div className="text-gray-700 font-medium sm:text-right text-xs sm:text-sm">
                                 {sc.rightVal}
                               </div>
                             </div>
@@ -567,7 +538,7 @@ const LoanDetailsPage = () => {
                       {item.bullets && (
                         <ul className="space-y-2">
                           {item.bullets.map((bullet, bIdx) => (
-                            <li key={bIdx} className="flex items-start gap-3">
+                            <li key={bIdx} className="flex items-start gap-2.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-[#5D00E0] mt-2 shrink-0"></span>
                               <span>{bullet}</span>
                             </li>
@@ -583,14 +554,14 @@ const LoanDetailsPage = () => {
 
           {/* ВКЛАДКА "Պահանջվող փաստաթղթերի ցանկ" */}
           {activeTab === "Պահանջվող փաստաթղթերի ցանկ" && (
-            <div className="max-w-4xl mx-auto py-6 animate-fadeIn text-[#333333]">
-              <div className="space-y-6">
+            <div className="max-w-4xl mx-auto py-4 animate-fadeIn text-[#333333]">
+              <div className="space-y-4 sm:space-y-6">
                 {documentsList.map((docText, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-4 text-base leading-relaxed"
+                    className="flex items-start gap-3 sm:gap-4 text-sm sm:text-base leading-relaxed"
                   >
-                    <span className="text-[#5D00E0] font-bold shrink-0 w-6 text-lg">
+                    <span className="text-[#5D00E0] font-bold shrink-0 w-5 sm:w-6 text-base sm:text-lg">
                       {index + 1}.
                     </span>
                     <p className="text-gray-800">{docText}</p>
@@ -602,10 +573,10 @@ const LoanDetailsPage = () => {
         </div>
       </div>
 
-      {/* 5. Бесконечный слайдер с автопрокруткой каждые 5 секунд */}
+      {/* 5. Слайдер "Айл варкер" */}
       {otherLoans.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-12 sm:pb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
             Այլ վարկեր
           </h2>
 
@@ -655,144 +626,50 @@ const LoanDetailsPage = () => {
               ))}
             </Swiper>
 
-            {/* Стрелочки увеличены и отодвинуты от карточек */}
-            <button className="other-loans-prev absolute -left-3 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
+            <button className="other-loans-prev absolute -left-2 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-2xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
               ‹
             </button>
-            <button className="other-loans-next absolute -right-3 sm:-right-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
+            <button className="other-loans-next absolute -right-2 sm:-right-8 top-[38%] -translate-y-1/2 z-10 w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-2xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
               ›
             </button>
           </div>
         </div>
       )}
 
-      {/* 6. Промо-баннер Онлайн и мобайл банкинг */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-16">
-        <div className="relative bg-[#5D00E0] rounded-[32px] sm:rounded-[48px] overflow-hidden py-16 px-6 sm:px-12 lg:px-16 text-white flex flex-col lg:flex-row items-center justify-between gap-12">
-          {/* Фоновые декоративные элементы */}
-          <div className="absolute top-6 right-10 w-16 h-16 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-
-          {/* Левая часть: Макет ноутбука и телефона */}
-          <div className="lg:w-1/2 flex items-center justify-center relative w-full">
-            <div className="flex items-end justify-center relative max-w-lg w-full">
-              <div className="w-[85%] sm:w-[420px] relative z-10">
-                <img
-                  src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80"
-                  alt="Online banking laptop"
-                  className="w-full h-auto object-contain drop-shadow-2xl rounded-xl"
-                />
-              </div>
-              <div className="w-[35%] sm:w-[170px] -ml-12 sm:-ml-16 mb-4 relative z-20">
-                <img
-                  src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=400&q=80"
-                  alt="Mobile banking app"
-                  className="w-full h-auto object-contain drop-shadow-2xl rounded-2xl border-4 border-gray-900"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Правая часть: Текст, кнопка и QR-код с маркетами */}
-          <div className="lg:w-1/2 space-y-6 text-left">
-            <h2 className="text-3xl sm:text-4xl font-bold leading-tight">
-              Օնլայն և մոբայլ բանկինգ
-            </h2>
-            <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
-              Evocabank-ը արագ, պարզ և նորարար ծառայություններ մատուցող բանկ է,
-              որն առանձնանում է տեղեկատվական նորագույն տեխնոլոգիաների ակտիվ
-              կիրառմամբ։
-            </p>
-
-            <div>
-              <button className="px-8 py-3.5 bg-white text-[#5D00E0] font-semibold rounded-full hover:bg-gray-100 transition-colors shadow-lg cursor-pointer">
-                Դառնալ հաճախորդ
-              </button>
-            </div>
-
-            <div className="pt-4 border-t border-white/20 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="bg-white p-2 rounded-xl shadow-md shrink-0">
-                <div className="w-16 h-16 bg-gray-900 flex items-center justify-center text-white text-xs text-center rounded-lg font-mono">
-                  [QR]
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="text-sm text-white/80 font-medium">
-                  Ներբեռնել հավելվածները`
-                </div>
-                <div className="flex items-center gap-3">
-                  <a href="#" className="hover:opacity-80 transition-opacity">
-                    <img
-                      src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
-                      alt="App Store"
-                      className="h-9 object-contain"
-                    />
-                  </a>
-                  <a href="#" className="hover:opacity-80 transition-opacity">
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                      alt="Google Play"
-                      className="h-9 object-contain"
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 7. Фиолетовый баннер в самом низу с плавно и разнонаправленно анимированными шейпами */}
+      {/* 6. Фиолетовый баннер внизу с анимированными шейпами */}
       <div
-        className="relative w-full py-32 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
+        className="relative w-full py-24 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
         style={{
           backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
         }}
       >
-        {/* Шейп 1 */}
         <img
           src={shape1}
           alt="shape"
-          className="absolute top-8 left-10 sm:left-20 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-90 pointer-events-none"
+          className="absolute top-6 left-6 sm:left-20 w-10 sm:w-16 h-10 sm:h-16 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
         />
-        {/* Шейп 2 */}
         <img
           src={shape2}
           alt="shape"
-          className="absolute bottom-10 left-16 sm:left-32 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
+          className="absolute bottom-6 left-10 sm:left-32 w-8 sm:w-14 h-8 sm:h-14 object-contain opacity-80 pointer-events-none"
           style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
         />
-        {/* Шейп 3 */}
         <img
           src={shape3}
           alt="shape"
-          className="absolute top-12 right-12 sm:right-24 w-14 sm:w-20 h-14 sm:h-20 object-contain opacity-90 pointer-events-none"
+          className="absolute top-8 right-8 sm:right-24 w-12 sm:w-20 h-12 sm:h-20 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow3 8s ease-in-out infinite 0.5s" }}
         />
-        {/* Шейп 4 */}
         <img
           src={shape4}
           alt="shape"
-          className="absolute bottom-12 right-20 sm:right-40 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-85 pointer-events-none"
+          className="absolute bottom-8 right-12 sm:right-40 w-10 sm:w-16 h-10 sm:h-16 object-contain opacity-85 pointer-events-none"
           style={{ animation: "floatSlow4 6.5s ease-in-out infinite 1.5s" }}
         />
-        {/* Шейп 5 */}
-        <img
-          src={shape5}
-          alt="shape"
-          className="absolute top-1/2 left-6 sm:left-12 -translate-y-1/2 w-8 sm:w-12 h-8 sm:h-12 object-contain opacity-75 pointer-events-none"
-          style={{ animation: "floatSlow2 7.5s ease-in-out infinite 2s" }}
-        />
-        {/* Шейп 6 */}
-        <img
-          src={shape6}
-          alt="shape"
-          className="absolute top-1/2 right-6 sm:right-16 -translate-y-1/2 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
-          style={{ animation: "floatSlow1 8.5s ease-in-out infinite 0.8s" }}
-        />
 
-        <div className="max-w-4xl mx-auto relative z-10">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-snug">
+        <div className="max-w-4xl mx-auto relative z-10 px-2">
+          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white leading-snug">
             Լավագույն գաղափարներդ կյանքի́ կոչիր Evocabank-ի հետ ու պատրաստ եղիր
             նոր իրադարձությունների:
           </h2>
