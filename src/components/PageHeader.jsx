@@ -5,11 +5,14 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
+  // Եթե գլխավոր էջն է կամ առանձին քարտի դետալային էջն է (/cards/:id), չենք ցուցադրում
   if (
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
-    location.pathname === "/en"
+    location.pathname === "/en" ||
+    (location.pathname.startsWith("/cards/") &&
+      location.pathname.split("/").length > 2)
   ) {
     return null;
   }
@@ -17,7 +20,6 @@ const PageHeader = () => {
   const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
-    // Ընդհանուր ստուգում subNavigationGroups-ի միջոցով
     const group = subNavigationGroups.find((g) =>
       g.paths.some((p) => path === p || path.startsWith(`${p}/`)),
     );
@@ -106,7 +108,6 @@ const PageHeader = () => {
         }
       }
 
-      // Գտնում ենք ենթաէջի կոնկրետ անվանումը (օրինակ՝ "Մշակույթ", "Առավելություններ" և այլն)
       const activeItem = group.items.find(
         (item) => path === item.path || path.startsWith(`${item.path}/`),
       );
@@ -120,7 +121,6 @@ const PageHeader = () => {
 
   const { section, category, title } = getPageDetails(cleanPath);
 
-  // Иконка стрелочки вправо (chevron)
   const chevronIcon = (
     <svg
       width="14"

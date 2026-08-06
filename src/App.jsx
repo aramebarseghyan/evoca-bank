@@ -10,9 +10,9 @@ import PageHeader from "./components/PageHeader";
 import HomePage from "./Pages/HomePage/HomePage";
 import LoansPage from "./Pages/LoansPage/LoansPage";
 import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
-
-// ---> ДОБАВЬ ЭТОТ ИМПОРТ (укажи правильный путь к созданному файлу компонента) <---
 import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
+import CardsPage from "./Pages/CardsPage/CardsPage";
+import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow"; // Импорт детальной страницы
 
 function App() {
   return (
@@ -32,13 +32,17 @@ function App() {
             element={<CreditHistoryPage />}
           />
 
-          {/* ---> ДОБАВЬ ЭТОТ РОУТ <--- */}
           <Route
             path="/loans-important-information"
             element={<LoansImportantInfo />}
           />
 
-          <Route path="/cards" element={<div />} />
+          {/* Страница списка карт */}
+          <Route path="/cards" element={<CardsPage />} />
+
+          {/* Динамический маршрут для отдельной карты по её ID */}
+          <Route path="/cards/:id" element={<CardDetailWindow />} />
+
           <Route path="*" element={<div />} />
         </Routes>
       </main>
