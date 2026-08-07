@@ -13,7 +13,35 @@ const DepositsPage = () => {
       id: "classical-deposit",
       title: "Դասական ավանդ",
       description:
-        "Ձեր անհոգ ապագայի համար առաջարկում ենք ավելացնել Ձեր խնայողությունները՝ ներդնելով «Դասական ավանդ» կայուն և բարձր եկամտաբերությամբ։",
+        "Ձեր անհոգ ապագայի համար առաջարկում ենք ավելացնել Ձեր խնայողությունները՝ ներդնելով «Դասական ավանդ» կայուն և բարձր եկամտաբերությամբ.",
+      fullDescription: [
+        {
+          parts: [
+            {
+              text: "Դասական ժամկետային ավանդն ընդունվում է և՛ ֆիզիկական, և՛ իրավաբանական անձանցից: Այն կայուն բարձր եկամտաբերությամբ կավելացնի Ձեր խնայած գումարը: Կուտակված տոկոսագումարները կարող եք ստանալ ինչպես ժամկետի վերջում, այնպես էլ Ձեր նախընտրած պարբերականությամբ: Որպես Բանկի ավանդատու՝ Դուք կստանաք նաև ",
+            },
+            { text: "միջազգային քարտ՝ բացարձակապես անվճար", highlight: true },
+            {
+              text: ", որին ցանկության դեպքում կփոխանցվեն Ձեր ավանդի տոկոսագումարները:",
+            },
+          ],
+        },
+        {
+          parts: [
+            { text: "Ավանդը", highlight: true, underline: true },
+            {
+              text: " ձևակերպվում է շատ արագ՝ Բանկի Գլխամասային գրասենյակում և բոլոր մասնաճյուղերում /բացառությամբ Էրեբունի մասնաճյուղի/.",
+            },
+          ],
+        },
+        {
+          parts: [
+            {
+              text: "Խնայելը Evocabank-ի հետ դառնում է ավելի արդյունավետ և հաճելի.",
+            },
+          ],
+        },
+      ],
       image:
         "https://www.evoca.am/images-cache/deposits/1/16142452390653/720x405.jpg",
       imageBgColor: "bg-[#D8B4FE]",
@@ -32,7 +60,16 @@ const DepositsPage = () => {
       id: "children-deposit",
       title: "Մանկական ավանդ",
       description:
-        "Ձեր երեխայի պայծառ ապագայի համար առաջարկում ենք ներդնել «Մանկական» ավանդ։ «Մանկական» ժամկետային ավանդն ընդունում ենք ֆիզիկական անձանցից՝ երեխաների անունով ներդնելու պայմանով։",
+        "Ձեր երեխայի պայծառ ապագայի համար առաջարկում ենք ներդնել «Մանկական» ավանդ։ «Մանկական» ժամկետային ավանդն ընդունում ենք ֆիզիկական անձանցից՝ երեխաների անունով ներդնելու պայմանով.",
+      fullDescription: [
+        {
+          parts: [
+            {
+              text: "Ձեր երեխայի պայծառ ապագայի համար առաջարկում ենք ներդնել «Մանկական» ավանդ։ «Մանկական» ժամկետային ավանդն ընդունում ենք ֆիզիկական անձանցից՝ երեխաների անունով ներդնելու պայմանով.",
+            },
+          ],
+        },
+      ],
       image:
         "https://www.evoca.am/images-cache/deposits/2/16142452390653/720x405.jpg",
       imageBgColor: "bg-[#FDE047]",
@@ -52,6 +89,15 @@ const DepositsPage = () => {
       title: "Ավանդ Evoca Online",
       description:
         "Ցանկանո՞ւմ եք ներդնել ավանդ բարձր տոկոսադրույքով, բայց չունե՞ք ժամանակ։ Ձևակերպեք EvocaONLINE ավանդ՝ առանց բանկ այցելելու: Իսկ մենք բոլոր փաստաթղթերը կուղարկենք Ձեր էլ. հասցեին:",
+      fullDescription: [
+        {
+          parts: [
+            {
+              text: "Ցանկանո՞ւմ եք ներդնել ավանդ բարձր տոկոսադրույքով, բայց չունե՞ք ժամանակ։ Ձևակերպեք EvocaONLINE ավանդ՝ առանց բանկ այցելելու: Իսկ մենք բոլոր փաստաթղթերը կուղարկենք Ձեր էլ. հասցեին:",
+            },
+          ],
+        },
+      ],
       image:
         "https://www.evoca.am/images-cache/deposits/3/16142452390653/720x405.jpg",
       imageBgColor: "bg-[#E2E8F0]",
@@ -103,15 +149,12 @@ const DepositsPage = () => {
   return (
     <div className="w-full font-sans bg-white min-h-screen pb-16 pt-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24">
-        {/* Заголовок удален */}
-
         <div className="space-y-8">
           {deposits.map((deposit) => (
             <div
               key={deposit.id}
               className="flex flex-col lg:flex-row items-center bg-white border border-gray-100 rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.04)] overflow-hidden p-6 lg:p-8 gap-8"
             >
-              {/* Изображение карточки */}
               <div
                 className={`w-full lg:w-[380px] h-56 rounded-2xl flex items-center justify-center overflow-hidden shrink-0 ${
                   deposit.imageBgColor || "bg-purple-100"
@@ -124,7 +167,6 @@ const DepositsPage = () => {
                 />
               </div>
 
-              {/* Описание и метрики */}
               <div className="flex-1 flex flex-col justify-between w-full">
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
@@ -135,7 +177,6 @@ const DepositsPage = () => {
                   </p>
                 </div>
 
-                {/* Сетка метрик */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-gray-100 items-end">
                   {deposit.metrics?.map((metric, idx) => (
                     <div key={idx}>
@@ -154,7 +195,6 @@ const DepositsPage = () => {
                   ))}
                 </div>
 
-                {/* Кнопка подробнее */}
                 <div className="mt-6 flex justify-start">
                   <button
                     onClick={() => navigate(`/deposits/${deposit.id}`)}

@@ -19,8 +19,9 @@ import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService
 import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
 import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
 
-// 3. Импортируем новую страницу вкладов
+// 3. Импортируем страницы вкладов
 import DepositsPage from "./Pages/DepositsPage/DepositsPage";
+import DepositDetail from "./Pages/DepositsPage/DepositDetail";
 
 function App() {
   const location = useLocation();
@@ -46,8 +47,9 @@ function App() {
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
 
-          {/* НОВАЯ СТРАНИЦА ВКЛАДОВ */}
+          {/* СТРАНИЦЫ ВКЛАДОВ */}
           <Route path="/deposits" element={<DepositsPage />} />
+          <Route path="/deposits/:id" element={<DepositDetail />} />
 
           <Route
             path="/credit-history-and-score"

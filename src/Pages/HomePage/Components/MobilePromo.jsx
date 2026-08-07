@@ -1,682 +1,241 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-
-// Swiper импорты
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-
-// Импорт шейпов из вашей папки assets/img
+import React, { useState } from "react";
+import macbook from "../../../assets/img/macbook.png";
+import notPhoto from "../../../assets/img/notPhoto.jpg";
+import iPhone from "../../../assets/img/iPhone.png";
+import phoneImg from "../../../assets/img/phoneImg.jpg";
 import shape1 from "../../../assets/img/shape1.png";
 import shape2 from "../../../assets/img/shape2.png";
 import shape3 from "../../../assets/img/shape3.png";
 import shape4 from "../../../assets/img/shape4.png";
 import shape5 from "../../../assets/img/shape5.png";
 import shape6 from "../../../assets/img/shape6.png";
+import dotsRectangle from "../../../assets/img/dots_rectangle.png";
+import evocaBestShape2 from "../../../assets/img/evoca-best-shape2.png";
 
-const LoanDetailsPage = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const [product, setProduct] = useState(null);
-  const [otherLoans, setOtherLoans] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("Վարկի մասին");
-
-  const tabs = ["Վարկի մասին", "Պայմաններ", "Պահանջվող փաստաթղթերի ցանկ"];
-
-  useEffect(() => {
-    const fetchLoanData = async () => {
-      if (!id) return;
-      setLoading(true);
-      try {
-        const docRef = doc(db, "loans", id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setProduct({ id: docSnap.id, ...docSnap.data() });
-        } else {
-          console.error("Кредит не найден!");
-        }
-
-        const querySnapshot = await getDocs(collection(db, "loans"));
-        const loansList = querySnapshot.docs
-          .map((docSnapItem) => ({ id: docSnapItem.id, ...docSnapItem.data() }))
-          .filter((item) => item.id !== id);
-
-        setOtherLoans(loansList);
-      } catch (error) {
-        console.error("Ошибка при загрузке данных:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLoanData();
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="flex flex-col justify-center items-center min-h-screen gap-4">
-        <p className="text-gray-500 text-lg">Վարկը չի գտնվել:</p>
-        <button
-          onClick={() => navigate("/loans")}
-          className="px-6 py-2.5 bg-[#5D00E0] text-white rounded-full cursor-pointer"
-        >
-          Վերադառնալ վարկերի ցանկ
-        </button>
-      </div>
-    );
-  }
-
-  const defaultTerms = [
-    {
-      id: "1",
-      title: "Վարկի տրամադրման նպատակը",
-      content:
-        "Վարկը տրամադրվում է անձնական, ընտանեկան, տնային կամ այլ օգտագործման համար նախատեսված, ձեռնարկատիրական գործունեության հետ չկապված, ապրանքների (աշխատանքների, ծառայությունների) պատվիրման կամ ձեռքբերման նպատակով։",
-    },
-    {
-      id: "2",
-      title: "Ովքեր կարող են դիմել",
-      content:
-        "18 - 65 տարեկան ՀՀ ռեզիդենտ ֆիզիկական անձինք, ովքեր վարկի սպասարկման ամբողջ ընթացքում չեն բոլորի 65 տարին: Տվյալ պայմանը վերաբերում է նաև երաշխավոր ֆիզիկական անձանց:",
-    },
-    {
-      id: "3",
-      title: "Վարկավորման արժույթ",
-      content: "ՀՀ դրամ",
-    },
-    {
-      id: "4",
-      title: "Վարկավորման գումար",
-      subRows: [
-        {
-          label: "Առանց եկամուտների հիմնավորման",
-          value: "1,000,000 - 3,000,000 ֏",
-        },
-        {
-          label: "Եկամուտների հիմնավորմամբ",
-          value: "1,000,000 - 10,000,000 ֏",
-        },
-      ],
-    },
-    {
-      id: "5",
-      title: "Վարկի մարման ժամկետը",
-      content: "36 - 60 ամիս",
-    },
-    {
-      id: "6",
-      title: "Տարեկան տոկոսադրույքներ",
-      tableHeader: ["", "Անվանական", "Փաստացի"],
-      tableRows: [
-        ["Առանց եկամուտների հիմնավորման", "21%", "23.17%"],
-        ["Եկամուտների հիմնավորմամբ", "19%", "20.77%"],
-      ],
-    },
-    {
-      id: "7",
-      title:
-        "Վարկի գումարի կամ տոկոսագումարների՝ ամրագրված ժամանակացույցից շուտ մարելու համար վճարվող տուգանք",
-      content: "Տուգանք չի կիրառվում",
-    },
-    {
-      id: "8",
-      title:
-        "Վարկի գումարների և տոկոսագումարների մարման ժամկետների ուշացման դեպքում վճարվող տույժեր",
-      content:
-        "Ժամկետանց վարկի համար՝ օրական 0.015%,\nԺամկետանց տոկոսագումարի համար օրական 0.1%:",
-    },
-    {
-      id: "9",
-      title: "Վարկի տրամադրման եղանակը",
-      content: "Անկանխիկ",
-    },
-    {
-      id: "10",
-      title: "Վարկի տրամադրման միանվագ կամ ամսական սպասարկման վճարներ",
-      content: "Չի սահմանվում",
-    },
-    {
-      id: "11",
-      title: "Վարկի վերադարձելիության ապահովման միջոցները",
-      subRowsCustom: [
-        {
-          leftTitle: "Առանց եկամուտների հիմնավորման",
-          leftVal: "1,000,000 ՀՀ դրամ",
-          rightVal: "Նվազագույնը 1 (մեկ) անձի երաշխավորություն",
-        },
-        {
-          leftTitle: "Առանց եկամուտների հիմնավորման",
-          leftVal: "1,000,001 - 3,000,000 ՀՀ դրամ",
-          rightVal: "Նվազագույնը 2 (երկու) անձի երաշխավորություն",
-        },
-        {
-          leftTitle: "Եկամուտների հիմնավորմամբ",
-          leftVal: "1,000,000 - 3,000,000 ՀՀ դրամ",
-          rightVal: "Առանց երաշխավորի պահանջի",
-        },
-        {
-          leftTitle: "Եկամուտների հիմնավորմամբ",
-          leftVal: "3,000,001 - 5,000,000 ՀՀ դրամ",
-          rightVal: "Նվազագույնը 1 (մեկ) անձի երաշխավորություն",
-        },
-      ],
-    },
-    {
-      id: "12",
-      title: "Վարկունակության գնահատում / վարկի հաստատման պայմաններ/",
-      content:
-        "• Անկախ վարկի գումարից և բավարար հիմնավորված եկամուտների առկայությունից՝ «ԱՔՌԱ Քրեդիտ Ռեփորթինգ» ՓԲԸ-ից ստացված տեղեկատվության համաձայն Հաճախորդի կամ երաշխավորներից որևէ մեկի FICO (սքոڕը) պետք է լինի 540 և բարձր։\n\n• Առանց եկամուտների վարկավորման դեպքում Հաճախորդը վերջին 1 տարվա ընթացքում չպետք է ունենա վարկային պարտավորությունների գծով դասակարգումներ և մարումների գծով ուշացման օերի հանրագումարը չպետք է գերազանցի 30 օրը։",
-    },
-    {
-      id: "13",
-      title:
-        "Այլ բանկերից և վարկային կազմակերպություններից վերաֆինանսավորման դեպքում / հատուկ պայման/",
-      content:
-        "Այլ բանկերից և վարկային կազմակերպություններից վարկերի վերաֆինանսավորման դեպքում, եթե ակնկալվող վարկի գումարը գերազանցում է 3,000,000 ՀՀ դրամը, ապա կարող է տրամադրվել մայր գումարի մարման գծով արտոնյալ ժամանակահատված մինչև 6 ամիս ժամկետով:",
-    },
-    {
-      id: "14",
-      title:
-        "Վարկի տրամադրման կամ մերժման վերաբերյալ որոշումների կայացման ժամկետներ",
-      content:
-        "• Վարկի տրամադրման կամ մերժման որոշումը կայացվում է առավելագույնը 3 (երեք) աշխատանքային օրվա ընթացքում, որոշումների կայացման համար Բանկի կողմից պահանջվող նախնական փաստաթղթերը ամբողջությամբ ներկայացնելուց հետո:\n\n• Վարկը տրամադրվում է Բանկի կողմից դրական որոշման դեպքում, վարկավորման և երաշխավորության պայմանագրերը/համաձայնագրերը կնքելուց հետո 2 (երկու) աշխատանքային օրվա ընթացքում:",
-    },
-    {
-      id: "15",
-      title: "Այլ պայմաններ",
-      bullets: [
-        "Վարկի համար դիմող անձի հետ փոխկապակցված անձը (ընտանիքի անդամը կամ համատեղ տնտեսություն վարող անձը) չպետք է ունենա այս վարկատեսակի գործող վարկ:",
-        "Վարկի գումարի կանխիկացման դեպքում գանձվում է կանխիկացման վճար ըստ Բանկում գործող սակագների:",
-      ],
-    },
-  ];
-
-  const defaultDocuments = [
-    "Վարկի տրամադրման դիմում-հայտ",
-    "անձնագիր կամ նույնականացման քարտ ինչպես նաև, սոցիալական քարտ կամ սոցիալական քարտ չունենալու մասին տեղեկանք (ընդ որում սոցիալական քարտ և սոցիալական քարտ չունենալու մասին տեղեկանք չի պահանջվում, եթե ներկայացվել է նույնականացման քարտ),",
-    "տեղեկանք փաստացի բնակության վայրից",
-    "տեղեկանք եկամուտների վերաբերյալ,",
-    "այլ եկամուտների մեծությունը հավաստող տեղեկատվություն (առկայության դեպքում),",
-    "տեղեկատվություն` երաշխավորող անձի/անձանց վերաբերյալ,",
-    "անհրաժեշտության դեպքում կարող են պահանջվել նաև այլ փաստաթղթեր:",
-  ];
-
-  const termsData = product.termsTable || defaultTerms;
-  const documentsList = product.documentsList || defaultDocuments;
+const MobilePromo = () => {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <div className="w-full font-sans bg-white min-h-screen pb-0">
-      <style>{`
-        @keyframes floatSlow1 {
-          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          50% { transform: translateY(-18px) translateX(12px) rotate(8deg); }
-        }
-        @keyframes floatSlow2 {
-          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          50% { transform: translateY(16px) translateX(-14px) rotate(-10deg); }
-        }
-        @keyframes floatSlow3 {
-          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          50% { transform: translateY(-14px) translateX(-15px) rotate(12deg); }
-        }
-        @keyframes floatSlow4 {
-          0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
-          50% { transform: translateY(20px) translateX(10px) rotate(-6deg); }
-        }
-      `}</style>
-
-      {/* 1. Hero Секция */}
-      <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-8 pb-12 sm:pt-12 sm:pb-16 px-4 sm:px-8 lg:px-24">
-        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-12">
-          <div className="lg:w-1/2 space-y-4 sm:space-y-6">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-              {product.title}
-            </h1>
-            <p className="block sm:hidden text-gray-600 text-sm leading-relaxed">
-              Նոր նպատակներ, անսպասելի ծախսեր կամ վաղուց պլանավորված գնումներ.
-              Evocabank-ի անգրավ սպառողական վարկը կօգնի կյանքի կոչել Ձեր
-              ծրագրերը՝ առանց գույքի գրավադրման:
-            </p>
-            <p className="hidden sm:block text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl">
-              {product.description}
-            </p>
-          </div>
-
-          <div className="lg:w-1/2 flex justify-center lg:justify-end">
-            <div
-              className={`relative w-56 h-56 sm:w-80 sm:h-80 rounded-full flex items-center justify-center overflow-hidden ${
-                product.imageBgColor || "bg-[#FDE047]"
-              }`}
-            >
-              <div className="absolute left-0 top-0 w-full h-full bg-[#5D00E0] clip-triangle opacity-10"></div>
-              <img
-                src={product.image}
-                alt={product.title}
-                className="relative z-10 w-3/4 h-3/4 object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24">
-        {/* 2. Кнопка назад */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 py-6 sm:py-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition-colors w-fit cursor-pointer text-sm sm:text-base"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 18L9 12L15 6"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Վերադառնալ
-          </button>
-        </div>
-
-        {/* 3. Вкладки (Tabs): Фиолетовые плашки на mobile, десктопные табы на desktop */}
-        <div className="block md:hidden space-y-3 mt-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`w-full text-left px-5 py-3.5 rounded-xl font-bold text-sm transition-colors cursor-pointer flex items-center justify-between ${
-                activeTab === tab
-                  ? "bg-[#5D00E0] text-white shadow-md"
-                  : "bg-[#F0EFEE] text-gray-700"
-              }`}
-            >
-              <span>{tab}</span>
-              <span>›</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="hidden md:block relative border-b border-gray-200 mt-2">
-          <div className="flex gap-8 overflow-x-auto no-scrollbar">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`pb-4 text-sm sm:text-base font-bold whitespace-nowrap transition-colors relative cursor-pointer ${
-                  activeTab === tab
-                    ? "text-[#1A1A1A]"
-                    : "text-gray-500 hover:text-gray-800 font-normal"
-                }`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#5D00E0]"></div>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* 4. Контент вкладок */}
-        <div className="pt-6 sm:pt-10 pb-16">
-          {activeTab === "Վարկի մասին" && (
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 justify-between items-start">
-              <div className="lg:w-[55%] space-y-4 sm:space-y-6 text-[#333333] text-sm sm:text-base leading-relaxed">
-                <p>
-                  <span className="font-semibold text-[#5D00E0]">
-                    Evocabank
-                  </span>
-                  -ն առաջարկում է մինչև 10,000,000 ՀՀ դրամ անգրավ սպառողական
-                  վարկ՝ պարզ, արագ և հարմար։ Վարկը նախատեսված է Ձեր ամենատարբեր
-                  ֆինանսական կարիքները հոգալու համար։
-                </p>
-                <p className="hidden sm:block">
-                  Կախված վարկի գումարից, վարկունակությունից և ընտրված
-                  պայմաններից՝ վարկը կարող է տրամադրվել առանց երաշխավորի, ինչպես
-                  նաև մեկ կամ երկու անձի երաշխավորությամբ։ Այս մոտեցումը
-                  հնարավորություն է տալիս ընտրել Ձեզ ամենահարմար տարբերակը։
-                </p>
-              </div>
-
-              {/* Правая карточка условий */}
-              <div className="lg:w-[45%] w-full">
-                <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden">
-                  <div className="px-6 sm:px-8 pt-6 sm:pt-8 pb-3 sm:pb-4">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#5D00E0] rounded-full flex items-center justify-center text-white text-lg sm:text-xl font-bold">
-                      ֏
-                    </div>
-                  </div>
-                  <div className="flex flex-col">
-                    {product.conditions && product.conditions.length > 0 ? (
-                      product.conditions.map((cond, idx) => (
-                        <div
-                          key={idx}
-                          className={`grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 ${idx !== product.conditions.length - 1 ? "border-b border-gray-100" : "pb-6 sm:pb-8"}`}
-                        >
-                          <div>
-                            <div className="text-gray-400 text-xs mb-0.5">
-                              {cond.prefix}
-                            </div>
-                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
-                              {cond.value}
-                            </div>
-                          </div>
-                          <div className="text-[#333333] text-sm">
-                            {cond.label}
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <>
-                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
-                          <div>
-                            <div className="text-gray-400 text-xs mb-0.5">
-                              մինչև
-                            </div>
-                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
-                              10 մլն. ֏
-                            </div>
-                          </div>
-                          <div className="text-[#333333] text-sm">Գումար</div>
-                        </div>
-                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
-                          <div>
-                            <div className="text-gray-400 text-xs mb-0.5">
-                              մինչև
-                            </div>
-                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
-                              60 ամիս
-                            </div>
-                          </div>
-                          <div className="text-[#333333] text-sm">Ժամկետ</div>
-                        </div>
-                        <div className="grid grid-cols-2 items-center px-6 sm:px-8 py-4 sm:py-5 pb-6 sm:pb-8">
-                          <div>
-                            <div className="text-gray-400 text-xs mb-0.5">
-                              սկսած
-                            </div>
-                            <div className="text-[#5D00E0] text-2xl sm:text-[26px] font-bold leading-none">
-                              19%-ից
-                            </div>
-                          </div>
-                          <div className="text-[#333333] text-sm">
-                            Տոկոսադրույք
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ВКЛАДКА "Պայմաններ" */}
-          {activeTab === "Պայմաններ" && (
-            <div className="max-w-5xl mx-auto py-2 animate-fadeIn">
-              <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
-                {termsData.map((item, index) => (
-                  <div
-                    key={item.id || index}
-                    className={`grid grid-cols-1 md:grid-cols-12 items-stretch ${
-                      index !== termsData.length - 1
-                        ? "border-b border-gray-200"
-                        : ""
-                    }`}
-                  >
-                    <div className="md:col-span-4 p-4 sm:p-6 bg-[#FAFAFA] border-b md:border-b-0 md:border-r border-gray-200 flex gap-3 items-start">
-                      <span className="text-gray-400 font-medium shrink-0 w-5">
-                        {index + 1}.
-                      </span>
-                      <span className="text-gray-900 font-medium text-sm leading-snug">
-                        {item.title}
-                      </span>
-                    </div>
-
-                    <div className="md:col-span-8 p-4 sm:p-6 flex flex-col justify-center text-gray-700 text-sm leading-relaxed">
-                      {item.content && (
-                        <p className="whitespace-pre-line">{item.content}</p>
-                      )}
-
-                      {item.subRows && (
-                        <div className="space-y-3 w-full">
-                          {item.subRows.map((sub, sIdx) => (
-                            <div
-                              key={sIdx}
-                              className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 border-b border-gray-100 pb-2.5 last:border-0 last:pb-0"
-                            >
-                              <span className="text-gray-600">{sub.label}</span>
-                              <span className="font-semibold text-gray-900">
-                                {sub.value}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {item.tableRows && (
-                        <div className="w-full overflow-x-auto">
-                          <table className="w-full text-left border-collapse min-w-[280px]">
-                            <thead>
-                              <tr className="border-b border-gray-200 text-gray-400 text-xs font-medium">
-                                {item.tableHeader.map((th, thIdx) => (
-                                  <th
-                                    key={thIdx}
-                                    className="pb-2 pr-3 font-medium"
-                                  >
-                                    {th}
-                                  </th>
-                                ))}
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {item.tableRows.map((row, rIdx) => (
-                                <tr
-                                  key={rIdx}
-                                  className="border-b border-gray-100 last:border-0"
-                                >
-                                  {row.map((cell, cIdx) => (
-                                    <td
-                                      key={cIdx}
-                                      className={`py-2.5 pr-3 text-xs sm:text-sm ${cIdx > 0 ? "font-semibold text-gray-900" : "text-gray-600"}`}
-                                    >
-                                      {cell}
-                                    </td>
-                                  ))}
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      )}
-
-                      {item.subRowsCustom && (
-                        <div className="space-y-3">
-                          {item.subRowsCustom.map((sc, scIdx) => (
-                            <div
-                              key={scIdx}
-                              className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 items-center border-b border-gray-100 pb-2.5 last:border-0 last:pb-0"
-                            >
-                              <div>
-                                <div className="text-gray-500 text-xs">
-                                  {sc.leftTitle}
-                                </div>
-                                <div className="font-semibold text-gray-900 text-xs sm:text-sm">
-                                  {sc.leftVal}
-                                </div>
-                              </div>
-                              <div className="text-gray-700 font-medium sm:text-right text-xs sm:text-sm">
-                                {sc.rightVal}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      {item.bullets && (
-                        <ul className="space-y-2">
-                          {item.bullets.map((bullet, bIdx) => (
-                            <li key={bIdx} className="flex items-start gap-2.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#5D00E0] mt-2 shrink-0"></span>
-                              <span>{bullet}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* ВКЛАДКА "Պահանջվող փաստաթղթերի ցանկ" */}
-          {activeTab === "Պահանջվող փաստաթղթերի ցանկ" && (
-            <div className="max-w-4xl mx-auto py-4 animate-fadeIn text-[#333333]">
-              <div className="space-y-4 sm:space-y-6">
-                {documentsList.map((docText, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-3 sm:gap-4 text-sm sm:text-base leading-relaxed"
-                  >
-                    <span className="text-[#5D00E0] font-bold shrink-0 w-5 sm:w-6 text-base sm:text-lg">
-                      {index + 1}.
-                    </span>
-                    <p className="text-gray-800">{docText}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* 5. Слайдер "Айл варкер" */}
-      {otherLoans.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-12 sm:pb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">
-            Այլ վարկեր
-          </h2>
-
-          <div className="relative px-2 sm:px-12">
-            <Swiper
-              modules={[Navigation, Autoplay]}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              loop={true}
-              navigation={{
-                prevEl: ".other-loans-prev",
-                nextEl: ".other-loans-next",
-              }}
-              spaceBetween={20}
-              slidesPerView={1}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 4 },
-              }}
-              className="pb-6"
-            >
-              {otherLoans.map((loan) => (
-                <SwiperSlide key={loan.id}>
-                  <div
-                    onClick={() => {
-                      navigate(`/loans/${loan.id}`);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className="cursor-pointer group flex flex-col items-center text-center gap-3"
-                  >
-                    <div
-                      className={`w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center relative ${loan.imageBgColor || "bg-[#5D00E0]"}`}
-                    >
-                      <img
-                        src={loan.image}
-                        alt={loan.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <h3 className="text-gray-900 font-medium text-sm sm:text-base leading-snug group-hover:text-[#5D00E0] transition-colors line-clamp-2 px-1">
-                      {loan.title}
-                    </h3>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <button className="other-loans-prev absolute -left-2 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-2xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
-              ‹
-            </button>
-            <button className="other-loans-next absolute -right-2 sm:-right-8 top-[38%] -translate-y-1/2 z-10 w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-2xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
-              ›
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 6. Фиолетовый баннер внизу с анимированными шейпами */}
+    <div className="w-full bg-[#580BD4] rounded-tl-[60px] sm:rounded-tl-[80px] md:rounded-tl-[100px] xl:rounded-tl-[200px] 2xl:rounded-tl-[240px] text-white font-sans relative overflow-hidden shadow-2xl mt-[370px] md:mt-16 py-12 px-6 sm:px-10 md:px-16 2xl:px-20">
+      {/* 3D Декоративные фигуры */}
       <div
-        className="relative w-full py-24 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
-        style={{
-          backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
-        }}
+        className="hidden md:block absolute top-12 right-20 xl:right-36 z-0 opacity-80 pointer-events-none"
+        style={{ animation: "float1 6s ease-in-out infinite" }}
       >
         <img
           src={shape1}
-          alt="shape"
-          className="absolute top-6 left-6 sm:left-20 w-10 sm:w-16 h-10 sm:h-16 object-contain opacity-90 pointer-events-none"
-          style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
+          alt="Shape 1"
+          className="w-10 h-10 xl:w-16 xl:h-16 object-contain"
+          style={{ animation: "spin3D 15s linear infinite" }}
         />
+      </div>
+
+      <div
+        className="hidden md:block absolute top-10 left-12 xl:left-24 z-0 opacity-80 pointer-events-none"
+        style={{ animation: "float2 5s ease-in-out infinite" }}
+      >
         <img
           src={shape2}
-          alt="shape"
-          className="absolute bottom-6 left-10 sm:left-32 w-8 sm:w-14 h-8 sm:h-14 object-contain opacity-80 pointer-events-none"
-          style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
+          alt="Shape 2"
+          className="w-12 h-12 xl:w-20 xl:h-20 object-contain"
+          style={{ animation: "spin3D_reverse 12s linear infinite" }}
         />
+      </div>
+
+      <div
+        className="hidden md:block absolute bottom-12 left-[8%] z-0 opacity-80 pointer-events-none"
+        style={{ animation: "float1 7s ease-in-out infinite" }}
+      >
         <img
           src={shape3}
-          alt="shape"
-          className="absolute top-8 right-8 sm:right-24 w-12 sm:w-20 h-12 sm:h-20 object-contain opacity-90 pointer-events-none"
-          style={{ animation: "floatSlow3 8s ease-in-out infinite 0.5s" }}
+          alt="Shape 3"
+          className="w-12 h-12 xl:w-16 xl:h-16 object-contain"
+          style={{ animation: "spin3D 18s linear infinite" }}
         />
+      </div>
+
+      <div
+        className="hidden md:block absolute bottom-16 right-[12%] z-0 opacity-80 pointer-events-none"
+        style={{ animation: "float2 6s ease-in-out infinite" }}
+      >
         <img
           src={shape4}
-          alt="shape"
-          className="absolute bottom-8 right-12 sm:right-40 w-10 sm:w-16 h-10 sm:h-16 object-contain opacity-85 pointer-events-none"
-          style={{ animation: "floatSlow4 6.5s ease-in-out infinite 1.5s" }}
+          alt="Shape 4"
+          className="w-10 h-10 xl:w-14 xl:h-14 object-contain"
+          style={{ animation: "spin3D_reverse 14s linear infinite" }}
         />
+      </div>
 
-        <div className="max-w-4xl mx-auto relative z-10 px-2">
-          <h2 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white leading-snug">
-            Լավագույն գաղափարներդ կյանքի́ կոչիր Evocabank-ի հետ ու պատրաստ եղիր
-            նոր իրադարձությունների:
+      <div
+        className="hidden md:block absolute top-8 left-[48%] z-0 opacity-60 pointer-events-none"
+        style={{ animation: "float1 8s ease-in-out infinite" }}
+      >
+        <img
+          src={shape5}
+          alt="Shape 5"
+          className="w-8 h-8 xl:w-12 xl:h-12 object-contain"
+        />
+      </div>
+
+      <div
+        className="hidden md:block absolute top-1/2 right-6 z-0 opacity-70 pointer-events-none"
+        style={{ animation: "float2 5.5s ease-in-out infinite" }}
+      >
+        <img
+          src={shape6}
+          alt="Shape 6"
+          className="w-12 h-12 xl:w-16 xl:h-16 object-contain"
+          style={{ animation: "spin3D 20s linear infinite" }}
+        />
+      </div>
+
+      <img
+        src={evocaBestShape2}
+        alt="Triangle Shape"
+        className="hidden md:block absolute top-[20%] right-[42%] z-0 w-8 xl:w-12 object-contain opacity-70 pointer-events-none"
+      />
+
+      <img
+        src={dotsRectangle}
+        alt="Dots Background"
+        className="hidden md:block absolute left-4 bottom-2 z-0 w-32 xl:w-44 opacity-60 pointer-events-none"
+      />
+
+      {/* Внутренний контентный контейнер */}
+      <div className="max-w-[1400px] 2xl:max-w-[1600px] mx-auto flex flex-col xl:flex-row items-center justify-between gap-8 xl:gap-12 2xl:gap-16 relative z-10">
+        {/* Левый блок: Ноутбук + Телефон */}
+        <div className="w-full xl:w-1/2 flex justify-center items-center relative min-h-[260px] sm:min-h-[340px] md:min-h-[440px] xl:min-h-[460px]">
+          {/* Макбук */}
+          <div className="relative w-full max-w-[420px] sm:max-w-[500px] md:max-w-[560px] xl:max-w-[540px] 2xl:max-w-[600px] pr-8 sm:pr-12">
+            <div className="relative w-full">
+              {/* Экран видео */}
+              <div className="absolute top-[5.2%] left-[7%] w-[79.5%] h-[80.2%] z-20 overflow-hidden rounded-[2px] sm:rounded-[4px] bg-black">
+                {!isVideoPlaying ? (
+                  <div
+                    className="w-full h-full relative cursor-pointer group"
+                    onClick={() => setIsVideoPlaying(true)}
+                  >
+                    <img
+                      src={notPhoto}
+                      alt="Video Thumbnail"
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/10 hover:bg-black/30 transition-all">
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/40 border-2 border-[#00FFFF] flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-0 h-0 border-t-[6px] sm:border-t-[8px] md:border-t-[10px] border-t-transparent border-l-[10px] sm:border-l-[14px] md:border-l-[18px] border-l-[#00FFFF] border-b-[6px] sm:border-b-[8px] md:border-b-[10px] border-b-transparent ml-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/KwAgMHEx8ys?si=rAbi2I62Ph20Lohc&autoplay=1"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                )}
+              </div>
+
+              <img
+                src={macbook}
+                alt="Macbook"
+                className="w-full h-auto relative z-10 drop-shadow-xl pointer-events-none"
+              />
+            </div>
+          </div>
+
+          {/* Телефон */}
+          <div className="absolute right-2 sm:right-4 md:right-8 xl:right-4 bottom-0 w-[24%] max-w-[130px] sm:max-w-[150px] md:max-w-[160px] 2xl:max-w-[170px] z-30 drop-shadow-2xl hover:-translate-y-1 transition-transform duration-300">
+            <div className="relative w-full">
+              <div className="absolute top-[3.2%] left-[6%] w-[67%] h-[93.5%] z-10 overflow-hidden rounded-[6px] sm:rounded-[10px]">
+                <img
+                  src={phoneImg}
+                  alt="App Screen"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+              <img
+                src={iPhone}
+                alt="iPhone"
+                className="w-full h-auto relative z-20 pointer-events-none"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Правый блок: Текст, Кнопка, QR и Store иконки */}
+        <div className="w-full xl:w-1/2 flex flex-col items-start space-y-5 sm:space-y-6">
+          <h2 className="text-[26px] sm:text-[34px] md:text-[42px] xl:text-[44px] 2xl:text-[48px] font-extrabold leading-[1.2] tracking-tight">
+            Օնլայն և մոբայլ բանկինգ
           </h2>
+
+          <p className="text-[14px] sm:text-[16px] md:text-[18px] xl:text-[17px] 2xl:text-[18px] leading-[1.6] text-white/90 font-medium max-w-[550px]">
+            Evocabank-ը արագ, պարզ և նորարար ծառայություններ մատուցող բանկ է,
+            որն առանձնանում է տեղեկատվական նորագույն տեխնոլոգիաների ակտիվ
+            կիրառմամբ:
+          </p>
+
+          <button className="px-8 sm:px-10 py-3.5 bg-white text-[#580BD4] font-bold rounded-full text-[15px] sm:text-[16px] hover:bg-gray-100 transition-all shadow-md active:scale-95">
+            Դառնալ հաճախորդ
+          </button>
+
+          <div className="pt-4 flex flex-wrap items-center gap-4 sm:gap-6">
+            <div className="hidden sm:block bg-white p-2 rounded-xl flex-shrink-0 shadow-sm">
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://evocabank.am"
+                alt="QR Code"
+                className="w-[70px] h-[70px] xl:w-[80px] xl:h-[80px] object-contain"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="text-[13px] sm:text-[14px] font-semibold text-white/90">
+                Ներբեռնել հավելվածները՝
+              </p>
+              <div className="flex items-center gap-3">
+                <a href="#" className="hover:opacity-85 transition-opacity">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                    alt="Download on the App Store"
+                    className="h-[36px] sm:h-[40px] w-auto"
+                  />
+                </a>
+                <a href="#" className="hover:opacity-85 transition-opacity">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                    alt="Get it on Google Play"
+                    className="h-[36px] sm:h-[40px] w-auto"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes float1 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(12px, -12px); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translate(0, 0); }
+          50% { transform: translate(-12px, 12px); }
+        }
+        @keyframes spin3D {
+          from { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+          to { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        @keyframes spin3D_reverse {
+          from { transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg); }
+          to { transform: rotateX(-360deg) rotateY(0deg) rotateZ(-360deg); }
+        }
+      `}</style>
     </div>
   );
 };
 
-export default LoanDetailsPage;
+export default MobilePromo;

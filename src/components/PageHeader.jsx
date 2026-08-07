@@ -5,7 +5,7 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
-  // Եթե գլխավոր էջն է, կամ առանձին քարտի/վարկի դետալային էջն է, չենք ցուցադրում
+  // Եթե գլխավոր էջն է, կամ առանձին քարտի/վարկի/ավանդի դետալային էջն է, չենք ցուցադրում
   if (
     location.pathname === "/" ||
     location.pathname === "/hy" ||
@@ -14,6 +14,8 @@ const PageHeader = () => {
     (location.pathname.startsWith("/cards/") &&
       location.pathname.split("/").length > 2) ||
     (location.pathname.startsWith("/loans/") &&
+      location.pathname.split("/").length > 2) ||
+    (location.pathname.startsWith("/deposits/") &&
       location.pathname.split("/").length > 2)
   ) {
     return null;
