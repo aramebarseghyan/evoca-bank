@@ -61,7 +61,11 @@ const Header2 = () => {
     { label: "Վարկեր", path: "/loans", display: "flex" },
     { label: "Քարտեր", path: "/cards", display: "flex" },
     { label: "Ավանդներ", path: "/deposits", display: "flex" },
-    { label: "Հաշիվներ", path: "/accounts", display: "hidden lg:flex" },
+    {
+      label: "Հաշիվներ",
+      path: "/account-opening-service",
+      display: "hidden lg:flex",
+    },
     {
       label: "Փոխանցումներ",
       path: "/money-transfers",
@@ -191,8 +195,6 @@ const Header2 = () => {
       isActive = isMainItemActive(path);
     }
 
-    // Եթե գտնվում ենք մաքուր հիմնական էջում (օրինակ՝ /business, /about, /loans),
-    // ապա ավտոմատ ակտիվացնում ենք ցանկի առաջին կետը (index === 0)։
     const rootPaths = [
       "/business",
       "/about",
@@ -206,10 +208,8 @@ const Header2 = () => {
       isActive = true;
     }
 
-    // Լրացուցիչ ստուգում. եթե ոչ մի այլ կետ ակտիվ չէ տվյալ ցանկում, կարող ենք առաջինին տալ ակտիվություն
     const isAnyOtherActive = currentNavItems.some((item, idx) => {
       if (idx === 0) return false;
-      // Простая проверка активности для остальных
       return cleanPath.startsWith(item.path);
     });
 

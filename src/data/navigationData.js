@@ -59,7 +59,7 @@ export const subNavigationGroups = [
     ],
   },
   {
-    mainPath: "/accounts",
+    mainPath: "/account-opening-service",
     isBusiness: false,
     paths: [
       "/accounts",

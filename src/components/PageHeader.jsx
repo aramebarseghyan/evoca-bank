@@ -133,7 +133,10 @@ const PageHeader = () => {
   };
 
   const { section, category, title } = getPageDetails(cleanPath);
-  const isPensionCards = cleanPath === "/pension-cards";
+
+  // Список путей, для которых нужно скрыть h1, но оставить хлебные крошки
+  const hideH1Paths = ["/pension-cards", "/account-opening-service"];
+  const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
   const chevronIcon = (
     <svg
@@ -180,7 +183,7 @@ const PageHeader = () => {
         <span className="text-gray-800 font-medium shrink-0">{title}</span>
       </div>
 
-      {!isPensionCards && (
+      {!shouldHideH1 && (
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
           {title}
         </h1>

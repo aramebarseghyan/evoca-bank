@@ -24,6 +24,9 @@ import DepositsPage from "./Pages/DepositsPage/DepositsPage";
 import DepositDetail from "./Pages/DepositsPage/DepositDetail";
 import DepositsImportantInfo from "./Pages/DepositsPage/DepositsImportantInfo";
 
+// 4. Импортируем страницу открытия и обслуживания счетов
+import AccountOpeningService from "./Pages/AccountOpeningService/AccountOpeningService";
+
 function App() {
   const location = useLocation();
 
@@ -54,6 +57,12 @@ function App() {
           <Route
             path="/deposits-important-information"
             element={<DepositsImportantInfo />}
+          />
+
+          {/* СТРАНИЦА ОТКРЫТИЯ И ОБСЛУЖИВАНИЯ СЧЕТОВ */}
+          <Route
+            path="/account-opening-service"
+            element={<AccountOpeningService />}
           />
 
           <Route
