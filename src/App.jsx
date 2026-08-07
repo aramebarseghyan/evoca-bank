@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 // 2. Импортируем страницы
 import HomePage from "./Pages/HomePage/HomePage";
 import LoansPage from "./Pages/LoansPage/LoansPage";
-import LoanDetailsPage from "./Pages/LoansPage/Components/LoanDetailsPage"
+import LoanDetailsPage from "./Pages/LoansPage/Components/LoanDetailsPage";
 import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
 import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
 import CardsPage from "./Pages/CardsPage/CardsPage";
@@ -18,6 +18,9 @@ import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
 import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
 import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
 import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
+
+// 3. Импортируем новую страницу вкладов
+import DepositsPage from "./Pages/DepositsPage/DepositsPage";
 
 function App() {
   const location = useLocation();
@@ -35,34 +38,31 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* Автономная страница без хедера и футера */}
+          {/* Автономная страница */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
 
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
-
-          {/* Маршрут для детальной страницы кредита по ID */}
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
+
+          {/* НОВАЯ СТРАНИЦА ВКЛАДОВ */}
+          <Route path="/deposits" element={<DepositsPage />} />
 
           <Route
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
           />
-
           <Route
             path="/loans-important-information"
             element={<LoansImportantInfo />}
           />
-
           <Route path="/cards" element={<CardsPage />} />
           <Route path="/cards/:id" element={<CardDetailWindow />} />
-
           <Route
             path="/cards-provision-and-service"
             element={<CardsProvisionAndService />}
           />
-
           <Route path="/pension-cards" element={<PensionCardsPage />} />
 
           <Route path="*" element={<div />} />
