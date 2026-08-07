@@ -27,6 +27,9 @@ import DepositsImportantInfo from "./Pages/DepositsPage/DepositsImportantInfo";
 // 4. Импортируем страницу открытия и обслуживания счетов
 import AccountOpeningService from "./Pages/AccountOpeningService/AccountOpeningService";
 
+// 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ
+import UnallocatedMetalAccounts from "./Pages/AccountOpeningService/UnallocatedMetalAccounts"; // Путь может отличаться в зависимости от структуры ваших папок
+
 function App() {
   const location = useLocation();
 
@@ -63,6 +66,12 @@ function App() {
           <Route
             path="/account-opening-service"
             element={<AccountOpeningService />}
+          />
+
+          {/* СТРАНИЦА МЕТАЛЛИЧЕСКИХ СЧЕТОВ */}
+          <Route
+            path="/unallocated-metal-accounts"
+            element={<UnallocatedMetalAccounts />}
           />
 
           <Route

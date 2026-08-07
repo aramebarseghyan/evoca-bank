@@ -135,7 +135,11 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   // Список путей, для которых нужно скрыть h1, но оставить хлебные крошки
-  const hideH1Paths = ["/pension-cards", "/account-opening-service"];
+  const hideH1Paths = [
+    "/pension-cards",
+    "/account-opening-service",
+    "/unallocated-metal-accounts",
+  ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
   const chevronIcon = (
