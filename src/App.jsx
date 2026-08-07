@@ -28,7 +28,10 @@ import DepositsImportantInfo from "./Pages/DepositsPage/DepositsImportantInfo";
 import AccountOpeningService from "./Pages/AccountOpeningService/AccountOpeningService";
 
 // 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ
-import UnallocatedMetalAccounts from "./Pages/AccountOpeningService/UnallocatedMetalAccounts"; // Путь может отличаться в зависимости от структуры ваших папок
+import UnallocatedMetalAccounts from "./Pages/AccountOpeningService/UnallocatedMetalAccounts";
+
+// 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
+import RemoteServiceNonResident from "./Pages/AccountOpeningService/RemoteServiceNonResident";
 
 function App() {
   const location = useLocation();
@@ -72,6 +75,12 @@ function App() {
           <Route
             path="/unallocated-metal-accounts"
             element={<UnallocatedMetalAccounts />}
+          />
+
+          {/* СТРАНИЦА УДАЛЕННОГО ОБСЛУЖИВАНИЯ НЕ РЕЗИДЕНТОВ */}
+          <Route
+            path="/remote-service-for-non-resident-clients"
+            element={<RemoteServiceNonResident />}
           />
 
           <Route

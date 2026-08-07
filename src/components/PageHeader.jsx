@@ -139,6 +139,7 @@ const PageHeader = () => {
     "/pension-cards",
     "/account-opening-service",
     "/unallocated-metal-accounts",
+    "/remote-service-for-non-resident-clients",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
