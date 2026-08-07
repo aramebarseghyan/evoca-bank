@@ -140,6 +140,7 @@ const PageHeader = () => {
     "/account-opening-service",
     "/unallocated-metal-accounts",
     "/remote-service-for-non-resident-clients",
+    "/personal-boxes-safe",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

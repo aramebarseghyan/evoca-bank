@@ -33,6 +33,9 @@ import UnallocatedMetalAccounts from "./Pages/AccountOpeningService/UnallocatedM
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
 import RemoteServiceNonResident from "./Pages/AccountOpeningService/RemoteServiceNonResident";
 
+// 7. Импортируем страницу անհատական պահատուփեր
+import PersonalBoxesSafe from "./Pages/AccountOpeningService/PersonalBoxesSafe";
+
 function App() {
   const location = useLocation();
 
@@ -82,6 +85,9 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
+
+          {/* СТРАНИЦА АНХАТАКАН ПАХАТՈՒՓԵՐ (Personal Boxes Safe) */}
+          <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
 
           <Route
             path="/credit-history-and-score"
