@@ -22,6 +22,7 @@ import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
 // 3. Импортируем страницы вкладов
 import DepositsPage from "./Pages/DepositsPage/DepositsPage";
 import DepositDetail from "./Pages/DepositsPage/DepositDetail";
+import DepositsImportantInfo from "./Pages/DepositsPage/DepositsImportantInfo";
 
 function App() {
   const location = useLocation();
@@ -50,6 +51,10 @@ function App() {
           {/* СТРАНИЦЫ ВКЛАДОВ */}
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposits/:id" element={<DepositDetail />} />
+          <Route
+            path="/deposits-important-information"
+            element={<DepositsImportantInfo />}
+          />
 
           <Route
             path="/credit-history-and-score"
@@ -71,7 +76,6 @@ function App() {
         </Routes>
       </main>
 
-      {/* Футер скрывается для /evoca_benefits */}
       {!isStandalonePage && <Footer />}
     </div>
   );
