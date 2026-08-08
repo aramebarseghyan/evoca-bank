@@ -16,7 +16,7 @@ const MobilePromo = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <div className="w-full bg-[#580BD4] rounded-tl-[60px] sm:rounded-tl-[80px] md:rounded-tl-[100px] xl:rounded-tl-[200px] 2xl:rounded-tl-[240px] text-white font-sans relative overflow-hidden shadow-2xl mt-[370px] md:mt-16 py-12 px-6 sm:px-10 md:px-16 2xl:px-20">
+    <div className="w-full bg-[#580BD4] rounded-tl-[60px] sm:rounded-tl-[80px] md:rounded-tl-[100px] xl:rounded-tl-[200px] 2xl:rounded-tl-[240px] text-white font-sans relative overflow-hidden shadow-2xl mt-12 md:mt-16 py-12 px-6 sm:px-10 md:px-16 2xl:px-20">
       {/* 3D Декоративные фигуры */}
       <div
         className="hidden md:block absolute top-12 right-20 xl:right-36 z-0 opacity-80 pointer-events-none"

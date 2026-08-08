@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../../../firebase"; // Укажи правильный путь к твоему firebase.js
 
 const BusinessLoansList = () => {
@@ -73,9 +74,12 @@ const BusinessLoansList = () => {
               </div>
             </div>
 
-            {/* Кнопка "Подробнее" */}
+            {/* Кнопка "Подробнее" (Ссылка на детальную страницу) */}
             <div>
-              <button className="inline-flex items-center justify-center bg-[#F1EBFA] text-[#6322C6] hover:bg-[#e4d7f7] transition-colors font-medium text-sm px-6 py-2.5 rounded-full group">
+              <Link
+                to={`/business-loans/${card.id}`}
+                className="inline-flex items-center justify-center bg-[#F1EBFA] text-[#6322C6] hover:bg-[#e4d7f7] transition-colors font-medium text-sm px-6 py-2.5 rounded-full group"
+              >
                 <span>{card.buttonText || "Մանրամասն"}</span>
                 <svg
                   className="w-4 h-4 ml-1.5 transform group-hover:translate-x-0.5 transition-transform"
@@ -90,7 +94,7 @@ const BusinessLoansList = () => {
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

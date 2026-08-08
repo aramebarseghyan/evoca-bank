@@ -11,6 +11,7 @@ const PageHeader = () => {
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
     location.pathname === "/en" ||
+    location.pathname.startsWith("/business-loans/") || // Скрываем PageHeader для детальной страницы бизнес-кредитов
     (location.pathname.startsWith("/cards/") &&
       location.pathname.split("/").length > 2) ||
     (location.pathname.startsWith("/loans/") &&

@@ -60,8 +60,9 @@ import RepoTransactions from "./Pages/Individual/Securities/RepoTransactions";
 // 14. Импортируем страницу EvocaINVEST
 import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 
-// 🔥 ДОБАВЛЕНО: Импортируем страницу бизнес-кредитов
+// 🔥 БИЗНЕС-КРЕДИТЫ: Импортируем список и страницу деталей
 import BusinessLoansList from "./Pages/Business/Loans/BusinessLoansList";
+import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails"; // Проверь путь к файлу, если он лежит в другой папке
 
 function App() {
   const location = useLocation();
@@ -82,8 +83,9 @@ function App() {
           {/* Автономная страница */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
 
-          {/* 🔥 ДОБАВЛЕНО: Роут для бизнес-кредитов */}
+          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-КРЕДИТОВ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
+          <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
 
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
