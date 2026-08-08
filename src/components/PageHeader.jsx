@@ -141,6 +141,7 @@ const PageHeader = () => {
     "/unallocated-metal-accounts",
     "/remote-service-for-non-resident-clients",
     "/personal-boxes-safe",
+    "/money-transfers",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

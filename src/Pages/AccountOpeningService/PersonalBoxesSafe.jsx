@@ -1,4 +1,5 @@
 import React from "react";
+import MobilePromo from "../HomePage/Components/MobilePromo";
 
 const PersonalBoxesSafe = () => {
   return (
@@ -313,6 +314,7 @@ const PersonalBoxesSafe = () => {
           </div>
         </div>
       </div>
+      <MobilePromo></MobilePromo>
     </div>
   );
 };
