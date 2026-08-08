@@ -18,6 +18,7 @@ import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
 import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
 import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
 import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
+import EvocaSalary from "./Pages/EvocaSalary/EvocaSalary"; // <--- Импорт EvocaSalary
 
 // 3. Импортируем страницы вкладов
 import DepositsPage from "./Pages/DepositsPage/DepositsPage";
@@ -60,14 +61,14 @@ import EvocaInvest from "./Pages/Securities/EvocaInvest";
 function App() {
   const location = useLocation();
 
-  // Проверяем, открыта ли страница без стандартных элементов
+  // Только /evoca_benefits остается автономной страницей без шапки и футера
   const isStandalonePage = location.pathname === "/evoca_benefits";
 
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
 
-      {/* Шапки скрываются для /evoca_benefits */}
+      {/* Шапки будут отображаться для всех страниц, кроме /evoca_benefits */}
       {!isStandalonePage && <MainHeader />}
       {!isStandalonePage && <PageHeader />}
 
@@ -107,7 +108,7 @@ function App() {
             element={<RemoteServiceNonResident />}
           />
 
-          {/* СТРАНИЦА ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
+          {/* СТРАНИЦԱ ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
 
           {/* СТРАНИЦЫ ПЕРЕВОДОВ */}
@@ -117,7 +118,7 @@ function App() {
             element={<TransferPaymentSystems />}
           />
 
-          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
+          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУԳ */}
           <Route path="/investment-services" element={<InvestmentServices />} />
 
           {/* СТРАНИЦА ОБЛИГАЦИЙ */}
@@ -134,6 +135,9 @@ function App() {
 
           {/* СТРАНИЦА EVOCAINVEST */}
           <Route path="/stocks-evocainvest" element={<EvocaInvest />} />
+
+          {/* СТРАНИЦА EVOCASALARY (со всеми шапками и футером) */}
+          <Route path="/evocasalary" element={<EvocaSalary />} />
 
           <Route
             path="/credit-history-and-score"

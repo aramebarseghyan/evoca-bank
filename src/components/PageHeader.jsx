@@ -24,6 +24,15 @@ const PageHeader = () => {
   const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
+    // Исправление для страницы Evoca Աշխատավարձային նախագիծ
+    if (path === "/evocasalary") {
+      return {
+        section: "Անհատ",
+        category: "Քարտեր",
+        title: "Evoca Աշխատավարձային նախագիծ",
+      };
+    }
+
     // Особые данные для страницы пенсионных карт (хлебные крошки и заголовок)
     if (path === "/pension-cards") {
       return {
@@ -145,8 +154,9 @@ const PageHeader = () => {
     "/transfer-payment-systems",
     "/investment-services",
     "/bonds",
-    '/stocks-cda-services',
-    '/stocks-repo-transactions'
+    "/stocks-cda-services",
+    "/stocks-repo-transactions",
+    "/evocasalary",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
