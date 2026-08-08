@@ -43,7 +43,10 @@ import MoneyTransfers from "./Pages/MoneyTransfers/MoneyTransfers";
 import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystems";
 
 // 10. Импортируем страницу инвестиционных услуг
-import InvestmentServices from "./Pages/Securities/InvestmentServices"; // Укажите правильный путь к вашему файлу
+import InvestmentServices from "./Pages/Securities/InvestmentServices";
+
+// 11. Импортируем страницу облигаций
+import Bonds from "./Pages/Securities/Bonds"; // Укажите правильный путь к вашему файлу Bonds
 
 function App() {
   const location = useLocation();
@@ -107,6 +110,9 @@ function App() {
 
           {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
           <Route path="/investment-services" element={<InvestmentServices />} />
+
+          {/* СТРАНИЦА ОБЛИГАЦИЙ */}
+          <Route path="/bonds" element={<Bonds />} />
 
           <Route
             path="/credit-history-and-score"
