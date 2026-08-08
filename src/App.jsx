@@ -40,7 +40,10 @@ import PersonalBoxesSafe from "./Pages/AccountOpeningService/PersonalBoxesSafe";
 import MoneyTransfers from "./Pages/MoneyTransfers/MoneyTransfers";
 
 // 9. Импортируем страницу платежных систем
-import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystems"; // Укажите правильный путь к вашему файлу
+import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystems";
+
+// 10. Импортируем страницу инвестиционных услуг
+import InvestmentServices from "./Pages/Securities/InvestmentServices"; // Укажите правильный путь к вашему файлу
 
 function App() {
   const location = useLocation();
@@ -101,6 +104,9 @@ function App() {
             path="/transfer-payment-systems"
             element={<TransferPaymentSystems />}
           />
+
+          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
+          <Route path="/investment-services" element={<InvestmentServices />} />
 
           <Route
             path="/credit-history-and-score"
