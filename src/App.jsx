@@ -18,7 +18,9 @@ import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
 import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
 import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
 import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
-import EvocaSalary from "./Pages/EvocaSalary/EvocaSalary"; // <--- Импорт EvocaSalary
+import EvocaSalary from "./Pages/EvocaSalaryandTouchCode/EvocaSalary";
+import EvocaTouchPage from "./Pages/EvocaSalaryandTouchCode/EvocaTouchPage";
+import EvocaCodesPage from "./Pages/EvocaSalaryandTouchCode/EvocaCodesPage"; // <--- Импорт EvocaCodes
 
 // 3. Импортируем страницы вкладов
 import DepositsPage from "./Pages/DepositsPage/DepositsPage";
@@ -76,12 +78,10 @@ function App() {
         <Routes>
           {/* Автономная страница */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
-
           {/* СТРАНИЦЫ ВКЛАДОВ */}
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposits/:id" element={<DepositDetail />} />
@@ -89,56 +89,47 @@ function App() {
             path="/deposits-important-information"
             element={<DepositsImportantInfo />}
           />
-
           {/* СТРАНИЦА ОТКРЫТИЯ И ОБСЛУЖИВАНИЯ СЧЕТОВ */}
           <Route
             path="/account-opening-service"
             element={<AccountOpeningService />}
           />
-
           {/* СТРАНИЦА МЕТАЛЛИЧЕСКИХ СЧЕТОВ */}
           <Route
             path="/unallocated-metal-accounts"
             element={<UnallocatedMetalAccounts />}
           />
-
           {/* СТРАНИЦА УДАЛЕННОГО ОБСЛУЖИВАНИЯ НЕ РЕЗИДЕНТОВ */}
           <Route
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-
           {/* СТРАНИЦԱ ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
-
           {/* СТРАНИЦЫ ПЕРЕВОДОВ */}
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
             element={<TransferPaymentSystems />}
           />
-
-          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУԳ */}
+          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
           <Route path="/investment-services" element={<InvestmentServices />} />
-
           {/* СТРАНИЦА ОБЛИГАЦИЙ */}
           <Route path="/bonds" element={<Bonds />} />
-
           {/* СТРАНИЦА УСЛУГ ЦД */}
           <Route path="/stocks-cda-services" element={<StocksCdaServices />} />
-
           {/* СТРАНИЦА РЕПО/ОБРАТНЫХ РЕПО СДЕЛОК */}
           <Route
             path="/stocks-repo-transactions"
             element={<RepoTransactions />}
           />
-
           {/* СТРАНИЦА EVOCAINVEST */}
           <Route path="/stocks-evocainvest" element={<EvocaInvest />} />
-
-          {/* СТРАНИЦА EVOCASALARY (со всеми шапками и футером) */}
+          {/* СТРАНИЦЫ SALARY, TOUCH И CODES */}
           <Route path="/evocasalary" element={<EvocaSalary />} />
-
+          <Route path="/evocatouch" element={<EvocaTouchPage />} />
+          <Route path="/evoca-codes" element={<EvocaCodesPage />} />{" "}
+          {/* <--- Исправленный путь */}
           <Route
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
@@ -154,7 +145,6 @@ function App() {
             element={<CardsProvisionAndService />}
           />
           <Route path="/pension-cards" element={<PensionCardsPage />} />
-
           <Route path="*" element={<div />} />
         </Routes>
       </main>

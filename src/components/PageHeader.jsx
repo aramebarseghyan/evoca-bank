@@ -24,7 +24,25 @@ const PageHeader = () => {
   const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
-    // Исправление для страницы Evoca Աշխատավարձային նախագիծ
+    // Настройки для EvocaTOUCH
+    if (path === "/evocatouch") {
+      return {
+        section: "Անհատ",
+        category: "Թվային ծառայություններ",
+        title: "EvocaTOUCH",
+      };
+    }
+
+    // Настройки для Evoca codes
+    if (path === "/evoca-codes") {
+      return {
+        section: "Մեր մասին",
+        category: "Նորություններ",
+        title: "Evoca codes",
+      };
+    }
+
+    // Настройки для Evoca Աշխատավարձային նախագիծ
     if (path === "/evocasalary") {
       return {
         section: "Անհատ",
@@ -33,7 +51,7 @@ const PageHeader = () => {
       };
     }
 
-    // Особые данные для страницы пенсионных карт (хлебные крошки и заголовок)
+    // Особые данные для страницы пенсионных карт
     if (path === "/pension-cards") {
       return {
         section: "Անհատ",
@@ -157,6 +175,8 @@ const PageHeader = () => {
     "/stocks-cda-services",
     "/stocks-repo-transactions",
     "/evocasalary",
+    "/evocatouch",
+    "/evoca-codes",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
