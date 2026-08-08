@@ -37,7 +37,10 @@ import RemoteServiceNonResident from "./Pages/AccountOpeningService/RemoteServic
 import PersonalBoxesSafe from "./Pages/AccountOpeningService/PersonalBoxesSafe";
 
 // 8. Импортируем страницу денежных переводов
-import MoneyTransfers from "./Pages/MoneyTransfers/MoneyTransfers"; // Укажите правильный путь к файлу вашей страницы
+import MoneyTransfers from "./Pages/MoneyTransfers/MoneyTransfers";
+
+// 9. Импортируем страницу платежных систем
+import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystems"; // Укажите правильный путь к вашему файлу
 
 function App() {
   const location = useLocation();
@@ -89,11 +92,15 @@ function App() {
             element={<RemoteServiceNonResident />}
           />
 
-          {/* СТРАНИЦА АՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
+          {/* СТРАНИЦА ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
 
-          {/* СТРАНИЦА ДЕНЕЖНЫХ ПЕРЕВОДОВ */}
+          {/* СТРАНИЦЫ ПЕРЕВОДОВ */}
           <Route path="/money-transfers" element={<MoneyTransfers />} />
+          <Route
+            path="/transfer-payment-systems"
+            element={<TransferPaymentSystems />}
+          />
 
           <Route
             path="/credit-history-and-score"
