@@ -145,6 +145,7 @@ const PageHeader = () => {
     "/transfer-payment-systems",
     "/investment-services",
     "/bonds",
+    '/stocks-cda-services'
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

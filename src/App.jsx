@@ -46,7 +46,10 @@ import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystem
 import InvestmentServices from "./Pages/Securities/InvestmentServices";
 
 // 11. Импортируем страницу облигаций
-import Bonds from "./Pages/Securities/Bonds"; // Укажите правильный путь к вашему файлу Bonds
+import Bonds from "./Pages/Securities/Bonds";
+
+// 12. Импортируем страницу услуг ЦД (Stocks CDA Services)
+import StocksCdaServices from "./Pages/Securities/StocksCdaServices"; // Укажите актуальный путь к файлу
 
 function App() {
   const location = useLocation();
@@ -113,6 +116,9 @@ function App() {
 
           {/* СТРАНИЦА ОБЛИГАЦИЙ */}
           <Route path="/bonds" element={<Bonds />} />
+
+          {/* СТРАНИЦА УСЛУГ ЦД */}
+          <Route path="/stocks-cda-services" element={<StocksCdaServices />} />
 
           <Route
             path="/credit-history-and-score"
