@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoanProductCard from "./LoanProductCard";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 const LoanList = ({ activeFilter }) => {

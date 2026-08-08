@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import face1 from "../../../assets/img/face1.png";
-import face2 from "../../../assets/img/face2.png";
-import face3 from "../../../assets/img/face3.png";
-import qrCode from "../../../assets/img/biometric-section-QR-Code.png";
+import face1 from "../../../../assets/img/face1.png";
+import face2 from "../../../../assets/img/face2.png";
+import face3 from "../../../../assets/img/face3.png";
+import qrCode from "../../../../assets/img/biometric-section-QR-Code.png";
 
 const faces = [face1, face2, face3];
 

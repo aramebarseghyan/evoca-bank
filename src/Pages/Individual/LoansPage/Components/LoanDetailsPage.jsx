@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
 // Swiper импорты
@@ -11,12 +11,12 @@ import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
 // Импорт шейпов из вашей папки assets/img
-import shape1 from "../../../assets/img/shape1.png";
-import shape2 from "../../../assets/img/shape2.png";
-import shape3 from "../../../assets/img/shape3.png";
-import shape4 from "../../../assets/img/shape4.png";
-import shape5 from "../../../assets/img/shape5.png";
-import shape6 from "../../../assets/img/shape6.png";
+import shape1 from "../../../../assets/img/shape1.png";
+import shape2 from "../../../../assets/img/shape2.png";
+import shape3 from "../../../../assets/img/shape3.png";
+import shape4 from "../../../../assets/img/shape4.png";
+import shape5 from "../../../../assets/img/shape5.png";
+import shape6 from "../../../../assets/img/shape6.png";
 
 const LoanDetailsPage = () => {
   const { id } = useParams();

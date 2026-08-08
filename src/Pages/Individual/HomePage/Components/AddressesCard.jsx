@@ -1,6 +1,6 @@
 import React from "react";
-import mapImg from "../../../assets/img/addresses.png";
-import pinImg from "../../../assets/img/addresses-pin.png";
+import mapImg from "../../../../assets/img/addresses.png";
+import pinImg from "../../../../assets/img/addresses-pin.png";
 
 const AddressesCard = () => {
   return (

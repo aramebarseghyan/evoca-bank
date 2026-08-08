@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
-import MobilePromo from "../../Pages/HomePage/Components/MobilePromo";
+import MobilePromo from "../HomePage/Components/MobilePromo";
 
 const CardDetailWindow = () => {
   const { id } = useParams();

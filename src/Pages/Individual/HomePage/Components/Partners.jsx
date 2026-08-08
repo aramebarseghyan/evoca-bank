@@ -7,24 +7,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 // Импорт руки
-import handImg from "../../../assets/img/hand.png";
+import handImg from "../../../../assets/img/hand.png";
 
 // Импорт логотипов партнеров
-import adelie from "../../../assets/partners/adelie.png";
-import dalma from "../../../assets/partners/dalma.png";
-import dignisi from "../../../assets/partners/dignisi.png";
-import early from "../../../assets/partners/early.png";
-import easy from "../../../assets/partners/easy.png";
-import fab from "../../../assets/partners/fab.png";
-import factory from "../../../assets/partners/factory.png";
-import futuris from "../../../assets/partners/futuris.png";
-import hip from "../../../assets/partners/hip.png";
-import imr from "../../../assets/partners/imr.png";
-import indigo from "../../../assets/partners/indigo.png";
-import kamo from "../../../assets/partners/kamo.png";
-import nortun from "../../../assets/partners/nortun.png";
-import telcell from "../../../assets/partners/telcell.png";
-import wizzy from "../../../assets/partners/wizzy.png";
+import adelie from "../../../../assets/partners/adelie.png";
+import dalma from "../../../../assets/partners/dalma.png";
+import dignisi from "../../../../assets/partners/dignisi.png";
+import early from "../../../../assets/partners/early.png";
+import easy from "../../../../assets/partners/easy.png";
+import fab from "../../../../assets/partners/fab.png";
+import factory from "../../../../assets/partners/factory.png";
+import futuris from "../../../../assets/partners/futuris.png";
+import hip from "../../../../assets/partners/hip.png";
+import imr from "../../../../assets/partners/imr.png";
+import indigo from "../../../../assets/partners/indigo.png";
+import kamo from "../../../../assets/partners/kamo.png";
+import nortun from "../../../../assets/partners/nortun.png";
+import telcell from "../../../../assets/partners/telcell.png";
+import wizzy from "../../../../assets/partners/wizzy.png";
 
 const partnersData = [
   { id: 1, name: "Factory", logo: factory },

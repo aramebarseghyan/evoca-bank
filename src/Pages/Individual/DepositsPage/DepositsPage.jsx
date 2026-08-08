@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 
 const DepositsPage = () => {

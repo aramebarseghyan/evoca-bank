@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 
 import HeaderBenefits from "./EvocaBenefitsPage/HeaderBenefits";
 import HeroSectionBenefits from "./EvocaBenefitsPage/HeroSectionBenefits";
@@ -20,7 +20,7 @@ export default function EvocaBenefitsPage() {
     location: false,
     benefit: false,
     sector: false,
-    platform: false,    
+    platform: false,
   });
 
   const toggleSection = (section) => {

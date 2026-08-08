@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 import "swiper/css";

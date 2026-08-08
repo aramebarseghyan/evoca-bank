@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { subNavigationGroups, normalizePath } from "../../data/navigationData"; // Ներմուծում ենք տվյալները
 
 const Header1 = ({ onOpenMenu }) => {
   const location = useLocation();
@@ -95,17 +96,40 @@ const Header1 = ({ onOpenMenu }) => {
     },
   ];
 
+  // Մաքրում ենք URL-ը (օրինակ՝ /hy/loans դառնում է /loans)
+  const cleanPath = normalizePath
+    ? normalizePath(location.pathname)
+    : location.pathname;
+
   return (
     <div className="w-full border-b border-gray-100 bg-white 2xl:mt-[10px]">
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
         {/* ЛЕВАЯ ЧАСТЬ: Вкладки */}
         <div className="hidden lg:flex items-center lg:gap-3 xl:gap-5 2xl:gap-6">
           {tabs.map((tab) => {
-            const isActive = tab.prefixes.some(
-              (prefix) =>
-                location.pathname === prefix ||
-                location.pathname.startsWith(`${prefix}/`),
-            );
+            // Խելացի ստուգում ակտիվության համար
+            const isActive = tab.prefixes.some((prefix) => {
+              // 1. Ստուգում ենք ուղիղ համընկնում (հին տարբերակը)
+              if (cleanPath === prefix || cleanPath.startsWith(`${prefix}/`)) {
+                return true;
+              }
+
+              // 2. Եթե subNavigationGroups-ը կա, փնտրում ենք այս prefix-ի խումբը
+              if (subNavigationGroups) {
+                const group = subNavigationGroups.find(
+                  (g) => g.mainPath === prefix || g.paths.includes(prefix),
+                );
+
+                // Եթե խումբը գտնվեց, ստուգում ենք արդյոք ընթացիկ հասցեն (cleanPath) այդ խմբի մեջ է
+                if (group && group.paths) {
+                  return group.paths.some(
+                    (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+                  );
+                }
+              }
+
+              return false;
+            });
 
             return (
               <Link

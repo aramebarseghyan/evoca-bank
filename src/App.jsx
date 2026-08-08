@@ -8,57 +8,57 @@ import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
 // 2. Импортируем страницы
-import HomePage from "./Pages/HomePage/HomePage";
-import LoansPage from "./Pages/LoansPage/LoansPage";
-import LoanDetailsPage from "./Pages/LoansPage/Components/LoanDetailsPage";
-import CreditHistoryPage from "./Pages/LoansPage/CreditHistoryPage";
-import LoansImportantInfo from "./Pages/LoansPage/LoansImportantInfo";
-import CardsPage from "./Pages/CardsPage/CardsPage";
-import CardDetailWindow from "./Pages/CardsPage/CardDetailWindow";
-import CardsProvisionAndService from "./Pages/CardsPage/CardsProvisionAndService";
-import PensionCardsPage from "./Pages/CardsPage/PensionCardsPage";
-import EvocaBenefitsPage from "./Pages/CardsPage/EvocaBenefitsPage";
-import EvocaSalary from "./Pages/EvocaSalaryandTouchCode/EvocaSalary";
-import EvocaTouchPage from "./Pages/EvocaSalaryandTouchCode/EvocaTouchPage";
-import EvocaCodesPage from "./Pages/EvocaSalaryandTouchCode/EvocaCodesPage"; // <--- Импорт EvocaCodes
+import HomePage from "./Pages/Individual/HomePage/HomePage";
+import LoansPage from "./Pages/Individual/LoansPage/LoansPage";
+import LoanDetailsPage from "./Pages/Individual/LoansPage/Components/LoanDetailsPage";
+import CreditHistoryPage from "./Pages/Individual/LoansPage/CreditHistoryPage";
+import LoansImportantInfo from "./Pages/Individual/LoansPage/LoansImportantInfo";
+import CardsPage from "./Pages/Individual/CardsPage/CardsPage";
+import CardDetailWindow from "./Pages/Individual/CardsPage/CardDetailWindow";
+import CardsProvisionAndService from "./Pages/Individual/CardsPage/CardsProvisionAndService";
+import PensionCardsPage from "./Pages/Individual/CardsPage/PensionCardsPage";
+import EvocaBenefitsPage from "./Pages/Individual/CardsPage/EvocaBenefitsPage";
+import EvocaSalary from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaSalary";
+import EvocaTouchPage from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaTouchPage";
+import EvocaCodesPage from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaCodesPage";
 
 // 3. Импортируем страницы вкладов
-import DepositsPage from "./Pages/DepositsPage/DepositsPage";
-import DepositDetail from "./Pages/DepositsPage/DepositDetail";
-import DepositsImportantInfo from "./Pages/DepositsPage/DepositsImportantInfo";
+import DepositsPage from "./Pages/Individual/DepositsPage/DepositsPage";
+import DepositDetail from "./Pages/Individual/DepositsPage/DepositDetail";
+import DepositsImportantInfo from "./Pages/Individual/DepositsPage/DepositsImportantInfo";
 
 // 4. Импортируем страницу открытия и обслуживания счетов
-import AccountOpeningService from "./Pages/AccountOpeningService/AccountOpeningService";
+import AccountOpeningService from "./Pages/Individual/AccountOpeningService/AccountOpeningService";
 
 // 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ
-import UnallocatedMetalAccounts from "./Pages/AccountOpeningService/UnallocatedMetalAccounts";
+import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/UnallocatedMetalAccounts";
 
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
-import RemoteServiceNonResident from "./Pages/AccountOpeningService/RemoteServiceNonResident";
+import RemoteServiceNonResident from "./Pages/Individual/AccountOpeningService/RemoteServiceNonResident";
 
 // 7. Импортируем страницу անհատական պահատուփեր
-import PersonalBoxesSafe from "./Pages/AccountOpeningService/PersonalBoxesSafe";
+import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe";
 
 // 8. Импортируем страницу денежных переводов
-import MoneyTransfers from "./Pages/MoneyTransfers/MoneyTransfers";
+import MoneyTransfers from "./Pages/Individual/MoneyTransfers/MoneyTransfers";
 
 // 9. Импортируем страницу платежных систем
-import TransferPaymentSystems from "./Pages/MoneyTransfers/TransferPaymentSystems";
+import TransferPaymentSystems from "./Pages/Individual/MoneyTransfers/TransferPaymentSystems";
 
 // 10. Импортируем страницу инвестиционных услуг
-import InvestmentServices from "./Pages/Securities/InvestmentServices";
+import InvestmentServices from "./Pages/Individual/Securities/InvestmentServices";
 
 // 11. Импортируем страницу облигаций
-import Bonds from "./Pages/Securities/Bonds";
+import Bonds from "./Pages/Individual/Securities/Bonds";
 
 // 12. Импортируем страницу услуг ЦД
-import StocksCdaServices from "./Pages/Securities/StocksCdaServices";
+import StocksCdaServices from "./Pages/Individual/Securities/StocksCdaServices";
 
 // 13. Импортируем страницу репо/обратных репо сделок
-import RepoTransactions from "./Pages/Securities/RepoTransactions";
+import RepoTransactions from "./Pages/Individual/Securities/RepoTransactions";
 
 // 14. Импортируем страницу EvocaINVEST
-import EvocaInvest from "./Pages/Securities/EvocaInvest";
+import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 
 function App() {
   const location = useLocation();
@@ -128,8 +128,7 @@ function App() {
           {/* СТРАНИЦЫ SALARY, TOUCH И CODES */}
           <Route path="/evocasalary" element={<EvocaSalary />} />
           <Route path="/evocatouch" element={<EvocaTouchPage />} />
-          <Route path="/evoca-codes" element={<EvocaCodesPage />} />{" "}
-          {/* <--- Исправленный путь */}
+          <Route path="/evoca-codes" element={<EvocaCodesPage />} />
           <Route
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}

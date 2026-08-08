@@ -1,5 +1,5 @@
 import React from "react";
-import evocaBenefitsLogo from "../../../assets/img/evoca-benefits.png";
+import evocaBenefitsLogo from "../../../../assets/img/evoca-benefits.png";
 
 export default function FooterBenefits() {
   return (

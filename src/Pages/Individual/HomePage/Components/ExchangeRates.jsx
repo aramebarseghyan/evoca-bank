@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 // Импортируем флаги
-import usaFlag from "../../../assets/partners/usaFlag.png";
-import europeFlag from "../../../assets/partners/europeFlag.webp";
-import russiaFlag from "../../../assets/partners/russiaFlag.jpg";
+import usaFlag from "../../../../assets/partners/usaFlag.png";
+import europeFlag from "../../../../assets/partners/europeFlag.webp";
+import russiaFlag from "../../../../assets/partners/russiaFlag.jpg";
 
 const ExchangeRates = () => {
   const [activeTab, setActiveTab] = useState("Կանխիկ");

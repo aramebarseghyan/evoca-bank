@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Parallax, EffectFade } from "swiper/modules";

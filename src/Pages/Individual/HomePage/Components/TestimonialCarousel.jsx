@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 
 // Картинки из assets/img
-import hand1 from "../../../assets/img/hand1.png";
-import hand2 from "../../../assets/img/hand2.png";
-import shape5 from "../../../assets/img/shape5.png";
-import shape6 from "../../../assets/img/shape6.png";
+import hand1 from "../../../../assets/img/hand1.png";
+import hand2 from "../../../../assets/img/hand2.png";
+import shape5 from "../../../../assets/img/shape5.png";
+import shape6 from "../../../../assets/img/shape6.png";
 
 // Обязательные стили Swiper
 import "swiper/css";

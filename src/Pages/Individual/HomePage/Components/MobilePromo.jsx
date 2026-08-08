@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import macbook from "../../../assets/img/macbook.png";
-import notPhoto from "../../../assets/img/notPhoto.jpg";
-import iPhone from "../../../assets/img/iPhone.png";
-import phoneImg from "../../../assets/img/phoneImg.jpg";
-import shape1 from "../../../assets/img/shape1.png";
-import shape2 from "../../../assets/img/shape2.png";
-import shape3 from "../../../assets/img/shape3.png";
-import shape4 from "../../../assets/img/shape4.png";
-import shape5 from "../../../assets/img/shape5.png";
-import shape6 from "../../../assets/img/shape6.png";
-import dotsRectangle from "../../../assets/img/dots_rectangle.png";
-import evocaBestShape2 from "../../../assets/img/evoca-best-shape2.png";
+import macbook from "../../../../assets/img/macbook.png";
+import notPhoto from "../../../../assets/img/notPhoto.jpg";
+import iPhone from "../../../../assets/img/iPhone.png";
+import phoneImg from "../../../../assets/img/phoneImg.jpg";
+import shape1 from "../../../../assets/img/shape1.png";
+import shape2 from "../../../../assets/img/shape2.png";
+import shape3 from "../../../../assets/img/shape3.png";
+import shape4 from "../../../../assets/img/shape4.png";
+import shape5 from "../../../../assets/img/shape5.png";
+import shape6 from "../../../../assets/img/shape6.png";
+import dotsRectangle from "../../../../assets/img/dots_rectangle.png";
+import evocaBestShape2 from "../../../../assets/img/evoca-best-shape2.png";
 
 const MobilePromo = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);

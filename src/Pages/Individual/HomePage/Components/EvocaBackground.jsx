@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 
-import statue from "../../../assets/img/statue.png";
-import shape1 from "../../../assets/img/shape1.png";
-import shape2 from "../../../assets/img/shape2.png";
-import shape3 from "../../../assets/img/shape3.png";
-import shape4 from "../../../assets/img/shape4.png";
-import shape5 from "../../../assets/img/shape5.png";
-import shape6 from "../../../assets/img/shape6.png";
-import evocaBestShape from "../../../assets/img/evoca-best-shape1.png";
-import roundBg from "../../../assets/img/round__bg.png";
+import statue from "../../../../assets/img/statue.png";
+import shape1 from "../../../../assets/img/shape1.png";
+import shape2 from "../../../../assets/img/shape2.png";
+import shape3 from "../../../../assets/img/shape3.png";
+import shape4 from "../../../../assets/img/shape4.png";
+import shape5 from "../../../../assets/img/shape5.png";
+import shape6 from "../../../../assets/img/shape6.png";
+import evocaBestShape from "../../../../assets/img/evoca-best-shape1.png";
+import roundBg from "../../../../assets/img/round__bg.png";
 
 const cards = [
   {
