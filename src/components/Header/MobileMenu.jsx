@@ -49,7 +49,7 @@ const menuData = {
             {
               name: "Evoca Benefits",
               hasArrow: false,
-              path: "/evoca_benefits",
+              path: "/evoca-benefits",
             },
           ],
         },
@@ -72,24 +72,29 @@ const menuData = {
             {
               name: "Հաշիվների բացում և սպասարկում",
               hasArrow: false,
-              path: "/accounts",
+              path: "/account-opening-service",
             },
             {
               name: "Առարկայազուրկ մետաղական հաշիվներ",
               hasArrow: false,
-              path: "/metal-accounts",
+              path: "/unallocated-metal-accounts",
             },
             {
               name: "Ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում",
               hasArrow: false,
-              path: "/non-resident",
+              path: "/remote-service-for-non-resident-clients",
             },
-            { name: "Պահատուփեր", hasArrow: false, path: "/safe-boxes" },
+            {
+              name: "Պահատուփեր",
+              hasArrow: false,
+              path: "/personal-boxes-safe",
+            },
           ],
         },
         {
           name: "Փոխանցումներ",
           hasArrow: true,
+          path: "/transfers",
           children: [
             {
               name: "Դրամական փոխանցումներ",
@@ -99,14 +104,14 @@ const menuData = {
             {
               name: "Վճարային համակարգեր",
               hasArrow: false,
-              path: "/payment-systems",
+              path: "/transfer-payment-systems",
             },
           ],
-          path: "/transfers",
         },
         {
           name: "Արժեթղթեր",
           hasArrow: true,
+          path: "/securities",
           children: [
             {
               name: "Ներդրումային ծառայություններ",
@@ -117,16 +122,15 @@ const menuData = {
             {
               name: "ՀԿԴ ծառայություններ",
               hasArrow: false,
-              path: "/depository-services",
+              path: "/stocks-cda-services",
             },
             {
               name: "Ռեպո/Հակադարձ Ռեպո գործարքներ",
               hasArrow: false,
-              path: "/repo-transactions",
+              path: "/stocks-repo-transactions",
             },
             { name: "EvocaINVEST", hasArrow: false, path: "/evocainvest" },
           ],
-          path: "/securities",
         },
         { name: "EvocaSALARY", hasArrow: false, path: "/evocasalary" },
         { name: "EvocaTOUCH", hasArrow: false, path: "/evocatouch" },
