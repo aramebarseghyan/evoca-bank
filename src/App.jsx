@@ -52,7 +52,10 @@ import Bonds from "./Pages/Securities/Bonds";
 import StocksCdaServices from "./Pages/Securities/StocksCdaServices";
 
 // 13. Импортируем страницу репо/обратных репо сделок
-import RepoTransactions from "./Pages/Securities/RepoTransactions"; // Укажите правильный путь к файлу
+import RepoTransactions from "./Pages/Securities/RepoTransactions";
+
+// 14. Импортируем страницу EvocaINVEST
+import EvocaInvest from "./Pages/Securities/EvocaInvest";
 
 function App() {
   const location = useLocation();
@@ -128,6 +131,9 @@ function App() {
             path="/stocks-repo-transactions"
             element={<RepoTransactions />}
           />
+
+          {/* СТРАНИЦА EVOCAINVEST */}
+          <Route path="/stocks-evocainvest" element={<EvocaInvest />} />
 
           <Route
             path="/credit-history-and-score"
