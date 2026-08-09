@@ -14,7 +14,8 @@ import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
 import DocumentaryCollectionPage from "./Pages/Business/Finance/DocumentaryCollectionPage";
 import VPosTerminalPage from "./Pages/Business/Digital/VPosTerminalPage";
 import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
-import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage"; // <-- Ուղղված է ճիշտ ֆայլի ճանապարհը
+import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage";
+import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm"; // <-- Նոր հայտի ֆայլը
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -77,7 +78,7 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// 🔥 БИЗНЕС-СЧЕТА И МЕТАЛЛИЧЕСКИЕ СЧЕТА
+// 🔥 БИЗНЕС-СЧЕТԱ И МЕТАЛЛИЧЕСКИЕ СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
@@ -113,6 +114,11 @@ function App() {
           <Route path="/v-pos-terminal" element={<VPosTerminalPage />} />
           <Route path="/pos-terminal" element={<PosTerminalPage />} />
           <Route path="/pos-tariffs" element={<PosTariffsPage />} />
+          <Route
+            path="/terminal-application"
+            element={<TerminalInstallationForm />}
+          />{" "}
+          {/* <-- Հայտի երթուղին */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
