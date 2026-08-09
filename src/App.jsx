@@ -15,7 +15,8 @@ import DocumentaryCollectionPage from "./Pages/Business/Finance/DocumentaryColle
 import VPosTerminalPage from "./Pages/Business/Digital/VPosTerminalPage";
 import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
 import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage";
-import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm"; // <-- Նոր հայտի ֆայլը
+import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm";
+import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage"; // <-- Նոր mPOS էջը
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -117,8 +118,9 @@ function App() {
           <Route
             path="/terminal-application"
             element={<TerminalInstallationForm />}
-          />{" "}
-          {/* <-- Հայտի երթուղին */}
+          />
+          <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />{" "}
+          {/* <-- mPOS երթուղին */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />

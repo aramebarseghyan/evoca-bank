@@ -190,7 +190,8 @@ const PageHeader = () => {
     "/collection",
     "/v-pos-terminal",
     "/pos-terminal",
-    '/pos-tariffs'
+    "/pos-tariffs",
+    "/evoca-mobile-pos",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
