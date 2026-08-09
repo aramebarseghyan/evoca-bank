@@ -1,5 +1,5 @@
 import React from "react";
-import MobileMenu from "../../../components/Header/MobileMenu";
+import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 
 const BusinessClassicalDeposit = () => {
   // Օգնական կոմպոնենտներ ցուցակի կետերի համար
@@ -216,7 +216,7 @@ const BusinessClassicalDeposit = () => {
                 </span>
               </li>
               <li className="flex items-start">
-                <PurpleDot />
+                <PurpleDot  />
                 <span>
                   Քաղվածքները ձեզ տրամադրում ենք գրավոր՝ փոստային կապի միջոցով,
                   բացառությամբ այն դեպքի, երբ դուք գրավոր, այդ թվում՝
@@ -557,7 +557,7 @@ const BusinessClassicalDeposit = () => {
           </div>
         </div>
       </div>
-      <MobileMenu></MobileMenu>
+      <MobilePromo></MobilePromo>
     </div>
   );
 };

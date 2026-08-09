@@ -75,6 +75,9 @@ import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccoun
 // 🔥 БИЗНЕС-ДЕПОЗИТЫ (Классический депозит)
 import BusinessClassicalDeposit from "./Pages/Business/Deposits/BusinessClassicalDeposit";
 
+// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ
+import BusinessInvestmentServices from "./Pages/Business/JewelryMarket/BusinessInvestmentServices";
+
 function App() {
   const location = useLocation();
 
@@ -98,7 +101,7 @@ function App() {
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
 
-          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ И ДЕПОЗИТОВ */}
+          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ, ДЕПОЗИТОВ И ИНВЕСТИЦИЙ */}
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
@@ -110,6 +113,10 @@ function App() {
           <Route
             path="/business-classical-deposit"
             element={<BusinessClassicalDeposit />}
+          />
+          <Route
+            path="/business-investment-services"
+            element={<BusinessInvestmentServices />}
           />
 
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
