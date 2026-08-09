@@ -64,8 +64,9 @@ import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 import BusinessLoansList from "./Pages/Business/Loans/BusinessLoansList";
 import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 
-// 🔥 ЛИЗИНГ: Импортируем страницу лизинга (проверьте путь, если файл лежит в другой папке)
+// 🔥 ЛИЗИНГ И СПЕЦПРЕДЛОЖЕНИЯ
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
+import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
 function App() {
   const location = useLocation();
@@ -90,8 +91,12 @@ function App() {
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
 
-          {/* 🔥 РОУТ ДЛЯ ЛИЗИНГА */}
+          {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
+          <Route
+            path="/leasing-special-offer"
+            element={<SpecialOffersPage />}
+          />
 
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
