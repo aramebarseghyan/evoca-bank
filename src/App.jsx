@@ -94,10 +94,18 @@ import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServi
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
 import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
+// === НОВЫЙ ИМПОРТ ДЛЯ СТРАНИЦЫ МГНОВЕННЫХ ПЛАТЕЖЕЙ ===
+// ВНИМАНИЕ: Проверьте, правильный ли здесь указан путь к вашему файлу компонента
+import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
+
 function App() {
   const location = useLocation();
 
-  const isStandalonePage = location.pathname === "/evoca_benefits";
+  // === ОБНОВЛЕННАЯ ЛОГИКА ===
+  // Добавляем /instant-payments в список страниц, где не нужно показывать стандартные шапку и подвал
+  const isStandalonePage =
+    location.pathname === "/evoca_benefits" ||
+    location.pathname === "/instant-payments";
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -108,6 +116,9 @@ function App() {
 
       <main className="flex-1">
         <Routes>
+          {/* === НОВЫЙ РОУТ ДЛЯ МГНОВЕННЫХ ПЛАТЕЖЕЙ === */}
+          <Route path="/instant-payments" element={<InstantPaymentsPage />} />
+
           {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />

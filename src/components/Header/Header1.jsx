@@ -109,7 +109,7 @@ const Header1 = ({ onOpenMenu }) => {
           {tabs.map((tab) => {
             // Խելացի ստուգում ակտիվության համար
             const isActive = tab.prefixes.some((prefix) => {
-              // 1. Ստուգում ենք ուղիղ համընկնում (հին տարբերակը)
+              // 1. Ստուգում ենք ուղիղ համընկնում
               if (cleanPath === prefix || cleanPath.startsWith(`${prefix}/`)) {
                 return true;
               }
@@ -120,7 +120,6 @@ const Header1 = ({ onOpenMenu }) => {
                   (g) => g.mainPath === prefix || g.paths.includes(prefix),
                 );
 
-                // Եթե խումբը գտնվեց, ստուգում ենք արդյոք ընթացիկ հասցեն (cleanPath) այդ խմբի մեջ է
                 if (group && group.paths) {
                   return group.paths.some(
                     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
@@ -131,22 +130,36 @@ const Header1 = ({ onOpenMenu }) => {
               return false;
             });
 
+            const isInstantPayment = tab.path === "/instant-payments";
+
+            const commonClassName = `
+              ${tab.xlOnly ? "hidden xl:block" : "block"}
+              cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
+              border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
+              lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
+              ${
+                isActive
+                  ? "text-[#6000ff] font-bold border-[#6000ff]"
+                  : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
+              }
+            `;
+
+            if (isInstantPayment) {
+              return (
+                <a
+                  key={tab.name}
+                  href={tab.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={commonClassName}
+                >
+                  {tab.name}
+                </a>
+              );
+            }
+
             return (
-              <Link
-                key={tab.name}
-                to={tab.path}
-                className={`
-                  ${tab.xlOnly ? "hidden xl:block" : "block"}
-                  cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
-                  border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
-                  lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
-                  ${
-                    isActive
-                      ? "text-[#6000ff] font-bold border-[#6000ff]"
-                      : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
-                  }
-                `}
-              >
+              <Link key={tab.name} to={tab.path} className={commonClassName}>
                 {tab.name}
               </Link>
             );
