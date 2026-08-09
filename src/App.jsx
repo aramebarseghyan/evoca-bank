@@ -9,7 +9,9 @@ import ScrollToTop from "./components/ScrollToTop";
 
 // Նոր ավելացված կոմպոնենտները
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
-import FactoringPage from "./Pages/Business/Finance/LoanSummarySection"; // <-- Ավելացված է Ֆակտորինգի էջը
+import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
+import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
+import DocumentaryCollectionPage from "./Pages/Business/Finance/DocumentaryCollectionPage"; // <-- Ավելացված է Ինկասոյի էջը
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -102,8 +104,13 @@ function App() {
         <Routes>
           {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
-          <Route path="/factoring" element={<FactoringPage />} />{" "}
-          {/* <-- Ավելացված է Ֆակտորինգի Route-ը */}
+          <Route path="/factoring" element={<FactoringPage />} />
+          <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
+          <Route
+            path="/collection"
+            element={<DocumentaryCollectionPage />}
+          />{" "}
+          {/* <-- Ավելացված է Ինկասոյի Route-ը */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />

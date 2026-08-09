@@ -185,7 +185,9 @@ const PageHeader = () => {
     "/business-repo-transactions",
     "/business-evocainvest",
     "/guarantee",
-    '/factoring'
+    "/factoring",
+    "/letter-of-credit",
+    "/collection",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
