@@ -127,10 +127,10 @@ const LeasingPage = () => {
   ];
 
   return (
-    <div className="w-full bg-gray-50 pt-[90px] sm:pt-[110px] pb-16">
+    <div className="w-full bg-gray-50 pt-[30px] sm:pt-[50px] pb-4">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок страницы */}
-        <div className="mb-8">
+        <div className="mb-6">
           <h4 className="text-2xl sm:text-3xl lg:text-2xl font-bold text-[#222222]">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h4>
