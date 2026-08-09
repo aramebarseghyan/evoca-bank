@@ -7,8 +7,9 @@ import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
-// Импортируем компонент гарантийного аккордеона
+// Նոր ավելացված կոմպոնենտները
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
+import FactoringPage from "./Pages/Business/Finance/LoanSummarySection"; // <-- Ավելացված է Ֆակտորինգի էջը
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -99,11 +100,11 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* Роут для страницы гарантий */}
+          {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
-
+          <Route path="/factoring" element={<FactoringPage />} />{" "}
+          {/* <-- Ավելացված է Ֆակտորինգի Route-ը */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -136,14 +137,12 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
-
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
