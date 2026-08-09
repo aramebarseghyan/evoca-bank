@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 
 const BusinessAccountOpening = () => {
   const [openIndex, setOpenIndex] = useState(0);
@@ -90,7 +91,7 @@ const BusinessAccountOpening = () => {
           </div>
           <div className="lg:w-[60%]">
             <img
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+              src="https://www.evoca.am/images-cache/menu/1/16116367969264/780x585.jpg"
               alt="Evocabank Business"
               className="w-full h-full min-h-[250px] lg:min-h-full object-cover"
             />
@@ -203,6 +204,7 @@ const BusinessAccountOpening = () => {
           </p>
         </div>
       </div>
+      <MobilePromo></MobilePromo>
     </div>
   );
 };

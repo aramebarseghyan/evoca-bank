@@ -30,7 +30,7 @@ import DepositsImportantInfo from "./Pages/Individual/DepositsPage/DepositsImpor
 // 4. Импортируем страницу открытия и обслуживания счетов
 import AccountOpeningService from "./Pages/Individual/AccountOpeningService/AccountOpeningService";
 
-// 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ
+// 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ (физлица)
 import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/UnallocatedMetalAccounts";
 
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
@@ -68,8 +68,9 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// 🔥 БИЗНЕС-СЧЕТА
+// 🔥 БИЗНЕС-СЧЕТԱՆԵՐ И МЕТАЛЛИЧЕСКИЕ СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
+import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts"; // Путь можете скорректировать под структуру своего проекта
 
 function App() {
   const location = useLocation();
@@ -94,10 +95,14 @@ function App() {
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
 
-          {/* 🔥 РОУТ ДЛЯ БИЗНЕС-СЧЕТОВ */}
+          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ */}
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
+          />
+          <Route
+            path="/business-unallocated-metal-accounts"
+            element={<BusinessMetalAccounts />}
           />
 
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}

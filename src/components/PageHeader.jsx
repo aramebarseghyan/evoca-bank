@@ -179,6 +179,7 @@ const PageHeader = () => {
     "/evocatouch",
     "/evoca-codes",
     "/business-account-opening-and-services",
+    "/business-unallocated-metal-accounts",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
