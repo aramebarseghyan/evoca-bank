@@ -68,6 +68,9 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
+// 🔥 БИЗНЕС-СЧЕТА
+import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
+
 function App() {
   const location = useLocation();
 
@@ -90,6 +93,12 @@ function App() {
           {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-КРЕДИТОВ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
+
+          {/* 🔥 РОУТ ДЛЯ БИЗНЕС-СЧЕТОВ */}
+          <Route
+            path="/business-account-opening-and-services"
+            element={<BusinessAccountOpening />}
+          />
 
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
