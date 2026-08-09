@@ -193,6 +193,7 @@ const PageHeader = () => {
     "/pos-tariffs",
     "/evoca-mobile-pos",
     "/individual-safe-deposit-boxes",
+    "/business-transfers",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

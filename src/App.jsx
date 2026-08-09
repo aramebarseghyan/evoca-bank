@@ -7,7 +7,7 @@ import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
-// Նոր ավելացված կոմպոնենտները
+// Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
 import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
 import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
@@ -17,8 +17,9 @@ import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
 import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage";
 import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm";
 import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage";
+import BusinessMoneyTransfers from "./Pages/Business/Others/BusinessMoneyTransfers"; // Ուղղված ճանապարհ
 
-// 2. Импортируем страницы
+// 2. Импортируем страницы (физлица)
 import HomePage from "./Pages/Individual/HomePage/HomePage";
 import LoansPage from "./Pages/Individual/LoansPage/LoansPage";
 import LoanDetailsPage from "./Pages/Individual/LoansPage/Components/LoanDetailsPage";
@@ -33,12 +34,12 @@ import EvocaSalary from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaSalary"
 import EvocaTouchPage from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaTouchPage";
 import EvocaCodesPage from "./Pages/Individual/EvocaSalaryandTouchCode/EvocaCodesPage";
 
-// 3. Импортируем страницы вкладов
+// 3. Импортируем страницы вкладов (физлица)
 import DepositsPage from "./Pages/Individual/DepositsPage/DepositsPage";
 import DepositDetail from "./Pages/Individual/DepositsPage/DepositDetail";
 import DepositsImportantInfo from "./Pages/Individual/DepositsPage/DepositsImportantInfo";
 
-// 4. Импортируем страницу открытия и обслуживания счетов
+// 4. Импортируем страницу открытия и обслуживания счетов (физлица)
 import AccountOpeningService from "./Pages/Individual/AccountOpeningService/AccountOpeningService";
 
 // 5. Импортируем страницу առարկայազուրկ մետաղական հաշիվներ (физлица)
@@ -47,8 +48,8 @@ import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/U
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
 import RemoteServiceNonResident from "./Pages/Individual/AccountOpeningService/RemoteServiceNonResident";
 
-// 7. Импортируем страницу անհատական պահատուփեր
-import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe"; // <-- Պահատուփերի էջը
+// 7. Импортируем страницу անհատական պահատուփեր (Տեղական ֆայլի ճիշտ ճանապարհը)
+import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe";
 
 // 8. Импортируем страницу денежных переводов
 import MoneyTransfers from "./Pages/Individual/MoneyTransfers/MoneyTransfers";
@@ -71,22 +72,22 @@ import RepoTransactions from "./Pages/Individual/Securities/RepoTransactions";
 // 14. Импортируем страницу EvocaINVEST
 import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 
-// 🔥 БИЗНЕС-КРЕДИТЫ: Импортируем список и страницу деталей
+// БИЗНЕС-КРЕДИТЫ
 import BusinessLoansList from "./Pages/Business/Loans/BusinessLoansList";
 import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 
-// 🔥 ЛИЗИНГ И СПЕЦПРЕДЛОЖЕНИЯ
+// ЛИЗИНГ
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// 🔥 БИЗНЕС-СЧЕТԱ И МЕТАЛЛИЧЕСКИЕ СЧЕТА
+// БИЗНЕС-СЧЕТԱ
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
-// 🔥 БИЗНЕС-ДЕПОЗИТЫ (Классический депозит)
+// БИЗНЕС-ДЕПОЗИТЫ
 import BusinessClassicalDeposit from "./Pages/Business/Deposits/BusinessClassicalDeposit";
 
-// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ, ОБЛИГАЦИИ, УСЛУГИ ЦД, РЕПО И EVOCAINVEST
+// БИЗНЕС-ИНВЕСТИЦИИ
 import BusinessInvestmentServices from "./Pages/Business/JewelryMarket/BusinessInvestmentServices";
 import BusinessBonds from "./Pages/Business/JewelryMarket/BusinessBonds";
 import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServices";
@@ -125,6 +126,11 @@ function App() {
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
+          <Route
+            path="/business-transfers"
+            element={<BusinessMoneyTransfers />}
+          />
+
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
