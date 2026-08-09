@@ -1,35 +1,43 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Импортируем Link
 
 const MainOnlcomponent = () => {
   const categories = [
     {
       title: "EVOCABANK",
-      img: "https://resource.evoca.am/images/WebPayment/evoca.png", // Ensure you have exact images or accurate placeholders
+      img: "https://resource.evoca.am/images/WebPayment/evoca.png",
       isLogo: true,
+      path: "/evocabank",
     },
     {
       title: "Միջազգային բջջային օպերատորներ",
       img: "https://resource.evoca.am/images/WebPayment/international.png",
+      path: "/international-operators",
     },
     {
       title: "Կոմունալ վճարումներ",
       img: "https://resource.evoca.am/images/WebPayment/utility.png",
+      path: "/utility-payments",
     },
     {
       title: "Ինտերնետ և TV",
       img: "https://resource.evoca.am/images/WebPayment/internettv.png",
+      path: "/internet-tv",
     },
     {
       title: "ՃՈ վճարներ",
       img: "https://resource.evoca.am/images/WebPayment/roadpolice.png",
+      path: "/traffic-fines",
     },
     {
       title: "Վարկային կազմակերպություններ",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
+      path: "/loan-organizations",
     },
     {
       title: "Միջոցառումներ",
       img: "https://resource.evoca.am/images/WebPayment/event.png",
+      path: "/events",
     },
   ];
 
@@ -44,9 +52,9 @@ const MainOnlcomponent = () => {
         {/* Container for Cards */}
         <div className="flex flex-wrap justify-center gap-6">
           {categories.map((item, index) => (
-            <div
+            <Link
               key={index}
-              // Increased width and height classes below
+              to={item.path} // Указываем путь для перехода
               className="bg-white rounded-[24px] p-10 flex flex-col items-center justify-between text-center shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer min-h-[300px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[320px] border border-gray-100 group"
             >
               {/* Image */}
@@ -54,21 +62,19 @@ const MainOnlcomponent = () => {
                 <img
                   src={item.img}
                   alt={item.title}
-                  // Increased max-height class below
                   className="max-h-[100px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
               {/* Text */}
               <p
-                // Slightly increased font size below
                 className={`text-[17px] font-medium leading-snug ${
                   item.isLogo ? "text-[#6000ff] font-bold" : "text-[#333333]"
                 }`}
               >
                 {item.title}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

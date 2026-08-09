@@ -17,7 +17,7 @@ import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
 import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage";
 import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm";
 import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage";
-import BusinessMoneyTransfers from "./Pages/Business/Others/BusinessMoneyTransfers"; // Ուղղված ճանապարհ
+import BusinessMoneyTransfers from "./Pages/Business/Others/BusinessMoneyTransfers";
 
 // 2. Импортируем страницы (физлица)
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -48,7 +48,7 @@ import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/U
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
 import RemoteServiceNonResident from "./Pages/Individual/AccountOpeningService/RemoteServiceNonResident";
 
-// 7. Импортируем страницу անհատական պահատուփեր (Տեղական ֆայլի ճիշտ ճանապարհը)
+// 7. Импортируем страницу անհատական պահատուփեր
 import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe";
 
 // 8. Импортируем страницу денежных переводов
@@ -94,18 +94,19 @@ import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServi
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
 import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
-// === НОВЫЙ ИМПОРТ ДЛЯ СТРАНИЦЫ МГНОВЕННЫХ ПЛАТЕЖЕЙ ===
-// ВНИМАНИЕ: Проверьте, правильный ли здесь указан путь к вашему файлу компонента
+// === НОВЫЕ ИМПОРТЫ ДЛЯ СИСТЕМЫ ОНЛАЙН ПЛАТЕЖЕЙ ===
 import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
+import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"; // <-- УБЕДИТЕСЬ, ЧТО ПУТЬ ПРАВИЛЬНЫЙ!
 
 function App() {
   const location = useLocation();
 
-  // === ОБНОВЛЕННАЯ ЛОГИКА ===
-  // Добавляем /instant-payments в список страниц, где не нужно показывать стандартные шапку и подвал
+  // === ОБНОВЛЕННАЯ ЛОГИКА СКРЫТИЯ ШАПКИ И ПОДВАЛА ===
+  // Добавляем /evocabank в список страниц, где не нужно показывать стандартные шапку и подвал
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
-    location.pathname === "/instant-payments";
+    location.pathname === "/instant-payments" ||
+    location.pathname === "/evocabank"; // <-- ДОБАВЛЕНО СЮДА
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -116,9 +117,10 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* === НОВЫЙ РОУТ ДЛЯ МГНОВЕННЫХ ПЛАТЕЖЕЙ === */}
+          {/* === РОУТЫ ДЛЯ МГНОВЕННЫХ ПЛАТЕЖЕЙ === */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
-
+          <Route path="/evocabank" element={<EvocabankPage />} />{" "}
+          {/* <-- ДОБАВЛЕН НОВЫЙ РОУТ */}
           {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -133,7 +135,6 @@ function App() {
           />
           <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -141,7 +142,6 @@ function App() {
             path="/business-transfers"
             element={<BusinessMoneyTransfers />}
           />
-
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
@@ -171,14 +171,12 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
-
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
@@ -201,13 +199,10 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-
-          {/* Պահատուփերի երթուղին */}
           <Route
             path="/individual-safe-deposit-boxes"
             element={<PersonalBoxesSafe />}
           />
-
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
