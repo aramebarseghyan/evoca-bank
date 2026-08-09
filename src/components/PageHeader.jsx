@@ -180,6 +180,7 @@ const PageHeader = () => {
     "/evoca-codes",
     "/business-account-opening-and-services",
     "/business-unallocated-metal-accounts",
+    "/business-classical-deposit",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

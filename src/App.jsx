@@ -70,7 +70,10 @@ import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
 // 🔥 БИЗНЕС-СЧЕТԱՆԵՐ И МЕТАЛЛИЧЕСКИЕ СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
-import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts"; // Путь можете скорректировать под структуру своего проекта
+import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
+
+// 🔥 БИЗНЕС-ДЕПОЗИТЫ (Классический депозит)
+import BusinessClassicalDeposit from "./Pages/Business/Deposits/BusinessClassicalDeposit";
 
 function App() {
   const location = useLocation();
@@ -95,7 +98,7 @@ function App() {
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
 
-          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ */}
+          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ И ДЕПОЗИТОВ */}
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
@@ -103,6 +106,10 @@ function App() {
           <Route
             path="/business-unallocated-metal-accounts"
             element={<BusinessMetalAccounts />}
+          />
+          <Route
+            path="/business-classical-deposit"
+            element={<BusinessClassicalDeposit />}
           />
 
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
