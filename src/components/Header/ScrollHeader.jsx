@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { subNavigationGroups, normalizePath } from "../../data/navigationData"; // Добавлен импорт данных
 import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
+  // Очищаем путь, как это сделано в Header1 и Header2
+  const rawPath = location.pathname;
+  const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
+
+  // Используем cleanPath вместо location.pathname
   const isBusinessMode =
-    location.pathname.startsWith("/business-") ||
-    location.pathname === "/leasing-evoca" ||
-    location.pathname === "/v-pos-terminal" ||
-    location.pathname === "/individual-safe-deposit-boxes";
+    cleanPath.startsWith("/business-") ||
+    cleanPath === "/leasing-evoca" ||
+    cleanPath === "/v-pos-terminal" ||
+    cleanPath === "/individual-safe-deposit-boxes";
 
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", showOn: "md" },
@@ -48,6 +54,19 @@ const ScrollHeader = ({ onOpenMenu }) => {
 
   const navItems = isBusinessMode ? businessNavItems : individualNavItems;
 
+  // Добавляем функцию определения активности (как в Header2)
+  const isMainItemActive = (mainPath) => {
+    if (subNavigationGroups) {
+      const group = subNavigationGroups.find((g) => g.mainPath === mainPath);
+      if (group && group.paths) {
+        return group.paths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        );
+      }
+    }
+    return cleanPath === mainPath || cleanPath.startsWith(`${mainPath}/`);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -79,12 +98,32 @@ const ScrollHeader = ({ onOpenMenu }) => {
           </div>
 
           <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
-            {navItems.map((item) => {
-              const isActive =
-                location.pathname === item.path ||
-                (!isBusinessMode &&
-                  item.path === "/loans" &&
-                  location.pathname === "/");
+            {navItems.map((item, index) => {
+              // 1. Используем умную проверку для подсветки пункта меню
+              let isActive = isMainItemActive(item.path);
+
+              // 2. Условие для главной страницы
+              if (
+                !isBusinessMode &&
+                item.path === "/loans" &&
+                cleanPath === "/"
+              ) {
+                isActive = true;
+              }
+
+              // 3. Подстраховка для корневых роутов
+              const rootPaths = [
+                "/business",
+                "/about",
+                "/career",
+                "/loans",
+                "/instant-payments",
+                "/news",
+                "/blog",
+              ];
+              if (index === 0 && rootPaths.includes(cleanPath)) {
+                isActive = true;
+              }
 
               const displayClass =
                 item.showOn === "lg"
@@ -101,7 +140,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
                   to={item.path}
                   className={`font-bold transition-colors cursor-pointer md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] ${displayClass} ${
                     isActive
-                      ? "text-[#6000ff]"
+                      ? "text-[#6000ff]" // Теперь цвет не пропадет
                       : "text-[#222222] hover:text-[#6000ff]"
                   }`}
                 >
