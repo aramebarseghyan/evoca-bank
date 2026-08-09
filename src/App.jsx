@@ -7,6 +7,9 @@ import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
+// Импортируем компонент гарантийного аккордеона
+import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
+
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
 import LoansPage from "./Pages/Individual/LoansPage/LoansPage";
@@ -80,30 +83,30 @@ import BusinessInvestmentServices from "./Pages/Business/JewelryMarket/BusinessI
 import BusinessBonds from "./Pages/Business/JewelryMarket/BusinessBonds";
 import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServices";
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
-import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST"; // <-- Импорт EvocaINVEST
+import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
 function App() {
   const location = useLocation();
 
-  // Только /evoca_benefits остается автономной страницей без шапки и футера
   const isStandalonePage = location.pathname === "/evoca_benefits";
 
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
 
-      {/* Шапки будут отображаться для всех страниц, кроме /evoca_benefits */}
       {!isStandalonePage && <MainHeader />}
       {!isStandalonePage && <PageHeader />}
 
       <main className="flex-1">
         <Routes>
-          {/* Автономная страница */}
+          {/* Роут для страницы гарантий */}
+          <Route path="/guarantee" element={<GuaranteeAccordion />} />
+
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-КРЕДИТОВ */}
+
+          {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
-          {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ, ДЕПОЗИТОВ И ИНВЕСТИЦИЙ */}
           <Route
             path="/business-account-opening-and-services"
             element={<BusinessAccountOpening />}
@@ -132,62 +135,51 @@ function App() {
           <Route
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
-          />{" "}
-          {/* <-- Роут EvocaINVEST */}
-          {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
+          />
+
+          {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-          {/* Стандартные страницы */}
+
+          {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
-          {/* СТРАНИЦЫ ВКЛАДОВ */}
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposits/:id" element={<DepositDetail />} />
           <Route
             path="/deposits-important-information"
             element={<DepositsImportantInfo />}
           />
-          {/* СТРАНИЦА ОТКРЫТИЯ И ОБСЛУЖИВАНИЯ СЧЕТОВ */}
           <Route
             path="/account-opening-service"
             element={<AccountOpeningService />}
           />
-          {/* СТРАНИЦА МЕТАЛЛИЧЕСКИХ СЧЕТОВ */}
           <Route
             path="/unallocated-metal-accounts"
             element={<UnallocatedMetalAccounts />}
           />
-          {/* СТРАНИЦА УДАЛЕННОГО ОБСЛУЖИВАНИЯ НЕ РЕЗИДЕНТОВ */}
           <Route
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-          {/* СТРАНИЦА ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
-          {/* СТРАНИЦЫ ПЕРЕВОДОВ */}
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
             element={<TransferPaymentSystems />}
           />
-          {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
           <Route path="/investment-services" element={<InvestmentServices />} />
-          {/* СТРАНИЦА ОБЛИГАЦИЙ */}
           <Route path="/bonds" element={<Bonds />} />
-          {/* СТРАНИЦА УСЛУГ ЦД */}
           <Route path="/stocks-cda-services" element={<StocksCdaServices />} />
-          {/* СТРАНИЦА РЕПО/ОБРАТНЫХ РЕПО СДЕЛОК */}
           <Route
             path="/stocks-repo-transactions"
             element={<RepoTransactions />}
           />
-          {/* СТРАНИЦА EVOCAINVEST */}
           <Route path="/stocks-evocainvest" element={<EvocaInvest />} />
-          {/* СТРАНИЦЫ SALARY, TOUCH И CODES */}
           <Route path="/evocasalary" element={<EvocaSalary />} />
           <Route path="/evocatouch" element={<EvocaTouchPage />} />
           <Route path="/evoca-codes" element={<EvocaCodesPage />} />

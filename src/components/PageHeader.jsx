@@ -183,7 +183,8 @@ const PageHeader = () => {
     "/business-classical-deposit",
     "/business-cda-services",
     "/business-repo-transactions",
-    "/stocks-evocainvest",
+    "/business-evocainvest",
+    "/guarantee",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
