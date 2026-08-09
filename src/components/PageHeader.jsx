@@ -188,6 +188,9 @@ const PageHeader = () => {
     "/factoring",
     "/letter-of-credit",
     "/collection",
+    "/v-pos-terminal",
+    "/pos-terminal",
+    '/pos-tariffs'
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

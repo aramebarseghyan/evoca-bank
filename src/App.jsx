@@ -11,7 +11,10 @@ import ScrollToTop from "./components/ScrollToTop";
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
 import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
 import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
-import DocumentaryCollectionPage from "./Pages/Business/Finance/DocumentaryCollectionPage"; // <-- Ավելացված է Ինկասոյի էջը
+import DocumentaryCollectionPage from "./Pages/Business/Finance/DocumentaryCollectionPage";
+import VPosTerminalPage from "./Pages/Business/Digital/VPosTerminalPage";
+import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
+import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage"; // <-- Ուղղված է ճիշտ ֆայլի ճանապարհը
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -106,11 +109,10 @@ function App() {
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
           <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
-          <Route
-            path="/collection"
-            element={<DocumentaryCollectionPage />}
-          />{" "}
-          {/* <-- Ավելացված է Ինկասոյի Route-ը */}
+          <Route path="/collection" element={<DocumentaryCollectionPage />} />
+          <Route path="/v-pos-terminal" element={<VPosTerminalPage />} />
+          <Route path="/pos-terminal" element={<PosTerminalPage />} />
+          <Route path="/pos-tariffs" element={<PosTariffsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
