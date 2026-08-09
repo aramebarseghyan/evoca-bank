@@ -182,6 +182,8 @@ const PageHeader = () => {
     "/business-unallocated-metal-accounts",
     "/business-classical-deposit",
     "/business-cda-services",
+    "/business-repo-transactions",
+    "/stocks-evocainvest",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

@@ -36,7 +36,7 @@ import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/U
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
 import RemoteServiceNonResident from "./Pages/Individual/AccountOpeningService/RemoteServiceNonResident";
 
-// 7. Импортируем страницу անհատական պահատուփեր
+// 7. Импортируем страницу անհատական պահատուՓեր
 import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe";
 
 // 8. Импортируем страницу денежных переводов
@@ -75,10 +75,12 @@ import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccoun
 // 🔥 БИЗНЕС-ДЕПОЗИТЫ (Классический депозит)
 import BusinessClassicalDeposit from "./Pages/Business/Deposits/BusinessClassicalDeposit";
 
-// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ, ОБЛИГАЦИИ И УСЛУГИ ЦД
+// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ, ОБЛИГАЦИИ, УСЛУГИ ЦД, РЕПО И EVOCAINVEST
 import BusinessInvestmentServices from "./Pages/Business/JewelryMarket/BusinessInvestmentServices";
 import BusinessBonds from "./Pages/Business/JewelryMarket/BusinessBonds";
-import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServices"; // <-- Добавлен импорт
+import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServices";
+import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
+import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST"; // <-- Импорт EvocaINVEST
 
 function App() {
   const location = useLocation();
@@ -122,8 +124,16 @@ function App() {
           <Route
             path="/business-cda-services"
             element={<BusinessCdaServices />}
+          />
+          <Route
+            path="/business-repo-transactions"
+            element={<BusinessRepoTransactions />}
+          />
+          <Route
+            path="/business-evocainvest"
+            element={<BusinessEvocaInvest />}
           />{" "}
-          {/* <-- Добавлен роут */}
+          {/* <-- Роут EvocaINVEST */}
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
