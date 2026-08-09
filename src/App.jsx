@@ -68,16 +68,17 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// 🔥 БИЗНЕС-СЧЕТԱՆԵՐ И МЕТАЛЛИЧЕСКИЕ СЧЕТА
+// 🔥 БИЗНЕС-СЧЕТА И МЕТАЛЛИЧЕСКИЕ СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
 // 🔥 БИЗНЕС-ДЕПОЗИТЫ (Классический депозит)
 import BusinessClassicalDeposit from "./Pages/Business/Deposits/BusinessClassicalDeposit";
 
-// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ И ОБЛИГАЦИИ
+// 🔥 БИЗНЕС-ИНВЕСТИЦИОННЫЕ УСЛУГИ, ОБЛИГАЦИИ И УСЛУГИ ЦД
 import BusinessInvestmentServices from "./Pages/Business/JewelryMarket/BusinessInvestmentServices";
 import BusinessBonds from "./Pages/Business/JewelryMarket/BusinessBonds";
+import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServices"; // <-- Добавлен импорт
 
 function App() {
   const location = useLocation();
@@ -97,11 +98,9 @@ function App() {
         <Routes>
           {/* Автономная страница */}
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-КРЕДИТОВ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
-
           {/* 🔥 РОУТЫ ДЛЯ БИЗНЕС-СЧЕТОВ, ДЕПОЗИТОВ И ИНВЕСТИЦИЙ */}
           <Route
             path="/business-account-opening-and-services"
@@ -120,19 +119,21 @@ function App() {
             element={<BusinessInvestmentServices />}
           />
           <Route path="/business-bonds" element={<BusinessBonds />} />
-
+          <Route
+            path="/business-cda-services"
+            element={<BusinessCdaServices />}
+          />{" "}
+          {/* <-- Добавлен роут */}
           {/* 🔥 РОУТЫ ДЛЯ ЛИЗИНГА И СПЕЦПРЕДЛОЖЕНИЙ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* Стандартные страницы */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
-
           {/* СТРАНИЦЫ ВКЛАДОВ */}
           <Route path="/deposits" element={<DepositsPage />} />
           <Route path="/deposits/:id" element={<DepositDetail />} />
@@ -140,58 +141,46 @@ function App() {
             path="/deposits-important-information"
             element={<DepositsImportantInfo />}
           />
-
           {/* СТРАНИЦА ОТКРЫТИЯ И ОБСЛУЖИВАНИЯ СЧЕТОВ */}
           <Route
             path="/account-opening-service"
             element={<AccountOpeningService />}
           />
-
           {/* СТРАНИЦА МЕТАЛЛИЧЕСКИХ СЧЕТОВ */}
           <Route
             path="/unallocated-metal-accounts"
             element={<UnallocatedMetalAccounts />}
           />
-
           {/* СТРАНИЦА УДАЛЕННОГО ОБСЛУЖИВАНИЯ НЕ РЕЗИДЕНТОВ */}
           <Route
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-
-          {/* СТРАНИЦԱ ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
+          {/* СТРАНИЦА ԱՆՀԱՏԱԿԱՆ ՊԱՀԱՏՈՒՓԵՐ (Personal Boxes Safe) */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
-
           {/* СТРАНИЦЫ ПЕРЕВОДОВ */}
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
             element={<TransferPaymentSystems />}
           />
-
           {/* СТРАНИЦА ИНВЕСТИЦИОННЫХ УСЛУГ */}
           <Route path="/investment-services" element={<InvestmentServices />} />
-
           {/* СТРАНИЦА ОБЛИГАЦИЙ */}
           <Route path="/bonds" element={<Bonds />} />
-
           {/* СТРАНИЦА УСЛУГ ЦД */}
           <Route path="/stocks-cda-services" element={<StocksCdaServices />} />
-
           {/* СТРАНИЦА РЕПО/ОБРАТНЫХ РЕПО СДЕЛОК */}
           <Route
             path="/stocks-repo-transactions"
             element={<RepoTransactions />}
           />
-
           {/* СТРАНИЦА EVOCAINVEST */}
           <Route path="/stocks-evocainvest" element={<EvocaInvest />} />
-
           {/* СТРАНИЦЫ SALARY, TOUCH И CODES */}
           <Route path="/evocasalary" element={<EvocaSalary />} />
           <Route path="/evocatouch" element={<EvocaTouchPage />} />
           <Route path="/evoca-codes" element={<EvocaCodesPage />} />
-
           <Route
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
@@ -200,7 +189,6 @@ function App() {
             path="/loans-important-information"
             element={<LoansImportantInfo />}
           />
-
           <Route path="/cards" element={<CardsPage />} />
           <Route path="/cards/:id" element={<CardDetailWindow />} />
           <Route
@@ -208,7 +196,6 @@ function App() {
             element={<CardsProvisionAndService />}
           />
           <Route path="/pension-cards" element={<PensionCardsPage />} />
-
           <Route path="*" element={<div />} />
         </Routes>
       </main>
