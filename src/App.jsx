@@ -16,7 +16,7 @@ import VPosTerminalPage from "./Pages/Business/Digital/VPosTerminalPage";
 import PosTerminalPage from "./Pages/Business/Digital/PosTerminalPage";
 import PosTariffsPage from "./Pages/Business/Digital/TerminalsTariffsPage";
 import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallationForm";
-import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage"; // <-- Նոր mPOS էջը
+import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage";
 
 // 2. Импортируем страницы
 import HomePage from "./Pages/Individual/HomePage/HomePage";
@@ -47,8 +47,8 @@ import UnallocatedMetalAccounts from "./Pages/Individual/AccountOpeningService/U
 // 6. Импортируем страницу ոչ ռեզիդենտ հաճախորդների հեռավար սպասարկում
 import RemoteServiceNonResident from "./Pages/Individual/AccountOpeningService/RemoteServiceNonResident";
 
-// 7. Импортируем страницу անհատական պահատուՓեր
-import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe";
+// 7. Импортируем страницу անհատական պահատուփեր
+import PersonalBoxesSafe from "./Pages/Individual/AccountOpeningService/PersonalBoxesSafe"; // <-- Պահատուփերի էջը
 
 // 8. Импортируем страницу денежных переводов
 import MoneyTransfers from "./Pages/Individual/MoneyTransfers/MoneyTransfers";
@@ -119,9 +119,9 @@ function App() {
             path="/terminal-application"
             element={<TerminalInstallationForm />}
           />
-          <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />{" "}
-          {/* <-- mPOS երթուղին */}
+          <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
+
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -154,12 +154,14 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
+
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />
@@ -182,7 +184,13 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-          <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
+
+          {/* Պահատուփերի երթուղին */}
+          <Route
+            path="/individual-safe-deposit-boxes"
+            element={<PersonalBoxesSafe />}
+          />
+
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
