@@ -10,7 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 // === ИМПОРТЫ ДЛЯ СТРАНИЦ "О БАНКЕ" ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
-import EvocabankShareholders from "./Pages/About/EvocabankShareholders"; // <-- Добавлен импорт акционеров
+import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
+import EvocabankManagement from "./Pages/About/EvocabankManagement";
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -103,13 +104,11 @@ import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
 import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
-// НОВЫЙ ИМПОРТ ДЛЯ СТРАНИЦЫ ВВОДА НОМЕРА ДОГОВОРА
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
 function App() {
   const location = useLocation();
 
-  // === ОБНОВЛЕННАЯ ЛОГИКА СКРЫТИЯ ШАПКИ И ПОДВАЛА ===
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
     location.pathname === "/instant-payments" ||
@@ -198,6 +197,7 @@ function App() {
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
+          <Route path="/management" element={<EvocabankManagement />} />
 
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
