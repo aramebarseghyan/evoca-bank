@@ -26,7 +26,8 @@ import AuditorsOpinionList from "./Pages/About/AuditorsOpinionList";
 import FinancialStatementsList from "./Pages/About/FinancialStatementsList";
 import InvestorPresentations from "./Pages/About/InvestorPresentations";
 import SemiAnnualReports from "./Pages/About/SemiAnnualReports";
-import AnnualReports from "./Pages/About/AnnualReports"; // ДОБАВИЛИ ЭТОТ ИМПОРТ
+import AnnualReports from "./Pages/About/AnnualReports";
+import Announcements from "./Pages/About/Announcements"; // ДОБАВИЛИ ИМПОРТ ОБЪЯВЛЕНИЙ
 
 // БИЗНЕС
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -183,8 +184,9 @@ function App() {
           />
           <Route path="/for-investors" element={<InvestorPresentations />} />
           <Route path="/semi-annual-reports" element={<SemiAnnualReports />} />
-          <Route path="/annual-reports" element={<AnnualReports />} />{" "}
-          {/* ДОБАВИЛИ ЭТОТ РОУТ */}
+          <Route path="/annual-reports" element={<AnnualReports />} />
+          <Route path="/announcements" element={<Announcements />} />{" "}
+          {/* ДОБАВИЛИ РОУТ ОБЪЯВЛЕНИЙ */}
           <Route path="/reviews" element={<ReviewsList />} />
           {/* ТАРИФЫ */}
           <Route

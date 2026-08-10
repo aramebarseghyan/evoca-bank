@@ -8,6 +8,14 @@ const SubHeader = () => {
   const rawPath = location.pathname;
   const cleanPath = normalizePath(rawPath);
 
+  // Скрываем SubHeader на странице объявлений
+  if (
+    cleanPath === "/announcements" ||
+    cleanPath.startsWith("/announcements/")
+  ) {
+    return null;
+  }
+
   const activeGroup = subNavigationGroups.find((group) =>
     group.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)),
   );

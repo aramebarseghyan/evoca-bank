@@ -96,7 +96,7 @@ const Announcements = () => {
   };
 
   return (
-    <div className="w-full bg-[#f4f5f9] min-h-screen relative overflow-hidden font-sans mt-[60px] rounded-tl-[36px] pt-8">
+    <div className="w-full bg-[#f4f5f9] min-h-screen relative overflow-hidden font-sans pt-8">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10 pb-20">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
           {/* Левая часть: Иллюстрация */}
