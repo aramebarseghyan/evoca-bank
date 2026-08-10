@@ -12,6 +12,7 @@ import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
 import EvocabankManagement from "./Pages/About/EvocabankManagement";
+import ManagementDetail from "./Pages/About/ManagementDetail"; // <--- Добавили импорт детальной страницы
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -130,7 +131,6 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-
           {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -145,7 +145,6 @@ function App() {
           />
           <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -182,23 +181,21 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
-
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
-
           {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" === */}
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
           <Route path="/management" element={<EvocabankManagement />} />
-
+          <Route path="/management/:id" element={<ManagementDetail />} />{" "}
+          {/* <--- Добавили роут для детальной страницы */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
