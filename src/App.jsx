@@ -15,7 +15,8 @@ import EvocabankManagement from "./Pages/About/EvocabankManagement";
 import ManagementDetail from "./Pages/About/ManagementDetail";
 import EvocabankPartners from "./Pages/About/EvocabankPartners";
 import AwardsPage from "./Pages/About/Awards";
-import CSRComponent from "./Pages/About/CSR"; // <-- Добавлен импорт нового компонента
+import CSRComponent from "./Pages/About/CSR";
+import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // <-- Добавлен импорт нового компонента тарифов
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -192,7 +193,7 @@ function App() {
           />
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
-          {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" === */}
+          {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" И ТАРИФОВ === */}
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
@@ -200,8 +201,9 @@ function App() {
           <Route path="/management/:id" element={<ManagementDetail />} />
           <Route path="/partners" element={<EvocabankPartners />} />
           <Route path="/awards" element={<AwardsPage />} />
-          <Route path="/csr" element={<CSRComponent />} />{" "}
-          {/* <-- Добавлен роут для CSR */}
+          <Route path="/csr" element={<CSRComponent />} />
+          <Route path="/tariffs" element={<LoanTariffsTablePage />} />{" "}
+          {/* <-- Добавлен роут для тарифов кредита */}
           <Route path="/reviews" element={<ReviewsList />} />
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />

@@ -200,6 +200,7 @@ const PageHeader = () => {
     "/management",
     "/partners",
     "/csr",
+    '/tariffs'
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
