@@ -1,4 +1,5 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 
 // 1. Импортируем обертку шапки, подвал и заголовок страниц
@@ -16,7 +17,8 @@ import ManagementDetail from "./Pages/About/ManagementDetail";
 import EvocabankPartners from "./Pages/About/EvocabankPartners";
 import AwardsPage from "./Pages/About/Awards";
 import CSRComponent from "./Pages/About/CSR";
-import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // <-- Добавлен импорт нового компонента тарифов
+import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // Тарифы для физлиц
+import BusinessLoanTariffsPage from "./Pages/Tariffs/BusinessLoanTariffsPage"; // <-- Добавлен импорт тарифов для юридических лиц
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -91,7 +93,7 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// БИЗНЕС-СЧЕТА
+// БИЗНես-СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
@@ -149,6 +151,7 @@ function App() {
           />
           <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
+
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -185,14 +188,17 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
+
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
+
           {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" И ТАРИФОВ === */}
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
@@ -202,8 +208,25 @@ function App() {
           <Route path="/partners" element={<EvocabankPartners />} />
           <Route path="/awards" element={<AwardsPage />} />
           <Route path="/csr" element={<CSRComponent />} />
-          <Route path="/tariffs" element={<LoanTariffsTablePage />} />{" "}
-          {/* <-- Добавлен роут для тарифов кредита */}
+
+          {/* Редирект с общего /tariffs на физические лица */}
+          <Route
+            path="/tariffs"
+            element={<Navigate to="/tariffs/loans-to-individuals" replace />}
+          />
+
+          {/* Тарифы для физических лиц */}
+          <Route
+            path="/tariffs/loans-to-individuals"
+            element={<LoanTariffsTablePage />}
+          />
+
+          {/* Тарифы для юридических лиц (Бизнес-кредиты) */}
+          <Route
+            path="/tariffs/loans-to-legal-entities"
+            element={<BusinessLoanTariffsPage />}
+          />
+
           <Route path="/reviews" element={<ReviewsList />} />
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />

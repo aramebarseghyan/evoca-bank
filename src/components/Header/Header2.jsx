@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import evocabankLogo from "../../assets/img/evocabank.png";
@@ -113,7 +113,12 @@ const Header2 = () => {
 
   const aboutNavItems = [
     { label: "Evoca-ի մասին", path: "/about", display: "flex" },
-    { label: "Սակագներ", path: "/tariffs", display: "flex" },
+    // Измененный путь: теперь ведет сразу на нужный продукт в тарифах
+    {
+      label: "Սակագներ",
+      path: "/tariffs/loans-to-individuals",
+      display: "flex",
+    },
     { label: "Հաշվետվություններ", path: "/auditors-opinion", display: "flex" },
     { label: "Հայտարարություններ", path: "/announcements", display: "flex" },
   ];
@@ -161,7 +166,10 @@ const Header2 = () => {
         isActive = subAbout.some(
           (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
         );
-      } else if (path === "/tariffs") {
+      } else if (
+        path === "/tariffs" ||
+        path === "/tariffs/loans-to-individuals"
+      ) {
         isActive =
           cleanPath === "/tariffs" || cleanPath.startsWith("/tariffs/");
       } else if (path === "/auditors-opinion") {
