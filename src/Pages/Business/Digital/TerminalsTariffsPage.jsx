@@ -1,5 +1,4 @@
 import React from "react";
-import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 import LatestNews from "../../Individual/HomePage/Components/LatestNews";
 
 const TerminalsTariffsPage = () => {

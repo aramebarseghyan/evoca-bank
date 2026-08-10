@@ -1,5 +1,4 @@
 import React from "react";
-import LatestNews from "../../Individual/HomePage/Components/LatestNews";
 import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 
 const VPosTerminalPage = () => {

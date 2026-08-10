@@ -50,7 +50,7 @@ const CardTariffsPage = () => {
           express: "5,000 ՀՀ դրամ",
         };
       case "arca":
-        Id: "arca";
+        "arca";
         return {
           subtitle: "ArCa Classic քարտեր",
           issuance: "0",

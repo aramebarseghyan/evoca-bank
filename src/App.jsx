@@ -17,11 +17,12 @@ import ManagementDetail from "./Pages/About/ManagementDetail";
 import EvocabankPartners from "./Pages/About/EvocabankPartners";
 import AwardsPage from "./Pages/About/Awards";
 import CSRComponent from "./Pages/About/CSR";
-import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // Тарифы для физлиц
-import BusinessLoanTariffsPage from "./Pages/Tariffs/BusinessLoanTariffsPage"; // Тарифы для юридических лиц
-import CardTariffsPage from "./Pages/Tariffs/CardTariffsPage"; // Комиссионные тарифы по платежным картам
-import DepositTariffsPage from "./Pages/Tariffs/DepositTariffsPage"; // Тарифы по депозитам
-import ArchivePage from "./Pages/Tariffs/ArchivePage"; // <-- Добавлен импорт страницы Архива
+import LoanTariffsTablePage from "./Pages/About/LoanTariffsTablePage"; // Тарифы для физлиц
+import BusinessLoanTariffsPage from "./Pages/About/BusinessLoanTariffsPage"; // Тарифы для юридических лиц
+import CardTariffsPage from "./Pages/About/CardTariffsPage"; // Комиссионные тарифы по платежным картам
+import DepositTariffsPage from "./Pages/About/DepositTariffsPage"; // Тарифы по депозитам
+import ArchivePage from "./Pages/About/ArchivePage"; // Архив тарифов и условий
+import AuditorsOpinionList from "./Pages/About/AuditorsOpinionList"; // <-- Добавлен импорт компонента аудиторских заключений
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -211,6 +212,9 @@ function App() {
           <Route path="/partners" element={<EvocabankPartners />} />
           <Route path="/awards" element={<AwardsPage />} />
           <Route path="/csr" element={<CSRComponent />} />
+
+          {/* Роут для страницы аудиторских заключений */}
+          <Route path="/auditors-opinion" element={<AuditorsOpinionList />} />
 
           {/* Редирект с общего /tariffs на физические лица */}
           <Route
