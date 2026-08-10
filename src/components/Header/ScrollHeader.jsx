@@ -1,23 +1,70 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { subNavigationGroups, normalizePath } from "../../data/navigationData"; // Добавлен импорт данных
+import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Очищаем путь, как это сделано в Header1 и Header2
+  // Очищаем путь
   const rawPath = location.pathname;
   const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
 
-  // Используем cleanPath вместо location.pathname
+  // 1. Новости и Блог (совсем минималистичные — без вкладок)
+  const minimalHeaderPages = ["/news", "/blog"];
+  const isMinimalHeader = minimalHeaderPages.some(
+    (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
+  );
+
+  // 2. Раздел Карьеры и Культуры (вкладки: Evoca Լայֆ, Աշխատանք և պրակտիկա)
+  const careerPrefixes = [
+    "/culture",
+    "/career",
+    "/advantages",
+    "/faq",
+    "/how-to-apply",
+    "/evoca-life",
+    "/work-at-evoca",
+    "/internship",
+    "/evocabridge",
+  ];
+  const isCareerMode = careerPrefixes.some(
+    (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
+  );
+
+  // 3. Корпоративный раздел "О нас" (вкладки: Evoca-ի մասին, Սակագներ и т.д.)
+  const aboutPrefixes = [
+    "/about",
+    "/structure",
+    "/shareholders",
+    "/management",
+    "/partners",
+    "/awards",
+    "/reviews",
+    "/csr",
+    "/tariffs",
+    "/reports",
+    "/announcements",
+    "/auditors-opinion",
+    "/financial-statements",
+    "/for-investors",
+    "/semi-annual-reports",
+    "/annual-reports",
+  ];
+  const isCorporateMode = aboutPrefixes.some(
+    (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
+  );
+
+  // 4. Бизнес-режим
   const isBusinessMode =
     cleanPath.startsWith("/business-") ||
     cleanPath === "/leasing-evoca" ||
     cleanPath === "/v-pos-terminal" ||
+    cleanPath === "/guarantee" ||
     cleanPath === "/individual-safe-deposit-boxes";
 
+  // Навигация для Физлиц
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", showOn: "md" },
     { label: "Քարտեր", path: "/cards", showOn: "md" },
@@ -29,6 +76,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "EvocaTOUCH", path: "/evocatouch", showOn: "2xl" },
   ];
 
+  // Навигация для Бизнеса
   const businessNavItems = [
     { label: "Վարկեր", path: "/business-loans", showOn: "md" },
     { label: "Լիզինգ", path: "/leasing-evoca", showOn: "md" },
@@ -52,10 +100,100 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "Այլ", path: "/individual-safe-deposit-boxes", showOn: "2xl" },
   ];
 
-  const navItems = isBusinessMode ? businessNavItems : individualNavItems;
+  // Корпоративная навигация ("О нас")
+  const corporateNavItems = [
+    { label: "Evoca-ի մասին", path: "/about", showOn: "md" },
+    { label: "Սակագներ", path: "/tariffs", showOn: "md" },
+    { label: "Հաշվետվություններ", path: "/reports", showOn: "md" },
+    { label: "Հայտարարություններ", path: "/announcements", showOn: "md" },
+  ];
 
-  // Добавляем функцию определения активности (как в Header2)
+  // Навигация для Карьеры
+  const careerNavItems = [
+    { label: "Evoca Լայֆ", path: "/evoca-life", showOn: "md" },
+    { label: "Աշխատանք և պրակտիկա", path: "/career", showOn: "md" },
+  ];
+
+  // Выбираем нужный массив пунктов меню
+  let navItems = individualNavItems;
+  if (isCareerMode) {
+    navItems = careerNavItems;
+  } else if (isCorporateMode) {
+    navItems = corporateNavItems;
+  } else if (isBusinessMode) {
+    navItems = businessNavItems;
+  }
+
+  // Функция определения активности пункта меню
   const isMainItemActive = (mainPath) => {
+    if (mainPath === "/about") {
+      const aboutSubPaths = [
+        "/about",
+        "/structure",
+        "/shareholders",
+        "/management",
+        "/partners",
+        "/awards",
+        "/reviews",
+        "/csr",
+        "/tariffs",
+        "/reports",
+        "/announcements",
+        "/auditors-opinion",
+        "/financial-statements",
+        "/for-investors",
+        "/semi-annual-reports",
+        "/annual-reports",
+      ];
+      if (
+        aboutSubPaths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        )
+      ) {
+        return true;
+      }
+    }
+
+    if (mainPath === "/evoca-life" || mainPath === "/career") {
+      const careerSubPaths = [
+        "/culture",
+        "/career",
+        "/advantages",
+        "/faq",
+        "/how-to-apply",
+        "/evoca-life",
+        "/work-at-evoca",
+        "/internship",
+        "/evocabridge",
+      ];
+      if (
+        careerSubPaths.some(
+          (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+        )
+      ) {
+        // Дополнительно разведем подсветку между Evoca Life и Career
+        if (
+          mainPath === "/evoca-life" &&
+          (cleanPath === "/evoca-life" ||
+            cleanPath === "/culture" ||
+            cleanPath === "/advantages" ||
+            cleanPath === "/faq")
+        ) {
+          return true;
+        }
+        if (
+          mainPath === "/career" &&
+          (cleanPath === "/career" ||
+            cleanPath === "/work-at-evoca" ||
+            cleanPath === "/internship" ||
+            cleanPath === "/evocabridge" ||
+            cleanPath === "/how-to-apply")
+        ) {
+          return true;
+        }
+      }
+    }
+
     if (subNavigationGroups) {
       const group = subNavigationGroups.find((g) => g.mainPath === mainPath);
       if (group && group.paths) {
@@ -97,58 +235,59 @@ const ScrollHeader = ({ onOpenMenu }) => {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
-            {navItems.map((item, index) => {
-              // 1. Используем умную проверку для подсветки пункта меню
-              let isActive = isMainItemActive(item.path);
+          {/* Навигация скрыта только для минималистичных страниц (новости, блог) */}
+          {!isMinimalHeader && (
+            <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
+              {navItems.map((item, index) => {
+                let isActive = isMainItemActive(item.path);
 
-              // 2. Условие для главной страницы
-              if (
-                !isBusinessMode &&
-                item.path === "/loans" &&
-                cleanPath === "/"
-              ) {
-                isActive = true;
-              }
+                if (
+                  !isBusinessMode &&
+                  !isCorporateMode &&
+                  !isCareerMode &&
+                  item.path === "/loans" &&
+                  cleanPath === "/"
+                ) {
+                  isActive = true;
+                }
 
-              // 3. Подстраховка для корневых роутов
-              const rootPaths = [
-                "/business",
-                "/about",
-                "/career",
-                "/loans",
-                "/instant-payments",
-                "/news",
-                "/blog",
-              ];
-              if (index === 0 && rootPaths.includes(cleanPath)) {
-                isActive = true;
-              }
+                const rootPaths = [
+                  "/business",
+                  "/about",
+                  "/loans",
+                  "/instant-payments",
+                  "/career",
+                  "/culture",
+                ];
+                if (index === 0 && rootPaths.includes(cleanPath)) {
+                  isActive = true;
+                }
 
-              const displayClass =
-                item.showOn === "lg"
-                  ? "hidden lg:block"
-                  : item.showOn === "xl"
-                    ? "hidden xl:block"
-                    : item.showOn === "2xl"
-                      ? "hidden 2xl:block"
-                      : "";
+                const displayClass =
+                  item.showOn === "lg"
+                    ? "hidden lg:block"
+                    : item.showOn === "xl"
+                      ? "hidden xl:block"
+                      : item.showOn === "2xl"
+                        ? "hidden 2xl:block"
+                        : "";
 
-              return (
-                <Link
-                  key={item.label}
-                  to={item.path}
-                  className={`font-bold transition-colors cursor-pointer md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] ${displayClass} ${
-                    isActive
-                      ? "text-[#6000ff]" // Теперь цвет не пропадет
-                      : "text-[#222222] hover:text-[#6000ff]"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+                return (
+                  <Link
+                    key={item.label}
+                    to={item.path}
+                    className={`font-bold transition-colors cursor-pointer md:text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[15px] ${displayClass} ${
+                      isActive
+                        ? "text-[#6000ff]"
+                        : "text-[#222222] hover:text-[#6000ff]"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          )}
         </div>
 
         <div className="flex items-center shrink-0 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
