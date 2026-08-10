@@ -3,22 +3,17 @@ import { Link } from "react-router-dom";
 import HeaderOnl from "../HeaderOnl";
 import FooterOnl from "../FooterOnl";
 
-const EvocabankPage = () => {
-  const evocaCards = [
+const LoanRepaymentPage = () => {
+  const subCategories = [
     {
-      title: "Վարկի մարում",
+      title: "Վարկի մայր գումարի վաղաժամկետ մարում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Ведет на страницу погашения кредита
+      path: "/loan-input", // Ведет на страницу ввода номера
     },
     {
-      title: "Հաշվի համալրում",
+      title: "Հերթական մարում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Теперь тоже ведут сюда
-    },
-    {
-      title: "Քարտի համալրում",
-      img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Теперь тоже ведут сюда
+      path: "/loan-input", // Тоже ведет на страницу ввода номера
     },
   ];
 
@@ -34,19 +29,23 @@ const EvocabankPage = () => {
               Գլխավոր
             </Link>
             <span className="text-gray-400 mx-2">/</span>
-            <span className="text-gray-600">EVOCABANK</span>
+            <Link to="/evocabank" className="hover:underline">
+              EVOCABANK
+            </Link>
+            <span className="text-gray-400 mx-2">/</span>
+            <span className="text-gray-600">Վարկի մարում</span>
           </div>
 
-          <h1 className="text-center text-[36px] lg:text-[40px] font-bold text-[#6000ff] mb-12">
-            EVOCABANK
+          <h1 className="text-center text-[36px] lg:text-[40px] font-bold text-[#222222] mb-12">
+            Վարկի մարում
           </h1>
 
           <div className="flex flex-wrap justify-center gap-6">
-            {evocaCards.map((item, index) => (
+            {subCategories.map((item, index) => (
               <Link
                 key={index}
                 to={item.path}
-                className="bg-white rounded-[24px] p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 cursor-pointer h-[260px] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.33%-1.5rem)] border border-transparent hover:border-[#6000ff] hover:bg-[#f6f0ff] group"
+                className="bg-white rounded-[24px] p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 cursor-pointer h-[280px] w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(40%-1.5rem)] border border-transparent hover:border-[#6000ff] hover:bg-[#f6f0ff] group"
               >
                 <div className="flex-1 flex items-center justify-center mb-6">
                   <img
@@ -55,7 +54,7 @@ const EvocabankPage = () => {
                     className="max-h-[90px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <p className="text-[16px] font-medium text-[#333333]">
+                <p className="text-[16px] font-medium text-[#333333] max-w-[220px]">
                   {item.title}
                 </p>
               </Link>
@@ -69,4 +68,4 @@ const EvocabankPage = () => {
   );
 };
 
-export default EvocabankPage;
+export default LoanRepaymentPage;

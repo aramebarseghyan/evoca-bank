@@ -94,19 +94,23 @@ import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServi
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
 import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
-// === НОВЫЕ ИМПОРТЫ ДЛЯ СИСТЕМЫ ОНЛАЙН ПЛАТЕЖЕЙ ===
+// === ИМПОРТЫ ДЛЯ СИСТЕМЫ ОНЛАЙН ПЛАТЕЖЕЙ ===
 import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
-import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"; // <-- УБЕДИТЕСЬ, ЧТО ПУТЬ ПРАВИЛЬНЫЙ!
+import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
+import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
+// НОВЫЙ ИМПОРТ ДЛЯ СТРАНИЦЫ ВВОДА НОМЕРА ДОГОВОРА
+import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
 function App() {
   const location = useLocation();
 
   // === ОБНОВЛЕННАЯ ЛОГИКА СКРЫТИЯ ШАПКИ И ПОДВАЛА ===
-  // Добавляем /evocabank в список страниц, где не нужно показывать стандартные шапку и подвал
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
     location.pathname === "/instant-payments" ||
-    location.pathname === "/evocabank"; // <-- ДОБАВЛЕНО СЮДА
+    location.pathname === "/evocabank" ||
+    location.pathname === "/loan-repayment" ||
+    location.pathname === "/loan-input"; // <-- ДОБАВЛЕНО
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -119,8 +123,11 @@ function App() {
         <Routes>
           {/* === РОУТЫ ДЛЯ МГНОВЕННЫХ ПЛАТЕЖЕЙ === */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
-          <Route path="/evocabank" element={<EvocabankPage />} />{" "}
-          {/* <-- ДОБАВЛЕН НОВЫЙ РОУТ */}
+          <Route path="/evocabank" element={<EvocabankPage />} />
+          <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
+          {/* НОВЫЙ РОУТ ДЛЯ ФОРМЫ ВВОДА НОМЕРА КРЕДИТА */}
+          <Route path="/loan-input" element={<LoanInputPage />} />
+
           {/* Նոր ավելացված Route-ները */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -135,6 +142,7 @@ function App() {
           />
           <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
+
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -171,12 +179,14 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
+
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/loans" element={<LoansPage />} />

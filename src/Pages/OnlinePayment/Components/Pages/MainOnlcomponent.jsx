@@ -1,5 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Импортируем Link
+import { Link } from "react-router-dom";
+// Импортируем кастомные шапку и футер
+import HeaderOnl from "./HeaderOnl";
+import FooterOnl from "./FooterOnl";
 
 const MainOnlcomponent = () => {
   const categories = [
@@ -42,42 +45,54 @@ const MainOnlcomponent = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#f4f5f7] py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[1240px] mx-auto">
-        {/* Title */}
-        <h1 className="text-center text-[40px] font-bold text-[#222222] mb-14">
-          Գլխավոր
-        </h1>
+    <div className="min-h-screen bg-[#f4f5f7] flex flex-col justify-between">
+      {/* Кастомная шапка для системы онлайн платежей */}
+      <HeaderOnl />
 
-        {/* Container for Cards */}
-        <div className="flex flex-wrap justify-center gap-6">
-          {categories.map((item, index) => (
-            <Link
-              key={index}
-              to={item.path} // Указываем путь для перехода
-              className="bg-white rounded-[24px] p-10 flex flex-col items-center justify-between text-center shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer min-h-[300px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[320px] border border-gray-100 group"
-            >
-              {/* Image */}
-              <div className="flex-1 flex items-center justify-center mb-8">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="max-h-[100px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
+      {/* Основной контент */}
+      <main className="w-full py-12 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
+        <div className="w-full max-w-[1240px]">
+          {/* Заголовок */}
+          <h1 className="text-center text-[36px] lg:text-[40px] font-bold text-[#222222] mb-12">
+            Գլխավոր
+          </h1>
 
-              {/* Text */}
-              <p
-                className={`text-[17px] font-medium leading-snug ${
-                  item.isLogo ? "text-[#6000ff] font-bold" : "text-[#333333]"
-                }`}
+          {/* Сетка карточек */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {categories.map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                // Настроили ширину так, чтобы на xl/2xl экранах было ровно по 4 в ряд, а также добавили стили hover из макета
+                className="bg-white rounded-[24px] p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 cursor-pointer h-[260px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[calc(25%-1.125rem)] border border-transparent hover:border-[#6000ff] hover:bg-[#f6f0ff] group"
               >
-                {item.title}
-              </p>
-            </Link>
-          ))}
+                {/* Картинка */}
+                <div className="flex-1 flex items-center justify-center mb-6">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="max-h-[90px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Текст */}
+                <p
+                  className={`text-[16px] font-medium leading-snug px-2 ${
+                    item.isLogo
+                      ? "text-[#6000ff] font-bold text-[18px]"
+                      : "text-[#333333]"
+                  }`}
+                >
+                  {item.title}
+                </p>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Кастомный подвал */}
+      <FooterOnl />
     </div>
   );
 };

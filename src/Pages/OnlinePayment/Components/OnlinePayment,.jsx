@@ -1,70 +1,89 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// Импортируем ваши специфичные шапку и футер для онлайн-платежей
-import HeaderOnl from "./HeaderOnl"; // Укажите правильный путь к вашему HeaderOnl
-import FooterOnl from "./FooterOnl"; // Укажите правильный путь к вашему FooterOnl
 
-const EvocabankPage = () => {
-  // Массив с данными для внутренних карточек (с вашими ссылками на картинки)
-  const services = [
+// Импортируем твои шапку и подвал
+import HeaderOnl from "./HeaderOnl";
+import FooterOnl from "./FooterOnl";
+
+const OnlinePayment = () => {
+  // Теперь у всех категорий путь (path) ведет на "/evocabank"
+  const categories = [
     {
-      title: "Վարկի մարում",
-      img: "https://resource.evoca.am/images/webPayment/Account-Replenishment.png",
-      path: "/evocabank/loan-repayment",
+      title: "EVOCABANK",
+      img: "https://resource.evoca.am/images/WebPayment/evoca.png",
+      isLogo: true,
+      path: "/evocabank",
     },
     {
-      title: "Հաշվի համալրում",
-      img: "https://resource.evoca.am/images/webPayment/Account-Replenishment.png",
-      path: "/evocabank/account-replenishment",
+      title: "Միջազգային բջջային օպերատորներ",
+      img: "https://resource.evoca.am/images/WebPayment/international.png",
+      path: "/evocabank", // <-- Изменено
     },
     {
-      title: "Քարտի համալրում",
-      img: "https://resource.evoca.am/images/webPayment/cardtocard.png",
-      path: "/evocabank/card-replenishment",
+      title: "Կոմունալ վճարումներ",
+      img: "https://resource.evoca.am/images/WebPayment/utility.png",
+      path: "/evocabank", // <-- Изменено
+    },
+    {
+      title: "Ինտերնետ և TV",
+      img: "https://resource.evoca.am/images/WebPayment/internettv.png",
+      path: "/evocabank", // <-- Изменено
+    },
+    {
+      title: "ՃՈ վճարներ",
+      img: "https://resource.evoca.am/images/WebPayment/roadpolice.png",
+      path: "/evocabank", // <-- Изменено
+    },
+    {
+      title: "Վարկային կազմակերպություններ",
+      img: "https://resource.evoca.am/images/WebPayment/loan.png",
+      path: "/evocabank", // <-- Изменено
+    },
+    {
+      title: "Միջոցառումներ",
+      img: "https://resource.evoca.am/images/WebPayment/event.png",
+      path: "/evocabank", // <-- Изменено
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#f4f5f7] flex flex-col justify-between">
-      {/* Шапка онлайн-платежей */}
+      {/* Шапка */}
       <HeaderOnl />
 
-      {/* Основной контент страницы */}
-      <main className="w-full py-12 px-4 sm:px-6 lg:px-8 flex-1">
-        <div className="max-w-[1240px] mx-auto">
-          {/* Хлебные крошки (Breadcrumbs) */}
-          <div className="flex items-center gap-3 mb-10 text-[16px]">
-            <Link to="/" className="text-[#6000ff] hover:underline">
-              Գլխավոր
-            </Link>
-            <span className="text-[#a5a5a5]">/</span>
-            <span className="text-[#a5a5a5]">EVOCABANK</span>
-          </div>
-
+      {/* Основной контент */}
+      <main className="w-full py-12 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
+        <div className="w-full max-w-[1240px]">
           {/* Заголовок */}
-          <h1 className="text-center text-[40px] font-bold text-[#6000ff] mb-14 uppercase">
-            EVOCABANK
+          <h1 className="text-center text-[36px] lg:text-[40px] font-bold text-[#222222] mb-12">
+            Գլխավոր
           </h1>
 
-          {/* Контейнер с карточками */}
+          {/* Сетка карточек */}
           <div className="flex flex-wrap justify-center gap-6">
-            {services.map((item, index) => (
+            {categories.map((item, index) => (
               <Link
                 key={index}
                 to={item.path}
-                className="bg-white rounded-[24px] p-10 flex flex-col items-center justify-between text-center shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer min-h-[300px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[320px] border border-gray-100 group"
+                className="bg-white rounded-[24px] p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 cursor-pointer h-[260px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[calc(25%-1.125rem)] border border-transparent hover:border-[#6000ff] hover:bg-[#f6f0ff] group"
               >
                 {/* Картинка */}
-                <div className="flex-1 flex items-center justify-center mb-8">
+                <div className="flex-1 flex items-center justify-center mb-6">
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="max-h-[120px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    className="max-h-[90px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
 
                 {/* Текст */}
-                <p className="text-[18px] font-medium text-[#333333] leading-snug">
+                <p
+                  className={`text-[16px] font-medium leading-snug px-2 ${
+                    item.isLogo
+                      ? "text-[#6000ff] font-bold text-[18px]"
+                      : "text-[#333333]"
+                  }`}
+                >
                   {item.title}
                 </p>
               </Link>
@@ -73,10 +92,10 @@ const EvocabankPage = () => {
         </div>
       </main>
 
-      {/* Подвал онлайн-платежей */}
+      {/* Подвал */}
       <FooterOnl />
     </div>
   );
 };
 
-export default EvocabankPage;
+export default OnlinePayment;
