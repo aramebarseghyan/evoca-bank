@@ -195,6 +195,7 @@ const PageHeader = () => {
     "/individual-safe-deposit-boxes",
     "/business-transfers",
     "/about",
+    "/structure",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

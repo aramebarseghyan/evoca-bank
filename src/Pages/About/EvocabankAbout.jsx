@@ -431,4 +431,3 @@ const EvocabankAbout = () => {
 };
 
 export default EvocabankAbout;
-gi
