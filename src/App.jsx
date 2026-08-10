@@ -7,6 +7,9 @@ import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
+// === НОВЫЙ ИМПОРТ ДЛЯ СТРАНИЦЫ "О БАНКЕ" ===
+import EvocabankAbout from "./Pages/About/EvocabankAbout"; // <-- Укажите правильный путь к файлу
+
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
 import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
@@ -110,7 +113,7 @@ function App() {
     location.pathname === "/instant-payments" ||
     location.pathname === "/evocabank" ||
     location.pathname === "/loan-repayment" ||
-    location.pathname === "/loan-input"; // <-- ДОБАВЛЕНО
+    location.pathname === "/loan-input";
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -125,7 +128,6 @@ function App() {
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
-          {/* НОВЫЙ РОУТ ДЛЯ ФОРМЫ ВВОДА НОМЕРА КРЕДИТА */}
           <Route path="/loan-input" element={<LoanInputPage />} />
 
           {/* Նոր ավելացված Route-ները */}
@@ -189,6 +191,10 @@ function App() {
 
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
+
+          {/* === НОВЫЙ РОУТ ДЛЯ СТРАНИЦЫ "О БАНКЕ" === */}
+          <Route path="/about" element={<EvocabankAbout />} />
+
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
