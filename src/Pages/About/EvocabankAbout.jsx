@@ -56,12 +56,12 @@ const EvocabankAbout = () => {
     <div className="bg-white text-gray-800 font-sans antialiased overflow-x-hidden relative">
       {/* 1. Общая информация */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-10">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Ընդհանուր տեղեկատվություն
         </h2>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
-          <div className="lg:w-1/2 space-y-6 text-[15px] leading-relaxed text-gray-700">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+          <div className="lg:w-1/2 space-y-4 sm:space-y-6 text-[15px] leading-relaxed text-gray-700">
             <p>
               <span className="text-[#6005c5] font-bold">Evocabank</span>-ը
               արագ, պարզ և նորարար ծառայություններ մատուցող բանկ է, որն
@@ -91,14 +91,14 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 2. Наше видение */}
-      <section className="bg-[#6005c5] w-full py-16">
+      <section className="bg-[#6005c5] w-full py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-extrabold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
             Մեր տեսլականը
           </h2>
           <div className="flex gap-4 items-start">
-            <div className="w-12 h-[2px] bg-white mt-3 shrink-0"></div>
-            <p className="text-white text-lg font-medium max-w-3xl leading-relaxed">
+            <div className="w-8 sm:w-12 h-[2px] bg-white mt-2.5 shrink-0"></div>
+            <p className="text-white text-base sm:text-lg font-medium max-w-3xl leading-relaxed">
               Դառնալ գլոբալ ֆինտեխ գործընկեր, որը միավորում է լավագույն փորձն ու
               տեխնոլոգիական նորարարությունները հարմարավետ և ճկուն
               ծառայություններ ապահովելու համար։
@@ -108,8 +108,8 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 3. Наша миссия */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pb-24">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-8">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pb-20 sm:pb-24">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Մեր առաքելությունը
         </h2>
 
@@ -117,11 +117,11 @@ const EvocabankAbout = () => {
           <img
             src="https://www.evoca.am/images-cache/about_pages/1/160992374514/946x430.jpg"
             alt="Evocabank Office"
-            className="w-full object-cover h-[430px]"
+            className="w-full object-cover h-[280px] sm:h-[430px]"
           />
 
-          <div className="bg-[#f9f6fd] border-l-[3px] border-[#6005c5] p-6 md:p-8 absolute -bottom-12 md:-bottom-16 left-4 md:left-12 max-w-2xl shadow-sm">
-            <p className="text-gray-700 leading-relaxed font-medium">
+          <div className="bg-[#f9f6fd] border-l-[3px] border-[#6005c5] p-5 sm:p-8 static lg:absolute lg:-bottom-16 lg:left-12 max-w-2xl shadow-sm mt-4 lg:mt-0">
+            <p className="text-gray-700 leading-relaxed text-sm sm:text-base font-medium">
               Որպես human-first և խելացի ֆինտեխ ընկերություն՝ մենք
               հնարավորություն ենք տալիս մարդկանց երազելու ավելի համարձակ,
               բիզնեսներին՝ բացահայտելու նոր հորիզոններ, և հասարակությանը՝
@@ -131,25 +131,25 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 4. История банка (Интерактивный слайдер с исправленной линией) */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-10">
+      {/* 4. История банка (Адаптивный таймлайн и слайдер) */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Բանկի պատմությունը
         </h2>
 
-        {/* Интерактивный таймлайн-навигатор */}
-        <div className="flex items-center gap-2 md:gap-6 mb-12 w-full">
-          {/* Левая стрелка (к 2026 году) */}
+        {/* Интерактивный таймлайн-навигатор (с горизонтальным скроллом на мобилках) */}
+        <div className="flex items-center gap-1 sm:gap-4 mb-10 w-full">
+          {/* Левая стрелка */}
           <button
-            className={`p-2 transition-colors ${activeIndex === 0 ? "text-gray-300 cursor-not-allowed" : "text-gray-400 hover:text-[#6005c5]"}`}
+            className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === 0 ? "text-gray-300 cursor-not-allowed" : "text-gray-400 hover:text-[#6005c5]"}`}
             onClick={() => {
               if (activeIndex > 0) handleYearClick(activeIndex - 1);
             }}
             disabled={activeIndex === 0}
           >
             <svg
-              width="24"
-              height="24"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -161,67 +161,69 @@ const EvocabankAbout = () => {
             </svg>
           </button>
 
-          <div className="relative flex-1 flex flex-col gap-4 pt-2">
-            {/* Текст годов */}
-            <div className="relative flex justify-between items-center">
-              {historyData.map((item, index) => {
-                const isActive = index === activeIndex;
-                return (
-                  <span
-                    key={`text-${item.year}`}
-                    onClick={() => handleYearClick(index)}
-                    className={`cursor-pointer transition-all duration-300 select-none text-center ${isActive ? "text-[#6005c5] font-extrabold text-[17px] md:text-lg" : "text-gray-700 font-bold text-[15px] md:text-base hover:text-[#6005c5]"}`}
-                  >
-                    {item.year}
-                  </span>
-                );
-              })}
-            </div>
-
-            {/* Линия времени и кружочки */}
-            <div className="relative w-full">
-              {/* Серая фоновая линия */}
-              <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-[2px] bg-gray-200 z-0"></div>
-
-              {/* Фиолетовая заполняющаяся линия */}
-              <div
-                className="absolute top-1/2 -translate-y-1/2 left-0 h-[2px] bg-[#6005c5] z-0 transition-all duration-500 ease-in-out"
-                style={{
-                  width: `${(activeIndex / (historyData.length - 1)) * 100}%`,
-                }}
-              ></div>
-
-              {/* Кружочки */}
-              <div className="relative flex justify-between items-center z-10">
+          <div className="relative flex-1 overflow-x-auto scrollbar-none pt-2 px-1">
+            <div className="min-w-[420px] flex flex-col gap-3">
+              {/* Текст годов */}
+              <div className="relative flex justify-between items-center px-3">
                 {historyData.map((item, index) => {
                   const isActive = index === activeIndex;
-                  const isPassed = index < activeIndex;
-
                   return (
-                    <div
-                      key={`circle-${item.year}`}
+                    <span
+                      key={`text-${item.year}`}
                       onClick={() => handleYearClick(index)}
-                      className="cursor-pointer flex justify-center items-center bg-white px-2 py-1"
+                      className={`cursor-pointer transition-all duration-300 select-none text-center ${isActive ? "text-[#6005c5] font-extrabold text-base sm:text-lg" : "text-gray-700 font-bold text-sm sm:text-base hover:text-[#6005c5]"}`}
                     >
-                      <div
-                        className={`rounded-full transition-all duration-500 ease-in-out ${
-                          isActive
-                            ? "w-3 h-3 bg-[#6005c5] ring-[5px] ring-[#6005c5]/25"
-                            : isPassed
-                              ? "w-3 h-3 bg-white border-[2.5px] border-[#6005c5]"
-                              : "w-3 h-3 bg-white border-[2px] border-gray-300"
-                        }`}
-                      ></div>
-                    </div>
+                      {item.year}
+                    </span>
                   );
                 })}
+              </div>
+
+              {/* Линия времени и кружочки */}
+              <div className="relative w-full px-3">
+                {/* Серая фоновая линия */}
+                <div className="absolute top-1/2 -translate-y-1/2 left-3 right-3 h-[2px] bg-gray-200 z-0"></div>
+
+                {/* Фиолетовая заполняющаяся линия */}
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 left-3 h-[2px] bg-[#6005c5] z-0 transition-all duration-500 ease-in-out"
+                  style={{
+                    width: `calc(${(activeIndex / (historyData.length - 1)) * 100}% - 24px)`,
+                  }}
+                ></div>
+
+                {/* Кружочки */}
+                <div className="relative flex justify-between items-center z-10">
+                  {historyData.map((item, index) => {
+                    const isActive = index === activeIndex;
+                    const isPassed = index < activeIndex;
+
+                    return (
+                      <div
+                        key={`circle-${item.year}`}
+                        onClick={() => handleYearClick(index)}
+                        className="cursor-pointer flex justify-center items-center bg-white p-1"
+                      >
+                        <div
+                          className={`rounded-full transition-all duration-500 ease-in-out ${
+                            isActive
+                              ? "w-3 h-3 bg-[#6005c5] ring-[5px] ring-[#6005c5]/25"
+                              : isPassed
+                                ? "w-3 h-3 bg-white border-[2.5px] border-[#6005c5]"
+                                : "w-3 h-3 bg-white border-[2px] border-gray-300"
+                          }`}
+                        ></div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Правая стрелка (к 2021 году) */}
+          {/* Правая стрелка */}
           <button
-            className={`p-2 transition-colors ${activeIndex === historyData.length - 1 ? "text-gray-300 cursor-not-allowed" : "text-[#6005c5] hover:text-[#4a0499]"}`}
+            className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === historyData.length - 1 ? "text-gray-300 cursor-not-allowed" : "text-[#6005c5] hover:text-[#4a0499]"}`}
             onClick={() => {
               if (activeIndex < historyData.length - 1)
                 handleYearClick(activeIndex + 1);
@@ -229,8 +231,8 @@ const EvocabankAbout = () => {
             disabled={activeIndex === historyData.length - 1}
           >
             <svg
-              width="24"
-              height="24"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -247,23 +249,23 @@ const EvocabankAbout = () => {
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-          spaceBetween={50}
+          spaceBetween={30}
           slidesPerView={1}
           className="w-full"
         >
           {historyData.map((item) => (
             <SwiperSlide key={item.year}>
-              <div className="flex flex-col md:flex-row gap-8 items-center bg-gray-50/50 p-6 rounded-lg">
-                <div className="md:w-1/2 bg-gray-100 p-8 rounded-lg shadow-sm min-h-[220px] flex items-center">
-                  <p className="text-gray-700 leading-relaxed text-[15px]">
+              <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-center bg-gray-50/50 p-4 sm:p-6 rounded-lg">
+                <div className="w-full md:w-1/2 bg-gray-100 p-5 sm:p-8 rounded-lg shadow-sm min-h-[180px] sm:min-h-[220px] flex items-center">
+                  <p className="text-gray-700 leading-relaxed text-sm sm:text-[15px]">
                     {item.text}
                   </p>
                 </div>
-                <div className="md:w-1/2 flex justify-center">
+                <div className="w-full md:w-1/2 flex justify-center">
                   <img
                     src={item.image}
                     alt={`History ${item.year}`}
-                    className="max-w-full h-[330px] object-contain rounded-md"
+                    className="max-w-full h-[240px] sm:h-[330px] object-contain rounded-md"
                   />
                 </div>
               </div>
@@ -273,14 +275,14 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 5. Ценности и приоритеты */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-10">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Արժեքներ և առաջնայնություններ
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-8 sm:gap-y-10">
           <div>
-            <h3 className="text-xl font-bold text-[#6005c5] mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-[#6005c5] mb-3 sm:mb-4">
               Human-first
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
@@ -290,7 +292,7 @@ const EvocabankAbout = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-[#6005c5] mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-[#6005c5] mb-3 sm:mb-4">
               Նորարարություն
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
@@ -300,7 +302,7 @@ const EvocabankAbout = () => {
             </p>
           </div>
           <div>
-            <h3 className="text-xl font-bold text-[#6005c5] mb-4">
+            <h3 className="text-lg sm:text-xl font-bold text-[#6005c5] mb-3 sm:mb-4">
               Դրական ազդեցություն
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
@@ -309,25 +311,25 @@ const EvocabankAbout = () => {
             </p>
           </div>
 
-          <div className="border-t-[3px] border-[#6005c5] pt-6">
-            <p className="text-gray-800 font-medium">
+          <div className="border-t-[3px] border-[#6005c5] pt-5 sm:pt-6">
+            <p className="text-gray-800 text-sm sm:text-base font-medium">
               Նորագույն տեխնոլոգիաների զարգացում, նորարար նախաձեռնություններ,
               startup-ներ:
             </p>
           </div>
-          <div className="border-t-[3px] border-[#6005c5] pt-6">
-            <p className="text-gray-800 font-medium">
+          <div className="border-t-[3px] border-[#6005c5] pt-5 sm:pt-6">
+            <p className="text-gray-800 text-sm sm:text-base font-medium">
               Երիտասարդության կրթական, գիտական և մշակութային նախաձեռնություններ:
             </p>
           </div>
-          <div className="border-t-[3px] border-[#6005c5] pt-6">
-            <p className="text-gray-800 font-medium">
+          <div className="border-t-[3px] border-[#6005c5] pt-5 sm:pt-6">
+            <p className="text-gray-800 text-sm sm:text-base font-medium">
               Հասարակական կարևոր նշանակություն ունեցող նախաձեռնություններ:
             </p>
           </div>
 
-          <div className="border-t-[3px] border-[#6005c5] pt-6">
-            <p className="text-gray-800 font-medium">
+          <div className="border-t-[3px] border-[#6005c5] pt-5 sm:pt-6">
+            <p className="text-gray-800 text-sm sm:text-base font-medium">
               Հասարակության առավել խոցելի խմբեր, մասնավորապես՝ ծնողազուրկ կամ
               հատուկ խնամքի տակ գտնվող երեխաներ:
             </p>
@@ -336,11 +338,11 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 6. Логотип банка */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-6">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի լոգոտիպը
         </h2>
-        <p className="text-gray-700 leading-relaxed mb-8 max-w-4xl">
+        <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-4xl">
           Բանկի լոգոն կազմված է 'evolution' էվոլյուցիա բառի արմատից և նմանեցված
           է 'evoke' զարթեցնել բառին: Բառի երկրորդ տառը՝ V-ն, պատկերված է
           կորացված անկյուններով հավասարակողմ եռանկյան տեսքով և նմանեցված է դեպի
@@ -350,16 +352,16 @@ const EvocabankAbout = () => {
         <img
           src="https://www.evoca.am/file_manager/icons/logo.png"
           alt="Evoca Bank Logo"
-          className="w-64 h-auto"
+          className="w-48 sm:w-64 h-auto"
         />
       </section>
 
       {/* 7. Брендбук */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-6">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի բրենդբուքը
         </h2>
-        <p className="text-gray-700 leading-relaxed mb-8 max-w-4xl">
+        <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-4xl">
           Բրենդբուքում կգտնեք Բանկի լոգոյի կիրառման կանոնները, բրենդային
           գույները, տառատեսակները և բրենդի այլ ատրիբուտներ:
           <br />
@@ -376,30 +378,30 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 8. Корпоративные цвета */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-6">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի կորպորատիվ գույները
         </h2>
-        <p className="text-gray-700 mb-8">
+        <p className="text-gray-700 text-sm sm:text-base mb-6 sm:mb-8">
           Բանկի կորպորատիվ գույներն են՝ սպիտակը, մոխրագույնը և մանուշակագույնը:
         </p>
 
         <div className="max-w-3xl bg-gray-50 rounded-lg p-2 border border-gray-100">
-          <div className="flex items-center gap-4 py-4 px-4 border-b border-gray-200">
-            <div className="w-6 h-6 rounded-full bg-white border border-gray-300 shadow-sm shrink-0"></div>
-            <p className="text-gray-700 text-sm">
+          <div className="flex items-center gap-4 py-3 sm:py-4 px-3 sm:px-4 border-b border-gray-200">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white border border-gray-300 shadow-sm shrink-0"></div>
+            <p className="text-gray-700 text-xs sm:text-sm">
               Սպիտակը խորհրդանշում է նորը:
             </p>
           </div>
-          <div className="flex items-center gap-4 py-4 px-4 border-b border-gray-200">
-            <div className="w-6 h-6 rounded-full bg-gray-500 shrink-0"></div>
-            <p className="text-gray-700 text-sm">
+          <div className="flex items-center gap-4 py-3 sm:py-4 px-3 sm:px-4 border-b border-gray-200">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-500 shrink-0"></div>
+            <p className="text-gray-700 text-xs sm:text-sm">
               Մոխրագույնը խորհրդանշում է նորագույն տեխնոլոգիաների կիրառումը:
             </p>
           </div>
-          <div className="flex items-center gap-4 py-4 px-4">
-            <div className="w-6 h-6 rounded-full bg-[#6005c5] shrink-0"></div>
-            <p className="text-gray-700 text-sm">
+          <div className="flex items-center gap-4 py-3 sm:py-4 px-3 sm:px-4">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#6005c5] shrink-0"></div>
+            <p className="text-gray-700 text-xs sm:text-sm">
               Մանուշակագույնը երիտասարդության, ստեղծարարության և նորարարության
               գույնն է:
             </p>
@@ -408,7 +410,7 @@ const EvocabankAbout = () => {
       </section>
 
       {/* 9. Видео */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20 sm:mb-24">
         <div
           className="relative w-full max-w-4xl"
           style={{ paddingTop: "56.25%" }}
@@ -429,3 +431,4 @@ const EvocabankAbout = () => {
 };
 
 export default EvocabankAbout;
+gi
