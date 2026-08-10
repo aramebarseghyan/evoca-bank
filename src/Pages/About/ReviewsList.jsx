@@ -12,12 +12,12 @@ import shape6 from "../../assets/img/shape6.png";
 // --- ИКОНКИ (SVG) ---
 const LargeQuoteIcon = () => (
   <svg
-    width="44"
-    height="40"
+    width="36"
+    height="32"
     viewBox="0 0 24 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="mb-4"
+    className="mb-2"
   >
     <path
       d="M0 0V20H11.2V9.6L7.2 0H0ZM12.8 0V20H24V9.6L20 0H12.8Z"
@@ -28,8 +28,8 @@ const LargeQuoteIcon = () => (
 
 const StarIcon = ({ filled }) => (
   <svg
-    width="22"
-    height="22"
+    width="18"
+    height="18"
     viewBox="0 0 24 24"
     fill={filled ? "#FFD700" : "#E0E0E0"}
     xmlns="http://www.w3.org/2000/svg"
@@ -43,37 +43,37 @@ const getAuthorCardStyle = (index) => {
   const styles = [
     // 0: Սուսաննա Վանյան
     {
-      cardClass: "rounded-[50px] rounded-tr-none rounded-bl-none",
+      cardClass: "rounded-[40px] rounded-tr-none rounded-bl-none",
       bgElement: "bg-blue-100",
       bgShapeClass: "rounded-full",
       decorImage: hand2,
-      decorClass: "w-20 -right-10 top-1/2 -translate-y-1/2",
+      decorClass: "w-16 -right-8 top-1/2 -translate-y-1/2",
     },
     // 1: Նոնե Գևորգյան
     {
       cardClass:
-        "rounded-full aspect-square flex justify-center items-center p-8",
+        "rounded-full aspect-square flex justify-center items-center p-6",
       bgElement: "bg-pink-100 border-dotted border-4 border-pink-300",
-      bgShapeClass: "rounded-[40px] rotate-12",
+      bgShapeClass: "rounded-[30px] rotate-12",
       decorImage: hand1,
-      decorClass: "w-20 -left-12 bottom-0",
+      decorClass: "w-16 -left-10 bottom-0",
     },
     // 2: Արամ Ազարյան
     {
-      cardClass: "rotate-45 rounded-[30px]",
+      cardClass: "rotate-45 rounded-[24px]",
       innerClass: "-rotate-45",
       bgElement: "bg-purple-100",
-      bgShapeClass: "rounded-[30px] -rotate-12",
+      bgShapeClass: "rounded-[24px] -rotate-12",
       decorImage: shape5,
-      decorClass: "w-20 -right-8 bottom-10",
+      decorClass: "w-16 -right-6 bottom-6",
     },
     // 3: Էլեն Վարդանյան
     {
-      cardClass: "rounded-[40px]",
+      cardClass: "rounded-[30px]",
       bgElement: "bg-yellow-100",
-      bgShapeClass: "rounded-2xl rotate-45",
+      bgShapeClass: "rounded-xl rotate-45",
       decorImage: shape6,
-      decorClass: "w-16 -left-8 top-10",
+      decorClass: "w-14 -left-6 top-6",
     },
   ];
 
@@ -119,7 +119,7 @@ const ReviewsList = () => {
         {`
           @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
           }
           .animate-float {
             animation: float 3s ease-in-out infinite;
@@ -127,8 +127,8 @@ const ReviewsList = () => {
         `}
       </style>
 
-      <div className="max-w-[1200px] mx-auto px-4 lg:px-8">
-        <div className="flex flex-col gap-24 lg:gap-32">
+      <div className="max-w-[1000px] mx-auto px-4 lg:px-8">
+        <div className="flex flex-col gap-20 lg:gap-24">
           {testimonials.map((t, index) => {
             const isReverse = index % 2 !== 0;
             const cardStyle = getAuthorCardStyle(index);
@@ -136,30 +136,30 @@ const ReviewsList = () => {
             return (
               <div
                 key={t.id}
-                className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-24 ${
+                className={`flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16 ${
                   isReverse ? "lg:flex-row-reverse" : ""
                 }`}
               >
                 {/* --- 1. Карточка Автора --- */}
-                <div className="w-full lg:w-5/12 flex justify-center relative">
-                  {/* Հեռացվել է -z-10, որպեսզի ֆոնը տեսանելի լինի */}
+                <div className="w-full lg:w-4/12 flex justify-center relative">
+                  {/* Фоновый элемент */}
                   <div
-                    className={`absolute w-64 h-64 md:w-80 md:h-80 opacity-60 ${cardStyle.bgElement} ${cardStyle.bgShapeClass} ${
-                      isReverse ? "-right-4" : "-left-4"
-                    } top-4`}
+                    className={`absolute w-48 h-48 md:w-56 md:h-56 opacity-60 ${cardStyle.bgElement} ${cardStyle.bgShapeClass} ${
+                      isReverse ? "-right-2" : "-left-2"
+                    } top-2`}
                   ></div>
 
                   {/* Белая карточка с тенью */}
                   <div
-                    className={`bg-white shadow-[0_10px_40px_rgba(0,0,0,0.08)] flex flex-col justify-center items-center text-center w-64 h-64 md:w-80 md:h-80 relative z-10 ${
+                    className={`bg-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center w-48 h-48 md:w-56 md:h-56 relative z-10 p-4 ${
                       cardStyle.cardClass
                     }`}
                   >
                     <div className={cardStyle.innerClass || ""}>
-                      <h3 className="text-[#1A1A26] text-xl font-bold mb-2">
+                      <h3 className="text-[#1A1A26] text-lg font-bold mb-1">
                         {t.authorName}
                       </h3>
-                      <p className="text-gray-500 text-sm max-w-[200px]">
+                      <p className="text-gray-500 text-xs max-w-[160px]">
                         {t.authorTitle}
                       </p>
                     </div>
@@ -170,23 +170,23 @@ const ReviewsList = () => {
                     <img
                       src={cardStyle.decorImage}
                       alt="decoration"
-                      className={`absolute animate-float z-20 pointer-events-none drop-shadow-xl ${cardStyle.decorClass}`}
+                      className={`absolute animate-float z-20 pointer-events-none drop-shadow-lg ${cardStyle.decorClass}`}
                     />
                   )}
                 </div>
 
                 {/* --- 2. Блок Текста --- */}
-                <div className="w-full lg:w-7/12 flex flex-col items-start">
-                  <div className="flex gap-4 items-start mb-4">
+                <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-center lg:text-left">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 mb-3 w-full">
                     <LargeQuoteIcon />
-                    <div className="flex gap-1 mt-2">
+                    <div className="flex gap-1 mt-1">
                       {[...Array(5)].map((_, i) => (
                         <StarIcon key={i} filled={i < t.rating} />
                       ))}
                     </div>
                   </div>
 
-                  <p className="text-gray-700 text-lg md:text-xl leading-relaxed font-medium whitespace-pre-line">
+                  <p className="text-gray-700 text-base md:text-lg leading-relaxed font-medium whitespace-pre-line w-full">
                     {t.text}
                   </p>
                 </div>
