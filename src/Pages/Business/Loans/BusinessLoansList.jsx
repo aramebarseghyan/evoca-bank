@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import { collection, getDocs } from "firebase/firestore";
+
 import { Link } from "react-router-dom";
+
 import { db } from "../../../firebase"; // Укажи правильный путь к твоему firebase.js
 
 const BusinessLoansList = () => {
@@ -10,10 +13,13 @@ const BusinessLoansList = () => {
     const fetchLoans = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "businessLoans"));
+
         const loansData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
+
           ...doc.data(),
         }));
+
         setLoans(loansData);
       } catch (error) {
         console.error("Ошибка при получении карточек:", error);
@@ -31,6 +37,7 @@ const BusinessLoansList = () => {
           className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:gap-10 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
         >
           {/* Левый блок: Картинка */}
+
           <div className="w-full md:w-[320px] h-[200px] bg-[#F7F7F9] rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={card.imageUrl}
@@ -40,19 +47,23 @@ const BusinessLoansList = () => {
           </div>
 
           {/* Правый блок: Контент */}
+
           <div className="flex-1 flex flex-col justify-between">
             <div>
               {/* Заголовок */}
+
               <h2 className="text-2xl sm:text-[28px] font-bold text-[#111827] leading-tight mb-3">
                 {card.title}
               </h2>
 
               {/* Описание */}
+
               <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[700px]">
                 {card.description}
               </p>
 
               {/* Сетка метрик (Срок, Сумма, Процент) */}
+
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                 {card.metrics?.map((metric, index) => (
                   <div key={index} className="flex flex-col justify-start">
@@ -61,9 +72,11 @@ const BusinessLoansList = () => {
                         {metric.topLabel}
                       </span>
                     )}
+
                     <span className="text-2xl sm:text-[26px] font-bold text-[#6322C6] leading-none mb-2">
                       {metric.value}
                     </span>
+
                     {metric.bottomLabel && (
                       <span className="text-gray-400 text-xs leading-snug">
                         {metric.bottomLabel}
@@ -75,12 +88,14 @@ const BusinessLoansList = () => {
             </div>
 
             {/* Кнопка "Подробнее" (Ссылка на детальную страницу) */}
+
             <div>
               <Link
                 to={`/business-loans/${card.id}`}
                 className="inline-flex items-center justify-center bg-[#F1EBFA] text-[#6322C6] hover:bg-[#e4d7f7] transition-colors font-medium text-sm px-6 py-2.5 rounded-full group"
               >
                 <span>{card.buttonText || "Մանրամասն"}</span>
+
                 <svg
                   className="w-4 h-4 ml-1.5 transform group-hover:translate-x-0.5 transition-transform"
                   fill="none"

@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from "react";
+
 import { useParams, useNavigate, Link } from "react-router-dom";
+
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+
 import { db } from "../../../firebase";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import { Navigation, Autoplay } from "swiper/modules";
+
 import "swiper/css";
+
 import "swiper/css/navigation";
+
 import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 
 const BusinessLoanDetails = () => {
   const { id } = useParams();
+
   const navigate = useNavigate();
+
   const [loan, setLoan] = useState(null);
+
   const [otherLoans, setOtherLoans] = useState([]);
+
   const [loading, setLoading] = useState(true);
+
   const [activeTab, setActiveTab] = useState("about");
+
   const [currency, setCurrency] = useState("AMD");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const docRef = doc(db, "businessLoans", id);
+
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -29,9 +43,13 @@ const BusinessLoanDetails = () => {
         }
 
         const querySnapshot = await getDocs(collection(db, "businessLoans"));
+
         const loansData = querySnapshot.docs
+
           .map((d) => ({ id: d.id, ...d.data() }))
+
           .filter((d) => d.id !== id);
+
         setOtherLoans(loansData);
       } catch (error) {
         console.error(error);
@@ -49,7 +67,9 @@ const BusinessLoanDetails = () => {
 
   const currencies = [
     { symbol: "֏", code: "AMD" },
+
     { symbol: "$", code: "USD" },
+
     { symbol: "€", code: "EUR" },
   ];
 
@@ -61,10 +81,12 @@ const BusinessLoanDetails = () => {
             <h1 className="text-[32px] md:text-[40px] font-bold text-[#111827] leading-tight mb-4">
               {loan.title}
             </h1>
+
             <p className="text-gray-500 text-base max-w-md">
               {loan.description}
             </p>
           </div>
+
           <div className="md:w-1/2 flex justify-end z-10">
             <img
               src={loan.imageUrl}
@@ -104,22 +126,30 @@ const BusinessLoanDetails = () => {
                 />
               </svg>
             </Link>
+
             <span className="text-gray-300">›</span>
+
             <span className="hover:text-[#6322C6] cursor-pointer transition-colors">
               Բիզնես
             </span>
+
             <span className="text-gray-300">›</span>
+
             <span className="hover:text-[#6322C6] cursor-pointer transition-colors">
               Վարկեր
             </span>
+
             <span className="text-gray-300">›</span>
+
             <Link
               to="/business-loans"
               className="hover:text-[#6322C6] transition-colors"
             >
               Բիզնես վարկեր
             </Link>
+
             <span className="text-gray-300">›</span>
+
             <span className="text-gray-800 font-medium">{loan.title}</span>
           </div>
         </div>
@@ -135,6 +165,7 @@ const BusinessLoanDetails = () => {
           >
             Վարկի մասին
           </button>
+
           <button
             onClick={() => setActiveTab("conditions")}
             className={`pb-4 text-[17px] font-bold transition-colors cursor-pointer ${
@@ -162,6 +193,7 @@ const BusinessLoanDetails = () => {
                     {loan.title}ը հարմար է՝
                   </strong>
                 </p>
+
                 <ul className="space-y-3 pl-2">
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
@@ -169,24 +201,28 @@ const BusinessLoanDetails = () => {
                     </span>
                     շրջանառու միջոցների համալրման,
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
                     հիմնական միջոցների ձեռքբերման,
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
                     ընթացիկ ծախսերի ֆինանսավորման,
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
                     կրեդիտորական պարտքերի մարման,
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
@@ -200,37 +236,45 @@ const BusinessLoanDetails = () => {
                     Վարկը/վարկային գիծը տրամադրվում է՝
                   </strong>
                 </p>
+
                 <ul className="space-y-3 pl-2">
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
+
                     <span>
                       <strong className="text-[#6322C6]">ԱՌԱՆՑ</strong>{" "}
                       ֆինանսական վերլուծության,
                     </span>
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
+
                     <span>
                       <strong className="text-[#6322C6]">ԱՌԱՆՑ</strong> գրավի
                     </span>
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
+
                     <span>
                       <strong className="text-[#6322C6]">ԱՌԱՆՑ</strong> հայտի
                       ուսումնասիրության վճարի
                     </span>
                   </li>
+
                   <li className="flex items-start">
                     <span className="text-[#6322C6] mr-3 mt-1.5 text-xs">
                       ●
                     </span>
+
                     <span>
                       <strong className="text-[#6322C6]">ՄԻԱՅՆ</strong>{" "}
                       երաշխավորությամբ
@@ -272,15 +316,18 @@ const BusinessLoanDetails = () => {
                           {metric.topLabel}
                         </span>
                       )}
+
                       <span className="text-[28px] font-bold text-[#6322C6] leading-none mb-1">
                         {metric.value}
                       </span>
+
                       {metric.bottomLabel && (
                         <span className="text-[#4B5563] text-[13px]">
                           {metric.bottomLabel}
                         </span>
                       )}
                     </div>
+
                     {idx < loan.metrics.length - 1 && (
                       <hr className="border-gray-100" />
                     )}
@@ -317,6 +364,7 @@ const BusinessLoanDetails = () => {
                 modules={[Navigation, Autoplay]}
                 navigation={{
                   prevEl: ".swiper-button-prev-custom",
+
                   nextEl: ".swiper-button-next-custom",
                 }}
                 loop={true}
@@ -324,8 +372,11 @@ const BusinessLoanDetails = () => {
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
                 breakpoints={{
                   320: { slidesPerView: 1 },
+
                   640: { slidesPerView: 2 },
+
                   1024: { slidesPerView: 3 },
+
                   1280: { slidesPerView: 4 },
                 }}
                 className="mySwiper"
@@ -343,6 +394,7 @@ const BusinessLoanDetails = () => {
                           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
+
                       <div className="px-2">
                         <h4 className="text-[#111827] font-semibold text-[15px] leading-relaxed text-center group-hover:text-[#6322C6] transition-colors">
                           {other.title}
@@ -371,6 +423,7 @@ const BusinessLoanDetails = () => {
           </div>
         )}
       </div>
+
       <MobilePromo></MobilePromo>
     </div>
   );
