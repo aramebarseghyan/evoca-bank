@@ -9,7 +9,8 @@ import ScrollToTop from "./components/ScrollToTop";
 
 // === ИМПОРТЫ ДЛЯ СТРАНИЦ "О БАНКЕ" ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
-import EvocabankStructure from "./Pages/About/EvocabankStructure"; // <-- Добавлен импорт структуры
+import EvocabankStructure from "./Pages/About/EvocabankStructure";
+import EvocabankShareholders from "./Pages/About/EvocabankShareholders"; // <-- Добавлен импорт акционеров
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -196,6 +197,7 @@ function App() {
           {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" === */}
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
+          <Route path="/shareholders" element={<EvocabankShareholders />} />
 
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
