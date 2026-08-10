@@ -1,6 +1,94 @@
 import React, { useState } from "react";
 
+const cardTypes = [
+  { id: "payment-cards", title: "Վճարային քարտեր" },
+  { id: "digital", title: "Visa Digital քարտեր" },
+  { id: "vision", title: "Visa Vision քարտեր" },
+  { id: "arca", title: "ArCa Classic քարտեր" },
+  { id: "social", title: "Սոցիալական հաշվի կենսաթոշակային քարտեր" },
+  { id: "mc-world", title: "Mastercard World Digital քարտեր" },
+  { id: "gift", title: "Evoca Gift Card" },
+  { id: "mc-digital", title: "Mastercard Digital Gift Card" },
+  { id: "unionpay", title: "UnionPay քարտեր" },
+  { id: "travel", title: "Evoca Travel Card" },
+  { id: "4u", title: "4U.am Gift card" },
+  { id: "homplex", title: "Homplex Gift card" },
+  { id: "dalma", title: "Dalma Gift Card" },
+  { id: "garage", title: "Garage Masters' Mall Gift Card" },
+  { id: "rio", title: "Rio Gift Card" },
+  { id: "myler", title: "MyLer Gift Card" },
+  { id: "infinite", title: "Visa Infinite քարտեր" },
+  { id: "platinum", title: "Visa Platinum վճարային քարտեր" },
+];
+
 const CardTariffsPage = () => {
+  const [activeCard, setActiveCard] = useState("payment-cards");
+
+  // Функция для генерации уникальных данных под каждый клик, чтобы таблица менялась
+  const getTableData = (id) => {
+    switch (id) {
+      case "digital":
+        return {
+          subtitle: "Visa Digital քարտեր",
+          issuance: "0",
+          annual1: "2,000 ՀՀ դրամ",
+          monthly1: "200 ՀՀ դրամ",
+          annual2: "8,000 ՀՀ դրամ",
+          monthly2: "800 ՀՀ դրամ",
+          business: "5,000 ՀՀ դրամ",
+          express: "Անδվճար (Էլեկտրոնային)",
+        };
+      case "vision":
+        return {
+          subtitle: "Visa Vision քարտեր",
+          issuance: "1,000 ՀՀ դրամ",
+          annual1: "4,000 ՀՀ դրամ",
+          monthly1: "400 ՀՀ դրամ",
+          annual2: "12,000 ՀՀ դրամ",
+          monthly2: "1,200 ՀՀ դրամ",
+          business: "8,000 ՀՀ դրամ",
+          express: "5,000 ՀՀ դրամ",
+        };
+      case "arca":
+        Id: "arca";
+        return {
+          subtitle: "ArCa Classic քարտեր",
+          issuance: "0",
+          annual1: "3,000 ՀՀ դրամ",
+          monthly1: "300 ՀՀ դրամ",
+          annual2: "10,000 ՀՀ դրամ",
+          monthly2: "1,000 ՀՀ դրամ",
+          business: "6,000 ՀՀ դրամ",
+          express: "4,000 ՀՀ դրամ",
+        };
+      case "infinite":
+        return {
+          subtitle: "Visa Infinite քարտեր",
+          issuance: "25,000 ՀՀ դրամ",
+          annual1: "120,000 ՀՀ դրամ",
+          monthly1: "10,000 ՀՀ դրամ",
+          annual2: "200,000 ՀՀ դրամ",
+          monthly2: "18,000 ՀՀ դրամ",
+          business: "150,000 ՀՀ դրամ",
+          express: "20,000 ՀՀ դրամ",
+        };
+      default:
+        return {
+          subtitle:
+            cardTypes.find((c) => c.id === id)?.title || "Վճարային քարտեր",
+          issuance: "0",
+          annual1: "5,000 ՀՀ դրամ",
+          monthly1: "MasterCard Standard 500 ՀՀ դրամ",
+          annual2: "15,000 ՀՀ դրամ",
+          monthly2: "MasterCard Gold 1,500 ՀՀ դրամ",
+          business: "10,000 ՀՀ դրամ",
+          express: "10,000 ՀՀ դրամ",
+        };
+    }
+  };
+
+  const currentData = getTableData(activeCard);
+
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans">
       <div className="flex flex-col lg:flex-row gap-8">
@@ -22,151 +110,25 @@ const CardTariffsPage = () => {
                 <polyline points="18 15 12 9 6 15"></polyline>
               </svg>
             </div>
-            <ul className="space-y-1 text-sm">
-              <li>
-                <a
-                  href="#payment-cards"
-                  className="block px-3 py-2 rounded-lg bg-purple-50 text-purple-700 font-medium"
-                >
-                  Վճարային քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#digital"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Visa Digital քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#vision"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Visa Vision քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#arca"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  ArCa Classic քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#social"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Սոցիալական հաշվի կենսաթոշակային քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#mc-world"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Mastercard World Digital քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#gift"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Evoca Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#mc-digital"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Mastercard Digital Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#unionpay"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  UnionPay քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#travel"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Evoca Travel Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#4u"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  4U.am Gift card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#homplex"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Homplex Gift card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#dalma"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Dalma Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#garage"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Garage Masters' Mall Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#rio"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Rio Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#myler"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  MyLer Gift Card
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#infinite"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Visa Infinite քարտեր
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#platinum"
-                  className="block px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50"
-                >
-                  Visa Platinum վճարային քարտեր
-                </a>
-              </li>
+
+            <ul className="space-y-1 text-sm max-h-[500px] overflow-y-auto pr-1">
+              {cardTypes.map((card) => {
+                const isActive = activeCard === card.id;
+                return (
+                  <li key={card.id}>
+                    <button
+                      onClick={() => setActiveCard(card.id)}
+                      className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                        isActive
+                          ? "bg-purple-50 text-purple-700 font-medium"
+                          : "text-gray-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      {card.title}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
 
             <div className="mt-4 pt-4 border-t border-gray-100 space-y-1 text-sm">
@@ -216,7 +178,7 @@ const CardTariffsPage = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-1">
               Միջնորդավճարների սակագները և դրույքները
             </h2>
-            <p className="text-gray-600">Վճարային քարտեր</p>
+            <p className="text-gray-600">{currentData.subtitle}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
@@ -244,9 +206,15 @@ const CardTariffsPage = () => {
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Քարտի տրամադրում
                     </td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
+                    <td className="py-4 px-4 border-l border-gray-200">
+                      {currentData.issuance}
+                    </td>
+                    <td className="py-4 px-4 border-l border-gray-200">
+                      {currentData.issuance}
+                    </td>
+                    <td className="py-4 px-4 border-l border-gray-200">
+                      {currentData.issuance}
+                    </td>
                   </tr>
                   {/* Строка 2: Обслуживание */}
                   <tr>
@@ -257,12 +225,14 @@ const CardTariffsPage = () => {
                       <div className="flex flex-col">
                         <div className="px-4 py-2.5 border-b border-gray-200 flex justify-between">
                           <span className="text-gray-500">Տարեկան</span>
-                          <span className="font-medium">5,000 ՀՀ դրամ</span>
+                          <span className="font-medium">
+                            {currentData.annual1}
+                          </span>
                         </div>
                         <div className="px-4 py-2.5 flex justify-between">
                           <span className="text-gray-500">Ամսական</span>
                           <span className="font-medium">
-                            MasterCard Standard 500 ՀՀ դրամ
+                            {currentData.monthly1}
                           </span>
                         </div>
                       </div>
@@ -271,18 +241,20 @@ const CardTariffsPage = () => {
                       <div className="flex flex-col">
                         <div className="px-4 py-2.5 border-b border-gray-200 flex justify-between">
                           <span className="text-gray-500">Տարեկան</span>
-                          <span className="font-medium">15,000 ՀՀ դրամ</span>
+                          <span className="font-medium">
+                            {currentData.annual2}
+                          </span>
                         </div>
                         <div className="px-4 py-2.5 flex justify-between">
                           <span className="text-gray-500">Ամսական</span>
                           <span className="font-medium">
-                            MasterCard Gold 1,500 ՀՀ դրամ
+                            {currentData.monthly2}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-4 border-l border-gray-200">
-                      10,000 ՀՀ դրամ
+                      {currentData.business}
                     </td>
                   </tr>
                   {/* Строка 3 */}
@@ -291,13 +263,13 @@ const CardTariffsPage = () => {
                       Շտապ թողարկում
                     </td>
                     <td className="py-4 px-4 border-l border-gray-200">
-                      10,000 ՀՀ դրամ
+                      {currentData.express}
                     </td>
                     <td className="py-4 px-4 border-l border-gray-200">
-                      10,000 ՀՀ դրամ
+                      {currentData.express}
                     </td>
                     <td className="py-4 px-4 border-l border-gray-200">
-                      10,000 ՀՀ դրամ
+                      {currentData.express}
                     </td>
                   </tr>
                   {/* Строка 4 */}
