@@ -22,7 +22,9 @@ import BusinessLoanTariffsPage from "./Pages/About/BusinessLoanTariffsPage"; // 
 import CardTariffsPage from "./Pages/About/CardTariffsPage"; // Комиссионные тарифы по платежным картам
 import DepositTariffsPage from "./Pages/About/DepositTariffsPage"; // Тарифы по депозитам
 import ArchivePage from "./Pages/About/ArchivePage"; // Архив тарифов и условий
-import AuditorsOpinionList from "./Pages/About/AuditorsOpinionList"; // <-- Добавлен импорт компонента аудиторских заключений
+import AuditorsOpinionList from "./Pages/About/AuditorsOpinionList"; // Страница аудиторских заключений
+import FinancialStatementsList from "./Pages/About/FinancialStatementsList"; // Финансовые отчеты
+import InvestorPresentations from "./Pages/About/InvestorPresentations"; // <-- Добавлен импорт презентаций для инвесторов
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -97,7 +99,7 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// БИЗНես-СЧЕТА
+// БИЗНЕС-СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
@@ -213,8 +215,17 @@ function App() {
           <Route path="/awards" element={<AwardsPage />} />
           <Route path="/csr" element={<CSRComponent />} />
 
-          {/* Роут для страницы аудиторских заключений */}
+          {/* Страница аудиторских заключений */}
           <Route path="/auditors-opinion" element={<AuditorsOpinionList />} />
+
+          {/* Страница финансовых отчетов */}
+          <Route
+            path="/financial-statements"
+            element={<FinancialStatementsList />}
+          />
+
+          {/* Страница презентаций для инвесторов */}
+          <Route path="/for-investors" element={<InvestorPresentations />} />
 
           {/* Редирект с общего /tariffs на физические лица */}
           <Route
