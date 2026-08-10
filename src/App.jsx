@@ -18,7 +18,8 @@ import EvocabankPartners from "./Pages/About/EvocabankPartners";
 import AwardsPage from "./Pages/About/Awards";
 import CSRComponent from "./Pages/About/CSR";
 import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // Тарифы для физлиц
-import BusinessLoanTariffsPage from "./Pages/Tariffs/BusinessLoanTariffsPage"; // <-- Добавлен импорт тарифов для юридических лиц
+import BusinessLoanTariffsPage from "./Pages/Tariffs/BusinessLoanTariffsPage"; // Тарифы для юридических лиц
+import CardTariffsPage from "./Pages/Tariffs/CardTariffsPage"; // <-- Добавлен импорт комиссионных тарифов для карт
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -225,6 +226,12 @@ function App() {
           <Route
             path="/tariffs/loans-to-legal-entities"
             element={<BusinessLoanTariffsPage />}
+          />
+
+          {/* Комиссионные тарифы по платежным картам */}
+          <Route
+            path="/tariffs/commission-fees"
+            element={<CardTariffsPage />}
           />
 
           <Route path="/reviews" element={<ReviewsList />} />
