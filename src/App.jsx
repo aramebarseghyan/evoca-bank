@@ -14,7 +14,7 @@ import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
 import EvocabankManagement from "./Pages/About/EvocabankManagement";
 import ManagementDetail from "./Pages/About/ManagementDetail";
 import EvocabankPartners from "./Pages/About/EvocabankPartners";
-import AwardsPage from "./Pages/About/Awards"; // <--- Добавили импорт страницы наград
+import AwardsPage from "./Pages/About/Awards";
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -89,7 +89,7 @@ import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
 import SpecialOffersPage from "./Pages/Business/Leasing/SpecialOffersPage";
 
-// БИЗНЕС-СЧЕТԱ
+// БИЗНЕС-СЧЕТА
 import BusinessAccountOpening from "./Pages/Business/Accounts/BusinessAccountOpening";
 import BusinessMetalAccounts from "./Pages/Business/Accounts/BusinessMetalAccounts";
 
@@ -108,6 +108,7 @@ import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,
 import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
+import ReviewsList from "./Pages/About/ReviewsList";
 
 function App() {
   const location = useLocation();
@@ -133,7 +134,7 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-          {/* Նոր ավելացված Route-ները */}
+
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
           <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
@@ -147,6 +148,7 @@ function App() {
           />
           <Route path="/evoca-mobile-pos" element={<EvocaMobilePosPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
+
           {/* БИЗНЕС-РОУТЫ */}
           <Route path="/business-loans" element={<BusinessLoansList />} />
           <Route path="/business-loans/:id" element={<BusinessLoanDetails />} />
@@ -183,14 +185,17 @@ function App() {
             path="/business-evocainvest"
             element={<BusinessEvocaInvest />}
           />
+
           {/* ЛИЗИНГ */}
           <Route path="/leasing-evoca" element={<LeasingPage />} />
           <Route
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* СТАНДАРТНЫЕ РОУТЫ */}
           <Route path="/" element={<HomePage />} />
+
           {/* === РОУТЫ СТРАНИЦ "О БАНКЕ" === */}
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
@@ -198,8 +203,11 @@ function App() {
           <Route path="/management" element={<EvocabankManagement />} />
           <Route path="/management/:id" element={<ManagementDetail />} />
           <Route path="/partners" element={<EvocabankPartners />} />
-          <Route path="/awards" element={<AwardsPage />} />{" "}
-          {/* <--- Добавили роут наград */}
+          <Route path="/awards" element={<AwardsPage />} />
+
+          {/* ԱՅՍՏԵՂ ԷՐ ՍԽԱԼԸ: /awards-ը փոխարինվել է /reviews-ով */}
+          <Route path="/reviews" element={<ReviewsList />} />
+
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
