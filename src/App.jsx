@@ -26,6 +26,7 @@ import AuditorsOpinionList from "./Pages/About/AuditorsOpinionList";
 import FinancialStatementsList from "./Pages/About/FinancialStatementsList";
 import InvestorPresentations from "./Pages/About/InvestorPresentations";
 import SemiAnnualReports from "./Pages/About/SemiAnnualReports";
+import AnnualReports from "./Pages/About/AnnualReports"; // ДОБАВИЛИ ЭТОТ ИМПОРТ
 
 // БИЗНЕС
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -112,7 +113,6 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-
           {/* БИЗНЕС */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -166,7 +166,6 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* О БАНКЕ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
@@ -184,8 +183,9 @@ function App() {
           />
           <Route path="/for-investors" element={<InvestorPresentations />} />
           <Route path="/semi-annual-reports" element={<SemiAnnualReports />} />
+          <Route path="/annual-reports" element={<AnnualReports />} />{" "}
+          {/* ДОБАВИЛИ ЭТОТ РОУТ */}
           <Route path="/reviews" element={<ReviewsList />} />
-
           {/* ТАРИФЫ */}
           <Route
             path="/tariffs"
@@ -205,7 +205,6 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-
           {/* ФИЗЛИЦА */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
@@ -263,7 +262,6 @@ function App() {
           />
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
-
           <Route path="*" element={<div />} />
         </Routes>
       </main>
