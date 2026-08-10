@@ -19,7 +19,8 @@ import AwardsPage from "./Pages/About/Awards";
 import CSRComponent from "./Pages/About/CSR";
 import LoanTariffsTablePage from "./Pages/Tariffs/LoanTariffsTablePage"; // Тарифы для физлиц
 import BusinessLoanTariffsPage from "./Pages/Tariffs/BusinessLoanTariffsPage"; // Тарифы для юридических лиц
-import CardTariffsPage from "./Pages/Tariffs/CardTariffsPage"; // <-- Добавлен импорт комиссионных тарифов для карт
+import CardTariffsPage from "./Pages/Tariffs/CardTariffsPage"; // Комиссионные тарифы по платежным картам
+import DepositTariffsPage from "./Pages/Tariffs/DepositTariffsPage"; // <-- Добавлен импорт тарифов по депозитам
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -233,6 +234,9 @@ function App() {
             path="/tariffs/commission-fees"
             element={<CardTariffsPage />}
           />
+
+          {/* Тарифы по депозитам */}
+          <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
 
           <Route path="/reviews" element={<ReviewsList />} />
           <Route path="/loans" element={<LoansPage />} />
