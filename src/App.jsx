@@ -12,7 +12,8 @@ import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
 import EvocabankManagement from "./Pages/About/EvocabankManagement";
-import ManagementDetail from "./Pages/About/ManagementDetail"; // <--- Добавили импорт детальной страницы
+import ManagementDetail from "./Pages/About/ManagementDetail";
+import EvocabankPartners from "./Pages/About/EvocabankPartners"; // <--- Добавили импорт страницы партнеров
 
 // Նոր ավելացված կոմպոնենտները (բիզնես)
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -194,8 +195,9 @@ function App() {
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
           <Route path="/management" element={<EvocabankManagement />} />
-          <Route path="/management/:id" element={<ManagementDetail />} />{" "}
-          {/* <--- Добавили роут для детальной страницы */}
+          <Route path="/management/:id" element={<ManagementDetail />} />
+          <Route path="/partners" element={<EvocabankPartners />} />{" "}
+          {/* <--- Добавили роут партнеров */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />

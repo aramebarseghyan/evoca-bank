@@ -198,6 +198,7 @@ const PageHeader = () => {
     "/structure",
     "/shareholders",
     "/management",
+    "/partners",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
