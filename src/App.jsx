@@ -32,8 +32,13 @@ import ReviewsList from "./Pages/About/ReviewsList";
 
 // === НОВОСТИ И БЛОГ ===
 import NewsPage from "./Pages/News/NewsPage";
-import NewsArchive from "./Pages/News/NewsArchive"; // <--- Импорт компонента архива новостей
+import NewsArchive from "./Pages/News/NewsArchive";
 import NewsDetailPage from "./Pages/News/NewsDetailPage";
+
+// === БЛОГ (ИМПОРТЫ) ===
+import BlogPage from "./Pages/Blog/BlogPage"; // <--- Путь к новому компоненту BlogPage (скорректируй при необходимости)
+import BlogArchive from "./Pages/Blog/BlogArchive"; // <--- Импорт архива блогов
+import BlogDetailPage from "./Pages/Blog/BlogDetailPage"; // <--- Импорт детальной страницы блога
 
 // БИЗНЕС
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -119,11 +124,17 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-          {/* НОВОСТИ И БЛОГ */}
+
+          {/* НОВОСТИ */}
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/news/archive" element={<NewsArchive />} />{" "}
-          {/* <--- Сетка всех новостей */}
+          <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
+
+          {/* БЛОГ */}
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/archive" element={<BlogArchive />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
+
           {/* БИЗНЕС */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -177,6 +188,7 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* О БАНКЕ И ГЛАВНАЯ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
@@ -197,6 +209,7 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
+
           {/* ТАРИФЫ */}
           <Route
             path="/tariffs"
@@ -216,6 +229,7 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
+
           {/* ФИЗЛИЦА */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />

@@ -204,6 +204,7 @@ const PageHeader = () => {
     "/loans-to-legal-entities",
     "/tariffs/loans-to-legal-entities",
     "/tariffs/loans-to-individuals",
+    "/blog",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
