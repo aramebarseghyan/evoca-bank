@@ -34,7 +34,6 @@ import ReviewsList from "./Pages/About/ReviewsList";
 import NewsPage from "./Pages/News/NewsPage";
 import NewsArchive from "./Pages/News/NewsArchive"; // <--- Импорт компонента архива новостей
 import NewsDetailPage from "./Pages/News/NewsDetailPage";
-import BlogPage from "./Pages/News/BlogPage";
 
 // БИЗНЕС
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -125,7 +124,6 @@ function App() {
           <Route path="/news/archive" element={<NewsArchive />} />{" "}
           {/* <--- Сетка всех новостей */}
           <Route path="/news/:id" element={<NewsDetailPage />} />
-          <Route path="/blog" element={<BlogPage />} />
           {/* БИЗНЕС */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />

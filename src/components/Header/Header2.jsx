@@ -57,6 +57,12 @@ const Header2 = () => {
     ? activeGroup.isBusiness
     : cleanPath.includes("business");
 
+  // ДОБАВЛЕНО: Проверка для страниц "Новости" и "Блог", где саб-меню должно быть пустым
+  const noSubNavPaths = ["/news", "/blog"];
+  const isNoSubNavMode = noSubNavPaths.some(
+    (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+  );
+
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", display: "flex" },
     { label: "Քարտեր", path: "/cards", display: "flex" },
@@ -113,7 +119,6 @@ const Header2 = () => {
 
   const aboutNavItems = [
     { label: "Evoca-ի մասին", path: "/about", display: "flex" },
-    // Измененный путь: теперь ведет сразу на нужный продукт в тарифах
     {
       label: "Սակագներ",
       path: "/tariffs/loans-to-individuals",
@@ -128,8 +133,11 @@ const Header2 = () => {
     { label: "Աշխատանք և պրակտիկա", path: "/work-at-evoca", display: "flex" },
   ];
 
+  // ДОБАВЛЕНО: Применяем пустой массив, если находимся в разделе новостей
   let currentNavItems;
-  if (isAboutMode) {
+  if (isNoSubNavMode) {
+    currentNavItems = [];
+  } else if (isAboutMode) {
     currentNavItems = aboutNavItems;
   } else if (isCareerMode) {
     currentNavItems = careerNavItems;
@@ -252,6 +260,7 @@ const Header2 = () => {
             />
           </Link>
 
+          {/* Навигация теперь не будет рендериться на страницах новостей, так как массив currentNavItems пуст */}
           <nav className="hidden md:flex items-center gap-6 xl:gap-8 h-full">
             {currentNavItems.map((item, index) => (
               <Link
