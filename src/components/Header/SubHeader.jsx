@@ -8,10 +8,12 @@ const SubHeader = () => {
   const rawPath = location.pathname;
   const cleanPath = normalizePath(rawPath);
 
-  // Скрываем SubHeader на странице объявлений
+  // Скрываем SubHeader на странице объявлений и новостей
   if (
     cleanPath === "/announcements" ||
-    cleanPath.startsWith("/announcements/")
+    cleanPath.startsWith("/announcements/") ||
+    cleanPath === "/news" ||
+    cleanPath.startsWith("/news/")
   ) {
     return null;
   }
