@@ -57,7 +57,6 @@ const NewsArchive = () => {
   if (loading) {
     return (
       <div className="w-full min-h-[60vh] flex items-center justify-center bg-white text-[#a8aeb7]">
-        Загрузка новостей...
       </div>
     );
   }
@@ -84,7 +83,6 @@ const NewsArchive = () => {
             ))}
           </div>
 
-          {/* Визуальная имитация выбора дат */}
           <div className="hidden lg:flex items-center gap-3 bg-[#F3F4F6] rounded-full px-5 py-2.5 cursor-pointer hover:bg-[#E5E7EB] transition-colors">
             <svg
               className="w-5 h-5 text-[#a8aeb7]"
@@ -105,7 +103,6 @@ const NewsArchive = () => {
           </div>
         </div>
 
-        {/* Сетка карточек новостей */}
         {filteredNews.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
             {filteredNews.map((news) => (
@@ -114,7 +111,6 @@ const NewsArchive = () => {
                 key={news.id}
                 className="group block cursor-pointer"
               >
-                {/* Изображение */}
                 <div className="w-full aspect-[4/3] bg-gray-100 overflow-hidden mb-4 rounded-xl">
                   <img
                     src={news.imageUrl}

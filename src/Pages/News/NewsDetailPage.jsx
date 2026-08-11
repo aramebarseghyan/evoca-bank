@@ -56,7 +56,6 @@ const NewsDetailPage = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh] text-purple-700">
-        Բեռնվում է նորությունը...
       </div>
     );
   }
