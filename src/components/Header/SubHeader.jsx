@@ -3,11 +3,21 @@ import { Link, useLocation } from "react-router-dom";
 import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 
 const SubHeader = () => {
+  // 1. ԲՈԼՈՐ HOOK-ԵՐԸ ԳՐՈՒՄ ԵՆՔ ԱՄԵՆԱՎԵՐԵՎՈՒՄ
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const rawPath = location.pathname;
   const cleanPath = normalizePath(rawPath);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []); // Այս Hook-ն արդեն ապահով տեղում է
+
+  // 2. ՄՆԱՑԱԾ ՏՐԱՄԱԲԱՆՈՒԹՅՈՒՆՆ ՈՒ RETURN-ՆԵՐԸ ԳՐՈՒՄ ԵՆՔ ՆԵՐՔԵՎՈՒՄ
   // Скрываем SubHeader на странице объявлений и новостей
   if (
     cleanPath === "/announcements" ||
@@ -21,14 +31,6 @@ const SubHeader = () => {
   const activeGroup = subNavigationGroups.find((group) =>
     group.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)),
   );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   if (!activeGroup) {
     return null;
