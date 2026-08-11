@@ -27,7 +27,13 @@ import FinancialStatementsList from "./Pages/About/FinancialStatementsList";
 import InvestorPresentations from "./Pages/About/InvestorPresentations";
 import SemiAnnualReports from "./Pages/About/SemiAnnualReports";
 import AnnualReports from "./Pages/About/AnnualReports";
-import Announcements from "./Pages/About/Announcements"; // ДОБАВИЛИ ИМПОРТ ОБЪЯВЛЕНИЙ
+import Announcements from "./Pages/About/Announcements";
+import ReviewsList from "./Pages/About/ReviewsList";
+
+// === НОВОСТИ И БЛОГ (Включая детальную страницу новости) ===
+import NewsPage from "./Pages/News/NewsPage";
+import NewsDetailPage from "./Pages/News/NewsDetailPage"; // <--- Добавили импорт детальной страницы
+import BlogPage from "./Pages/News/BlogPage";
 
 // БИЗНЕС
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
@@ -89,7 +95,6 @@ import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,
 import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
-import ReviewsList from "./Pages/About/ReviewsList";
 
 function App() {
   const location = useLocation();
@@ -114,6 +119,11 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
+          {/* НОВОСТИ И БЛОГ */}
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:id" element={<NewsDetailPage />} />{" "}
+          {/* <--- Добавили роут для конкретной новости */}
+          <Route path="/blog" element={<BlogPage />} />
           {/* БИЗНЕС */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -185,8 +195,7 @@ function App() {
           <Route path="/for-investors" element={<InvestorPresentations />} />
           <Route path="/semi-annual-reports" element={<SemiAnnualReports />} />
           <Route path="/annual-reports" element={<AnnualReports />} />
-          <Route path="/announcements" element={<Announcements />} />{" "}
-          {/* ДОБАВИЛИ РОУТ ОБЪЯВЛЕНИЙ */}
+          <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
           {/* ТАРИФЫ */}
           <Route

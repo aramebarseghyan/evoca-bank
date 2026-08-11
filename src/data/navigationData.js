@@ -340,4 +340,34 @@ export const subNavigationGroups = [
       { name: "EvocaBRIDGE", path: "/evocabridge" },
     ],
   },
+
+  // ==========================================
+  //  ՆՈՐՈՒԹՅՈՒՆՆԵՐ (НОВОСТИ)
+  // ==========================================
+  {
+    mainPath: "/news",
+    isBusiness: false,
+    paths: ["/news"],
+    items: [{ name: "Նորություններ", path: "/news" }],
+  },
+
+  // ==========================================
+  //  ԲԼՈԳ (БЛОГ)
+  // ==========================================
+  {
+    mainPath: "/blog",
+    isBusiness: false,
+    paths: ["/blog"],
+    items: [{ name: "Բլոգ", path: "/blog" }],
+  },
+
+  // ==========================================
+  //  ԱԿՆԹԱՐԹԱՅԻՆ ՎՃԱՐՈՒՄՆԵՐ (МГНОВЕННЫЕ ПЛАТЕЖИ)
+  // ==========================================
+  {
+    mainPath: "/instant-payments", // Убедись, что этот URL соответствует твоему роуту
+    isBusiness: false,
+    paths: ["/instant-payments"],
+    items: [{ name: "Ակնթարթային վճարումներ", path: "/instant-payments" }],
+  },
 ];
