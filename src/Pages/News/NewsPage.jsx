@@ -73,9 +73,13 @@ const NewsPage = () => {
               {cat}
             </button>
           ))}
-          <button className="px-5 py-2 rounded-full text-sm font-medium bg-[#f0e6ff] text-[#5c1bb9] flex items-center gap-2">
+          {/* ИСПРАВЛЕННЫЙ ПУТЬ СЮДА */}
+          <Link
+            to="/news/archive"
+            className="px-5 py-2 rounded-full text-sm font-medium bg-[#f0e6ff] text-[#5c1bb9] flex items-center gap-2 hover:bg-[#e4d4ff] transition-colors"
+          >
             Բոլորը <span className="text-lg leading-none">›</span>
-          </button>
+          </Link>
         </div>
       </div>
 

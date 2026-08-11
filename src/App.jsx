@@ -30,9 +30,10 @@ import AnnualReports from "./Pages/About/AnnualReports";
 import Announcements from "./Pages/About/Announcements";
 import ReviewsList from "./Pages/About/ReviewsList";
 
-// === НОВОСТИ И БЛОГ (Включая детальную страницу новости) ===
+// === НОВОСТИ И БЛОГ ===
 import NewsPage from "./Pages/News/NewsPage";
-import NewsDetailPage from "./Pages/News/NewsDetailPage"; // <--- Добавили импорт детальной страницы
+import NewsArchive from "./Pages/News/NewsArchive"; // <--- Импорт компонента архива новостей
+import NewsDetailPage from "./Pages/News/NewsDetailPage";
 import BlogPage from "./Pages/News/BlogPage";
 
 // БИЗНЕС
@@ -121,8 +122,9 @@ function App() {
           <Route path="/loan-input" element={<LoanInputPage />} />
           {/* НОВОСТИ И БЛОГ */}
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/news/:id" element={<NewsDetailPage />} />{" "}
-          {/* <--- Добавили роут для конкретной новости */}
+          <Route path="/news/archive" element={<NewsArchive />} />{" "}
+          {/* <--- Сетка всех новостей */}
+          <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/blog" element={<BlogPage />} />
           {/* БИЗНЕС */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
@@ -177,7 +179,7 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-          {/* О БАНКЕ */}
+          {/* О БАНКЕ И ГЛАВНАЯ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/structure" element={<EvocabankStructure />} />
