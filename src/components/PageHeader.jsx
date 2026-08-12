@@ -8,12 +8,14 @@ const PageHeader = () => {
   // Տեղափոխված է վերև՝ ստորև նշված պայմանի մեջ օգտագործելու համար
   const cleanPath = normalizePath(location.pathname);
 
-  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև FAQ էջի վրա
+  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև FAQ և Աշխատանքի էջերի վրա
   if (
     cleanPath === "/culture" ||
     cleanPath === "/advantages" ||
     cleanPath === "/faq" ||
     cleanPath.includes("faq") ||
+    cleanPath === "/how-to-apply" ||
+    cleanPath === "/work-at-evoca" ||
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
@@ -218,6 +220,8 @@ const PageHeader = () => {
     "/tariffs/loans-to-individuals",
     "/blog",
     "/news",
+    "/how-to-apply",
+    "/work-at-evoca",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 

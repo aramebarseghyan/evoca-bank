@@ -13,6 +13,8 @@ import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocaCulturePage from "./Pages/Career/EvocaCulturePage"; // <--- ԱՎԵԼԱՑՎԱԾ Է
 import EvocaAdvantagesPage from "./Pages/Career/BenefitsHero"; // <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ (Առավելություններ)
 import EvocaFaq from "./Pages/Career/EvocaFaqPage"; // <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ (Առավելություններ)
+import WorkAtEvocaPage from "./Pages/Career/WorkAtEvocaPage";
+
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
 import EvocabankManagement from "./Pages/About/EvocabankManagement";
@@ -290,6 +292,7 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
+          <Route path="/how-to-apply" element={<WorkAtEvocaPage />} />
           <Route path="*" element={<div />} />
         </Routes>
       </main>

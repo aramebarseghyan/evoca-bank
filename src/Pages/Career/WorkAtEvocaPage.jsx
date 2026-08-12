@@ -3,19 +3,19 @@ import React, { useState } from "react";
 // ==========================================
 // 1. HERO ՀԱՏՎԱԾ
 // ==========================================
-function FaqHero() {
+function WorkHero() {
   return (
     <section
-      className="relative w-full h-[350px] sm:h-[450px] lg:h-[634px] bg-cover bg-center bg-no-repeat flex items-center"
+      className="relative w-full h-[350px] sm:h-[450px] lg:h-[500px] bg-cover bg-center bg-no-repeat flex items-center"
       style={{
-        backgroundImage: `url('https://www.evoca.am/images-cache/menu/1/16194612949534/1920x634.jpg')`,
+        backgroundImage:
+          "url('https://www.evoca.am/images-cache/menu/1/16194613464502/1920x634.jpg')",
       }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-32 w-full">
-        {/* Սպիտակ քարտը (վերնագրով) */}
         <div className="bg-white rounded-[30px] p-8 md:p-12 w-full max-w-[450px] lg:max-w-[500px] shadow-lg">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#3d3333] tracking-wide">
-            Հաճախ տրվող հարցեր
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#3d3333] tracking-wide leading-snug">
+            Ինչպես ընդունվել աշխատանքի Evocabank-ում
           </h1>
         </div>
       </div>
@@ -24,15 +24,13 @@ function FaqHero() {
 }
 
 // ==========================================
-// 3. ԴԱՌՆԱԼ ԹԻՄԻ ԱՆԴԱՄ (ՖՈՐՄԱ) ՀԱՏՎԱԾ
+// 2. ԴԻՄՈՒՄԻ ՀԱՅՏԻ ԲԱՂԱԴՐԻՉ (JobApplicationForm)
 // ==========================================
-
 function JobApplicationForm() {
   const [captchaText, setCaptchaText] = useState("7J5AJT");
   const [captchaInput, setCaptchaInput] = useState("");
   const [fileName, setFileName] = useState("");
 
-  // Կապչայի թարմացման ֆունկցիա
   const regenerateCaptcha = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
@@ -58,9 +56,8 @@ function JobApplicationForm() {
   };
 
   return (
-    <section className="container mx-auto px-6 md:px-12 lg:px-32 py-16">
-      <div className="max-w-4xl mx-auto bg-white">
-        {/* Վերնագիր */}
+    <section className="container mx-auto px-6 md:px-12 lg:px-32 py-16 bg-white">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-[#6816cc] mb-3">
             Դառնալ թիմի անդամ
@@ -72,9 +69,7 @@ function JobApplicationForm() {
           </p>
         </div>
 
-        {/* Ֆորմա */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Անուն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Անուն <span className="text-red-500">*</span>
@@ -83,11 +78,9 @@ function JobApplicationForm() {
               type="text"
               required
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-              placeholder=""
             />
           </div>
 
-          {/* Ազգանուն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ազգանուն <span className="text-red-500">*</span>
@@ -96,11 +89,9 @@ function JobApplicationForm() {
               type="text"
               required
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-              placeholder=""
             />
           </div>
 
-          {/* Հեռախոսահամար */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Հեռախոսահամար <span className="text-red-500">*</span>
@@ -114,12 +105,11 @@ function JobApplicationForm() {
                 type="tel"
                 required
                 className="w-full px-4 py-3 rounded-r-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-                placeholder=""
+                placeholder="XX XXXXXX"
               />
             </div>
           </div>
 
-          {/* Էլ. հասցե */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Էլ. հասցե
@@ -127,11 +117,9 @@ function JobApplicationForm() {
             <input
               type="email"
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-              placeholder=""
             />
           </div>
 
-          {/* Facebook հղում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Facebook սոց. կայքում անձնական էջի հղում
@@ -139,11 +127,9 @@ function JobApplicationForm() {
             <input
               type="url"
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-              placeholder=""
             />
           </div>
 
-          {/* LinkedIn հղում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               LinkedIn սոց. կայքում անձնական էջի հղում
@@ -151,11 +137,9 @@ function JobApplicationForm() {
             <input
               type="url"
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:border-[#6816cc] transition-colors text-sm"
-              placeholder=""
             />
           </div>
 
-          {/* Ուղեկցող նամակ */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ուղեկցող նամակ
@@ -166,7 +150,6 @@ function JobApplicationForm() {
             ></textarea>
           </div>
 
-          {/* Վերբեռնեք Ձեր ռեզյումեն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Վերբեռնեք Ձեր ռեզյումեն <span className="text-red-500">*</span>
@@ -205,7 +188,6 @@ function JobApplicationForm() {
             </label>
           </div>
 
-          {/* Ստուգման ծածկագիր (Captcha) */}
           <div className="max-w-sm">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ստուգման ծածկագիր <span className="text-red-500">*</span>
@@ -247,7 +229,6 @@ function JobApplicationForm() {
             </div>
           </div>
 
-          {/* Կոճակ */}
           <div className="pt-4">
             <button
               type="submit"
@@ -263,60 +244,62 @@ function JobApplicationForm() {
 }
 
 // ==========================================
-// 2. ԳԼԽԱՎՈՐ ԷՋԸ ԵՎ ACCORDION ՏՐԱՄԱԲԱՆՈՒԹՅՈՒՆԸ
+// 3. ԳԼԽԱՎՈՐ ԷՋԸ (WorkAtEvocaPage)
 // ==========================================
-export default function EvocaFaqPage() {
-  // Պահում ենք բացված հարցի ինդեքսը (սկզբում՝ 0, որպեսզի առաջինը բաց լինի)
+export default function WorkAtEvocaPage() {
   const [openIndex, setOpenIndex] = useState(0);
 
-  // Հարց ու պատասխանների տվյալների զանգված
-  const faqData = [
+  const stepsData = [
     {
-      question: "Կարո՞ղ եմ միաժամանակ դիմել տարբեր աշխատատեղերի համար:",
-      answer:
-        "Մեկ օգտատիրոջ կողմից ներկայացվող դիմումների քանակն անսահմանափակ է, սակայն խնդրում ենք դիմել միայն այն աշխատանքների համար, որում նշված պահանջներին և հմտություններին համապատասխանում եք:",
+      title: "Առաջին փուլ` Դիմում",
+      content:
+        "Evocabank-ում աշխատանքի դիմելիս թեկնածուի ճանապարհը սկսվում է հայտի ներկայացումից, որն իրականացվում է կամ ներքոնշյալ հայտը լրացնելով կամ cv@evocabank.am էլ. հասցեին Ձեր ինքնակենսագրականն ուղարկելով:",
     },
     {
-      question:
-        "Դիմումը ներկայացնելուց որքա՞ն ժամանակ հետո ինձ կհրավիրեն հարցազրույցի:",
-      answer:
-        "Եթե Դուք դիմել եք հայտարարված ազատ աշխատատեղի համար և հայտնվել եք նախնական ընտրված թեկնածուների շարքում, ապա մեր թիմը կապ կհաստատի Ձեզ հետ հայտարարության ժամկետի ավարտից հետո`մեկ ամսվա ընթացքում:",
+      title: "Հեռախոսային հարցազրույց",
+      content:
+        "Եթե ինքնակենսագրականում նշված Ձեր փորձը համապատասխանել է պահանջներին, ապա Evocabank-ի հարցազրուցավարը կապ կհաստատի Ձեզ հետ: Սովորաբար, Evoca-ում հարցազրույցների գործընթացն անցնում է երեք փուլով:\n\nԱռաջին փուլը հեռախոսային հարցազրույց է: Այս փուլում Դուք կստանաք ավելի մանրամասն ինֆորմացիա այն աշխատանքի մասին, որի համար դիմել եք: Կներկայացնենք Ձեզ Evocabank-ը, և, թե ինչպիսին է աշխատանքը մեր թիմում: Նաև մի քանի հարցեր կլինեն Ձեր մասնագիտական փորձի վերաբերյալ:",
     },
     {
-      question: "Հարցազրույցի ընթացքում լինելո՞ւ է թեստավորում:",
-      answer:
-        "Աշխատանքի ընդունման մեր գործընթացը մի քանի փուլից է կազմված: Առաջին փուլում թեստավորում չի իրականացվում: Հետագա փուլերի մասին ինֆորմացիան կարող եք գտնել «Ինչպես ընդունվել աշխատանքի Evocabank-ում» բաժնում:",
+      title: "Առերես հարցազրույց",
+      content:
+        "Երկրորդ փուլը առերես հարցազրույց է հարցազրուցավարի և հավաքագրման ղեկավարի հետ: Այս փուլի նպատակն է գնահատել Ձեր հետաքրքրվածությունը և կարողությունները իրականացնելու ամենօրյա աշխատանքն ու պարտականությունները:",
+    },
+    {
+      title: "Հարցազրույց թիմի հետ",
+      content:
+        "Երրորդ փուլը հարցազրույց է թիմի անդամների, ղեկավարների և բոլոր այն մարդկանց հետ, ում հետ Դուք հնարավոր է հետագայում աշխատեք:",
+    },
+    {
+      title: "Գնահատում և ստուգումներ",
+      content:
+        "Թեստավորումից և հարցազրույցների ավարտից հետո այն մարդիկ, ում հետ զրուցել եք, իրենց կարծիքն են հայտնում Ձեր հետ ունեցած հարցազրույցի արդյունքների վերաբերյալ, և մենք գնահատում ենք, թե արդյոք հաջողակ կլինեք տվյալ դերում:\n\nԱշխատանքի պայմանական առաջարկ կատարելուց հետո, Evoca-ն իրականացնում է դիմորդի վերաբերյալ պարտադիր ստուգումներ: Կատարվում են 4 հիմնական տեսակների ստուգումներ` քրեական պատմության, կրթության, աշխատանքային պատմության և referral ստուգումներ:",
+    },
+    {
+      title: "Աշխատանքի առաջարկ և ձևակերպում",
+      content:
+        "Ստուգումների դրական արդյունքներ ստանալուց հետո մեր թիմը կապ կհաստատի Ձեզ հետ և կներկայացնի աշխատանքի առաջարկ: Ձեր կողմից այն ընդունվելուց հետո կիրականացվենի փաստաթղթային ձևակերպումները և կամփոփվեն այլ մանրամասներ: Բարի գալուստ Evocabank!",
     },
   ];
 
-  // Ֆունկցիա, որը կանչվում է հարցի վրա սեղմելիս
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="w-full bg-white pb-24">
-      {/* Գլխավոր նկարի հատված */}
-      <FaqHero />
+    <div className="w-full bg-white">
+      <WorkHero />
 
-      {/* Հարցերի ցանկ բաժին */}
       <div className="container mx-auto px-6 md:px-12 lg:px-32 py-12 md:py-20 flex justify-center">
         <div className="w-full max-w-4xl">
-          {/* Վերնագիր և նկարագրություն */}
-          <div className="mb-10">
+          <div className="mb-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-[#3d3333] mb-4">
-              Հարցերի ցանկ
+              Աշխատանքի ընդունվելու փուլեր
             </h2>
-            <p className="text-gray-600 text-sm md:text-[15px] leading-relaxed">
-              Բացահայտիր, թե ինչն է Evoca-ն դարձնում այսքան յուրահատուկ:
-              Աշխատակիցներն ուրախ են, մոտիվացված, իսկ առավելությունների մեծ
-              փաթեթն օգնում է հոգ տանել իրենց և ընտանիքների մասին:
-            </p>
           </div>
 
-          {/* Accordion Ցուցակ */}
           <div className="flex flex-col space-y-4">
-            {faqData.map((item, index) => {
+            {stepsData.map((item, index) => {
               const isOpen = openIndex === index;
 
               return (
@@ -326,14 +309,33 @@ export default function EvocaFaqPage() {
                     isOpen ? "border-[#6816cc]" : "border-gray-200"
                   }`}
                 >
-                  {/* Հարցի կոճակ */}
                   <button
                     onClick={() => handleToggle(index)}
-                    className="w-full flex items-center px-5 py-4 bg-white text-left focus:outline-none"
+                    className="w-full flex items-center justify-between px-6 py-5 bg-white text-left focus:outline-none"
                   >
-                    {/* Սլաք (Chevron) */}
+                    <div className="flex items-center gap-4">
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 transition-colors ${
+                          isOpen
+                            ? "bg-[#6816cc] text-white"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        {index + 1}
+                      </span>
+                      <span
+                        className={`font-semibold text-[15px] md:text-base ${
+                          isOpen
+                            ? "text-[#3d3333]"
+                            : "text-gray-700 hover:text-[#6816cc] transition-colors"
+                        }`}
+                      >
+                        {item.title}
+                      </span>
+                    </div>
+
                     <svg
-                      className={`w-5 h-5 shrink-0 transition-transform duration-300 text-[#6816cc] mr-4 ${
+                      className={`w-5 h-5 shrink-0 transition-transform duration-300 text-[#6816cc] ml-4 ${
                         isOpen ? "rotate-180" : "rotate-0"
                       }`}
                       fill="none"
@@ -347,19 +349,8 @@ export default function EvocaFaqPage() {
                         d="M19 9l-7 7-7-7"
                       />
                     </svg>
-
-                    <span
-                      className={`font-semibold text-[15px] md:text-base ${
-                        isOpen
-                          ? "text-[#3d3333]"
-                          : "text-gray-700 hover:text-[#6816cc] transition-colors"
-                      }`}
-                    >
-                      {item.question}
-                    </span>
                   </button>
 
-                  {/* Պատասխանը (Անիմացիոն բլոկ) */}
                   <div
                     className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
                       isOpen
@@ -368,8 +359,8 @@ export default function EvocaFaqPage() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="px-14 pb-5 pt-1 text-gray-600 text-sm md:text-[15px] leading-relaxed">
-                        {item.answer}
+                      <div className="px-6 pb-6 pt-1 text-gray-600 text-sm md:text-[15px] leading-relaxed whitespace-pre-line pl-16">
+                        {item.content}
                       </div>
                     </div>
                   </div>
@@ -380,7 +371,6 @@ export default function EvocaFaqPage() {
         </div>
       </div>
 
-      {/* Դիմելու Ֆորման (Անմիջապես FAQ-ի տակ) */}
       <JobApplicationForm />
     </div>
   );
