@@ -8,10 +8,12 @@ const PageHeader = () => {
   // Տեղափոխված է վերև՝ ստորև նշված պայմանի մեջ օգտագործելու համար
   const cleanPath = normalizePath(location.pathname);
 
-  // Скрываем на главной и на детальных страницах продуктов/новостей/блога,
-  // ինչպես նաև ամբողջությամբ թաքցնում ենք Մշակույթ (/culture) էջում
+  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև FAQ էջի վրա
   if (
     cleanPath === "/culture" ||
+    cleanPath === "/advantages" ||
+    cleanPath === "/faq" ||
+    cleanPath.includes("faq") ||
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
@@ -62,7 +64,6 @@ const PageHeader = () => {
       };
     }
 
-    // ИСПРАВЛЕНИЕ ЗДЕСЬ: Делаем Блог, Новости и Платежи самостоятельными элементами верхнего уровня
     if (path === "/blog") {
       return { section: null, category: null, title: "Բլոգ" };
     }
@@ -174,7 +175,6 @@ const PageHeader = () => {
 
   const { section, category, title } = getPageDetails(cleanPath);
 
-  // Скрытие H1 для страниц, где есть свой кастомный заголовок
   const hideH1Paths = [
     "/pension-cards",
     "/account-opening-service",
@@ -259,7 +259,6 @@ const PageHeader = () => {
           </svg>
         </Link>
 
-        {/* ИСПРАВЛЕНИЕ ЗДЕСЬ: Оборачиваем section в условие. Если section === null, шеврон не рисуется */}
         {section && (
           <>
             {chevronIcon}
@@ -267,7 +266,6 @@ const PageHeader = () => {
           </>
         )}
 
-        {/* Рендерим категорию ТОЛЬКО если она не дублирует Заголовок или Секцию */}
         {category && category !== title && category !== section && (
           <>
             {chevronIcon}
@@ -275,7 +273,6 @@ const PageHeader = () => {
           </>
         )}
 
-        {/* Заголовок страницы */}
         {title && (
           <>
             {chevronIcon}
