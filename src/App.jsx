@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 // === ИМПОРТЫ ДЛЯ СТРАНИЦ "О БАНКЕ" ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocaCulturePage from "./Pages/Career/EvocaCulturePage"; // <--- ԱՎԵԼԱՑՎԱԾ Է
+import EvocaAdvantagesPage from "./Pages/Career/BenefitsHero"; // <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ (Առավելություններ)
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
 import EvocabankManagement from "./Pages/About/EvocabankManagement";
@@ -189,8 +190,11 @@ function App() {
           {/* О БАНКЕ И ГЛАВНАЯ */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
+          {/* ԿԱՐԻԵՐԱ ԵՎ ԱՌԱՎԵԼՈՒԹՅՈՒՆՆԵՐ */}
           <Route path="/culture" element={<EvocaCulturePage />} />{" "}
           {/* <--- ԱՎԵԼԱՑՎԱԾ Է */}
+          <Route path="/advantages" element={<EvocaAdvantagesPage />} />{" "}
+          {/* <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ: Հասանելի կլինի /advantages հասցեով */}
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
           <Route path="/management" element={<EvocabankManagement />} />
