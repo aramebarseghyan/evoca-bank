@@ -5,18 +5,22 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
-  // Եթե գլխավոր էջն է, կամ առանձին քարտի/վարկի/ավանդի դետալային էջն է, չենք ցուցադրում
+  // Скрываем на главной и на детальных страницах продуктов/новостей/блога
   if (
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
     location.pathname === "/en" ||
-    location.pathname.startsWith("/business-loans/") || // Скрываем PageHeader для детальной страницы бизнес-кредитов
+    location.pathname.startsWith("/business-loans/") ||
     (location.pathname.startsWith("/cards/") &&
       location.pathname.split("/").length > 2) ||
     (location.pathname.startsWith("/loans/") &&
       location.pathname.split("/").length > 2) ||
     (location.pathname.startsWith("/deposits/") &&
+      location.pathname.split("/").length > 2) ||
+    (location.pathname.startsWith("/blog/") &&
+      location.pathname.split("/").length > 2) ||
+    (location.pathname.startsWith("/news/") &&
       location.pathname.split("/").length > 2)
   ) {
     return null;
@@ -25,7 +29,7 @@ const PageHeader = () => {
   const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
-    // Настройки для EvocaTOUCH
+    // Явные настройки для специфичных страниц
     if (path === "/evocatouch") {
       return {
         section: "Անհատ",
@@ -33,8 +37,6 @@ const PageHeader = () => {
         title: "EvocaTOUCH",
       };
     }
-
-    // Настройки для Evoca codes
     if (path === "/evoca-codes") {
       return {
         section: "Մեր մասին",
@@ -42,8 +44,6 @@ const PageHeader = () => {
         title: "Evoca codes",
       };
     }
-
-    // Настройки для Evoca Աշխատավարձային նախագիծ
     if (path === "/evocasalary") {
       return {
         section: "Անհատ",
@@ -51,14 +51,23 @@ const PageHeader = () => {
         title: "Evoca Աշխատավարձային նախագիծ",
       };
     }
-
-    // Особые данные для страницы пенсионных карт
     if (path === "/pension-cards") {
       return {
         section: "Անհատ",
         category: "Քարտեր",
         title: "Սոցիալական ապահովության վճարային քարտեր",
       };
+    }
+
+    // ИСПРАВЛЕНИЕ ЗДЕСЬ: Делаем Блог, Новости и Платежи самостоятельными элементами верхнего уровня
+    if (path === "/blog") {
+      return { section: null, category: null, title: "Բլոգ" };
+    }
+    if (path === "/news") {
+      return { section: null, category: null, title: "Նորություններ" };
+    }
+    if (path === "/instant-payments") {
+      return { section: null, category: null, title: "Ակնթարթային վճարումներ" };
     }
 
     const group = subNavigationGroups.find((g) =>
@@ -162,7 +171,7 @@ const PageHeader = () => {
 
   const { section, category, title } = getPageDetails(cleanPath);
 
-  // Список путей, для которых нужно скрыть h1, но оставить хлебные крошки
+  // Скрытие H1 для страниц, где есть свой кастомный заголовок
   const hideH1Paths = [
     "/pension-cards",
     "/account-opening-service",
@@ -205,6 +214,7 @@ const PageHeader = () => {
     "/tariffs/loans-to-legal-entities",
     "/tariffs/loans-to-individuals",
     "/blog",
+    "/news",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
@@ -245,12 +255,30 @@ const PageHeader = () => {
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </Link>
-        {chevronIcon}
-        <span className="text-gray-500 shrink-0">{section}</span>
-        {chevronIcon}
-        <span className="text-gray-500 shrink-0">{category}</span>
-        {chevronIcon}
-        <span className="text-gray-800 font-medium shrink-0">{title}</span>
+
+        {/* ИСПРАВЛЕНИЕ ЗДЕСЬ: Оборачиваем section в условие. Если section === null, шеврон не рисуется */}
+        {section && (
+          <>
+            {chevronIcon}
+            <span className="text-gray-500 shrink-0">{section}</span>
+          </>
+        )}
+
+        {/* Рендерим категорию ТОЛЬКО если она не дублирует Заголовок или Секцию */}
+        {category && category !== title && category !== section && (
+          <>
+            {chevronIcon}
+            <span className="text-gray-500 shrink-0">{category}</span>
+          </>
+        )}
+
+        {/* Заголовок страницы */}
+        {title && (
+          <>
+            {chevronIcon}
+            <span className="text-gray-800 font-medium shrink-0">{title}</span>
+          </>
+        )}
       </div>
 
       {!shouldHideH1 && (
