@@ -5,8 +5,13 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
-  // Скрываем на главной и на детальных страницах продуктов/новостей/блога
+  // Տեղափոխված է վերև՝ ստորև նշված պայմանի մեջ օգտագործելու համար
+  const cleanPath = normalizePath(location.pathname);
+
+  // Скрываем на главной и на детальных страницах продуктов/новостей/блога,
+  // ինչպես նաև ամբողջությամբ թաքցնում ենք Մշակույթ (/culture) էջում
   if (
+    cleanPath === "/culture" ||
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||
@@ -25,8 +30,6 @@ const PageHeader = () => {
   ) {
     return null;
   }
-
-  const cleanPath = normalizePath(location.pathname);
 
   const getPageDetails = (path) => {
     // Явные настройки для специфичных страниц
