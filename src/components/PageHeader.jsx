@@ -16,6 +16,8 @@ const PageHeader = () => {
     cleanPath.includes("faq") ||
     cleanPath === "/how-to-apply" ||
     cleanPath === "/work-at-evoca" ||
+    (location.pathname.startsWith("/work-at-evoca/") &&
+      location.pathname.split("/").length > 2) ||
     location.pathname === "/" ||
     location.pathname === "/hy" ||
     location.pathname === "/ru" ||

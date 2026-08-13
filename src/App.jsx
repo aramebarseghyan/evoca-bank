@@ -2,18 +2,21 @@ import React from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 
-// 1. Импортируем обертку шапки, подвал и заголовок страниц
+// Header, Footer and Page Header imports
 import MainHeader from "./components/MainHeader";
 import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
-// === ИМПОРТЫ ДЛЯ СТРАНИЦ "О БАНКЕ" ===
+// === ABOUT PAGES ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
-import EvocaCulturePage from "./Pages/Career/EvocaCulturePage"; // <--- ԱՎԵԼԱՑՎԱԾ Է
-import EvocaAdvantagesPage from "./Pages/Career/BenefitsHero"; // <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ (Առավելություններ)
-import EvocaFaq from "./Pages/Career/EvocaFaqPage"; // <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ (Առավելություններ)
+import EvocaCulturePage from "./Pages/Career/EvocaCulturePage";
+import EvocaAdvantagesPage from "./Pages/Career/BenefitsHero";
+import EvocaFaq from "./Pages/Career/EvocaFaqPage";
 import WorkAtEvocaPage from "./Pages/Career/WorkAtEvocaPage";
+import EvocaCareers from "./Pages/Career/EvocaCareers";
+import EvocaJobsList from "./Pages/Career/EvocaJobsList";
+import JobDetail from "./Pages/Career/JobDetail";
 
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
@@ -35,17 +38,16 @@ import AnnualReports from "./Pages/About/AnnualReports";
 import Announcements from "./Pages/About/Announcements";
 import ReviewsList from "./Pages/About/ReviewsList";
 
-// === НОВОСТИ И БЛОГ ===
+// === NEWS AND BLOG ===
 import NewsPage from "./Pages/News/NewsPage";
 import NewsArchive from "./Pages/News/NewsArchive";
 import NewsDetailPage from "./Pages/News/NewsDetailPage";
 
-// === БЛОГ (ИМПОРТЫ) ===
 import BlogPage from "./Pages/Blog/BlogPage";
 import BlogArchive from "./Pages/Blog/BlogArchive";
 import BlogDetailPage from "./Pages/Blog/BlogDetailPage";
 
-// БИЗНЕС
+// === BUSINESS ===
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
 import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
 import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
@@ -57,7 +59,7 @@ import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallat
 import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage";
 import BusinessMoneyTransfers from "./Pages/Business/Others/BusinessMoneyTransfers";
 
-// ФИЗЛИЦА
+// === INDIVIDUALS ===
 import HomePage from "./Pages/Individual/HomePage/HomePage";
 import LoansPage from "./Pages/Individual/LoansPage/LoansPage";
 import LoanDetailsPage from "./Pages/Individual/LoansPage/Components/LoanDetailsPage";
@@ -86,7 +88,7 @@ import StocksCdaServices from "./Pages/Individual/Securities/StocksCdaServices";
 import RepoTransactions from "./Pages/Individual/Securities/RepoTransactions";
 import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 
-// БИЗНЕС-КРЕДИТЫ И СЕРВИСЫ
+// === BUSINESS LOANS AND SERVICES ===
 import BusinessLoansList from "./Pages/Business/Loans/BusinessLoansList";
 import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
@@ -100,7 +102,7 @@ import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServi
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
 import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
-// ОНЛАЙН ПЛАТЕЖИ
+// === ONLINE PAYMENTS ===
 import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
 import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
@@ -124,20 +126,23 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* РОУТЫ ПЛАТЕЖЕЙ */}
+          {/* PAYMENTS */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-          {/* НОВОСТИ */}
+
+          {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
-          {/* БЛОГ */}
+
+          {/* BLOG */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
-          {/* БИЗНЕС */}
+
+          {/* BUSINESS */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
           <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
@@ -190,14 +195,12 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-          {/* О БАНКЕ И ГЛАВНАЯ */}
+
+          {/* ABOUT AND HOME */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
-          {/* ԿԱՐԻԵՐԱ ԵՎ ԱՌԱՎԵԼՈՒԹՅՈՒՆՆԵՐ */}
-          <Route path="/culture" element={<EvocaCulturePage />} />{" "}
-          {/* <--- ԱՎԵԼԱՑՎԱԾ Է */}
-          <Route path="/advantages" element={<EvocaAdvantagesPage />} />{" "}
-          {/* <--- ՆՈՐ ԱՎԵԼԱՑՎԱԾ: Հասանելի կլինի /advantages հասցեով */}
+          <Route path="/culture" element={<EvocaCulturePage />} />
+          <Route path="/advantages" element={<EvocaAdvantagesPage />} />
           <Route path="/structure" element={<EvocabankStructure />} />
           <Route path="/shareholders" element={<EvocabankShareholders />} />
           <Route path="/management" element={<EvocabankManagement />} />
@@ -215,7 +218,8 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
-          {/* ТАРИФЫ */}
+
+          {/* TARIFFS */}
           <Route
             path="/tariffs"
             element={<Navigate to="/tariffs/loans-to-individuals" replace />}
@@ -234,7 +238,8 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-          {/* ФИЗЛИЦА */}
+
+          {/* INDIVIDUALS */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
@@ -292,7 +297,12 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
-          <Route path="/how-to-apply" element={<WorkAtEvocaPage />} />
+
+          {/* CAREERS */}
+          <Route path="/how-to-apply" element={<EvocaCareers />} />
+          <Route path="/work-at-evoca" element={<EvocaJobsList />} />
+          <Route path="/work-at-evoca/:id" element={<JobDetail />} />
+          <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="*" element={<div />} />
         </Routes>
       </main>
