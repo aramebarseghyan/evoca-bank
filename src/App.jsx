@@ -116,6 +116,9 @@ import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
+// === MAPS ===
+import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
+
 function App() {
   const location = useLocation();
   const setUser = useAuthStore((state) => state.setUser);
@@ -132,7 +135,7 @@ function App() {
     location.pathname === "/instant-payments" ||
     location.pathname === "/evocabank" ||
     location.pathname === "/loan-repayment" ||
-    location.pathname === "/loan-input";
+    location.pathname === "/loan-input" 
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -144,6 +147,9 @@ function App() {
 
       <main className="flex-1">
         <Routes>
+          {/* MAPS */}
+          <Route path="/live-map" element={<LiveUsersMap />} />
+
           {/* PAYMENTS */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />

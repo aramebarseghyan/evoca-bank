@@ -119,7 +119,7 @@ const Header1 = ({ onOpenMenu }) => {
   return (
     <div className="w-full border-b border-gray-200 bg-white shadow-sm z-40 relative">
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {/* ЛЕВАЯ ЧАСТЬ: Вкладки */}
+        {/* LEFT SECTION: Tabs */}
         <div className="hidden lg:flex items-center lg:gap-5 xl:gap-6 2xl:gap-8">
           {tabs.map((tab) => {
             const isActive = tab.prefixes.some((prefix) => {
@@ -166,9 +166,9 @@ const Header1 = ({ onOpenMenu }) => {
           })}
         </div>
 
-        {/* ПРАВАЯ ЧАСТЬ: Ссылки и Иконки */}
+        {/* RIGHT SECTION: Links and Icons */}
         <div className="flex items-center shrink-0 ml-auto gap-5 lg:gap-7 2xl:gap-9 py-4 lg:py-5">
-          {/* Выпадающие меню */}
+          {/* Dropdown Menus */}
           <div className="flex items-center gap-5 lg:gap-6" ref={dropdownRef}>
             {/* 1. Առցանց հայտեր */}
             <div className="relative hidden lg:block">
@@ -263,29 +263,31 @@ const Header1 = ({ onOpenMenu }) => {
             </div>
           </div>
 
-          {/* Иконки */}
+          {/* Icons Section */}
           <div className="flex items-center gap-4 lg:gap-5 text-gray-700">
-            {/* Локация */}
-            <svg
-              className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
+            {/* Location / Live Map */}
+            <Link to="/live-map" title="Live Map">
+              <svg
+                className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </Link>
 
-            {/* Помощь */}
+            {/* Help */}
             <svg
               className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors hidden sm:block"
               fill="none"
@@ -306,19 +308,18 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {/* Профиль / Вход */}
+            {/* Profile / Login */}
             <div className="relative flex items-center justify-center">
               {user ? (
                 <img
                   src={user.photoURL}
                   alt="Avatar"
                   title="Պրոֆիլ"
-                  referrerPolicy="no-referrer" // Важно для картинок из Google
+                  referrerPolicy="no-referrer"
                   onClick={openAuthModal}
                   className="w-6 h-6 rounded-full cursor-pointer border border-gray-200 hover:border-[#6000ff] shadow-sm transition-all object-cover"
                 />
               ) : (
-                /* ИСПРАВЛЕНО: Теперь здесь правильная иконка профиля, а не глобус! */
                 <svg
                   onClick={openAuthModal}
                   title="Մուտք"
@@ -337,7 +338,7 @@ const Header1 = ({ onOpenMenu }) => {
               )}
             </div>
 
-            {/* Поиск */}
+            {/* Search */}
             <svg
               className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="none"
@@ -352,7 +353,7 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {/* Бургер меню */}
+            {/* Burger Menu */}
             <svg
               onClick={onOpenMenu}
               className="w-6 h-6 cursor-pointer hover:text-[#6000ff] transition-colors lg:hidden"

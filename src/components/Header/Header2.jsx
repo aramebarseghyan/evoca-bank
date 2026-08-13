@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import evocabankLogo from "../../assets/img/evocabank.png";
@@ -57,8 +57,8 @@ const Header2 = () => {
     ? activeGroup.isBusiness
     : cleanPath.includes("business");
 
-  // ДОБАВЛЕНО: Проверка для страниц "Новости" и "Блог", где саб-меню должно быть пустым
-  const noSubNavPaths = ["/news", "/blog"];
+  // Check for "News" and "Blog" pages where sub-menu should be empty
+  const noSubNavPaths = ["/news", "/blog", "/live-map"];
   const isNoSubNavMode = noSubNavPaths.some(
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
   );
@@ -133,7 +133,7 @@ const Header2 = () => {
     { label: "Աշխատանք և պրակտիկա", path: "/work-at-evoca", display: "flex" },
   ];
 
-  // ДОБАВЛЕНО: Применяем пустой массив, если находимся в разделе новостей
+  // Apply empty array if in news, blog, or map section
   let currentNavItems;
   if (isNoSubNavMode) {
     currentNavItems = [];
@@ -260,7 +260,7 @@ const Header2 = () => {
             />
           </Link>
 
-          {/* Навигация теперь не будет рендериться на страницах новостей, так как массив currentNavItems пуст */}
+          {/* Navigation will not render on news/blog/map pages as currentNavItems is empty */}
           <nav className="hidden md:flex items-center gap-6 xl:gap-8 h-full">
             {currentNavItems.map((item, index) => (
               <Link
