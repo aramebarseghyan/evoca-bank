@@ -17,6 +17,7 @@ import WorkAtEvocaPage from "./Pages/Career/WorkAtEvocaPage";
 import EvocaCareers from "./Pages/Career/EvocaCareers";
 import EvocaJobsList from "./Pages/Career/EvocaJobsList";
 import JobDetail from "./Pages/Career/JobDetail";
+import PracticePage from "./Pages/Career/PracticeHero";
 
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
@@ -303,6 +304,7 @@ function App() {
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
           <Route path="/work-at-evoca/:id" element={<JobDetail />} />
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
+          <Route path="/internship" element={<PracticePage />} />
           <Route path="*" element={<div />} />
         </Routes>
       </main>

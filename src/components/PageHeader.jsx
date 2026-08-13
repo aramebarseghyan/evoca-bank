@@ -8,7 +8,7 @@ const PageHeader = () => {
   // Տեղափոխված է վերև՝ ստորև նշված պայմանի մեջ օգտագործելու համար
   const cleanPath = normalizePath(location.pathname);
 
-  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև FAQ և Աշխատանքի էջերի վրա
+  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև պրակտիկայի, FAQ և Աշխատանքի էջերի վրա
   if (
     cleanPath === "/culture" ||
     cleanPath === "/advantages" ||
@@ -16,6 +16,8 @@ const PageHeader = () => {
     cleanPath.includes("faq") ||
     cleanPath === "/how-to-apply" ||
     cleanPath === "/work-at-evoca" ||
+    cleanPath === "/internship" ||
+    cleanPath.includes("internship") ||
     (location.pathname.startsWith("/work-at-evoca/") &&
       location.pathname.split("/").length > 2) ||
     location.pathname === "/" ||
