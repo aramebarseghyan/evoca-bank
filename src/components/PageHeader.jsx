@@ -5,7 +5,6 @@ import { normalizePath, subNavigationGroups } from "../data/navigationData";
 const PageHeader = () => {
   const location = useLocation();
 
-  // Տեղափոխված է վերև՝ ստորև նշված պայմանի մեջ օգտագործելու համար
   const cleanPath = normalizePath(location.pathname);
 
   // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև պրակտիկայի, FAQ և Աշխատանքի էջերի վրա
@@ -18,6 +17,7 @@ const PageHeader = () => {
     cleanPath === "/work-at-evoca" ||
     cleanPath === "/internship" ||
     cleanPath.includes("internship") ||
+    cleanPath === "/evocabridge" ||
     (location.pathname.startsWith("/work-at-evoca/") &&
       location.pathname.split("/").length > 2) ||
     location.pathname === "/" ||
@@ -40,7 +40,6 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
-    // Явные настройки для специфичных страниц
     if (path === "/evocatouch") {
       return {
         section: "Անհատ",

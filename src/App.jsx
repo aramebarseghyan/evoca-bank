@@ -18,6 +18,7 @@ import EvocaCareers from "./Pages/Career/EvocaCareers";
 import EvocaJobsList from "./Pages/Career/EvocaJobsList";
 import JobDetail from "./Pages/Career/JobDetail";
 import PracticePage from "./Pages/Career/PracticeHero";
+import EvocaBridgePage from "./Pages/Career/EvocaBridgePage"; // <--- Նոր էջի ներմուծում
 
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
@@ -132,17 +133,14 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-
           {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
-
           {/* BLOG */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
-
           {/* BUSINESS */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -196,7 +194,6 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* ABOUT AND HOME */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
@@ -219,7 +216,6 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
-
           {/* TARIFFS */}
           <Route
             path="/tariffs"
@@ -239,7 +235,6 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-
           {/* INDIVIDUALS */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
@@ -298,13 +293,14 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
-
           {/* CAREERS */}
           <Route path="/how-to-apply" element={<EvocaCareers />} />
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
           <Route path="/work-at-evoca/:id" element={<JobDetail />} />
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
+          <Route path="/evocabridge" element={<EvocaBridgePage />} />{" "}
+          {/* <--- Նոր երթուղին */}
           <Route path="*" element={<div />} />
         </Routes>
       </main>
