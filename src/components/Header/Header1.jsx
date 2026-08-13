@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { subNavigationGroups, normalizePath } from "../../data/navigationData"; // Ներմուծում ենք տվյալները
+import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 
 const Header1 = ({ onOpenMenu }) => {
   const location = useLocation();
+
+  // Состояние для управления выпадающими меню (может быть 'applications', 'contact' или null)
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const dropdownRef = useRef(null);
+
+  // Закрытие меню при клике вне его области
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = (menuName) => {
+    // Если кликаем по уже открытому меню — закрываем его, иначе открываем новое
+    setActiveDropdown((prev) => (prev === menuName ? null : menuName));
+  };
 
   const tabs = [
     {
@@ -96,7 +119,6 @@ const Header1 = ({ onOpenMenu }) => {
     },
   ];
 
-  // Մաքրում ենք URL-ը (օրինակ՝ /hy/loans դառնում է /loans)
   const cleanPath = normalizePath
     ? normalizePath(location.pathname)
     : location.pathname;
@@ -107,26 +129,20 @@ const Header1 = ({ onOpenMenu }) => {
         {/* ЛЕВАЯ ЧАСТЬ: Вкладки */}
         <div className="hidden lg:flex items-center lg:gap-3 xl:gap-5 2xl:gap-6">
           {tabs.map((tab) => {
-            // Խելացի ստուգում ակտիվության համար
             const isActive = tab.prefixes.some((prefix) => {
-              // 1. Ստուգում ենք ուղիղ համընկնում
               if (cleanPath === prefix || cleanPath.startsWith(`${prefix}/`)) {
                 return true;
               }
-
-              // 2. Եթե subNavigationGroups-ը կա, փնտրում ենք այս prefix-ի խումբը
               if (subNavigationGroups) {
                 const group = subNavigationGroups.find(
                   (g) => g.mainPath === prefix || g.paths.includes(prefix),
                 );
-
                 if (group && group.paths) {
                   return group.paths.some(
                     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
                   );
                 }
               }
-
               return false;
             });
 
@@ -168,43 +184,138 @@ const Header1 = ({ onOpenMenu }) => {
 
         {/* ПРАВАЯ ЧАСТЬ: Ссылки и Иконки */}
         <div className="flex items-center shrink-0 ml-auto gap-4 md:gap-5 lg:gap-6 2xl:gap-8 pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5">
-          <div className="flex items-center gap-4 lg:gap-5 2xl:gap-6">
-            <div className="hidden lg:flex items-center gap-1.5 cursor-pointer group">
-              <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
-                Առցանց հայտեր
-              </p>
-              <svg
-                className="w-[12px] h-[12px] stroke-[#6000ff] transition-transform group-hover:translate-y-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          {/* Контейнер с рефом для отслеживания клика снаружи */}
+          <div
+            className="flex items-center gap-4 lg:gap-5 2xl:gap-6"
+            ref={dropdownRef}
+          >
+            {/* 1. АКТИВНОЕ МЕНЮ: Առցանց հայտեր (Онлайн заявки) */}
+            <div className="relative hidden lg:block">
+              <div
+                className="flex items-center gap-1.5 cursor-pointer group py-2"
+                onClick={() => toggleDropdown("applications")}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
+                  Առցանց հայտեր
+                </p>
+                <svg
+                  className={`w-[12px] h-[12px] stroke-[#6000ff] transition-transform duration-300 ${
+                    activeDropdown === "applications"
+                      ? "rotate-180"
+                      : "group-hover:translate-y-0.5"
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+
+              {/* Выпадающий список (Шторка) */}
+              <div
+                className={`absolute top-full right-[-10px] mt-2 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-b-xl border border-gray-50 min-w-[200px] z-50 transition-all duration-300 origin-top flex flex-col py-3 overflow-hidden ${
+                  activeDropdown === "applications"
+                    ? "scale-y-100 opacity-100 pointer-events-auto"
+                    : "scale-y-0 opacity-0 pointer-events-none"
+                }`}
+              >
+                <Link
+                  to="#"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  ՓՄՁ վարկավորում
+                </Link>
+                <Link
+                  to="#"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  Visa Infinite
+                </Link>
+                <Link
+                  to="#"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  MasterCard Gold
+                </Link>
+                <Link
+                  to="#"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  Visa Gold
+                </Link>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1.5 cursor-pointer group">
-              <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
-                Հետադարձ կապ
-              </p>
-              <svg
-                className="w-[12px] h-[12px] stroke-[#6000ff] transition-transform group-hover:translate-y-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            {/* 2. АКТИВНОЕ МЕНЮ: Հետադարձ կապ (Обратная связь) */}
+            <div className="relative">
+              <div
+                className="flex items-center gap-1.5 cursor-pointer group py-2"
+                onClick={() => toggleDropdown("contact")}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="3"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
+                  Հետադարձ կապ
+                </p>
+                <svg
+                  className={`w-[12px] h-[12px] stroke-[#6000ff] transition-transform duration-300 ${
+                    activeDropdown === "contact"
+                      ? "rotate-180"
+                      : "group-hover:translate-y-0.5"
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="3"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+
+              {/* Выпадающий список (Шторка) */}
+              <div
+                className={`absolute top-full right-[-10px] mt-2 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-b-xl border border-gray-50 min-w-[200px] z-50 transition-all duration-300 origin-top flex flex-col py-3 overflow-hidden ${
+                  activeDropdown === "contact"
+                    ? "scale-y-100 opacity-100 pointer-events-auto"
+                    : "scale-y-0 opacity-0 pointer-events-none"
+                }`}
+              >
+                <a
+                  href="tel:+37410605555"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  +374 10 605555
+                </a>
+                <a
+                  href="tel:+37498205555"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  +374 98 205555
+                </a>
+                <a
+                  href="tel:+37499605555"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  +374 99 605555
+                </a>
+                <a
+                  href="tel:8444"
+                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
+                >
+                  8444
+                </a>
+                <button className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors">
+                  Պատվիրել զանգ
+                </button>
+              </div>
             </div>
           </div>
 
