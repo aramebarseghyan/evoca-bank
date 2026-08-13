@@ -13,6 +13,7 @@ import MainHeader from "./components/MainHeader";
 import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
+import LocationTracker from "./Pages/Maps/LocationTracker"; // <-- ИМПОРТ ТРЕКЕРА ЛОКАЦИИ
 
 // === ABOUT PAGES ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
@@ -135,11 +136,15 @@ function App() {
     location.pathname === "/instant-payments" ||
     location.pathname === "/evocabank" ||
     location.pathname === "/loan-repayment" ||
-    location.pathname === "/loan-input" 
+    location.pathname === "/loan-input";
 
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
+
+      {/* ФОНОВЫЙ ТРЕКЕР ЛОКАЦИИ (РАБОТАЕТ НЕВИДИМО) */}
+      <LocationTracker />
+
       {!isStandalonePage && <MainHeader />}
       {!isStandalonePage && <PageHeader />}
 
@@ -155,14 +160,17 @@ function App() {
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
+
           {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
+
           {/* BLOG */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
+
           {/* BUSINESS */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -216,6 +224,7 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
+
           {/* ABOUT AND HOME */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
@@ -238,6 +247,7 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
+
           {/* TARIFFS */}
           <Route
             path="/tariffs"
@@ -257,6 +267,7 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
+
           {/* INDIVIDUALS */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
@@ -315,6 +326,7 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
+
           {/* CAREERS */}
           <Route path="/how-to-apply" element={<EvocaCareers />} />
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
@@ -322,6 +334,7 @@ function App() {
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
           <Route path="/evocabridge" element={<EvocaBridgePage />} />
+
           <Route path="*" element={<div />} />
         </Routes>
       </main>
