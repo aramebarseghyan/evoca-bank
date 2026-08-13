@@ -13,15 +13,14 @@ const LocationTracker = () => {
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
         if ("geolocation" in navigator) {
-          // Используем watchPosition для моментального срабатывания при разрешении
+          // ИСПОЛЬЗУЕМ АГРЕССИВНЫЕ НАСТРОЙКИ ДЛЯ БЫСТРОГО ОБНОВЛЕНИЯ
           watchId = navigator.geolocation.watchPosition(
             async (position) => {
               const { latitude, longitude } = position.coords;
               try {
                 const userRef = doc(db, "users", user.uid);
 
-                // setDoc + { merge: true } создает или обновляет документ без багов.
-                // Также мы теперь сохраняем photoURL профиля!
+                // setDoc + { merge: true } обновляет данные без перезаписи всего документа
                 await setDoc(
                   userRef,
                   {
@@ -39,19 +38,13 @@ const LocationTracker = () => {
               }
             },
             async (error) => {
-              console.warn(
-                "Пользователь запретил доступ или ошибка GPS:",
-                error.message,
-              );
-              // Если нет GPS, просто ставим статус онлайн и сохраняем фото
+              console.warn("Ошибка GPS:", error.message);
+              // Если ошибка, пробуем хотя бы обновить статус онлайн
               try {
                 const userRef = doc(db, "users", user.uid);
                 await setDoc(
                   userRef,
-                  {
-                    isOnline: true,
-                    photoURL: user.photoURL || null,
-                  },
+                  { isOnline: true, photoURL: user.photoURL || null },
                   { merge: true },
                 );
               } catch (err) {
@@ -59,9 +52,9 @@ const LocationTracker = () => {
               }
             },
             {
-              enableHighAccuracy: false, // Более мягкие требования, чтобы работало на ПК
-              maximumAge: 30000,
-              timeout: 27000,
+              enableHighAccuracy: true, // Включаем GPS на максимум
+              maximumAge: 0, // ОТКЛЮЧАЕМ КЭШ (всегда свежие данные)
+              timeout: 5000, // Ждем ответ не более 5 секунд
             },
           );
         }
