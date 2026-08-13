@@ -171,9 +171,7 @@ function JobApplicationForm() {
                 </svg>
                 <p className="text-sm text-gray-500">
                   {fileName ? (
-                    <span className="text-[#6816cc] font-semibold">
-                      {fileName}
-                    </span>
+                    <span className="text-[#6816cc] font-semibold">{fileName}</span>
                   ) : (
                     "Կցել ֆայլ / ֆայլերը"
                   )}
