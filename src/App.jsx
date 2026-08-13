@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
+
+// Firebase & Store imports
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useAuthStore } from "./Pages/Acc/authStore";
+import AuthModal from "./Pages/Acc/AuthModal";
 
 // Header, Footer and Page Header imports
 import MainHeader from "./components/MainHeader";
@@ -18,7 +24,7 @@ import EvocaCareers from "./Pages/Career/EvocaCareers";
 import EvocaJobsList from "./Pages/Career/EvocaJobsList";
 import JobDetail from "./Pages/Career/JobDetail";
 import PracticePage from "./Pages/Career/PracticeHero";
-import EvocaBridgePage from "./Pages/Career/EvocaBridgePage"; // <--- Նոր էջի ներմուծում
+import EvocaBridgePage from "./Pages/Career/EvocaBridgePage";
 
 import EvocabankStructure from "./Pages/About/EvocabankStructure";
 import EvocabankShareholders from "./Pages/About/EvocabankShareholders";
@@ -112,6 +118,14 @@ import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage"
 
 function App() {
   const location = useLocation();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, [setUser]);
 
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
@@ -125,6 +139,8 @@ function App() {
       <ScrollToTop />
       {!isStandalonePage && <MainHeader />}
       {!isStandalonePage && <PageHeader />}
+
+      <AuthModal />
 
       <main className="flex-1">
         <Routes>
@@ -299,8 +315,7 @@ function App() {
           <Route path="/work-at-evoca/:id" element={<JobDetail />} />
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
-          <Route path="/evocabridge" element={<EvocaBridgePage />} />{" "}
-          {/* <--- Նոր երթուղին */}
+          <Route path="/evocabridge" element={<EvocaBridgePage />} />
           <Route path="*" element={<div />} />
         </Routes>
       </main>

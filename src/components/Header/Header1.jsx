@@ -1,22 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { subNavigationGroups, normalizePath } from "../../data/navigationData";
+import { useAuthStore } from "../../Pages/Acc/authStore";
 
 const Header1 = ({ onOpenMenu }) => {
   const location = useLocation();
-
-  // Состояние для управления выпадающими меню (может быть 'applications', 'contact' или null)
   const [activeDropdown, setActiveDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
-  // Закрытие меню при клике вне его области
+  const { user, openAuthModal } = useAuthStore();
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setActiveDropdown(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -24,7 +23,6 @@ const Header1 = ({ onOpenMenu }) => {
   }, []);
 
   const toggleDropdown = (menuName) => {
-    // Если кликаем по уже открытому меню — закрываем его, иначе открываем новое
     setActiveDropdown((prev) => (prev === menuName ? null : menuName));
   };
 
@@ -95,12 +93,7 @@ const Header1 = ({ onOpenMenu }) => {
       xlOnly: false,
       prefixes: ["/news"],
     },
-    {
-      name: "Բլոգ",
-      path: "/blog",
-      xlOnly: true,
-      prefixes: ["/blog"],
-    },
+    { name: "Բլոգ", path: "/blog", xlOnly: true, prefixes: ["/blog"] },
     {
       name: "Կարիերա",
       path: "/culture",
@@ -124,15 +117,14 @@ const Header1 = ({ onOpenMenu }) => {
     : location.pathname;
 
   return (
-    <div className="w-full border-b border-gray-100 bg-white 2xl:mt-[10px]">
+    <div className="w-full border-b border-gray-200 bg-white shadow-sm z-40 relative">
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
         {/* ЛЕВАЯ ЧАСТЬ: Вкладки */}
-        <div className="hidden lg:flex items-center lg:gap-3 xl:gap-5 2xl:gap-6">
+        <div className="hidden lg:flex items-center lg:gap-5 xl:gap-6 2xl:gap-8">
           {tabs.map((tab) => {
             const isActive = tab.prefixes.some((prefix) => {
-              if (cleanPath === prefix || cleanPath.startsWith(`${prefix}/`)) {
+              if (cleanPath === prefix || cleanPath.startsWith(`${prefix}/`))
                 return true;
-              }
               if (subNavigationGroups) {
                 const group = subNavigationGroups.find(
                   (g) => g.mainPath === prefix || g.paths.includes(prefix),
@@ -146,21 +138,14 @@ const Header1 = ({ onOpenMenu }) => {
               return false;
             });
 
-            const isInstantPayment = tab.path === "/instant-payments";
-
             const commonClassName = `
               ${tab.xlOnly ? "hidden xl:block" : "block"}
-              cursor-pointer pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5 
-              border-t-[3px] transition-all duration-200 -mt-px whitespace-nowrap
-              lg:text-[12px] xl:text-[13px] 2xl:text-[14px]
-              ${
-                isActive
-                  ? "text-[#6000ff] font-bold border-[#6000ff]"
-                  : "text-gray-700 font-medium border-transparent hover:text-[#6000ff]"
-              }
+              cursor-pointer py-4 lg:py-5 border-b-[3px] transition-all duration-300 whitespace-nowrap
+              lg:text-[13px] xl:text-[14px] 2xl:text-[15px] -mb-[1px]
+              ${isActive ? "text-[#6000ff] font-bold border-[#6000ff]" : "text-gray-600 font-medium border-transparent hover:text-[#6000ff]"}
             `;
 
-            if (isInstantPayment) {
+            if (tab.path === "/instant-payments") {
               return (
                 <a
                   key={tab.name}
@@ -173,7 +158,6 @@ const Header1 = ({ onOpenMenu }) => {
                 </a>
               );
             }
-
             return (
               <Link key={tab.name} to={tab.path} className={commonClassName}>
                 {tab.name}
@@ -183,147 +167,107 @@ const Header1 = ({ onOpenMenu }) => {
         </div>
 
         {/* ПРАВАЯ ЧАСТЬ: Ссылки и Иконки */}
-        <div className="flex items-center shrink-0 ml-auto gap-4 md:gap-5 lg:gap-6 2xl:gap-8 pt-3 pb-3 lg:pt-3 lg:pb-4 2xl:pt-4 2xl:pb-5">
-          {/* Контейнер с рефом для отслеживания клика снаружи */}
-          <div
-            className="flex items-center gap-4 lg:gap-5 2xl:gap-6"
-            ref={dropdownRef}
-          >
-            {/* 1. АКТИВНОЕ МЕНЮ: Առցանց հայտեր (Онлайн заявки) */}
+        <div className="flex items-center shrink-0 ml-auto gap-5 lg:gap-7 2xl:gap-9 py-4 lg:py-5">
+          {/* Выпадающие меню */}
+          <div className="flex items-center gap-5 lg:gap-6" ref={dropdownRef}>
+            {/* 1. Առցանց հայտեր */}
             <div className="relative hidden lg:block">
               <div
-                className="flex items-center gap-1.5 cursor-pointer group py-2"
+                className="flex items-center gap-1.5 cursor-pointer group"
                 onClick={() => toggleDropdown("applications")}
               >
-                <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
+                <p className="text-[13px] xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap transition-colors">
                   Առցանց հայտեր
                 </p>
                 <svg
-                  className={`w-[12px] h-[12px] stroke-[#6000ff] transition-transform duration-300 ${
-                    activeDropdown === "applications"
-                      ? "rotate-180"
-                      : "group-hover:translate-y-0.5"
-                  }`}
+                  className={`w-4 h-4 stroke-[#6000ff] transition-transform duration-300 ${activeDropdown === "applications" ? "rotate-180" : "group-hover:translate-y-0.5"}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  strokeWidth="2.5"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="3"
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
               </div>
 
-              {/* Выпадающий список (Шторка) */}
               <div
-                className={`absolute top-full right-[-10px] mt-2 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-b-xl border border-gray-50 min-w-[200px] z-50 transition-all duration-300 origin-top flex flex-col py-3 overflow-hidden ${
-                  activeDropdown === "applications"
-                    ? "scale-y-100 opacity-100 pointer-events-auto"
-                    : "scale-y-0 opacity-0 pointer-events-none"
-                }`}
+                className={`absolute top-full right-0 mt-4 bg-white shadow-xl rounded-2xl border border-gray-100 min-w-[220px] z-50 transition-all duration-300 origin-top flex flex-col py-2 overflow-hidden ${activeDropdown === "applications" ? "opacity-100 scale-100 pointer-events-auto translate-y-0" : "opacity-0 scale-95 pointer-events-none -translate-y-2"}`}
               >
-                <Link
-                  to="#"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  ՓՄՁ վարկավորում
-                </Link>
-                <Link
-                  to="#"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  Visa Infinite
-                </Link>
-                <Link
-                  to="#"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  MasterCard Gold
-                </Link>
-                <Link
-                  to="#"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  Visa Gold
-                </Link>
+                {[
+                  "ՓՄՁ վարկավորում",
+                  "Visa Infinite",
+                  "MasterCard Gold",
+                  "Visa Gold",
+                ].map((item) => (
+                  <Link
+                    key={item}
+                    to="#"
+                    className="px-5 py-3 text-[14px] text-right text-gray-700 font-medium hover:text-[#6000ff] hover:bg-[#6000ff]/5 transition-colors"
+                  >
+                    {item}
+                  </Link>
+                ))}
               </div>
             </div>
 
-            {/* 2. АКТИВНОЕ МЕНЮ: Հետադարձ կապ (Обратная связь) */}
-            <div className="relative">
+            {/* 2. Հետադարձ կապ */}
+            <div className="relative hidden md:block">
               <div
-                className="flex items-center gap-1.5 cursor-pointer group py-2"
+                className="flex items-center gap-1.5 cursor-pointer group"
                 onClick={() => toggleDropdown("contact")}
               >
-                <p className="text-[13px] lg:text-[12px] xl:text-[13px] 2xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap">
+                <p className="text-[13px] xl:text-[14px] font-bold text-[#6000ff] whitespace-nowrap transition-colors">
                   Հետադարձ կապ
                 </p>
                 <svg
-                  className={`w-[12px] h-[12px] stroke-[#6000ff] transition-transform duration-300 ${
-                    activeDropdown === "contact"
-                      ? "rotate-180"
-                      : "group-hover:translate-y-0.5"
-                  }`}
+                  className={`w-4 h-4 stroke-[#6000ff] transition-transform duration-300 ${activeDropdown === "contact" ? "rotate-180" : "group-hover:translate-y-0.5"}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  strokeWidth="2.5"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth="3"
                     d="M19 9l-7 7-7-7"
                   />
                 </svg>
               </div>
 
-              {/* Выпадающий список (Шторка) */}
               <div
-                className={`absolute top-full right-[-10px] mt-2 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-b-xl border border-gray-50 min-w-[200px] z-50 transition-all duration-300 origin-top flex flex-col py-3 overflow-hidden ${
-                  activeDropdown === "contact"
-                    ? "scale-y-100 opacity-100 pointer-events-auto"
-                    : "scale-y-0 opacity-0 pointer-events-none"
-                }`}
+                className={`absolute top-full right-0 mt-4 bg-white shadow-xl rounded-2xl border border-gray-100 min-w-[200px] z-50 transition-all duration-300 origin-top flex flex-col py-2 overflow-hidden ${activeDropdown === "contact" ? "opacity-100 scale-100 pointer-events-auto translate-y-0" : "opacity-0 scale-95 pointer-events-none -translate-y-2"}`}
               >
-                <a
-                  href="tel:+37410605555"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  +374 10 605555
-                </a>
-                <a
-                  href="tel:+37498205555"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  +374 98 205555
-                </a>
-                <a
-                  href="tel:+37499605555"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  +374 99 605555
-                </a>
-                <a
-                  href="tel:8444"
-                  className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors"
-                >
-                  8444
-                </a>
-                <button className="px-5 py-2.5 text-[14px] text-right text-gray-800 font-medium hover:text-[#6000ff] hover:bg-gray-50 transition-colors">
+                {[
+                  { text: "+374 10 605555", href: "tel:+37410605555" },
+                  { text: "+374 98 205555", href: "tel:+37498205555" },
+                  { text: "+374 99 605555", href: "tel:+37499605555" },
+                  { text: "8444", href: "tel:8444" },
+                ].map((link) => (
+                  <a
+                    key={link.text}
+                    href={link.href}
+                    className="px-5 py-2.5 text-[14px] text-right text-gray-700 font-medium hover:text-[#6000ff] hover:bg-[#6000ff]/5 transition-colors"
+                  >
+                    {link.text}
+                  </a>
+                ))}
+                <div className="h-px bg-gray-100 my-1 mx-4"></div>
+                <button className="px-5 py-2.5 text-[14px] text-right text-gray-700 font-bold hover:text-[#6000ff] hover:bg-[#6000ff]/5 transition-colors">
                   Պատվիրել զանգ
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Аккуратные темные контурные иконки */}
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-4 lg:gap-5 2xl:gap-6 text-[#222222]">
-            {/* 1. Локация */}
+          {/* Иконки */}
+          <div className="flex items-center gap-4 lg:gap-5 text-gray-700">
+            {/* Локация */}
             <svg
-              className="w-[19px] h-[19px] cursor-pointer hover:text-[#6000ff] transition-colors"
+              className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.8"
@@ -341,9 +285,9 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {/* 2. Помощь */}
+            {/* Помощь */}
             <svg
-              className="w-[19px] h-[19px] cursor-pointer hover:text-[#6000ff] transition-colors"
+              className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors hidden sm:block"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.8"
@@ -362,25 +306,40 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {/* 3. Глобус */}
-            <svg
-              className="w-[19px] h-[19px] cursor-pointer hover:text-[#6000ff] transition-colors"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="9" />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18"
-              />
-            </svg>
+            {/* Профиль / Вход */}
+            <div className="relative flex items-center justify-center">
+              {user ? (
+                <img
+                  src={user.photoURL}
+                  alt="Avatar"
+                  title="Պրոֆիլ"
+                  referrerPolicy="no-referrer" // Важно для картинок из Google
+                  onClick={openAuthModal}
+                  className="w-6 h-6 rounded-full cursor-pointer border border-gray-200 hover:border-[#6000ff] shadow-sm transition-all object-cover"
+                />
+              ) : (
+                /* ИСПРАВЛЕНО: Теперь здесь правильная иконка профиля, а не глобус! */
+                <svg
+                  onClick={openAuthModal}
+                  title="Մուտք"
+                  className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  />
+                </svg>
+              )}
+            </div>
 
-            {/* 4. Поиск */}
+            {/* Поиск */}
             <svg
-              className="w-[19px] h-[19px] cursor-pointer hover:text-[#6000ff] transition-colors"
+              className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.8"
@@ -393,19 +352,19 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {/* 5. Бургер меню */}
+            {/* Бургер меню */}
             <svg
               onClick={onOpenMenu}
-              className="w-[19px] h-[19px] cursor-pointer hover:text-[#6000ff] transition-colors"
+              className="w-6 h-6 cursor-pointer hover:text-[#6000ff] transition-colors lg:hidden"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.8"
+              strokeWidth="2"
               viewBox="0 0 24 24"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
+                d="M3 6h18M3 12h18M3 18h18"
               />
             </svg>
           </div>

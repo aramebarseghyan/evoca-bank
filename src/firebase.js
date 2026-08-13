@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+// Добавляем импорты для аутентификации
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // Конфигурация через переменные окружения (.env)
 const firebaseConfig = {
@@ -17,5 +19,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Экспортируем базу данных Firestore
+// Инициализируем сервисы
 export const db = getFirestore(app);
+export const auth = getAuth(app); // Экспортируем сервис аутентификации
+export const googleProvider = new GoogleAuthProvider(); // Экспортируем провайдер Google
