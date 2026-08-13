@@ -7,17 +7,17 @@ const ScrollHeader = ({ onOpenMenu }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Очищаем путь
+  // Clean the path
   const rawPath = location.pathname;
   const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
 
-  // 1. Новости и Блог (совсем минималистичные — без вкладок)
-  const minimalHeaderPages = ["/news", "/blog"];
+  // 1. News, Blog, and Map (minimalistic - no tabs)
+  const minimalHeaderPages = ["/news", "/blog", "/live-map"];
   const isMinimalHeader = minimalHeaderPages.some(
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 2. Раздел Карьеры и Культуры (вкладки: Evoca Լայֆ, Աշխատանք և պրակտիկա)
+  // 2. Career and Culture Section
   const careerPrefixes = [
     "/culture",
     "/career",
@@ -33,7 +33,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 3. Корпоративный раздел "О нас" (вкладки: Evoca-ի մասին, Սակագներ и т.д.)
+  // 3. Corporate "About Us" Section
   const aboutPrefixes = [
     "/about",
     "/structure",
@@ -56,7 +56,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 4. Бизнес-режим
+  // 4. Business Mode
   const isBusinessMode =
     cleanPath.startsWith("/business-") ||
     cleanPath === "/leasing-evoca" ||
@@ -64,7 +64,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     cleanPath === "/guarantee" ||
     cleanPath === "/individual-safe-deposit-boxes";
 
-  // Навигация для Физлиц
+  // Navigation for Individuals
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", showOn: "md" },
     { label: "Քարտեր", path: "/cards", showOn: "md" },
@@ -76,7 +76,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "EvocaTOUCH", path: "/evocatouch", showOn: "2xl" },
   ];
 
-  // Навигация для Бизнеса
+  // Navigation for Business
   const businessNavItems = [
     { label: "Վարկեր", path: "/business-loans", showOn: "md" },
     { label: "Լիզինգ", path: "/leasing-evoca", showOn: "md" },
@@ -100,7 +100,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "Այլ", path: "/individual-safe-deposit-boxes", showOn: "2xl" },
   ];
 
-  // Корпоративная навигация ("О нас")
+  // Corporate Navigation ("About")
   const corporateNavItems = [
     { label: "Evoca-ի մասին", path: "/about", showOn: "md" },
     { label: "Սակագներ", path: "/tariffs", showOn: "md" },
@@ -108,13 +108,13 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "Հայտարարություններ", path: "/announcements", showOn: "md" },
   ];
 
-  // Навигация для Карьеры
+  // Career Navigation
   const careerNavItems = [
     { label: "Evoca Լայֆ", path: "/evoca-life", showOn: "md" },
     { label: "Աշխատանք և պրակտիկա", path: "/career", showOn: "md" },
   ];
 
-  // Выбираем нужный массив пунктов меню
+  // Select the appropriate menu items array
   let navItems = individualNavItems;
   if (isCareerMode) {
     navItems = careerNavItems;
@@ -124,7 +124,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     navItems = businessNavItems;
   }
 
-  // Функция определения активности пункта меню
+  // Function to determine active menu item
   const isMainItemActive = (mainPath) => {
     if (mainPath === "/about") {
       const aboutSubPaths = [
@@ -171,7 +171,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
           (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
         )
       ) {
-        // Дополнительно разведем подсветку между Evoca Life и Career
+        // Differentiate highlighting between Evoca Life and Career
         if (
           mainPath === "/evoca-life" &&
           (cleanPath === "/evoca-life" ||
@@ -235,7 +235,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
             </Link>
           </div>
 
-          {/* Навигация скрыта только для минималистичных страниц (новости, блог) */}
+          {/* Navigation is hidden for minimalistic pages (news, blog, map) */}
           {!isMinimalHeader && (
             <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
               {navItems.map((item, index) => {
