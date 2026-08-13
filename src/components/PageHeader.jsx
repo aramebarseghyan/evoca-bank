@@ -7,8 +7,9 @@ const PageHeader = () => {
 
   const cleanPath = normalizePath(location.pathname);
 
-  // Սկրում ենք գլխավոր, առանձնացված էջերի, ինչպես նաև պրակտիկայի, FAQ և Աշխատանքի էջերի վրա
+  // Hide on main, standalone pages, live-map, as well as internship, FAQ, and work pages
   if (
+    cleanPath === "/live-map" ||
     cleanPath === "/culture" ||
     cleanPath === "/advantages" ||
     cleanPath === "/faq" ||
