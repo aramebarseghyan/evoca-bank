@@ -22,12 +22,11 @@ const AutoZoomToBounds = ({ users }) => {
   return null;
 };
 
-// 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК С АВАТАРКОЙ, ХВОСТИКОМ И ИНДИКАТОРОМ СТАТУСА
+// 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК
 const createGmailAvatar = (user) => {
   const isOnline = user.isOnline;
-  const statusColor = isOnline ? "#10b981" : "#ef4444"; // Зеленый для онлайн, красный для офлайн
+  const statusColor = isOnline ? "#10b981" : "#ef4444"; // Зеленый / Красный
 
-  // Внутренняя часть (фото или буква)
   let innerContent = "";
   if (user.photoURL) {
     innerContent = `
@@ -39,8 +38,9 @@ const createGmailAvatar = (user) => {
       />
     `;
   } else {
+    // Безопасное получение начальной буквы
     const name = user.displayName || user.email || "Ա";
-    const initial = name.charAt(0).toUpperCase();
+    const initial = name.length > 0 ? name.charAt(0).toUpperCase() : "Ա";
 
     const colors = [
       "#ef4444",
@@ -55,7 +55,7 @@ const createGmailAvatar = (user) => {
       "#f43f5e",
     ];
     const charCode = initial.charCodeAt(0);
-    const bgColor = colors[charCode % colors.length];
+    const bgColor = colors[charCode % colors.length] || colors[0];
 
     innerContent = `
       <div style="
@@ -80,7 +80,6 @@ const createGmailAvatar = (user) => {
     className: "custom-avatar-icon",
     html: `
       <div style="position: relative; width: 42px; height: 42px;">
-        <!-- Основной круг с фото/буквой -->
         <div style="
           width: 42px; 
           height: 42px; 
@@ -95,7 +94,6 @@ const createGmailAvatar = (user) => {
           ${innerContent}
         </div>
         
-        <!-- Красная/Зеленая точка статуса в правом нижнем углу -->
         <div style="
           position: absolute;
           bottom: 0px;
@@ -109,8 +107,6 @@ const createGmailAvatar = (user) => {
           box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         "></div>
       </div>
-
-      <!-- Маленький хвостик-указатель снизу -->
       <div style="
         width: 0; 
         height: 0; 
@@ -132,10 +128,9 @@ const createGmailAvatar = (user) => {
 const LiveUsersMap = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [filter, setFilter] = useState("all"); // "all", "online", "offline"
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
-    // Слушаем ВСЮ коллекцию пользователей, чтобы видеть и офлайн тоже
     const usersRef = collection(db, "users");
 
     const unsubscribe = onSnapshot(
@@ -144,7 +139,6 @@ const LiveUsersMap = () => {
         const usersData = [];
         snapshot.forEach((doc) => {
           const data = doc.data();
-          // Проверяем, что у пользователя есть координаты
           if (data?.location?.lat && data?.location?.lng) {
             usersData.push({ id: doc.id, ...data });
           }
@@ -161,11 +155,10 @@ const LiveUsersMap = () => {
     return () => unsubscribe();
   }, []);
 
-  // Фильтрация пользователей по кнопкам
   const filteredUsers = allUsers.filter((user) => {
     if (filter === "online") return user.isOnline === true;
     if (filter === "offline") return user.isOnline !== true;
-    return true; // "all"
+    return true;
   });
 
   return (
@@ -173,7 +166,7 @@ const LiveUsersMap = () => {
       <ScrollHeader onOpenMenu={() => {}} />
 
       <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px] lg:pt-[64px] pb-4 md:pb-6 flex flex-col gap-4">
-        {/* Шапка с заголовком и счетчиком */}
+        {/* Header Section */}
         <div className="flex-shrink-0 relative overflow-hidden flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 bg-white p-5 md:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-purple-50">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-purple-400/10 blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-400/10 blur-[80px] pointer-events-none"></div>
@@ -188,7 +181,6 @@ const LiveUsersMap = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            {/* Кнопки переключения фильтров */}
             <div className="flex bg-gray-100 p-1 rounded-2xl border border-gray-200/60">
               <button
                 onClick={() => setFilter("all")}
@@ -222,7 +214,6 @@ const LiveUsersMap = () => {
               </button>
             </div>
 
-            {/* Счетчик онлайн */}
             <div className="relative z-10 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-purple-800 text-white px-5 py-2.5 rounded-2xl font-bold shadow-lg shadow-purple-600/30">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -236,7 +227,7 @@ const LiveUsersMap = () => {
           </div>
         </div>
 
-        {/* Карта */}
+        {/* Map Section */}
         <div className="flex-1 relative w-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border-[6px] border-white z-0 bg-gray-50">
           {isLoading ? (
             <div className="w-full h-full flex flex-col items-center justify-center bg-white/80 backdrop-blur-md space-y-5">
@@ -259,59 +250,61 @@ const LiveUsersMap = () => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               />
 
-              {/* Автоматическое центрирование на отфильтрованных пользователях */}
               <AutoZoomToBounds users={filteredUsers} />
 
-              {filteredUsers.map((user) => (
-                <Marker
-                  key={user.id}
-                  position={[user.location.lat, user.location.lng]}
-                  icon={createGmailAvatar(user)}
-                >
-                  <Popup className="rounded-2xl shadow-2xl border-none">
-                    <div className="flex flex-col items-center p-3 min-w-[140px]">
-                      {user.photoURL ? (
-                        <img
-                          src={user.photoURL}
-                          alt="Profile"
-                          className="w-12 h-12 rounded-full border-2 border-purple-100 mb-3 object-cover shadow-sm"
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mb-3 shadow-inner">
-                          <span className="text-purple-700 font-black text-xl">
-                            {(user.displayName || user.email || "Ա")
-                              .charAt(0)
-                              .toUpperCase()}
-                          </span>
-                        </div>
-                      )}
+              {filteredUsers.map((user) => {
+                const displayName =
+                  user.displayName || user.email || "Անհայտ օգտատեր";
+                const initial = displayName.charAt(0).toUpperCase();
 
-                      <span className="font-extrabold text-gray-800 text-center text-sm mb-2">
-                        {user.displayName || user.email || "Անհայտ օգտատեր"}
-                      </span>
+                return (
+                  <Marker
+                    key={user.id}
+                    position={[user.location.lat, user.location.lng]}
+                    icon={createGmailAvatar(user)}
+                  >
+                    <Popup className="rounded-2xl shadow-2xl border-none">
+                      <div className="flex flex-col items-center p-3 min-w-[140px]">
+                        {user.photoURL ? (
+                          <img
+                            src={user.photoURL}
+                            alt="Profile"
+                            className="w-12 h-12 rounded-full border-2 border-purple-100 mb-3 object-cover shadow-sm"
+                            referrerPolicy="no-referrer"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                            <span className="text-purple-700 font-black text-xl">
+                              {initial}
+                            </span>
+                          </div>
+                        )}
 
-                      {/* Статус в попапе */}
-                      {user.isOnline ? (
-                        <div className="text-xs font-bold text-emerald-600 flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100/50">
-                          <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                          </span>
-                          Առցանց (Online)
-                        </div>
-                      ) : (
-                        <div className="text-xs font-bold text-red-500 flex items-center gap-2 bg-red-50 px-3 py-1.5 rounded-full border border-red-100/50">
-                          <span className="relative flex h-2 w-2">
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                          </span>
-                          Օֆլայն (Offline)
-                        </div>
-                      )}
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
+                        <span className="font-extrabold text-gray-800 text-center text-sm mb-2">
+                          {displayName}
+                        </span>
+
+                        {user.isOnline ? (
+                          <div className="text-xs font-bold text-emerald-600 flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100/50">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            Առցանց (Online)
+                          </div>
+                        ) : (
+                          <div className="text-xs font-bold text-red-500 flex items-center gap-2 bg-red-50 px-3 py-1.5 rounded-full border border-red-100/50">
+                            <span className="relative flex h-2 w-2">
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                            </span>
+                            Օֆլայն (Offline)
+                          </div>
+                        )}
+                      </div>
+                    </Popup>
+                  </Marker>
+                );
+              })}
             </MapContainer>
           )}
         </div>

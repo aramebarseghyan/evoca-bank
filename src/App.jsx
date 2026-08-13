@@ -119,17 +119,47 @@ import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage"
 
 // === MAPS ===
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
+import ProtectedRoute from "./Pages/Maps/ProtectedRoute"; // <-- ИМПОРТ ЗАЩИЩЕННОГО РОУТА
 
 function App() {
   const location = useLocation();
   const setUser = useAuthStore((state) => state.setUser);
 
+  // 1. АВТОРИЗАЦИЯ FIREBASE
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => unsubscribe();
   }, [setUser]);
+
+  // 2. ПРИНУДИТЕЛЬНЫЙ ЗАПРОС ГЕОЛОКАЦИИ ПРИ ВХОДЕ НА САЙТ
+  useEffect(() => {
+    const requestGeoPermission = () => {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log("📍 Доступ к геолокации разрешен:", position.coords);
+          },
+          (error) => {
+            console.warn(
+              "🚫 Геолокация отклонена или недоступна:",
+              error.message,
+            );
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0,
+          },
+        );
+      } else {
+        console.warn("❌ Браузер не поддерживает геолокацию.");
+      }
+    };
+
+    requestGeoPermission();
+  }, []); // Пустой массив зависимостей гарантирует, что сработает сразу при загрузке App
 
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
@@ -152,8 +182,15 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* MAPS */}
-          <Route path="/live-map" element={<LiveUsersMap />} />
+          {/* MAPS - ЗАЩИЩЕННЫЙ МАРШРУТ */}
+          <Route
+            path="/live-map"
+            element={
+              <ProtectedRoute>
+                <LiveUsersMap />
+              </ProtectedRoute>
+            }
+          />
 
           {/* PAYMENTS */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
