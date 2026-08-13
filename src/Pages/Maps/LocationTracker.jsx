@@ -1,31 +1,32 @@
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; // Изменили updateDoc на setDoc
+import { doc, setDoc } from "firebase/firestore";
+// ВНИМАНИЕ: проверь правильность пути до твоего файла firebase.js
 import { db } from "../../firebase";
 
 const LocationTracker = () => {
   useEffect(() => {
     const auth = getAuth();
-    let watchId = null; // ID для отслеживания геопозиции
+    let watchId = null;
 
     // Слушаем, вошел ли пользователь в систему
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
         if ("geolocation" in navigator) {
-          // Используем watchPosition вместо getCurrentPosition.
-          // Он сработает МОМЕНТАЛЬНО, как только дадут доступ.
+          // Используем watchPosition для моментального срабатывания при разрешении
           watchId = navigator.geolocation.watchPosition(
             async (position) => {
               const { latitude, longitude } = position.coords;
               try {
                 const userRef = doc(db, "users", user.uid);
 
-                // setDoc + { merge: true } создаст документ, если его нет,
-                // или обновит только переданные поля, если он есть. Без багов.
+                // setDoc + { merge: true } создает или обновляет документ без багов.
+                // Также мы теперь сохраняем photoURL профиля!
                 await setDoc(
                   userRef,
                   {
                     isOnline: true,
+                    photoURL: user.photoURL || null,
                     location: {
                       lat: latitude,
                       lng: longitude,
@@ -42,30 +43,36 @@ const LocationTracker = () => {
                 "Пользователь запретил доступ или ошибка GPS:",
                 error.message,
               );
-              // Если нет GPS, просто ставим статус онлайн
+              // Если нет GPS, просто ставим статус онлайн и сохраняем фото
               try {
                 const userRef = doc(db, "users", user.uid);
-                await setDoc(userRef, { isOnline: true }, { merge: true });
+                await setDoc(
+                  userRef,
+                  {
+                    isOnline: true,
+                    photoURL: user.photoURL || null,
+                  },
+                  { merge: true },
+                );
               } catch (err) {
                 console.error("Ошибка при обновлении статуса:", err);
               }
             },
             {
-              enableHighAccuracy: true, // Максимальная точность
-              maximumAge: 0, // Не использовать кэшированную позицию
-              timeout: 10000, // Ждать 10 секунд
+              enableHighAccuracy: false, // Более мягкие требования, чтобы работало на ПК
+              maximumAge: 30000,
+              timeout: 27000,
             },
           );
         }
       } else {
-        // Опционально: если юзер вышел из системы (logout), можно останавливать слежение
         if (watchId !== null) {
           navigator.geolocation.clearWatch(watchId);
         }
       }
     });
 
-    // Очистка при размонтировании компонента (уходе со страницы)
+    // Очистка при размонтировании
     return () => {
       unsubscribeAuth();
       if (watchId !== null && "geolocation" in navigator) {
@@ -74,7 +81,7 @@ const LocationTracker = () => {
     };
   }, []);
 
-  return null; // Ничего не рендерим
+  return null;
 };
 
 export default LocationTracker;

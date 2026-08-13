@@ -1,22 +1,133 @@
 import React, { useState, useEffect } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ScrollHeader from "../../components/Header/ScrollHeader";
 
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+// 1. КОМПОНЕНТ АВТО-ЦЕНТРИРОВАНИЯ
+const AutoZoomToBounds = ({ users }) => {
+  const map = useMap();
 
-// Фикс иконок для react-leaflet
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
+  useEffect(() => {
+    if (users && users.length > 0) {
+      // Собираем все координаты в массив и вычисляем рамку
+      const bounds = L.latLngBounds(
+        users.map((u) => [u.location.lat, u.location.lng]),
+      );
+      // Плавно перемещаем камеру, чтобы охватить всех (padding оставляет отступы от краев)
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 15, animate: true });
+    }
+  }, [map, users]);
+
+  return null;
+};
+
+// 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК В СТИЛЕ GMAIL (С ФОТО ИЛИ БУКВОЙ)
+const createGmailAvatar = (user) => {
+  // ЕСЛИ ЕСТЬ ФОТО ПРОФИЛЯ
+  if (user.photoURL) {
+    return L.divIcon({
+      className: "custom-avatar-icon",
+      html: `
+        <div style="
+          width: 42px; 
+          height: 42px; 
+          border-radius: 50%; 
+          border: 3px solid white;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+          overflow: hidden;
+          position: relative;
+          z-index: 10;
+          background-color: white;
+        ">
+          <img 
+            src="${user.photoURL}" 
+            alt="avatar" 
+            style="width: 100%; height: 100%; object-fit: cover;" 
+            referrerpolicy="no-referrer" 
+          />
+        </div>
+        <!-- Маленький хвостик-указатель снизу -->
+        <div style="
+          width: 0; 
+          height: 0; 
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 10px solid white;
+          margin: -4px auto 0;
+          filter: drop-shadow(0 4px 2px rgba(0,0,0,0.2));
+          position: relative;
+          z-index: 5;
+        "></div>
+      `,
+      iconSize: [42, 52],
+      iconAnchor: [21, 52],
+      popupAnchor: [0, -52],
+    });
+  }
+
+  // ЕСЛИ ФОТО НЕТ — ДЕЛАЕМ ЦВЕТНОЙ КРУЖОК С БУКВОЙ
+  const name = user.displayName || user.email || "Ա";
+  const initial = name.charAt(0).toUpperCase();
+
+  const colors = [
+    "#ef4444",
+    "#f97316",
+    "#f59e0b",
+    "#84cc16",
+    "#10b981",
+    "#06b6d4",
+    "#3b82f6",
+    "#8b5cf6",
+    "#d946ef",
+    "#f43f5e",
+  ];
+
+  const charCode = initial.charCodeAt(0);
+  const bgColor = colors[charCode % colors.length];
+
+  return L.divIcon({
+    className: "custom-avatar-icon",
+    html: `
+      <div style="
+        width: 42px; 
+        height: 42px; 
+        background-color: ${bgColor}; 
+        color: white; 
+        border-radius: 50%; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        font-family: sans-serif;
+        font-weight: 800; 
+        font-size: 20px;
+        border: 3px solid white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        position: relative;
+        z-index: 10;
+      ">
+        ${initial}
+      </div>
+      <div style="
+        width: 0; 
+        height: 0; 
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 10px solid white;
+        margin: -4px auto 0;
+        filter: drop-shadow(0 4px 2px rgba(0,0,0,0.2));
+        position: relative;
+        z-index: 5;
+      "></div>
+    `,
+    iconSize: [42, 52],
+    iconAnchor: [21, 52],
+    popupAnchor: [0, -52],
+  });
+};
 
 const LiveUsersMap = () => {
   const [activeUsers, setActiveUsers] = useState([]);
@@ -26,14 +137,12 @@ const LiveUsersMap = () => {
     const usersRef = collection(db, "users");
     const activeUsersQuery = query(usersRef, where("isOnline", "==", true));
 
-    // onSnapshot автоматически и моментально реагирует на изменения в базе
     const unsubscribe = onSnapshot(
       activeUsersQuery,
       (snapshot) => {
         const usersData = [];
         snapshot.forEach((doc) => {
           const data = doc.data();
-          // Безопасная проверка наличия координат (защита от багов)
           if (data?.location?.lat && data?.location?.lng) {
             usersData.push({ id: doc.id, ...data });
           }
@@ -42,7 +151,7 @@ const LiveUsersMap = () => {
         setIsLoading(false);
       },
       (error) => {
-        console.error("Ошибка при загрузке пользователей: ", error);
+        console.error("Error fetching live users: ", error);
         setIsLoading(false);
       },
     );
@@ -96,28 +205,45 @@ const LiveUsersMap = () => {
           ) : (
             <MapContainer
               center={[40.1811, 44.5136]}
-              zoom={13}
+              zoom={12}
               className="w-full h-full z-0"
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               />
+
+              {/* Автоматическое центрирование на всех пользователях */}
+              <AutoZoomToBounds users={activeUsers} />
 
               {activeUsers.map((user) => (
                 <Marker
                   key={user.id}
                   position={[user.location.lat, user.location.lng]}
+                  icon={createGmailAvatar(user)} // Аватарка-маркер
                 >
                   <Popup className="rounded-2xl shadow-2xl border-none">
                     <div className="flex flex-col items-center p-3 min-w-[140px]">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mb-3 shadow-inner">
-                        <span className="text-purple-700 font-black text-xl">
-                          {(user.displayName || "Ա").charAt(0).toUpperCase()}
-                        </span>
-                      </div>
+                      {/* Показываем фото в карточке, если оно есть */}
+                      {user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          alt="Profile"
+                          className="w-12 h-12 rounded-full border-2 border-purple-100 mb-3 object-cover shadow-sm"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mb-3 shadow-inner">
+                          <span className="text-purple-700 font-black text-xl">
+                            {(user.displayName || user.email || "Ա")
+                              .charAt(0)
+                              .toUpperCase()}
+                          </span>
+                        </div>
+                      )}
+
                       <span className="font-extrabold text-gray-800 text-center text-sm mb-2">
-                        {user.displayName || "Անհայտ օգտատեր"}
+                        {user.displayName || user.email || "Անհայտ օգտատեր"}
                       </span>
                       <div className="text-xs font-bold text-emerald-600 flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100/50">
                         <span className="relative flex h-2 w-2">
