@@ -1,10 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import mapImg from "../../../../assets/img/addresses.png";
 import pinImg from "../../../../assets/img/addresses-pin.png";
 
 const AddressesCard = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="group w-full flex flex-col items-start text-left sm:items-center sm:text-center lg:items-start lg:text-left gap-5 sm:gap-6 xl:gap-8 cursor-pointer">
+    <div
+      onClick={() => navigate("/live-map")}
+      className="group w-full flex flex-col items-start text-left sm:items-center sm:text-center lg:items-start lg:text-left gap-5 sm:gap-6 xl:gap-8 cursor-pointer"
+    >
       {/* 
         Встроенные стили для быстрой и плавной анимации.
         - Время анимации уменьшено до 1.2s (стало быстрее).
@@ -70,7 +76,13 @@ const AddressesCard = () => {
       </div>
 
       {/* Кнопка */}
-      <button className="w-full sm:w-auto px-7 py-3.5 xl:px-9 xl:py-4 bg-[#F4ECFC] hover:bg-[#EBDDF9] active:bg-[#E2CEF6] text-[#6F00FF] font-bold text-[14px] sm:text-[15px] xl:text-[17px] 2xl:text-[18px] rounded-full flex justify-center items-center gap-2.5 transition-colors duration-200 cursor-pointer mt-1">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate("/live-map");
+        }}
+        className="w-full sm:w-auto px-7 py-3.5 xl:px-9 xl:py-4 bg-[#F4ECFC] hover:bg-[#EBDDF9] active:bg-[#E2CEF6] text-[#6F00FF] font-bold text-[14px] sm:text-[15px] xl:text-[17px] 2xl:text-[18px] rounded-full flex justify-center items-center gap-2.5 transition-colors duration-200 cursor-pointer mt-1"
+      >
         Դիտել քարտեզը
         <svg
           className="w-2 h-3.5 xl:w-2.5 xl:h-4"
