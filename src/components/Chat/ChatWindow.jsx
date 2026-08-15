@@ -9,8 +9,9 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase"; // Убедись, что путь правильный
+import { db } from "../../firebase";
 import { useAuthStore } from "../../Pages/Acc/authStore";
 
 import ChatHeader from "./ChatHeader";
@@ -30,6 +31,11 @@ const ChatWindow = ({ isOpen, onClose }) => {
   const [pinnedChats, setPinnedChats] = useState({});
   const [showDeletedView, setShowDeletedView] = useState(false);
 
+  // --- Состояния для редактирования и меню сообщений ---
+  const [editingMessageId, setEditingMessageId] = useState(null);
+  const [editText, setEditText] = useState("");
+  const [openMsgMenuId, setOpenMsgMenuId] = useState(null);
+
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -46,7 +52,10 @@ const ChatWindow = ({ isOpen, onClose }) => {
   }, [messages, deletedTimestamps, isRecording]);
 
   useEffect(() => {
-    const handleClickOutside = () => setOpenMenuId(null);
+    const handleClickOutside = () => {
+      setOpenMenuId(null);
+      setOpenMsgMenuId(null);
+    };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
@@ -55,6 +64,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
     if (!isOpen) {
       setShowDeletedView(false);
       if (isRecording) stopRecording(true);
+      setEditingMessageId(null);
     }
   }, [isOpen, isRecording]);
 
@@ -131,10 +141,8 @@ const ChatWindow = ({ isOpen, onClose }) => {
     return () => unsubscribe();
   }, [activeChat, user]);
 
-  // --- Оптимизированная запись аудио ---
   const startRecording = async () => {
     try {
-      // СЖАТИЕ: Ограничиваем качество записи (моно, 16кГц), чтобы Base64 строка была маленькой
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           channelCount: 1,
@@ -265,6 +273,47 @@ const ChatWindow = ({ isOpen, onClose }) => {
     }
   };
 
+  // --- Функции Удаления и Редактирования сообщений ---
+  const handleDeleteMessage = async (msgId) => {
+    if (!user) return;
+    try {
+      if (activeChat === "group") {
+        await deleteDoc(doc(db, "group_chat", msgId));
+      } else {
+        const chatId =
+          user.uid < activeChat.uid
+            ? `${user.uid}_${activeChat.uid}`
+            : `${activeChat.uid}_${user.uid}`;
+        await deleteDoc(doc(db, `direct_messages/${chatId}/messages`, msgId));
+      }
+    } catch (error) {
+      console.error("Սխալ հաղորդագրությունը ջնջելիս: ", error);
+    }
+  };
+
+  const handleSaveEdit = async (msgId) => {
+    if (!editText.trim() || !user) return;
+    try {
+      const updateData = { text: editText, edited: true };
+      if (activeChat === "group") {
+        await updateDoc(doc(db, "group_chat", msgId), updateData);
+      } else {
+        const chatId =
+          user.uid < activeChat.uid
+            ? `${user.uid}_${activeChat.uid}`
+            : `${activeChat.uid}_${user.uid}`;
+        await updateDoc(
+          doc(db, `direct_messages/${chatId}/messages`, msgId),
+          updateData,
+        );
+      }
+      setEditingMessageId(null);
+      setEditText("");
+    } catch (error) {
+      console.error("Սխալ հաղորդագրությունը խմբագրելիս: ", error);
+    }
+  };
+
   const handleTogglePinChat = async (userId) => {
     if (!user) return;
     setOpenMenuId(null);
@@ -364,18 +413,70 @@ const ChatWindow = ({ isOpen, onClose }) => {
               {filteredMessages.map((msg) => {
                 const isMe = user && msg.uid === user.uid;
                 const msgName =
-                  msg.displayName || msg.email?.split("@")[0] || "Անանուն";
+                  msg.displayName ||
+                  msg.email?.email?.split("@")[0] ||
+                  msg.email?.split("@")[0] ||
+                  "Անանուն";
 
                 return (
                   <div
                     key={msg.id}
-                    className={`flex flex-col ${isMe ? "items-end" : "items-start"}`}
+                    className={`flex flex-col group relative ${isMe ? "items-end" : "items-start"}`}
                   >
-                    <span className="text-xs text-gray-400 mb-1 ml-1">
-                      {isMe ? "Դուք" : msgName}
-                    </span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs text-gray-400 mb-1 ml-1">
+                        {isMe ? "Դուք" : msgName}
+                      </span>
+
+                      {/* Кнопки Edit / Delete для своих сообщений */}
+                      {isMe && !msg.audioURL && (
+                        <div
+                          className="relative"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            onClick={() =>
+                              setOpenMsgMenuId(
+                                openMsgMenuId === msg.id ? null : msg.id,
+                              )
+                            }
+                            className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 px-1 text-xs"
+                          >
+                            ⋮
+                          </button>
+                          {openMsgMenuId === msg.id && (
+                            <div className="absolute right-0 top-5 bg-white border border-gray-200 rounded-lg shadow-md z-20 py-1 w-24">
+                              <button
+                                onClick={() => {
+                                  setEditingMessageId(msg.id);
+                                  setEditText(msg.text);
+                                  setOpenMsgMenuId(null);
+                                }}
+                                className="w-full text-left px-3 py-1 text-xs text-gray-700 hover:bg-gray-100"
+                              >
+                                Խմբագրել
+                              </button>
+                              <button
+                                onClick={() => {
+                                  handleDeleteMessage(msg.id);
+                                  setOpenMsgMenuId(null);
+                                }}
+                                className="w-full text-left px-3 py-1 text-xs text-red-600 hover:bg-gray-100"
+                              >
+                                Ջնջել
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
                     <div
-                      className={`px-4 py-2 rounded-2xl max-w-[85%] break-words ${isMe ? "bg-blue-600 text-white rounded-br-none" : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"}`}
+                      className={`px-4 py-2 rounded-2xl max-w-[85%] break-words ${
+                        isMe
+                          ? "bg-blue-600 text-white rounded-br-none"
+                          : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"
+                      }`}
                     >
                       {msg.audioURL ? (
                         <audio
@@ -383,8 +484,40 @@ const ChatWindow = ({ isOpen, onClose }) => {
                           src={msg.audioURL}
                           className="max-w-[200px] h-10 custom-audio"
                         />
+                      ) : editingMessageId === msg.id ? (
+                        <div className="flex flex-col gap-2">
+                          <input
+                            type="text"
+                            value={editText}
+                            onChange={(e) => setEditText(e.target.value)}
+                            className="bg-white text-gray-900 px-2 py-1 rounded text-sm focus:outline-none"
+                          />
+                          <div className="flex gap-1 justify-end">
+                            <button
+                              onClick={() => setEditingMessageId(null)}
+                              className="px-2 py-0.5 text-xs bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                            >
+                              Չեղարկել
+                            </button>
+                            <button
+                              onClick={() => handleSaveEdit(msg.id)}
+                              className="px-2 py-0.5 text-xs bg-blue-700 text-white rounded hover:bg-blue-800"
+                            >
+                              Պահպանել
+                            </button>
+                          </div>
+                        </div>
                       ) : (
-                        msg.text
+                        <div>
+                          <span>{msg.text}</span>
+                          {msg.edited && (
+                            <span
+                              className={`text-[10px] ml-1.5 ${isMe ? "text-blue-200" : "text-gray-400"}`}
+                            >
+                              (խմբ.)
+                            </span>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
