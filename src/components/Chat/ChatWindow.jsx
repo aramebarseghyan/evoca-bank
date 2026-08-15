@@ -10,15 +10,9 @@ import {
   setDoc,
   deleteDoc,
 } from "firebase/firestore";
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
-import { db, storage } from "../../firebase";
+import { db } from "../../firebase"; // Убедись, что путь правильный
 import { useAuthStore } from "../../Pages/Acc/authStore";
 
-// Ներմուծում ենք առանձնացված բաղադրիչները
 import ChatHeader from "./ChatHeader";
 import ChatList from "./ChatList";
 import DeletedChatsView from "./DeletedChatsView";
@@ -36,7 +30,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
   const [pinnedChats, setPinnedChats] = useState({});
   const [showDeletedView, setShowDeletedView] = useState(false);
 
-  // --- Voice Message States & Refs ---
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -63,7 +56,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
       setShowDeletedView(false);
       if (isRecording) stopRecording(true);
     }
-  }, [isOpen]);
+  }, [isOpen, isRecording]);
 
   useEffect(() => {
     if (!isOpen || !user) return;
@@ -138,10 +131,18 @@ const ChatWindow = ({ isOpen, onClose }) => {
     return () => unsubscribe();
   }, [activeChat, user]);
 
-  // --- Voice Message Ֆունկցիաներ ---
+  // --- Оптимизированная запись аудио ---
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // СЖАТИЕ: Ограничиваем качество записи (моно, 16кГц), чтобы Base64 строка была маленькой
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          channelCount: 1,
+          sampleRate: 16000,
+          echoCancellation: true,
+        },
+      });
+
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
@@ -157,9 +158,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
 
         if (isCancelledRef.current) return;
 
-        const audioBlob = new Blob(audioChunksRef.current, {
-          type: "audio/webm",
-        });
+        const mimeType = mediaRecorder.mimeType || "audio/webm";
+        const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
+
         await uploadAndSendAudio(audioBlob);
       };
 
@@ -167,9 +168,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
       setIsRecording(true);
     } catch (err) {
       console.error("Սխալ միկրոֆոնը միացնելիս:", err);
-      alert(
-        "Խնդրում ենք թույլատրել խոսափողի (microphone) օգտագործումը բրաուզերում:",
-      );
+      alert("Խնդրում ենք թույլատրել խոսափողի օգտագործումը բրաուզերում:");
     }
   };
 
@@ -183,15 +182,20 @@ const ChatWindow = ({ isOpen, onClose }) => {
 
   const uploadAndSendAudio = async (audioBlob) => {
     if (!user) return;
-    const fileName = `audio_${Date.now()}.webm`;
-    const audioRef = storageRef(storage, `chat_audios/${fileName}`);
 
-    try {
-      await uploadBytes(audioRef, audioBlob);
-      const downloadURL = await getDownloadURL(audioRef);
+    const reader = new FileReader();
+    reader.readAsDataURL(audioBlob);
+
+    reader.onloadend = async () => {
+      const base64Audio = reader.result;
+
+      if (base64Audio.length > 900000) {
+        alert("Ձայնագրությունը չափազանց երկար է (առավելագույնը մոտ 1 րոպե):");
+        return;
+      }
 
       const messageData = {
-        audioURL: downloadURL,
+        audioURL: base64Audio,
         uid: user.uid,
         email: user.email,
         displayName: user.displayName || "",
@@ -200,22 +204,24 @@ const ChatWindow = ({ isOpen, onClose }) => {
         type: "audio",
       };
 
-      if (activeChat === "group") {
-        await addDoc(collection(db, "group_chat"), messageData);
-      } else {
-        const chatId =
-          user.uid < activeChat.uid
-            ? `${user.uid}_${activeChat.uid}`
-            : `${activeChat.uid}_${user.uid}`;
+      try {
+        if (activeChat === "group") {
+          await addDoc(collection(db, "group_chat"), messageData);
+        } else {
+          const chatId =
+            user.uid < activeChat.uid
+              ? `${user.uid}_${activeChat.uid}`
+              : `${activeChat.uid}_${user.uid}`;
 
-        await addDoc(
-          collection(db, `direct_messages/${chatId}/messages`),
-          messageData,
-        );
+          await addDoc(
+            collection(db, `direct_messages/${chatId}/messages`),
+            messageData,
+          );
+        }
+      } catch (error) {
+        console.error("Սխալ աուդիոն վերբեռնելիս. ", error);
       }
-    } catch (error) {
-      console.error("Սխալ աուդիոն վերբեռնելիս. ", error);
-    }
+    };
   };
 
   const sendMessage = async (e) => {
@@ -223,7 +229,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
     if (!newMessage.trim()) return;
 
     if (!user) {
-      alert("Խնդրում ենք մուտք գործել՝ հաղորդագրություններ ուղարկելու համար։");
+      alert("Խնդրում ենք մուտք գործել:");
       return;
     }
 
@@ -255,32 +261,28 @@ const ChatWindow = ({ isOpen, onClose }) => {
         );
       }
     } catch (error) {
-      console.error("Սխալ հաղորդագրությունն ուղարկելիս. ", error);
+      console.error("Սխալ. ", error);
     }
   };
 
   const handleTogglePinChat = async (userId) => {
     if (!user) return;
     setOpenMenuId(null);
-
     try {
       const pinRef = doc(db, `users/${user.uid}/pinnedChats`, userId);
       if (pinnedChats[userId]) {
         await deleteDoc(pinRef);
       } else {
-        await setDoc(pinRef, {
-          pinnedAt: serverTimestamp(),
-        });
+        await setDoc(pinRef, { pinnedAt: serverTimestamp() });
       }
     } catch (error) {
-      console.error("Սխալ չաթը ամրացնելիս: ", error);
+      console.error("Սխալ: ", error);
     }
   };
 
   const handleDeleteChat = async (userId) => {
     if (!user) return;
     setOpenMenuId(null);
-
     try {
       await setDoc(doc(db, `users/${user.uid}/deletedChats`, userId), {
         deletedAt: serverTimestamp(),
@@ -288,11 +290,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
       if (pinnedChats[userId]) {
         await deleteDoc(doc(db, `users/${user.uid}/pinnedChats`, userId));
       }
-      if (activeChat?.id === userId) {
-        setActiveChat(null);
-      }
+      if (activeChat?.id === userId) setActiveChat(null);
     } catch (error) {
-      console.error("Սխալ չաթը ջնջելիս: ", error);
+      console.error("Սխալ: ", error);
     }
   };
 
@@ -301,7 +301,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
     try {
       await deleteDoc(doc(db, `users/${user.uid}/deletedChats`, userId));
     } catch (error) {
-      console.error("Սխալ չաթը վերականգնելիս: ", error);
+      console.error("Սխալ: ", error);
     }
   };
 
@@ -330,7 +330,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-[60] flex flex-col bg-white shadow-2xl sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[350px] sm:h-[500px] sm:rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200">
-      {/* HEADER */}
       <ChatHeader
         activeChat={activeChat}
         showDeletedView={showDeletedView}
@@ -338,7 +337,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
         onClose={onClose}
       />
 
-      {/* BODY */}
       <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
         {!activeChat ? (
           showDeletedView ? (
@@ -395,7 +393,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* MESSAGE INPUT / VOICE RECORDING AREA */}
             <MessageInput
               newMessage={newMessage}
               setNewMessage={setNewMessage}

@@ -29,6 +29,7 @@ const ChatList = ({
         const displayName =
           u.displayName || u.email?.split("@")[0] || "Անանուն";
         const isPinned = pinnedChats[u.id];
+
         return (
           <div
             key={u.id}
@@ -38,14 +39,26 @@ const ChatList = ({
               onClick={() => setActiveChat(u)}
               className="flex items-center flex-1 p-3 cursor-pointer overflow-hidden"
             >
-              <div className="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-bold text-lg mr-3 uppercase">
-                {displayName[0]}
-              </div>
+              {/* АВАТАРКА ИЛИ БУКВА-ЗАГЛУШКА */}
+              {u.photoURL ? (
+                <img
+                  src={u.photoURL}
+                  alt={displayName}
+                  referrerPolicy="no-referrer"
+                  className="w-10 h-10 rounded-full object-cover mr-3 flex-shrink-0"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-bold text-lg mr-3 uppercase flex-shrink-0">
+                  {displayName[0]}
+                </div>
+              )}
+
               <h4 className="font-medium text-gray-800 truncate mr-2">
                 {displayName}
               </h4>
               {isPinned && <span className="text-blue-500 text-lg">📌</span>}
             </div>
+
             <div className="relative p-2" onClick={(e) => e.stopPropagation()}>
               <button
                 onClick={() => setOpenMenuId(openMenuId === u.id ? null : u.id)}
