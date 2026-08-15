@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 
@@ -13,7 +13,9 @@ import MainHeader from "./components/MainHeader";
 import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
-import LocationTracker from "./Pages/Maps/LocationTracker"; // <-- ИМПОРТ ТРЕКЕРА ЛОКАЦИИ
+import LocationTracker from "./Pages/Maps/LocationTracker";
+import ChatButton from "./components/Chat/ChatButton";
+import ChatWindow from "./components/Chat/ChatWindow"; // <-- ИМПОРТ ОКНА ЧАТА
 
 // === ABOUT PAGES ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
@@ -119,11 +121,18 @@ import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage"
 
 // === MAPS ===
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
-import ProtectedRoute from "./Pages/Maps/ProtectedRoute"; // <-- ИМПОРТ ЗАЩИЩЕННОГО РОУТА
+import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
 
 function App() {
   const location = useLocation();
   const setUser = useAuthStore((state) => state.setUser);
+
+  // СОСТОЯНИЕ ДЛЯ ЧАТА
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
 
   // 1. АВТОРИЗАЦИЯ FIREBASE
   useEffect(() => {
@@ -159,7 +168,7 @@ function App() {
     };
 
     requestGeoPermission();
-  }, []); // Пустой массив зависимостей гарантирует, что сработает сразу при загрузке App
+  }, []);
 
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
@@ -169,7 +178,7 @@ function App() {
     location.pathname === "/loan-input";
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       <ScrollToTop />
 
       {/* ФОНОВЫЙ ТРЕКЕР ЛОКАЦИИ (РАБОТАЕТ НЕВИДИМО) */}
@@ -377,6 +386,14 @@ function App() {
       </main>
 
       {!isStandalonePage && <Footer />}
+
+      {/* ОКНО ЧАТА */}
+      <ChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+
+      {/* КНОПКА ЧАТА (Скрывается на телефонах, если открыто окно чата) */}
+      <div className={isChatOpen ? "hidden sm:block" : "block"}>
+        <ChatButton onClick={toggleChat} />
+      </div>
     </div>
   );
 }
