@@ -68,7 +68,10 @@ const ChatWindow = ({ isOpen, onClose }) => {
         id: doc.id,
         ...doc.data(),
       }));
-      setAllUsers(usersList.filter((u) => u.uid !== user?.uid));
+      // ИСПРАВЛЕНО: проверяем и id документа, и uid внутри данных
+      setAllUsers(
+        usersList.filter((u) => u.id !== user?.uid && u.uid !== user?.uid),
+      );
     });
 
     return () => unsubscribe();
@@ -272,9 +275,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
               </h5>
             </div>
 
-            {/* Օգտատերերի ցանկ (ՖԻԼՏՐՎԱԾ Է՝ ջնջվածները չեն երևում) */}
+            {/* Օգտատերերի ցանկ (ՖԻԼՏՐՎԱԾ Է՝ ջնջվածները և իր հաշիվը չեն երևում) */}
             {allUsers
-              .filter((u) => !deletedTimestamps[u.id])
+              .filter((u) => !deletedTimestamps[u.id] && u.id !== user?.uid) // ИСПРАВЛЕНО: дополнительная защита при рендере
               .map((u) => {
                 const displayName =
                   u.displayName || u.email?.split("@")[0] || "Անանուն օգտատեր";
@@ -363,7 +366,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
                 );
               })}
 
-            {allUsers.filter((u) => !deletedTimestamps[u.id]).length === 0 && (
+            {allUsers.filter(
+              (u) => !deletedTimestamps[u.id] && u.id !== user?.uid,
+            ).length === 0 && (
               <p className="text-center text-sm text-gray-400 py-4">
                 Այլ օգտատերեր չկան
               </p>
@@ -441,3 +446,4 @@ const ChatWindow = ({ isOpen, onClose }) => {
 };
 
 export default ChatWindow;
+    
