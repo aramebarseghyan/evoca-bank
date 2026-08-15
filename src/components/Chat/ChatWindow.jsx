@@ -17,6 +17,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
   const [newMessage, setNewMessage] = useState("");
   const [allUsers, setAllUsers] = useState([]);
 
+  // Նոր state՝ բացված մենյուի ID-ն պահելու համար
+  const [openMenuId, setOpenMenuId] = useState(null);
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -26,6 +29,13 @@ const ChatWindow = ({ isOpen, onClose }) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Փակել մենյուն, երբ սեղմում ենք դրանից դուրս
+  useEffect(() => {
+    const handleClickOutside = () => setOpenMenuId(null);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -83,7 +93,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
     const messageText = newMessage;
     setNewMessage("");
 
-    // Формируем данные сообщения с именем и аватаркой
     const messageData = {
       text: messageText,
       uid: user.uid,
@@ -110,6 +119,17 @@ const ChatWindow = ({ isOpen, onClose }) => {
     } catch (error) {
       console.error("Սխալ հաղորդագրությունն ուղարկելիս. ", error);
     }
+  };
+
+  // Ֆունկցիաներ չաթը ջնջելու և ամրացնելու համար (այստեղ կարող եք ավելացնել ձեր լոգիկան)
+  const handlePinChat = (userId) => {
+    console.log("Չաթն ամրացվեց", userId);
+    setOpenMenuId(null);
+  };
+
+  const handleDeleteChat = (userId) => {
+    console.log("Չաթը ջնջվեց", userId);
+    setOpenMenuId(null);
   };
 
   if (!isOpen) return null;
@@ -171,10 +191,10 @@ const ChatWindow = ({ isOpen, onClose }) => {
       </div>
 
       {/* BODY */}
-      <div className="flex-1 bg-gray-50 overflow-y-auto">
+      <div className="flex-1 bg-gray-50 overflow-y-auto relative">
         {!activeChat ? (
           <div className="p-2 space-y-2">
-            {/* Групповой чат */}
+            {/* Գրուպ չաթ */}
             <div
               onClick={() => setActiveChat("group")}
               className="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:bg-gray-100 shadow-sm border border-gray-100 transition-colors"
@@ -198,7 +218,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
               </h5>
             </div>
 
-            {/* Список пользователей с аватарками */}
+            {/* Օգտատերերի ցանկ */}
             {allUsers.map((u) => {
               const displayName =
                 u.displayName || u.email?.split("@")[0] || "Անանուն օգտատեր";
@@ -206,24 +226,82 @@ const ChatWindow = ({ isOpen, onClose }) => {
               return (
                 <div
                   key={u.id}
-                  onClick={() => setActiveChat(u)}
-                  className="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:bg-gray-100 shadow-sm border border-gray-100 transition-colors"
+                  className="relative flex items-center justify-between bg-white rounded-lg hover:bg-gray-100 shadow-sm border border-gray-100 transition-colors"
                 >
-                  {u.photoURL ? (
-                    <img
-                      src={u.photoURL}
-                      alt={displayName}
-                      className="w-10 h-10 rounded-full mr-3 object-cover border border-gray-200"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-bold text-lg mr-3 uppercase">
-                      {displayName[0]}
+                  {/* Կտտացվող տարածք, որը բացում է չաթը */}
+                  <div
+                    onClick={() => setActiveChat(u)}
+                    className="flex items-center flex-1 p-3 cursor-pointer overflow-hidden"
+                  >
+                    {u.photoURL ? (
+                      <img
+                        src={u.photoURL}
+                        alt={displayName}
+                        className="w-10 h-10 rounded-full mr-3 object-cover border border-gray-200"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center font-bold text-lg mr-3 uppercase">
+                        {displayName[0]}
+                      </div>
+                    )}
+                    <div className="overflow-hidden">
+                      <h4 className="font-medium text-gray-800 truncate">
+                        {displayName}
+                      </h4>
                     </div>
-                  )}
-                  <div className="overflow-hidden">
-                    <h4 className="font-medium text-gray-800 truncate">
-                      {displayName}
-                    </h4>
+                  </div>
+
+                  {/* Երեք կետով մենյուն */}
+                  <div className="relative p-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Որպեսզի չաթը չբացվի սեղմելիս
+                        setOpenMenuId(openMenuId === u.id ? null : u.id);
+                      }}
+                      className="p-1.5 text-gray-400 hover:text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
+                        />
+                      </svg>
+                    </button>
+
+                    {/* Բացվող պատուհան (Dropdown) */}
+                    {openMenuId === u.id && (
+                      <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute right-8 top-8 w-44 bg-white border border-gray-200 rounded-xl shadow-lg z-10 overflow-hidden"
+                      >
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handlePinChat(u.id);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors border-b border-gray-100"
+                        >
+                          Ամրացնել չաթը
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteChat(u.id);
+                          }}
+                          className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          Ջնջել չաթը
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -237,6 +315,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
           </div>
         ) : (
           <div className="flex flex-col h-full">
+            {/* Չաթի ներսի հատվածը մնում է նույնը */}
             <div className="flex-1 p-4 space-y-4 overflow-y-auto">
               {messages.map((msg) => {
                 const isMe = user && msg.uid === user.uid;
