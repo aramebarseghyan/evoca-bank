@@ -18,8 +18,9 @@ import ChatHeader from "./ChatHeader";
 import ChatList from "./ChatList";
 import DeletedChatsView from "./DeletedChatsView";
 import MessageInput from "./MessageInput";
+import PeerCallModal from "./PeerCallModal"; 
 
-const ChatWindow = ({ isOpen, onClose }) => {
+const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCall }) => {
   const user = useAuthStore((state) => state.user);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -31,10 +32,11 @@ const ChatWindow = ({ isOpen, onClose }) => {
   const [pinnedChats, setPinnedChats] = useState({});
   const [showDeletedView, setShowDeletedView] = useState(false);
 
-  // --- Состояния для редактирования и меню сообщений ---
   const [editingMessageId, setEditingMessageId] = useState(null);
   const [editText, setEditText] = useState("");
   const [openMsgMenuId, setOpenMsgMenuId] = useState(null);
+
+  const [isCallActive, setIsCallActive] = useState(false);
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -59,6 +61,13 @@ const ChatWindow = ({ isOpen, onClose }) => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // --- ՄԻԱՑՆՈՒՄ ԵՆՔ ԶԱՆԳԻ ՊԱՏՈՒՀԱՆԸ ԵԹԵ ԿԱ ՄՈՒՏՔԱՅԻՆ ԶԱՆԳ ---
+  useEffect(() => {
+    if (incomingCall) {
+      setIsCallActive(true);
+    }
+  }, [incomingCall]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -190,7 +199,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
 
   const uploadAndSendAudio = async (audioBlob) => {
     if (!user) return;
-
     const reader = new FileReader();
     reader.readAsDataURL(audioBlob);
 
@@ -235,7 +243,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
   const sendMessage = async (e) => {
     e?.preventDefault();
     if (!newMessage.trim()) return;
-
     if (!user) {
       alert("Խնդրում ենք մուտք գործել:");
       return;
@@ -353,15 +360,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
     }
   };
 
-  // --- НОВАЯ ФУНКЦИЯ ДЛЯ ЗВОНКА ---
   const handleCall = () => {
     if (!activeChat || activeChat === "group") return;
-
-    const callUserName =
-      activeChat.displayName || activeChat.email?.split("@")[0] || "Անանուն";
-    alert(
-      `Զանգահարում ենք (Звоним): ${callUserName}...\nԱյս ֆունկցիան պահանջում է WebRTC միացում:`,
-    );
+    setIsCallActive(true); 
   };
 
   if (!isOpen) return null;
@@ -387,173 +388,207 @@ const ChatWindow = ({ isOpen, onClose }) => {
       return isBPinned - isAPinned;
     });
 
+  let targetUserName =
+    activeChat && activeChat !== "group"
+      ? activeChat.displayName || activeChat.email?.split("@")[0] || "Անանուն"
+      : "";
+  let finalTargetUid = activeChat?.id || activeChat?.uid;
+
+  // Եթե սա մուտքային զանգ է ուրիշ օգտատիրոջից, գտնում ենք նրա անունը
+  if (incomingCall) {
+    finalTargetUid = incomingCall.peer.replace('chat-user-', '');
+    const callerUser = allUsers.find(u => u.uid === finalTargetUid || u.id === finalTargetUid);
+    if (callerUser) {
+        targetUserName = callerUser.displayName || callerUser.email?.split("@")[0] || "Անանուն";
+    } else {
+        targetUserName = "Մուտքային զանգ";
+    }
+  }
+
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-white shadow-2xl sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[350px] sm:h-[500px] sm:rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200">
-      <ChatHeader
-        activeChat={activeChat}
-        showDeletedView={showDeletedView}
-        setActiveChat={setActiveChat}
-        onClose={onClose}
-        onCall={handleCall} // <-- Передали функцию в Header
-      />
+    <>
+      {/* ՓՈԽԱՆՑՎՈՒՄ ԵՆ PEER-Ի ՏՎՅԱԼՆԵՐԸ ԶԱՆԳԻ ՄՈԴԱԼԻՆ */}
+      {isCallActive && user && finalTargetUid && (
+        <PeerCallModal
+          currentUserUid={user.uid}
+          targetUserUid={finalTargetUid}
+          targetUserName={targetUserName}
+          peerInstance={peerInstance}         // Ավելացված է
+          incomingCallInit={incomingCall}     // Ավելացված է
+          clearIncomingCall={() => setIncomingCall(null)} // Ավելացված է
+          onClose={() => {
+            setIsCallActive(false);
+            if (setIncomingCall) setIncomingCall(null);
+          }}
+        />
+      )}
 
-      <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
-        {!activeChat ? (
-          showDeletedView ? (
-            <DeletedChatsView
-              deletedUsers={deletedUsers}
-              setShowDeletedView={setShowDeletedView}
-              handleRestoreChat={handleRestoreChat}
-            />
+      <div className="fixed inset-0 z-[60] flex flex-col bg-white shadow-2xl sm:inset-auto sm:bottom-24 sm:right-6 sm:w-[350px] sm:h-[500px] sm:rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200">
+        <ChatHeader
+          activeChat={activeChat}
+          showDeletedView={showDeletedView}
+          setActiveChat={setActiveChat}
+          onClose={onClose}
+          onCall={handleCall}
+        />
+
+        <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
+          {!activeChat ? (
+            showDeletedView ? (
+              <DeletedChatsView
+                deletedUsers={deletedUsers}
+                setShowDeletedView={setShowDeletedView}
+                handleRestoreChat={handleRestoreChat}
+              />
+            ) : (
+              <ChatList
+                activeUsers={activeUsers}
+                deletedUsers={deletedUsers}
+                pinnedChats={pinnedChats}
+                openMenuId={openMenuId}
+                setOpenMenuId={setOpenMenuId}
+                setActiveChat={setActiveChat}
+                setShowDeletedView={setShowDeletedView}
+                handleTogglePinChat={handleTogglePinChat}
+                handleDeleteChat={handleDeleteChat}
+              />
+            )
           ) : (
-            <ChatList
-              activeUsers={activeUsers}
-              deletedUsers={deletedUsers}
-              pinnedChats={pinnedChats}
-              openMenuId={openMenuId}
-              setOpenMenuId={setOpenMenuId}
-              setActiveChat={setActiveChat}
-              setShowDeletedView={setShowDeletedView}
-              handleTogglePinChat={handleTogglePinChat}
-              handleDeleteChat={handleDeleteChat}
-            />
-          )
-        ) : (
-          <div className="flex flex-col h-full">
-            <div className="flex-1 p-4 space-y-4 overflow-y-auto">
-              {filteredMessages.map((msg) => {
-                const isMe = user && msg.uid === user.uid;
-                const msgName =
-                  msg.displayName ||
-                  msg.email?.email?.split("@")[0] ||
-                  msg.email?.split("@")[0] ||
-                  "Անանուն";
+            <div className="flex flex-col h-full">
+              <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+                {filteredMessages.map((msg) => {
+                  const isMe = user && msg.uid === user.uid;
+                  const msgName =
+                    msg.displayName ||
+                    msg.email?.email?.split("@")[0] ||
+                    msg.email?.split("@")[0] ||
+                    "Անանուն";
 
-                return (
-                  <div
-                    key={msg.id}
-                    className={`flex flex-col group relative ${
-                      isMe ? "items-end" : "items-start"
-                    }`}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs text-gray-400 mb-1 ml-1">
-                        {isMe ? "Դուք" : msgName}
-                      </span>
-
-                      {/* Кнопки Edit / Delete для своих сообщений */}
-                      {isMe && !msg.audioURL && (
-                        <div
-                          className="relative"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <button
-                            onClick={() =>
-                              setOpenMsgMenuId(
-                                openMsgMenuId === msg.id ? null : msg.id,
-                              )
-                            }
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 px-1 text-xs"
-                          >
-                            ⋮
-                          </button>
-                          {openMsgMenuId === msg.id && (
-                            <div className="absolute right-0 top-5 bg-white border border-gray-200 rounded-lg shadow-md z-20 py-1 w-24">
-                              <button
-                                onClick={() => {
-                                  setEditingMessageId(msg.id);
-                                  setEditText(msg.text);
-                                  setOpenMsgMenuId(null);
-                                }}
-                                className="w-full text-left px-3 py-1 text-xs text-gray-700 hover:bg-gray-100"
-                              >
-                                Խմբագրել
-                              </button>
-                              <button
-                                onClick={() => {
-                                  handleDeleteMessage(msg.id);
-                                  setOpenMsgMenuId(null);
-                                }}
-                                className="w-full text-left px-3 py-1 text-xs text-red-600 hover:bg-gray-100"
-                              >
-                                Ջնջել
-                              </button>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
+                  return (
                     <div
-                      className={`px-4 py-2 rounded-2xl max-w-[85%] break-words ${
-                        isMe
-                          ? "bg-blue-600 text-white rounded-br-none"
-                          : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"
+                      key={msg.id}
+                      className={`flex flex-col group relative ${
+                        isMe ? "items-end" : "items-start"
                       }`}
                     >
-                      {msg.audioURL ? (
-                        <audio
-                          controls
-                          src={msg.audioURL}
-                          className="max-w-[200px] h-10 custom-audio"
-                        />
-                      ) : editingMessageId === msg.id ? (
-                        <div className="flex flex-col gap-2">
-                          <input
-                            type="text"
-                            value={editText}
-                            onChange={(e) => setEditText(e.target.value)}
-                            className="bg-white text-gray-900 px-2 py-1 rounded text-sm focus:outline-none"
-                          />
-                          <div className="flex gap-1 justify-end">
-                            <button
-                              onClick={() => setEditingMessageId(null)}
-                              className="px-2 py-0.5 text-xs bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
-                            >
-                              Չեղարկել
-                            </button>
-                            <button
-                              onClick={() => handleSaveEdit(msg.id)}
-                              className="px-2 py-0.5 text-xs bg-blue-700 text-white rounded hover:bg-blue-800"
-                            >
-                              Պահպանել
-                            </button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <span>{msg.text}</span>
-                          {msg.edited && (
-                            <span
-                              className={`text-[10px] ml-1.5 ${
-                                isMe ? "text-blue-200" : "text-gray-400"
-                              }`}
-                            >
-                              (խմբ.)
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-              <div ref={messagesEndRef} />
-            </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-gray-400 mb-1 ml-1">
+                          {isMe ? "Դուք" : msgName}
+                        </span>
 
-            <MessageInput
-              newMessage={newMessage}
-              setNewMessage={setNewMessage}
-              sendMessage={sendMessage}
-              isRecording={isRecording}
-              startRecording={startRecording}
-              stopRecording={stopRecording}
-              user={user}
-            />
-          </div>
-        )}
+                        {isMe && !msg.audioURL && (
+                          <div
+                            className="relative"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <button
+                              onClick={() =>
+                                setOpenMsgMenuId(
+                                  openMsgMenuId === msg.id ? null : msg.id,
+                                )
+                              }
+                              className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-gray-600 px-1 text-xs"
+                            >
+                              ⋮
+                            </button>
+                            {openMsgMenuId === msg.id && (
+                              <div className="absolute right-0 top-5 bg-white border border-gray-200 rounded-lg shadow-md z-20 py-1 w-24">
+                                <button
+                                  onClick={() => {
+                                    setEditingMessageId(msg.id);
+                                    setEditText(msg.text);
+                                    setOpenMsgMenuId(null);
+                                  }}
+                                  className="w-full text-left px-3 py-1 text-xs text-gray-700 hover:bg-gray-100"
+                                >
+                                  Խմբագրել
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    handleDeleteMessage(msg.id);
+                                    setOpenMsgMenuId(null);
+                                  }}
+                                  className="w-full text-left px-3 py-1 text-xs text-red-600 hover:bg-gray-100"
+                                >
+                                  Ջնջել
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+                      <div
+                        className={`px-4 py-2 rounded-2xl max-w-[85%] break-words ${
+                          isMe
+                            ? "bg-blue-600 text-white rounded-br-none"
+                            : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"
+                        }`}
+                      >
+                        {msg.audioURL ? (
+                          <audio
+                            controls
+                            src={msg.audioURL}
+                            className="max-w-[200px] h-10 custom-audio"
+                          />
+                        ) : editingMessageId === msg.id ? (
+                          <div className="flex flex-col gap-2">
+                            <input
+                              type="text"
+                              value={editText}
+                              onChange={(e) => setEditText(e.target.value)}
+                              className="bg-white text-gray-900 px-2 py-1 rounded text-sm focus:outline-none"
+                            />
+                            <div className="flex gap-1 justify-end">
+                              <button
+                                onClick={() => setEditingMessageId(null)}
+                                className="px-2 py-0.5 text-xs bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+                              >
+                                Չեղարկել
+                              </button>
+                              <button
+                                onClick={() => handleSaveEdit(msg.id)}
+                                className="px-2 py-0.5 text-xs bg-blue-700 text-white rounded hover:bg-blue-800"
+                              >
+                                Պահպանել
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <span>{msg.text}</span>
+                            {msg.edited && (
+                              <span
+                                className={`text-[10px] ml-1.5 ${
+                                  isMe ? "text-blue-200" : "text-gray-400"
+                                }`}
+                              >
+                                (խմբ.)
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+                <div ref={messagesEndRef} />
+              </div>
+
+              <MessageInput
+                newMessage={newMessage}
+                setNewMessage={setNewMessage}
+                sendMessage={sendMessage}
+                isRecording={isRecording}
+                startRecording={startRecording}
+                stopRecording={stopRecording}
+                user={user}
+              />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

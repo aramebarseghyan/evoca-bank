@@ -8,6 +8,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useAuthStore } from "./Pages/Acc/authStore";
 import AuthModal from "./Pages/Acc/AuthModal";
 
+// --- ԱՎԵԼԱՑՎԱԾ Է PEER-Ը ---
+import { Peer } from "peerjs";
+
 // Header, Footer and Page Header imports
 import MainHeader from "./components/MainHeader";
 import Footer from "./components/Footer/Footer";
@@ -15,7 +18,7 @@ import PageHeader from "./components/PageHeader";
 import ScrollToTop from "./components/ScrollToTop";
 import LocationTracker from "./Pages/Maps/LocationTracker";
 import ChatButton from "./components/Chat/ChatButton";
-import ChatWindow from "./components/Chat/ChatWindow"; // <-- ИМПОРТ ОКНА ЧАТА
+import ChatWindow from "./components/Chat/ChatWindow";
 
 // === ABOUT PAGES ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
@@ -126,9 +129,12 @@ import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
 function App() {
   const location = useLocation();
   const setUser = useAuthStore((state) => state.setUser);
+  const user = useAuthStore((state) => state.user); // <-- ՍՏԱՆՈՒՄ ԵՆՔ ԸՆԹԱՑԻԿ ՕԳՏԱՏԻՐՈՋԸ
 
-  // СОСТОЯНИЕ ДЛЯ ЧАТА
+  // СОСТОЯНИЕ ДЛЯ ЧАТА И ЗВОНКОВ
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [peerInstance, setPeerInstance] = useState(null);
+  const [incomingCall, setIncomingCall] = useState(null);
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -141,6 +147,35 @@ function App() {
     });
     return () => unsubscribe();
   }, [setUser]);
+
+  // --- ՆՈՐ: PEERJS ԳԼՈԲԱԼ ՄԻԱՑՈՒՄ ---
+  useEffect(() => {
+    if (!user) return; // Միանում ենք միայն եթե օգտատերը մուտք է գործել
+
+    const myPeerId = `chat-user-${user.uid}`;
+    const peer = new Peer(myPeerId);
+
+    peer.on("open", (id) => {
+      console.log("📍 Գլոբալ Peer միացված է:", id);
+    });
+
+    peer.on("call", (call) => {
+      console.log("📞 Մուտքային զանգ:", call.peer);
+      setIncomingCall(call);
+      setIsChatOpen(true); // Ավտոմատ բացում ենք չաթի պատուհանը
+    });
+
+    peer.on("error", (err) => {
+      console.error("Peer սխալ:", err);
+    });
+
+    setPeerInstance(peer);
+
+    return () => {
+      peer.destroy();
+    };
+  }, [user]);
+  // ------------------------------------
 
   // 2. ПРИНУДИТЕЛЬНЫЙ ЗАПРОС ГЕОЛОКАЦИИ ПРИ ВХОДЕ НА САЙТ
   useEffect(() => {
@@ -181,7 +216,6 @@ function App() {
     <div className="flex flex-col min-h-screen relative">
       <ScrollToTop />
 
-      {/* ФОНОВЫЙ ТРЕКЕР ЛОКАЦИИ (РАБОТАЕТ НЕВИДИМО) */}
       <LocationTracker />
 
       {!isStandalonePage && <MainHeader />}
@@ -387,10 +421,15 @@ function App() {
 
       {!isStandalonePage && <Footer />}
 
-      {/* ОКНО ЧАТА */}
-      <ChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      {/* --- ՓՈԽԱՆՑՎՈՒՄ ԵՆ PEERJS-Ի ՏՎՅԱԼՆԵՐԸ ՉԱԹԻՆ --- */}
+      <ChatWindow
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+        peerInstance={peerInstance}
+        incomingCall={incomingCall}
+        setIncomingCall={setIncomingCall}
+      />
 
-      {/* КНОПКА ЧАТА (Скрывается на телефонах, если открыто окно чата) */}
       <div className={isChatOpen ? "hidden sm:block" : "block"}>
         <ChatButton onClick={toggleChat} />
       </div>
