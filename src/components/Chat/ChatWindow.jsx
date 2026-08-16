@@ -273,7 +273,6 @@ const ChatWindow = ({ isOpen, onClose }) => {
     }
   };
 
-  // --- Функции Удаления и Редактирования сообщений ---
   const handleDeleteMessage = async (msgId) => {
     if (!user) return;
     try {
@@ -354,6 +353,17 @@ const ChatWindow = ({ isOpen, onClose }) => {
     }
   };
 
+  // --- НОВАЯ ФУНКЦИЯ ДЛЯ ЗВОНКА ---
+  const handleCall = () => {
+    if (!activeChat || activeChat === "group") return;
+
+    const callUserName =
+      activeChat.displayName || activeChat.email?.split("@")[0] || "Անանուն";
+    alert(
+      `Զանգահարում ենք (Звоним): ${callUserName}...\nԱյս ֆունկցիան պահանջում է WebRTC միացում:`,
+    );
+  };
+
   if (!isOpen) return null;
 
   const filteredMessages = messages.filter((msg) => {
@@ -384,6 +394,7 @@ const ChatWindow = ({ isOpen, onClose }) => {
         showDeletedView={showDeletedView}
         setActiveChat={setActiveChat}
         onClose={onClose}
+        onCall={handleCall} // <-- Передали функцию в Header
       />
 
       <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
@@ -421,7 +432,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
                 return (
                   <div
                     key={msg.id}
-                    className={`flex flex-col group relative ${isMe ? "items-end" : "items-start"}`}
+                    className={`flex flex-col group relative ${
+                      isMe ? "items-end" : "items-start"
+                    }`}
                   >
                     <div className="flex items-center gap-1">
                       <span className="text-xs text-gray-400 mb-1 ml-1">
@@ -512,7 +525,9 @@ const ChatWindow = ({ isOpen, onClose }) => {
                           <span>{msg.text}</span>
                           {msg.edited && (
                             <span
-                              className={`text-[10px] ml-1.5 ${isMe ? "text-blue-200" : "text-gray-400"}`}
+                              className={`text-[10px] ml-1.5 ${
+                                isMe ? "text-blue-200" : "text-gray-400"
+                              }`}
                             >
                               (խմբ.)
                             </span>
