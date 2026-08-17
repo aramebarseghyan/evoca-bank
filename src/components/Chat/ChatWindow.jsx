@@ -18,9 +18,15 @@ import ChatHeader from "./ChatHeader";
 import ChatList from "./ChatList";
 import DeletedChatsView from "./DeletedChatsView";
 import MessageInput from "./MessageInput";
-import PeerCallModal from "./PeerCallModal"; 
+import PeerCallModal from "./PeerCallModal";
 
-const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCall }) => {
+const ChatWindow = ({
+  isOpen,
+  onClose,
+  peerInstance,
+  incomingCall,
+  setIncomingCall,
+}) => {
   const user = useAuthStore((state) => state.user);
   const [activeChat, setActiveChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -37,6 +43,8 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
   const [openMsgMenuId, setOpenMsgMenuId] = useState(null);
 
   const [isCallActive, setIsCallActive] = useState(false);
+  // НОВЫЙ СТЕЙТ для определения типа звонка: "audio" или "video"
+  const [activeCallType, setActiveCallType] = useState(null);
 
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
@@ -62,10 +70,12 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // --- ՄԻԱՑՆՈՒՄ ԵՆՔ ԶԱՆԳԻ ՊԱՏՈՒՀԱՆԸ ԵԹԵ ԿԱ ՄՈՒՏՔԱՅԻՆ ԶԱՆԳ ---
+  // --- МИԱՑՆՈՒՄ ԵՆՔ ԶԱՆԳԻ ՊԱՏՈՒՀԱՆԸ ԵԹԵ ԿԱ ՄՈՒՏՔԱՅԻՆ ԶԱՆԳ ---
   useEffect(() => {
     if (incomingCall) {
       setIsCallActive(true);
+      // Считываем тип из метаданных входящего звонка (по умолчанию - audio)
+      setActiveCallType(incomingCall.metadata?.callType || "audio");
     }
   }, [incomingCall]);
 
@@ -360,9 +370,17 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
     }
   };
 
-  const handleCall = () => {
+  // ФУНКЦИИ ДЛЯ 2-х КНОПОК
+  const handleAudioCall = () => {
     if (!activeChat || activeChat === "group") return;
-    setIsCallActive(true); 
+    setActiveCallType("audio");
+    setIsCallActive(true);
+  };
+
+  const handleVideoCall = () => {
+    if (!activeChat || activeChat === "group") return;
+    setActiveCallType("video");
+    setIsCallActive(true);
   };
 
   if (!isOpen) return null;
@@ -396,12 +414,15 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
 
   // Եթե սա մուտքային զանգ է ուրիշ օգտատիրոջից, գտնում ենք նրա անունը
   if (incomingCall) {
-    finalTargetUid = incomingCall.peer.replace('chat-user-', '');
-    const callerUser = allUsers.find(u => u.uid === finalTargetUid || u.id === finalTargetUid);
+    finalTargetUid = incomingCall.peer.replace("chat-user-", "");
+    const callerUser = allUsers.find(
+      (u) => u.uid === finalTargetUid || u.id === finalTargetUid,
+    );
     if (callerUser) {
-        targetUserName = callerUser.displayName || callerUser.email?.split("@")[0] || "Անանուն";
+      targetUserName =
+        callerUser.displayName || callerUser.email?.split("@")[0] || "Անանուն";
     } else {
-        targetUserName = "Մուտքային զանգ";
+      targetUserName = "Մուտքային զանգ";
     }
   }
 
@@ -413,11 +434,13 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
           currentUserUid={user.uid}
           targetUserUid={finalTargetUid}
           targetUserName={targetUserName}
-          peerInstance={peerInstance}         // Ավելացված է
-          incomingCallInit={incomingCall}     // Ավելացված է
-          clearIncomingCall={() => setIncomingCall(null)} // Ավելացված է
+          peerInstance={peerInstance}
+          incomingCallInit={incomingCall}
+          clearIncomingCall={() => setIncomingCall(null)}
+          callType={activeCallType} // <--- ПЕРЕДАЕМ ТИП ЗВОНКА
           onClose={() => {
             setIsCallActive(false);
+            setActiveCallType(null); // Очищаем тип после звонка
             if (setIncomingCall) setIncomingCall(null);
           }}
         />
@@ -429,7 +452,8 @@ const ChatWindow = ({ isOpen, onClose, peerInstance, incomingCall, setIncomingCa
           showDeletedView={showDeletedView}
           setActiveChat={setActiveChat}
           onClose={onClose}
-          onCall={handleCall}
+          onAudioCall={handleAudioCall} // Передаем функцию аудио
+          onVideoCall={handleVideoCall} // Передаем функцию видео
         />
 
         <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
