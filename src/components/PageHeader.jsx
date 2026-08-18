@@ -41,7 +41,15 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
-    /* Ուղղված է /customer-residency-criteria էջը՝ տնից անմիջապես Հաճախորդի ռեզիդենտության չափանիշներ */
+    /* Ուղղված է /regulation էջը՝ տնից անմիջապես Կարգավորում */
+    if (path === "/regulation") {
+      return {
+        section: null,
+        category: null,
+        title: "Կարգավորում",
+      };
+    }
+    /* Ուղղված է /customer-residency-criteria էջը */
     if (path === "/customer-residency-criteria") {
       return {
         section: null,
@@ -49,7 +57,7 @@ const PageHeader = () => {
         title: "Հաճախորդի ռեզիդենտության չափանիշներ",
       };
     }
-    /* Ուղղված է /customer-rights էջը՝ տնից անմիջապես Հաճախորդի իրավունքները */
+    /* Ուղղված է /customer-rights էջը */
     if (path === "/customer-rights") {
       return {
         section: null,
@@ -57,7 +65,7 @@ const PageHeader = () => {
         title: "Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)",
       };
     }
-    /* Ուղղված է /partner-car-dealerships էջը՝ տնից անմիջապես ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ */
+    /* Ուղղված է /partner-car-dealerships էջը */
     if (path === "/partner-car-dealerships") {
       return {
         section: null,
@@ -65,7 +73,7 @@ const PageHeader = () => {
         title: "ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ",
       };
     }
-    /* Ուղղված է /construction-companies էջը՝ տնից անմիջապես ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ */
+    /* Ուղղված է /construction-companies էջը */
     if (path === "/construction-companies") {
       return {
         section: null,
@@ -73,7 +81,6 @@ const PageHeader = () => {
         title: "ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ",
       };
     }
-    /* Ավելացված է /legal-acts էջի տվյալները */
     if (path === "/legal-acts") {
       return {
         section: "Մեր մասին",
@@ -222,6 +229,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/regulation",
     "/customer-residency-criteria",
     "/customer-rights",
     "/partner-car-dealerships",
