@@ -41,6 +41,14 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
+    /* Ուղղված է /customer-residency-criteria էջը՝ տնից անմիջապես Հաճախորդի ռեզիդենտության չափանիշներ */
+    if (path === "/customer-residency-criteria") {
+      return {
+        section: null,
+        category: null,
+        title: "Հաճախորդի ռեզիդենտության չափանիշներ",
+      };
+    }
     /* Ուղղված է /customer-rights էջը՝ տնից անմիջապես Հաճախորդի իրավունքները */
     if (path === "/customer-rights") {
       return {
@@ -214,6 +222,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/customer-residency-criteria",
     "/customer-rights",
     "/partner-car-dealerships",
     "/construction-companies",

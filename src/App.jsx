@@ -131,6 +131,7 @@ import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
 import AlienatedProperty from "./Pages/DontHeaderPages/AlienatedProperty";
 import PartnerCarDealerships from "./Pages/DontHeaderPages/PartnerCarDealerships";
+import CustomerResidencyCriteria from "./Pages/DontHeaderPages/CustomerResidencyCriteria";
 
 function App() {
   const location = useLocation();
@@ -391,6 +392,10 @@ function App() {
             element={<CreditHistoryPage />}
           />
           <Route path="/legal-acts" element={<LegalActs />} />{" "}
+          <Route
+            path="/customer-residency-criteria"
+            element={<CustomerResidencyCriteria />}
+          />
           <Route path="/alienated-property" element={<AlienatedProperty />} />
           <Route
             path="/construction-companies"
