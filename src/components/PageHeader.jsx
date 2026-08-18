@@ -41,91 +41,105 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
-    /* Ուղղված է /financial-crime-prevention էջը */
-    if (path === "/financial-crime-prevention") {
+    const lowerPath = path.toLowerCase();
+
+    /* Ուղղված է EvocaOnline էջը` առանց «Անհատ > Թվային ծառայություններ»-ի */
+    if (
+      lowerPath === "/digital-services-evocaonline-online-banking" ||
+      lowerPath === "/evocaonline-online-banking"
+    ) {
+      return {
+        section: null,
+        category: null,
+        title: "EvocaONLINE",
+      };
+    }
+
+    if (lowerPath === "/links-for-the-banks-cardholders") {
+      return {
+        section: null,
+        category: null,
+        title: "Հղումներ Բանկի քարտապանների համար",
+      };
+    }
+    if (lowerPath === "/financial-crime-prevention") {
       return {
         section: null,
         category: null,
         title: "Ֆինանսական հանցագործությունների կանխարգելում",
       };
     }
-    /* Ուղղված է /financial-mediator էջը */
-    if (path === "/financial-mediator") {
+    if (lowerPath === "/financial-mediator") {
       return {
         section: null,
         category: null,
         title: "Ֆին. հաշտարար",
       };
     }
-    /* Ուղղված է /regulation էջը */
-    if (path === "/regulation") {
+    if (lowerPath === "/regulation") {
       return {
         section: null,
         category: null,
         title: "Կարգավորում",
       };
     }
-    /* Ուղղված է /customer-residency-criteria էջը */
-    if (path === "/customer-residency-criteria") {
+    if (lowerPath === "/customer-residency-criteria") {
       return {
         section: null,
         category: null,
         title: "Հաճախորդի ռեզիդենտության չափանիշներ",
       };
     }
-    /* Ուղղված է /customer-rights էջը */
-    if (path === "/customer-rights") {
+    if (lowerPath === "/customer-rights") {
       return {
         section: null,
         category: null,
         title: "Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)",
       };
     }
-    /* Ուղղված է /partner-car-dealerships էջը */
-    if (path === "/partner-car-dealerships") {
+    if (lowerPath === "/partner-car-dealerships") {
       return {
         section: null,
         category: null,
         title: "ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ",
       };
     }
-    /* Ուղղված է /construction-companies էջը */
-    if (path === "/construction-companies") {
+    if (lowerPath === "/construction-companies") {
       return {
         section: null,
         category: null,
         title: "ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ",
       };
     }
-    if (path === "/legal-acts") {
+    if (lowerPath === "/legal-acts") {
       return {
         section: "Մեր մասին",
         category: "Իրավական ակտեր",
         title: "Իրավական ակտեր",
       };
     }
-    if (path === "/evocatouch") {
+    if (lowerPath === "/evocatouch") {
       return {
         section: "Անհատ",
         category: "Թվային ծառայություններ",
         title: "EvocaTOUCH",
       };
     }
-    if (path === "/evoca-codes") {
+    if (lowerPath === "/evoca-codes") {
       return {
         section: "Մեր մասին",
         category: "Նորություններ",
         title: "Evoca codes",
       };
     }
-    if (path === "/evocasalary") {
+    if (lowerPath === "/evocasalary") {
       return {
         section: "Անհատ",
         category: "Քարտեր",
         title: "Evoca Աշխատավարձային նախագիծ",
       };
     }
-    if (path === "/pension-cards") {
+    if (lowerPath === "/pension-cards") {
       return {
         section: "Անհատ",
         category: "Քարտեր",
@@ -133,13 +147,13 @@ const PageHeader = () => {
       };
     }
 
-    if (path === "/blog") {
+    if (lowerPath === "/blog") {
       return { section: null, category: null, title: "Բլոգ" };
     }
-    if (path === "/news") {
+    if (lowerPath === "/news") {
       return { section: null, category: null, title: "Նորություններ" };
     }
-    if (path === "/instant-payments") {
+    if (lowerPath === "/instant-payments") {
       return { section: null, category: null, title: "Ակնթարթային վճարումներ" };
     }
 
@@ -245,6 +259,9 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/digital-services-evocaonline-online-banking",
+    "/evocaonline-online-banking",
+    "/links-for-the-banks-cardholders",
     "/financial-crime-prevention",
     "/financial-mediator",
     "/regulation",
@@ -298,7 +315,7 @@ const PageHeader = () => {
     "/work-at-evoca",
     "/alienated-property",
   ];
-  const shouldHideH1 = hideH1Paths.includes(cleanPath);
+  const shouldHideH1 = hideH1Paths.includes(cleanPath.toLowerCase());
 
   const chevronIcon = (
     <svg

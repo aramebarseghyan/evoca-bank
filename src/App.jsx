@@ -135,6 +135,8 @@ import CustomerResidencyCriteria from "./Pages/DontHeaderPages/CustomerResidency
 import Regulation from "./Pages/DontHeaderPages/Regulation";
 import FinancialMediator from "./Pages/DontHeaderPages/FinancialMediator";
 import FinancialCrimePrevention from "./Pages/DontHeaderPages/FinancialCrimePrevention";
+import CardholderLinks from "./Pages/DontHeaderPages/CardholderLinks";
+import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
 
 function App() {
   const location = useLocation();
@@ -398,6 +400,10 @@ function App() {
           <Route path="/regulation" element={<Regulation />} />
           <Route path="/financial-mediator" element={<FinancialMediator />} />
           <Route
+            path="/Links-for-the-Banks-Cardholders"
+            element={<CardholderLinks />}
+          />
+          <Route
             path="/financial-crime-prevention"
             element={<FinancialCrimePrevention />}
           />
@@ -406,6 +412,10 @@ function App() {
             element={<CustomerResidencyCriteria />}
           />
           <Route path="/alienated-property" element={<AlienatedProperty />} />
+          <Route
+            path="/digital-services-evocaonline-online-banking"
+            element={<EvocaOnlinefooter />}
+          ></Route>
           <Route
             path="/construction-companies"
             element={<ConstructionCompanies />}
