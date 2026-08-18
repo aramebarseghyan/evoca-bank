@@ -129,6 +129,7 @@ import LegalActs from "./Pages/DontHeaderPages/LegalActs";
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
 import AlienatedProperty from "./Pages/DontHeaderPages/AlienatedProperty";
+import PartnerCarDealerships from "./Pages/DontHeaderPages/PartnerCarDealerships";
 
 function App() {
   const location = useLocation();
@@ -393,6 +394,10 @@ function App() {
           <Route
             path="/construction-companies"
             element={<ConstructionCompanies />}
+          />
+          <Route
+            path="/partner-car-dealerships"
+            element={<PartnerCarDealerships />}
           />
           <Route
             path="/loans-important-information"

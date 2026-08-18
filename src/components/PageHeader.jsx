@@ -41,6 +41,14 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
+    /* Ուղղված է /partner-car-dealerships էջը՝ տնից անմիջապես ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ */
+    if (path === "/partner-car-dealerships") {
+      return {
+        section: null,
+        category: null,
+        title: "ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ",
+      };
+    }
     /* Ուղղված է /construction-companies էջը՝ տնից անմիջապես ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ */
     if (path === "/construction-companies") {
       return {
@@ -198,6 +206,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/partner-car-dealerships",
     "/construction-companies",
     "/pension-cards",
     "/account-opening-service",
