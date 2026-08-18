@@ -41,7 +41,15 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
-    /* Ուղղված է /regulation էջը՝ տնից անմիջապես Կարգավորում */
+    /* Ուղղված է /financial-mediator էջը՝ տնից անմիջապես Ֆին. հաշտարար */
+    if (path === "/financial-mediator") {
+      return {
+        section: null,
+        category: null,
+        title: "Ֆին. հաշտարար",
+      };
+    }
+    /* Ուղղված է /regulation էջը */
     if (path === "/regulation") {
       return {
         section: null,
@@ -229,6 +237,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/financial-mediator",
     "/regulation",
     "/customer-residency-criteria",
     "/customer-rights",

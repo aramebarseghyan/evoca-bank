@@ -215,7 +215,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#privacy"
+                  href="/customer-rights#privacy"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Գաղտնիության քաղաքականություն
@@ -223,7 +223,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#ombudsman"
+                  href="/financial-mediator"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Ֆին. հաշտարար
@@ -231,7 +231,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#financial-crimes"
+                  href="/financial-crime-prevention"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Ֆինանսական հանցագործությունների <br />
@@ -240,7 +240,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#cardholders"
+                  href="/Links-for-the-Banks-Cardholders"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors leading-relaxed block"
                 >
                   Հղումներ Բանկի քարտապանների <br />

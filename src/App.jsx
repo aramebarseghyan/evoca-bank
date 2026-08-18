@@ -133,6 +133,7 @@ import AlienatedProperty from "./Pages/DontHeaderPages/AlienatedProperty";
 import PartnerCarDealerships from "./Pages/DontHeaderPages/PartnerCarDealerships";
 import CustomerResidencyCriteria from "./Pages/DontHeaderPages/CustomerResidencyCriteria";
 import Regulation from "./Pages/DontHeaderPages/Regulation";
+import FinancialMediator from "./Pages/DontHeaderPages/FinancialMediator";
 
 function App() {
   const location = useLocation();
@@ -394,6 +395,7 @@ function App() {
           />
           <Route path="/legal-acts" element={<LegalActs />} />{" "}
           <Route path="/regulation" element={<Regulation />} />
+          <Route path="/financial-mediator" element={<FinancialMediator />} />
           <Route
             path="/customer-residency-criteria"
             element={<CustomerResidencyCriteria />}
