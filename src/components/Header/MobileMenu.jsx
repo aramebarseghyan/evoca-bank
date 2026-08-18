@@ -129,7 +129,11 @@ const menuData = {
               hasArrow: false,
               path: "/stocks-repo-transactions",
             },
-            { name: "EvocaINVEST", hasArrow: false, path: "/stocks-evocainvest" },
+            {
+              name: "EvocaINVEST",
+              hasArrow: false,
+              path: "/stocks-evocainvest",
+            },
           ],
         },
         { name: "EvocaSALARY", hasArrow: false, path: "/evocasalary" },
@@ -152,11 +156,11 @@ const menuData = {
           name: "Լիզինգ",
           hasArrow: true,
           children: [
-            { name: "Լիզինգ", hasArrow: false, path: "/leasing" },
+            { name: "Լիզինգ", hasArrow: false, path: "/leasing-evoca" },
             {
               name: "Հատուկ առաջարկներ",
               hasArrow: false,
-              path: "/special-offers",
+              path: "/leasing-special-offer",
             },
           ],
         },
@@ -167,7 +171,7 @@ const menuData = {
             {
               name: "Հաշիվների բացում և սպասարկում",
               hasArrow: false,
-              path: "/business-account-opening-and-services",
+              path: "business-account-opening-and-services",
             },
             {
               name: "Առարկայազուրկ մետաղական հաշիվներ",
