@@ -148,6 +148,120 @@ const menuData = {
             { name: "Բիզնես վարկեր", hasArrow: false, path: "/business-loans" },
           ],
         },
+        {
+          name: "Լիզինգ",
+          hasArrow: true,
+          children: [
+            { name: "Լիզինգ", hasArrow: false, path: "/leasing" },
+            {
+              name: "Հատուկ առաջարկներ",
+              hasArrow: false,
+              path: "/special-offers",
+            },
+          ],
+        },
+        {
+          name: "Հաշիվներ",
+          hasArrow: true,
+          children: [
+            {
+              name: "Հաշիվների բացում և սպասարկում",
+              hasArrow: false,
+              path: "/business-account-opening-and-services",
+            },
+            {
+              name: "Առարկայազուրկ մետաղական հաշիվներ",
+              hasArrow: false,
+              path: "/business-unallocated-metal-accounts",
+            },
+          ],
+        },
+        {
+          name: "Փոխանցումներ",
+          hasArrow: true,
+          children: [
+            {
+              name: "Փոխանցումներ",
+              hasArrow: false,
+              path: "/business-transfers",
+            },
+          ],
+        },
+        {
+          name: "Ավանդներ",
+          hasArrow: true,
+          children: [
+            {
+              name: "Դասական ավանդ",
+              hasArrow: false,
+              path: "/business-classical-deposit",
+            },
+          ],
+        },
+        {
+          name: "Թվային բիզնես",
+          hasArrow: true,
+          children: [
+            { name: "POS տերմինալ", hasArrow: false, path: "/pos-terminal" },
+            {
+              name: "v-POS տերմինալ",
+              hasArrow: false,
+              path: "/v-pos-terminal",
+            },
+            {
+              name: "Evoca mobile POS",
+              hasArrow: false,
+              path: "/evoca-mobile-pos",
+            },
+            {
+              name: "Տերմինալների սակագներ",
+              hasArrow: false,
+              path: "/pos-tariffs",
+            },
+            {
+              name: "Տերմինալի տեղադրման հայտ",
+              hasArrow: false,
+              path: "/terminal-application",
+            },
+          ],
+        },
+        {
+          name: "Առևտրի ֆինանսավորում",
+          hasArrow: true,
+          children: [
+            { name: "Երաշխիք", hasArrow: false, path: "/guarantee" },
+            { name: "Ակրեդիտիվ", hasArrow: false, path: "/letter-of-credit" },
+            { name: "Ֆակտորինգ", hasArrow: false, path: "/factoring" },
+            { name: "Ինկասո", hasArrow: false, path: "/collection" },
+          ],
+        },
+        {
+          name: "Արժեթղթեր",
+          hasArrow: true,
+          children: [
+            {
+              name: "Ներդրումային ծառայություններ",
+              hasArrow: false,
+              path: "/business-investment-services",
+            },
+            { name: "Պարտատոմսեր", hasArrow: false, path: "/business-bonds" },
+            {
+              name: "ՀԿԴ ծառայություններ",
+              hasArrow: false,
+              path: "/business-cda-services",
+            },
+            {
+              name: "Ռեպո/Հակադարձ Ռեպո գործարքներ",
+              hasArrow: false,
+              path: "/business-repo-transactions",
+            },
+            {
+              name: "EvocaINVEST",
+              hasArrow: false,
+              path: "/business-evocainvest",
+            },
+          ],
+        },
       ],
     },
     {
