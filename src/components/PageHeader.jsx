@@ -19,6 +19,7 @@ const PageHeader = () => {
     cleanPath === "/internship" ||
     cleanPath.includes("internship") ||
     cleanPath === "/evocabridge" ||
+    cleanPath === "/evoca-dibrary" ||
     (location.pathname.startsWith("/work-at-evoca/") &&
       location.pathname.split("/").length > 2) ||
     location.pathname === "/" ||
@@ -63,6 +64,14 @@ const PageHeader = () => {
         section: "Անհատ",
         category: "Անհատական պահատուփեր",
         title: "Անհատական պահատուփեր",
+      };
+    }
+
+    if (lowerPath === "/evoca-dibrary") {
+      return {
+        section: null,
+        category: null,
+        title: "Dibrary",
       };
     }
 
@@ -272,6 +281,7 @@ const PageHeader = () => {
   const hideH1Paths = [
     "/digital-services-evocaonline-online-banking",
     "/evocaonline-online-banking",
+    "/evoca-dibrary",
     "/links-for-the-banks-cardholders",
     "/financial-crime-prevention",
     "/financial-mediator",

@@ -139,6 +139,7 @@ import CardholderLinks from "./Pages/DontHeaderPages/CardholderLinks";
 import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
 import Boxes from "./Pages/DontHeaderPages/Boxes";
 import FAQ from "./Pages/DontHeaderPages/Faq";
+import Dibrary from "./Pages/DontHeaderPages/Dibrary";
 
 function App() {
   const location = useLocation();
@@ -427,6 +428,7 @@ function App() {
             path="/frequently-asked-questions/faq-bonds"
             element={<FAQ />}
           />
+          <Route path="/evoca-dibrary" element={<Dibrary />} />
           <Route
             path="/partner-car-dealerships"
             element={<PartnerCarDealerships />}
