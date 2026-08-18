@@ -134,6 +134,7 @@ import PartnerCarDealerships from "./Pages/DontHeaderPages/PartnerCarDealerships
 import CustomerResidencyCriteria from "./Pages/DontHeaderPages/CustomerResidencyCriteria";
 import Regulation from "./Pages/DontHeaderPages/Regulation";
 import FinancialMediator from "./Pages/DontHeaderPages/FinancialMediator";
+import FinancialCrimePrevention from "./Pages/DontHeaderPages/FinancialCrimePrevention";
 
 function App() {
   const location = useLocation();
@@ -396,6 +397,10 @@ function App() {
           <Route path="/legal-acts" element={<LegalActs />} />{" "}
           <Route path="/regulation" element={<Regulation />} />
           <Route path="/financial-mediator" element={<FinancialMediator />} />
+          <Route
+            path="/financial-crime-prevention"
+            element={<FinancialCrimePrevention />}
+          />
           <Route
             path="/customer-residency-criteria"
             element={<CustomerResidencyCriteria />}

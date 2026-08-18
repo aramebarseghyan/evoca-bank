@@ -41,7 +41,15 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
-    /* Ուղղված է /financial-mediator էջը՝ տնից անմիջապես Ֆին. հաշտարար */
+    /* Ուղղված է /financial-crime-prevention էջը */
+    if (path === "/financial-crime-prevention") {
+      return {
+        section: null,
+        category: null,
+        title: "Ֆինանսական հանցագործությունների կանխարգելում",
+      };
+    }
+    /* Ուղղված է /financial-mediator էջը */
     if (path === "/financial-mediator") {
       return {
         section: null,
@@ -237,6 +245,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/financial-crime-prevention",
     "/financial-mediator",
     "/regulation",
     "/customer-residency-criteria",
