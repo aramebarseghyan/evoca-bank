@@ -273,8 +273,54 @@ const menuData = {
       hasArrow: false,
       path: "/instant-payments",
     },
+    {
+      name: "Մեր մասին",
+      hasArrow: false,
+      path: "/about",
+    },
     { name: "Նորություններ", hasArrow: false, path: "/news" },
     { name: "Բլոգ", hasArrow: false, path: "/blog" },
+    {
+      name: "Կարիերա",
+      hasArrow: true,
+      children: [
+        {
+          name: "Evoca Լայֆ",
+          hasArrow: true,
+          children: [
+            { name: "Մշակույթ", hasArrow: false, path: "/culture" },
+            { name: "Առավելություններ", hasArrow: false, path: "/advantages" },
+            {
+              name: "Հաճախ տրվող հարցեր",
+              hasArrow: false,
+              path: "/faq",
+            },
+            {
+              name: "Ինչպես ընդունվել աշխատանքի Evocabank-ում",
+              hasArrow: false,
+              path: "/how-to-apply",
+            },
+          ],
+        },
+        {
+          name: "Աշխատանք և պրակտիկա",
+          hasArrow: true,
+          children: [
+            {
+              name: "Աշխատանք Evoca-ում",
+              hasArrow: false,
+              path: "/work-at-evoca",
+            },
+            {
+              name: "Ուսումնական պրակտիկա",
+              hasArrow: false,
+              path: "/internship",
+            },
+            { name: "EvocaBRIDGE", hasArrow: false, path: "/evocabridge" },
+          ],
+        },
+      ],
+    },
   ],
   bottomLinks: [
     {
@@ -574,7 +620,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
               className="text-white cursor-pointer hover:scale-110 transition-transform"
             >
               <svg
-                className="w-8 h-8 2xl:w-10 2xl:h-10"
+                className="w-8 h-8 2xl:w-10 h-10"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
