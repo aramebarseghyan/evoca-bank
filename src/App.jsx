@@ -137,6 +137,7 @@ import FinancialMediator from "./Pages/DontHeaderPages/FinancialMediator";
 import FinancialCrimePrevention from "./Pages/DontHeaderPages/FinancialCrimePrevention";
 import CardholderLinks from "./Pages/DontHeaderPages/CardholderLinks";
 import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
+import Boxes from "./Pages/DontHeaderPages/Boxes";
 
 function App() {
   const location = useLocation();
@@ -416,6 +417,7 @@ function App() {
             path="/digital-services-evocaonline-online-banking"
             element={<EvocaOnlinefooter />}
           ></Route>
+          <Route path="/personal-safe-boxes" element={<Boxes />} />
           <Route
             path="/construction-companies"
             element={<ConstructionCompanies />}

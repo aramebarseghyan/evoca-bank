@@ -1,5 +1,3 @@
-import React from "react";
-
 const propertyData = [
   {
     id: 1,
