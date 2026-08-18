@@ -138,6 +138,7 @@ import FinancialCrimePrevention from "./Pages/DontHeaderPages/FinancialCrimePrev
 import CardholderLinks from "./Pages/DontHeaderPages/CardholderLinks";
 import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
 import Boxes from "./Pages/DontHeaderPages/Boxes";
+import FAQ from "./Pages/DontHeaderPages/Faq";
 
 function App() {
   const location = useLocation();
@@ -421,6 +422,10 @@ function App() {
           <Route
             path="/construction-companies"
             element={<ConstructionCompanies />}
+          />
+          <Route
+            path="/frequently-asked-questions/faq-bonds"
+            element={<FAQ />}
           />
           <Route
             path="/partner-car-dealerships"

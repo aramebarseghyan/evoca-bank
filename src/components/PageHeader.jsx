@@ -55,6 +55,17 @@ const PageHeader = () => {
       };
     }
 
+    if (
+      lowerPath === "/personal-safe-boxes" ||
+      lowerPath === "/personal-boxes-safe"
+    ) {
+      return {
+        section: "Անհատ",
+        category: "Անհատական պահատուփեր",
+        title: "Անհատական պահատուփեր",
+      };
+    }
+
     if (lowerPath === "/links-for-the-banks-cardholders") {
       return {
         section: null,
@@ -273,6 +284,7 @@ const PageHeader = () => {
     "/account-opening-service",
     "/unallocated-metal-accounts",
     "/remote-service-for-non-resident-clients",
+    "/personal-safe-boxes",
     "/personal-boxes-safe",
     "/money-transfers",
     "/transfer-payment-systems",

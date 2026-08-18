@@ -274,7 +274,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#faq"
+                  href="/frequently-asked-questions/faq-bonds"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հաճախ տրվող հարցեր
@@ -282,7 +282,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#announcements"
+                  href="/announcements"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հայտարարություններ
@@ -290,7 +290,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#library"
+                  href="/evoca-dibrary"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Dlibrary
@@ -298,7 +298,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#bulletins"
+                  href="/booklets"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Բուլետիններ
@@ -306,7 +306,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#feedback"
+                  href="/contact"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հետադարձ կապ
@@ -314,7 +314,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#sitemap"
+                  href="/live-map"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Կայքի քարտեզ
