@@ -140,7 +140,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#tariffs"
+                  href="/tariffs/loans-to-individuals"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Սակագներ
@@ -148,7 +148,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#property"
+                  href="/alienated-property"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Օտարվող գույք

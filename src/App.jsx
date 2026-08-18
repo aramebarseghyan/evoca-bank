@@ -122,11 +122,12 @@ import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
-import LegalActs from "./Pages/LegalActs/LegalActs";
+import LegalActs from "./Pages/DontHeaderPages/LegalActs";
 
 // === MAPS ===
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
+import AlienatedProperty from "./Pages/DontHeaderPages/AlienatedProperty";
 
 function App() {
   const location = useLocation();
@@ -236,23 +237,19 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           {/* PAYMENTS */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-
           {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
-
           {/* BLOG */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
-
           {/* BUSINESS */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
@@ -306,7 +303,6 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-
           {/* ABOUT AND HOME */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
@@ -329,7 +325,6 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
-
           {/* TARIFFS */}
           <Route
             path="/tariffs"
@@ -349,7 +344,6 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-
           {/* INDIVIDUALS */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
@@ -371,10 +365,8 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-
           {/* ИСПРАВЛЕННЫЙ МАРШРУТ ЗДЕСЬ */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
-
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
@@ -395,7 +387,11 @@ function App() {
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
           />
-          <Route path="/legal-acts" element={<LegalActs />} />
+          <Route path="/legal-acts" element={<LegalActs />} />{" "}
+          <Route
+            path="/alienated-property"
+            element={<AlienatedProperty/>}
+          />
           <Route
             path="/loans-important-information"
             element={<LoansImportantInfo />}
@@ -409,7 +405,6 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
-
           {/* CAREERS */}
           <Route path="/how-to-apply" element={<EvocaCareers />} />
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
@@ -417,7 +412,6 @@ function App() {
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
           <Route path="/evocabridge" element={<EvocaBridgePage />} />
-
           <Route path="*" element={<div />} />
         </Routes>
       </main>

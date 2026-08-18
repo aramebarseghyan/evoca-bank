@@ -234,6 +234,7 @@ const PageHeader = () => {
     "/news",
     "/how-to-apply",
     "/work-at-evoca",
+    '/alienated-property'
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
