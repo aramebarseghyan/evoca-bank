@@ -100,7 +100,7 @@ const Footer1 = () => {
             <ul className="flex flex-col gap-3 sm:gap-3.5 2xl:gap-5 m-0 p-0 list-none">
               <li>
                 <a
-                  href="#about"
+                  href="/about"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Մեր մասին
@@ -108,7 +108,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#management"
+                  href="/management"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Ղեկավարություն
@@ -116,7 +116,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#shareholders"
+                  href="/shareholders"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Բաժնետերեր
@@ -124,7 +124,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#reports"
+                  href="/auditors-opinion"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Հաշվետվություններ
@@ -132,7 +132,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#legal"
+                  href="/legal-acts"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Իրավական ակտեր
