@@ -122,6 +122,8 @@ import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
+import LegalActs from "./Pages/LegalActs/LegalActs";
+
 // === MAPS ===
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
@@ -393,6 +395,7 @@ function App() {
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
           />
+          <Route path="/legal-acts" element={<LegalActs />} />
           <Route
             path="/loans-important-information"
             element={<LoansImportantInfo />}

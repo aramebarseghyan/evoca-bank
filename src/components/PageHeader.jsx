@@ -41,6 +41,14 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
+    /* Ավելացված է /legal-acts էջի տվյալները */
+    if (path === "/legal-acts") {
+      return {
+        section: "Մեր մասին",
+        category: "Իրավական ակտեր",
+        title: "Իրավական ակտեր",
+      };
+    }
     if (path === "/evocatouch") {
       return {
         section: "Անհատ",
