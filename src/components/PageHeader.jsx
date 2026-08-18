@@ -41,6 +41,14 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
+    /* Ուղղված է /customer-rights էջը՝ տնից անմիջապես Հաճախորդի իրավունքները */
+    if (path === "/customer-rights") {
+      return {
+        section: null,
+        category: null,
+        title: "Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)",
+      };
+    }
     /* Ուղղված է /partner-car-dealerships էջը՝ տնից անմիջապես ԳՈՐԾԸՆԿԵՐ ԱՎՏՈՍՐԱՀՆԵՐ */
     if (path === "/partner-car-dealerships") {
       return {
@@ -206,6 +214,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/customer-rights",
     "/partner-car-dealerships",
     "/construction-companies",
     "/pension-cards",

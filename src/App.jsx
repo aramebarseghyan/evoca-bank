@@ -52,6 +52,7 @@ import AnnualReports from "./Pages/About/AnnualReports";
 import Announcements from "./Pages/About/Announcements";
 import ReviewsList from "./Pages/About/ReviewsList";
 import ConstructionCompanies from "./Pages/DontHeaderPages/ConstructionCompanies";
+import CustomerRights from "./Pages/DontHeaderPages/CustomerRights";
 
 // === NEWS AND BLOG ===
 import NewsPage from "./Pages/News/NewsPage";
@@ -398,7 +399,8 @@ function App() {
           <Route
             path="/partner-car-dealerships"
             element={<PartnerCarDealerships />}
-          />
+          />{" "}
+          <Route path="/customer-rights" element={<CustomerRights />} />
           <Route
             path="/loans-important-information"
             element={<LoansImportantInfo />}
