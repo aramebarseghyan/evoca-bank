@@ -22,12 +22,12 @@ const menuData = {
             {
               name: "Վարկային պատմություն և սքոր",
               hasArrow: false,
-              path: "/credit-history",
+              path: "/credit-history-and-score",
             },
             {
               name: "Կարևոր տեղեկատվություն",
               hasArrow: false,
-              path: "/loans-info",
+              path: "/loans-important-information",
             },
           ],
         },
@@ -49,7 +49,7 @@ const menuData = {
             {
               name: "Evoca Benefits",
               hasArrow: false,
-              path: "/evoca-benefits",
+              path: "/evoca_benefits",
             },
           ],
         },
@@ -61,7 +61,7 @@ const menuData = {
             {
               name: "Կարևոր տեղեկատվություն",
               hasArrow: false,
-              path: "/deposits-info",
+              path: "/deposits-important-information",
             },
           ],
         },
@@ -129,7 +129,7 @@ const menuData = {
               hasArrow: false,
               path: "/stocks-repo-transactions",
             },
-            { name: "EvocaINVEST", hasArrow: false, path: "/evocainvest" },
+            { name: "EvocaINVEST", hasArrow: false, path: "/stocks-evocainvest" },
           ],
         },
         { name: "EvocaSALARY", hasArrow: false, path: "/evocasalary" },

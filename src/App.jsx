@@ -369,10 +369,10 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-          <Route
-            path="/individual-safe-deposit-boxes"
-            element={<PersonalBoxesSafe />}
-          />
+
+          {/* ИСПРАВЛЕННЫЙ МАРШРУТ ЗДЕСЬ */}
+          <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
+
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
             path="/transfer-payment-systems"
