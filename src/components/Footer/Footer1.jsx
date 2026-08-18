@@ -164,7 +164,7 @@ const Footer1 = () => {
               </li>
               <li>
                 <a
-                  href="#partners"
+                  href="/construction-companies"
                   className="text-[#444] text-[13.5px] sm:text-[13px] 2xl:text-[14px] hover:text-[#7100FF] transition-colors block"
                 >
                   Գործընկեր ավտոսրահներ

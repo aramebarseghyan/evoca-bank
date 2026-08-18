@@ -51,6 +51,7 @@ import SemiAnnualReports from "./Pages/About/SemiAnnualReports";
 import AnnualReports from "./Pages/About/AnnualReports";
 import Announcements from "./Pages/About/Announcements";
 import ReviewsList from "./Pages/About/ReviewsList";
+import ConstructionCompanies from "./Pages/DontHeaderPages/ConstructionCompanies";
 
 // === NEWS AND BLOG ===
 import NewsPage from "./Pages/News/NewsPage";
@@ -388,9 +389,10 @@ function App() {
             element={<CreditHistoryPage />}
           />
           <Route path="/legal-acts" element={<LegalActs />} />{" "}
+          <Route path="/alienated-property" element={<AlienatedProperty />} />
           <Route
-            path="/alienated-property"
-            element={<AlienatedProperty/>}
+            path="/construction-companies"
+            element={<ConstructionCompanies />}
           />
           <Route
             path="/loans-important-information"

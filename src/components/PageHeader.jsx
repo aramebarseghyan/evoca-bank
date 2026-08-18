@@ -41,6 +41,14 @@ const PageHeader = () => {
   }
 
   const getPageDetails = (path) => {
+    /* Ուղղված է /construction-companies էջը՝ տնից անմիջապես ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ */
+    if (path === "/construction-companies") {
+      return {
+        section: null,
+        category: null,
+        title: "ԿԱՌՈՒՑԱՊԱՏՈՂՆԵՐ",
+      };
+    }
     /* Ավելացված է /legal-acts էջի տվյալները */
     if (path === "/legal-acts") {
       return {
@@ -190,6 +198,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/construction-companies",
     "/pension-cards",
     "/account-opening-service",
     "/unallocated-metal-accounts",
@@ -234,7 +243,7 @@ const PageHeader = () => {
     "/news",
     "/how-to-apply",
     "/work-at-evoca",
-    '/alienated-property'
+    "/alienated-property",
   ];
   const shouldHideH1 = hideH1Paths.includes(cleanPath);
 
