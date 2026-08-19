@@ -3,14 +3,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
-// Swiper импорты
+// Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-// Импорт шейпов из вашей папки assets/img
+// Zustand store import
+import { useFavoriteStore } from "../../../../store/useFavoriteStore";
+import FavoritesWidget from "../FavoritesWidget";
+
+// Shape imports from assets/img
 import shape1 from "../../../../assets/img/shape1.png";
 import shape2 from "../../../../assets/img/shape2.png";
 import shape3 from "../../../../assets/img/shape3.png";
@@ -27,6 +31,9 @@ const LoanDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("Վարկի մասին");
 
+  // Zustand state
+  const { toggleFavorite, isFavorite } = useFavoriteStore();
+
   const tabs = ["Վարկի մասին", "Պայմաններ", "Պահանջվող փաստաթղթերի ցանկ"];
 
   useEffect(() => {
@@ -34,17 +41,17 @@ const LoanDetailsPage = () => {
       if (!id) return;
       setLoading(true);
       try {
-        // Загрузка текущего кредита
+        // Fetching current loan
         const docRef = doc(db, "loans", id);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           setProduct({ id: docSnap.id, ...docSnap.data() });
         } else {
-          console.error("Кредит не найден!");
+          console.error("Վարկը չի գտնվել");
         }
 
-        // Загрузка других кредитов для слайдера
+        // Fetching other loans for slider
         const querySnapshot = await getDocs(collection(db, "loans"));
         const loansList = querySnapshot.docs
           .map((docSnapItem) => ({ id: docSnapItem.id, ...docSnapItem.data() }))
@@ -52,7 +59,7 @@ const LoanDetailsPage = () => {
 
         setOtherLoans(loansList);
       } catch (error) {
-        console.error("Ошибка при загрузке данных:", error);
+        console.error("Տվյալների բեռնման սխալ:", error);
       } finally {
         setLoading(false);
       }
@@ -182,7 +189,7 @@ const LoanDetailsPage = () => {
       id: "12",
       title: "Վարկունակության գնահատում / վարկի հաստատման պայմաններ/",
       content:
-        "• Անկախ վարկի գումարից և բավարար հիմնավորված եկամուտների առկայությունից՝ «ԱՔՌԱ Քրեդիտ Ռեփորթինգ» ՓԲԸ-ից ստացված տեղեկատվության համաձայն Հաճախորդի կամ երաշխավորներից որևէ մեկի FICO (սքོڕը) պետք է լինի 540 և բարձր։\n\n• Առանց եկամուտների վարկավորման դեպքում Հաճախորդը վերջին 1 տարվա ընթացքում չպետք է ունենա վարկային պարտավորությունների գծով դասակարգումներ և մարումների գծով ուշացման օերի հանրագումարը չպետք է գերազանցի 30 օրը։",
+        "• Անկախ վարկի գումարից և բավարար հիմնավորված եկամուտների առկայությունից՝ «ԱՔՌԱ Քրեդիտ Ռեփորթինգ» ՓԲԸ-ից ստացված տեղեկատվության համաձայն Հաճախորդի կամ երաշխավորներից որևէ մեկի FICO (սքորը) պետք է լինի 540 և բարձր։\n\n• Առանց եկամուտների վարկավորման դեպքում Հաճախորդը վերջին 1 տարվա ընթացքում չպետք է ունենա վարկային պարտավորությունների գծով դասակարգումներ և մարումների գծով ուշացման օրերի հանրագումարը չպետք է գերազանցի 30 օրը։",
     },
     {
       id: "13",
@@ -222,8 +229,10 @@ const LoanDetailsPage = () => {
   const documentsList = product.documentsList || defaultDocuments;
 
   return (
-    <div className="w-full font-sans bg-white min-h-screen pb-0">
-      {/* Стили для анимаций шейпов */}
+    <div className="w-full font-sans bg-white min-h-screen pb-0 relative">
+      <FavoritesWidget />
+
+      {/* Styles for shape animations */}
       <style>{`
         @keyframes floatSlow1 {
           0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
@@ -243,8 +252,8 @@ const LoanDetailsPage = () => {
         }
       `}</style>
 
-      {/* 1. Обычная Hero Секция сверху */}
-      <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-12 pb-16 px-4 sm:px-8 lg:px-24">
+      {/* 1. Hero Section */}
+      <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-12 pb-16 px-4 sm:px-8 lg:px-24 relative">
         <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 space-y-6">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
@@ -273,7 +282,7 @@ const LoanDetailsPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24">
-        {/* 2. Навигация & Кнопка назад */}
+        {/* 2. Navigation & Back button */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 py-8">
           <button
             onClick={() => navigate(-1)}
@@ -339,7 +348,7 @@ const LoanDetailsPage = () => {
           </div>
         </div>
 
-        {/* 3. Вкладки (Tabs) */}
+        {/* 3. Tabs */}
         <div className="relative border-b border-gray-200 mt-2">
           <div className="flex gap-8 overflow-x-auto no-scrollbar">
             {tabs.map((tab) => (
@@ -361,7 +370,7 @@ const LoanDetailsPage = () => {
           </div>
         </div>
 
-        {/* 4. Контент вкладок */}
+        {/* 4. Tab Content */}
         <div className="pt-10 pb-16">
           {activeTab === "Վարկի մասին" && (
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
@@ -389,7 +398,7 @@ const LoanDetailsPage = () => {
                 </p>
               </div>
 
-              {/* Правая карточка условий */}
+              {/* Right conditions card */}
               <div className="lg:w-[45%] w-full">
                 <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-50 overflow-hidden">
                   <div className="px-8 pt-8 pb-4">
@@ -462,7 +471,7 @@ const LoanDetailsPage = () => {
             </div>
           )}
 
-          {/* ВКЛАДКА "Պայմաններ" */}
+          {/* TAB: "Պայմաններ" */}
           {activeTab === "Պայմաններ" && (
             <div className="max-w-5xl mx-auto py-4 animate-fadeIn">
               <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
@@ -581,7 +590,7 @@ const LoanDetailsPage = () => {
             </div>
           )}
 
-          {/* ВКЛАДКА "Պահանջվող փաստաթղթերի ցանկ" */}
+          {/* TAB: "Պահանջվող փաստաթղթերի ցանկ" */}
           {activeTab === "Պահանջվող փաստաթղթերի ցանկ" && (
             <div className="max-w-4xl mx-auto py-6 animate-fadeIn text-[#333333]">
               <div className="space-y-6">
@@ -602,7 +611,7 @@ const LoanDetailsPage = () => {
         </div>
       </div>
 
-      {/* 5. Бесконечный слайдер с автопрокруткой каждые 5 секунд */}
+      {/* 5. Infinite autoplay slider */}
       {otherLoans.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
@@ -629,33 +638,59 @@ const LoanDetailsPage = () => {
               }}
               className="pb-6"
             >
-              {otherLoans.map((loan) => (
-                <SwiperSlide key={loan.id}>
-                  <div
-                    onClick={() => {
-                      navigate(`/loans/${loan.id}`);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                    className="cursor-pointer group flex flex-col items-center text-center gap-3"
-                  >
+              {otherLoans.map((loan) => {
+                const isFav = isFavorite(loan.id);
+
+                return (
+                  <SwiperSlide key={loan.id}>
                     <div
-                      className={`w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center relative ${loan.imageBgColor || "bg-[#5D00E0]"}`}
+                      onClick={() => {
+                        navigate(`/loans/${loan.id}`);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      className="cursor-pointer group flex flex-col items-center text-center gap-3 relative"
                     >
-                      <img
-                        src={loan.image}
-                        alt={loan.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
+                      <div
+                        className={`w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center relative ${loan.imageBgColor || "bg-[#5D00E0]"}`}
+                      >
+                        {/* Սրտիկ կոճակ քարտի վրա */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Որպեսզի էջը չփոխվի սեղմելիս
+                            toggleFavorite(loan);
+                          }}
+                          className="absolute top-3 right-3 z-20 p-2 bg-white/80 backdrop-blur-md rounded-full shadow hover:scale-110 transition-transform cursor-pointer"
+                        >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill={isFav ? "red" : "none"}
+                            stroke={isFav ? "red" : "currentColor"}
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                          </svg>
+                        </button>
+
+                        <img
+                          src={loan.image}
+                          alt={loan.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <h3 className="text-gray-900 font-medium text-sm sm:text-base leading-snug group-hover:text-[#5D00E0] transition-colors line-clamp-2 px-1">
+                        {loan.title}
+                      </h3>
                     </div>
-                    <h3 className="text-gray-900 font-medium text-sm sm:text-base leading-snug group-hover:text-[#5D00E0] transition-colors line-clamp-2 px-1">
-                      {loan.title}
-                    </h3>
-                  </div>
-                </SwiperSlide>
-              ))}
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
 
-            {/* Стрелочки увеличены и отодвинуты от карточек */}
+            {/* Arrows */}
             <button className="other-loans-prev absolute -left-3 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
               ‹
             </button>
@@ -666,49 +701,49 @@ const LoanDetailsPage = () => {
         </div>
       )}
 
-      {/* 6. Фиолетовый баннер в самом низу с плавно и разнонаправленно анимированными шейпами */}
+      {/* 6. Purple banner with animated shapes */}
       <div
         className="relative w-full py-32 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
         style={{
           backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
         }}
       >
-        {/* Шейп 1 */}
+        {/* Shape 1 */}
         <img
           src={shape1}
           alt="shape"
           className="absolute top-8 left-10 sm:left-20 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
         />
-        {/* Шейп 2 */}
+        {/* Shape 2 */}
         <img
           src={shape2}
           alt="shape"
           className="absolute bottom-10 left-16 sm:left-32 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
           style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
         />
-        {/* Шейп 3 */}
+        {/* Shape 3 */}
         <img
           src={shape3}
           alt="shape"
           className="absolute top-12 right-12 sm:right-24 w-14 sm:w-20 h-14 sm:h-20 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow3 8s ease-in-out infinite 0.5s" }}
         />
-        {/* Шейп 4 */}
+        {/* Shape 4 */}
         <img
           src={shape4}
           alt="shape"
           className="absolute bottom-12 right-20 sm:right-40 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-85 pointer-events-none"
           style={{ animation: "floatSlow4 6.5s ease-in-out infinite 1.5s" }}
         />
-        {/* Шейп 5 */}
+        {/* Shape 5 */}
         <img
           src={shape5}
           alt="shape"
           className="absolute top-1/2 left-6 sm:left-12 -translate-y-1/2 w-8 sm:w-12 h-8 sm:h-12 object-contain opacity-75 pointer-events-none"
           style={{ animation: "floatSlow2 7.5s ease-in-out infinite 2s" }}
         />
-        {/* Шейп 6 */}
+        {/* Shape 6 */}
         <img
           src={shape6}
           alt="shape"

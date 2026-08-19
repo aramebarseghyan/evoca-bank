@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoansImportantInfo = () => {
-  // Данные таблицы исторических переменных
+  // Historical variables data table
   const historicalRates = [
     { date: "15/07/2019", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
     { date: "15/01/2020", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
@@ -20,7 +20,7 @@ const LoansImportantInfo = () => {
     { date: "01/08/2026", amd: "7%", usd: "1.0%", eur: "0.0%" },
   ];
 
-  // Страховые компании
+  // Insurance companies
   const insuranceCompanies = [
     {
       name: "«ԻՆԳՈ ԱՐՄԵՆԻԱ» ապահովագրական ՓԲԸ",
@@ -66,7 +66,7 @@ const LoansImportantInfo = () => {
     },
   ];
 
-  // Оценочные компании
+  // Appraisal companies
   const appraisalCompanies = [
     {
       name: "«ԱՐ ՎԻ ԷՄ ՔՈՆՍԱԼՏ» ՍՊԸ",
@@ -379,7 +379,7 @@ const LoansImportantInfo = () => {
             </ul>
             <p className="mt-2">
               Վարկային բյուրոյի ծառայությունները թույլ են տալիս վարկատուներին
-              (բանկեր, վարկային կազմակերպություններ), ինչպես նաև տարաժամկետ
+              (բանկեր, վարկային կազմակերպությունները), ինչպես նաև տարաժամկետ
               վճարման սկզբունքով («ապառիկ») ապրանքներ վաճառող կամ
               ծառայություններ մատուցող կազմակերպություններին կանխելու
               վարկառուների/հաճախորդների կողմից ավելորդ պարտավորությունների
@@ -579,7 +579,7 @@ const LoansImportantInfo = () => {
           հաշվարկված` հիմք ընդունելով համապատասխան բանաձևը:
         </p>
 
-        {/* Формула блока */}
+        {/* Formula block */}
         <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 my-6">
           <p className="font-semibold text-gray-900 mb-2">
             Ենթադրենք բանկը սպառողին տրամադրում է վարկ հետևյալ պայմաններով`
@@ -646,7 +646,7 @@ const LoansImportantInfo = () => {
           մինչև փետրվարի 1-ը և օգոստոսի 1-ը:
         </p>
 
-        {/* Таблица прошлых и текущих значений */}
+        {/* Table of past and current values */}
         <h4 className="font-bold text-gray-900 mb-3">
           Անցյալ և ներկա փոփոխական բաղադրիչների արժեքները
         </h4>

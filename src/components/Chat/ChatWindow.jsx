@@ -12,7 +12,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { useAuthStore } from "../../Pages/Acc/authStore";
+import { useAuthStore } from "../../store/authStore";
 
 import ChatHeader from "./ChatHeader";
 import ChatList from "./ChatList";

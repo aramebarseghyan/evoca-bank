@@ -5,7 +5,7 @@ import "./App.css";
 // Firebase & Store imports
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useAuthStore } from "./Pages/Acc/authStore";
+import { useAuthStore } from "./store/authStore";
 import AuthModal from "./Pages/Acc/AuthModal";
 
 // --- ԱՎԵԼԱՑՎԱԾ Է PEER-Ը ---

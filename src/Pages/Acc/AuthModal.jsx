@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuthStore } from "./authStore";
+import { useAuthStore } from "../../store/authStore";
 import { auth } from "../../firebase";
 import { signOut, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 

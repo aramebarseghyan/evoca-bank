@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { subNavigationGroups, normalizePath } from "../../data/navigationData";
-import { useAuthStore } from "../../Pages/Acc/authStore";
+import { useAuthStore } from "../../store/authStore";
 
 const Header1 = ({ onOpenMenu }) => {
   const location = useLocation();

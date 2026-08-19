@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuthStore } from "../Acc/authStore";
+import { useAuthStore } from "../../store/authStore";
 
 const ProtectedRoute = ({ children }) => {
   const { user, openAuthModal } = useAuthStore();
