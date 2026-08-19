@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import evocaLogo from "../../assets/img/evocaLogo.png";
 
 // --- ИКОՆԿԻ СОЦСЕТЕЙ (SVG) ---
@@ -63,6 +64,14 @@ const LinkedInIcon = () => (
 );
 
 const Footer1 = () => {
+  const location = useLocation();
+  const cleanPath = location.pathname ? location.pathname.toLowerCase() : "";
+
+  // Հեռացնում ենք ֆուտերը /evocaLogin էջերի դեպքում
+  if (cleanPath === "/evocalogin" || cleanPath.includes("evocalogin")) {
+    return null;
+  }
+
   return (
     <footer className="bg-white py-10 sm:py-12 2xl:py-20 border-t border-[#eee]">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 xl:px-8">

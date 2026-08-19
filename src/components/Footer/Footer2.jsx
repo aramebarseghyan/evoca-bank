@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 // Импорт логотипов партнеров (названия файлов в точности как на вашем скриншоте)
 import partner1 from "../../assets/logos/partner-1.png";
 import partner2 from "../../assets/logos/partner-2.png";
@@ -9,6 +10,14 @@ import partner6 from "../../assets/logos/partner-6.png";
 import partner7 from "../../assets/logos/partner-7.png";
 
 const Footer2 = () => {
+  const location = useLocation();
+  const cleanPath = location.pathname ? location.pathname.toLowerCase() : "";
+
+  // Հեռացնում ենք ֆուտերը /evocaLogin էջերի դեպքում
+  if (cleanPath === "/evocalogin" || cleanPath.includes("evocalogin")) {
+    return null;
+  }
+
   const partners = [
     partner1,
     partner2,

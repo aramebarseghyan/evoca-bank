@@ -10,6 +10,7 @@ const PageHeader = () => {
   // Hide on main, standalone pages, live-map, as well as internship, FAQ, and work pages
   if (
     cleanPath === "/live-map" ||
+    cleanPath === "/evocaLogin" ||
     cleanPath === "/culture" ||
     cleanPath === "/advantages" ||
     cleanPath === "/faq" ||

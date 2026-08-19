@@ -142,11 +142,12 @@ import FAQ from "./Pages/FooterPages/Faq";
 import Dibrary from "./Pages/FooterPages/Dibrary";
 import Booklets from "./Pages/FooterPages/Booklets";
 import Contact from "./Pages/FooterPages/ContactFooter";
+import EvocaLogin from "./components/Header/Login";
 
 function App() {
   const location = useLocation();
   const setUser = useAuthStore((state) => state.setUser);
-  const user = useAuthStore((state) => state.user); // <-- ՍՏԱՆՈՒՄ ԵՆՔ ԸՆԹԱՑԻԿ ՕԳՏԱՏԻՐՈՋԸ
+  const user = useAuthStore((state) => state.user);
 
   // СОСТОЯНИЕ ДЛЯ ЧАТА И ЗВОНКОВ
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -167,7 +168,7 @@ function App() {
 
   // --- ՆՈՐ: PEERJS ԳԼՈԲԱԼ ՄԻԱՑՈՒՄ ---
   useEffect(() => {
-    if (!user) return; // Միանում ենք միայն եթե օգտատերը մուտք է գործել
+    if (!user) return;
 
     const myPeerId = `chat-user-${user.uid}`;
     const peer = new Peer(myPeerId);
@@ -179,7 +180,7 @@ function App() {
     peer.on("call", (call) => {
       console.log("📞 Մուտքային զանգ:", call.peer);
       setIncomingCall(call);
-      setIsChatOpen(true); // Ավտոմատ բացում ենք չաթի պատուհանը
+      setIsChatOpen(true);
     });
 
     peer.on("error", (err) => {
@@ -194,40 +195,14 @@ function App() {
   }, [user]);
   // ------------------------------------
 
-  // 2. ПРИНУДИТЕЛЬНЫЙ ЗАПРОС ГЕОЛОКАЦИИ ПРИ ВХОДЕ НА САЙТ
-  useEffect(() => {
-    const requestGeoPermission = () => {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            console.log("📍 Доступ к геолокации разрешен:", position.coords);
-          },
-          (error) => {
-            console.warn(
-              "🚫 Геолокация отклонена или недоступна:",
-              error.message,
-            );
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0,
-          },
-        );
-      } else {
-        console.warn("❌ Браузер не поддерживает геолокацию.");
-      }
-    };
-
-    requestGeoPermission();
-  }, []);
-
+  // --- ԱՎԵԼԱՑՎԵԼ Է /login ԷՋԸ ՈՐՊԵՍ STANDALONE ---
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
     location.pathname === "/instant-payments" ||
     location.pathname === "/evocabank" ||
     location.pathname === "/loan-repayment" ||
-    location.pathname === "/loan-input";
+    location.pathname === "/loan-input" ||
+    location.pathname === "/login";
 
   return (
     <div className="flex flex-col min-h-screen relative">
@@ -242,6 +217,8 @@ function App() {
 
       <main className="flex-1">
         <Routes>
+          {/* --- ԱՎԵԼԱՑՎԱԾ Է ՄՈՒՏՔԻ ԷՋԻ ՌԱՈՒԹԸ --- */}
+          <Route path="/evocaLogin" element={<EvocaLogin />} />
           {/* MAPS - ЗАЩИЩЕННЫЙ МАРШРУТ */}
           <Route
             path="/live-map"
@@ -379,7 +356,6 @@ function App() {
             path="/remote-service-for-non-resident-clients"
             element={<RemoteServiceNonResident />}
           />
-          {/* ИСПРАВЛЕННЫЙ МАРШРУТ ЗДЕСЬ */}
           <Route path="/personal-boxes-safe" element={<PersonalBoxesSafe />} />
           <Route path="/money-transfers" element={<MoneyTransfers />} />
           <Route
@@ -401,7 +377,7 @@ function App() {
             path="/credit-history-and-score"
             element={<CreditHistoryPage />}
           />
-          <Route path="/legal-acts" element={<LegalActs />} />{" "}
+          <Route path="/legal-acts" element={<LegalActs />} />
           <Route path="/regulation" element={<Regulation />} />
           <Route path="/financial-mediator" element={<FinancialMediator />} />
           <Route
@@ -420,7 +396,7 @@ function App() {
           <Route
             path="/digital-services-evocaonline-online-banking"
             element={<EvocaOnlinefooter />}
-          ></Route>
+          />
           <Route path="/personal-safe-boxes" element={<Boxes />} />
           <Route
             path="/construction-companies"
@@ -436,7 +412,7 @@ function App() {
           <Route
             path="/partner-car-dealerships"
             element={<PartnerCarDealerships />}
-          />{" "}
+          />
           <Route path="/customer-rights" element={<CustomerRights />} />
           <Route
             path="/loans-important-information"
@@ -464,7 +440,6 @@ function App() {
 
       {!isStandalonePage && <Footer />}
 
-      {/* --- ՓՈԽԱՆՑՎՈՒՄ ԵՆ PEERJS-Ի ՏՎՅԱԼՆԵՐԸ ՉԱԹԻՆ --- */}
       <ChatWindow
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}

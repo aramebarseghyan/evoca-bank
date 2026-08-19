@@ -4,20 +4,32 @@ import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
+  // 1. Բոլոր հուկերը հստակ հերթականությամբ՝ ֆունկցիայի ամենասկզբում
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
-  // Clean the path
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 2. Մաքրում ենք փաթը և ստուգում պայմանը հուկերից հետո
   const rawPath = location.pathname;
   const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
 
-  // 1. News, Blog, and Map (minimalistic - no tabs)
+  if (cleanPath === "/evocaLogin" || cleanPath.includes("evocalogin")) {
+    return null;
+  }
+
+  // 3. Մնացած լոգիկան և ռենդերը
   const minimalHeaderPages = ["/news", "/blog", "/live-map"];
   const isMinimalHeader = minimalHeaderPages.some(
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 2. Career and Culture Section
   const careerPrefixes = [
     "/culture",
     "/career",
@@ -33,7 +45,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 3. Corporate "About Us" Section
   const aboutPrefixes = [
     "/about",
     "/structure",
@@ -56,7 +67,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
   );
 
-  // 4. Business Mode
   const isBusinessMode =
     cleanPath.startsWith("/business-") ||
     cleanPath === "/leasing-evoca" ||
@@ -64,7 +74,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     cleanPath === "/guarantee" ||
     cleanPath === "/individual-safe-deposit-boxes";
 
-  // Navigation for Individuals
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", showOn: "md" },
     { label: "Քարտեր", path: "/cards", showOn: "md" },
@@ -76,7 +85,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "EvocaTOUCH", path: "/evocatouch", showOn: "2xl" },
   ];
 
-  // Navigation for Business
   const businessNavItems = [
     { label: "Վարկեր", path: "/business-loans", showOn: "md" },
     { label: "Լիզինգ", path: "/leasing-evoca", showOn: "md" },
@@ -100,7 +108,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "Այլ", path: "/individual-safe-deposit-boxes", showOn: "2xl" },
   ];
 
-  // Corporate Navigation ("About")
   const corporateNavItems = [
     { label: "Evoca-ի մասին", path: "/about", showOn: "md" },
     { label: "Սակագներ", path: "/tariffs", showOn: "md" },
@@ -108,13 +115,11 @@ const ScrollHeader = ({ onOpenMenu }) => {
     { label: "Հայտարարություններ", path: "/announcements", showOn: "md" },
   ];
 
-  // Career Navigation
   const careerNavItems = [
     { label: "Evoca Լայֆ", path: "/evoca-life", showOn: "md" },
     { label: "Աշխատանք և պրակտիկա", path: "/career", showOn: "md" },
   ];
 
-  // Select the appropriate menu items array
   let navItems = individualNavItems;
   if (isCareerMode) {
     navItems = careerNavItems;
@@ -124,7 +129,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     navItems = businessNavItems;
   }
 
-  // Function to determine active menu item
   const isMainItemActive = (mainPath) => {
     if (mainPath === "/about") {
       const aboutSubPaths = [
@@ -171,7 +175,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
           (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
         )
       ) {
-        // Differentiate highlighting between Evoca Life and Career
         if (
           mainPath === "/evoca-life" &&
           (cleanPath === "/evoca-life" ||
@@ -205,14 +208,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     return cleanPath === mainPath || cleanPath.startsWith(`${mainPath}/`);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <div
       className={`fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 ease-in-out ${
@@ -235,7 +230,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
             </Link>
           </div>
 
-          {/* Navigation is hidden for minimalistic pages (news, blog, map) */}
           {!isMinimalHeader && (
             <nav className="hidden md:flex items-center md:gap-x-5 lg:gap-x-6 xl:gap-x-7 2xl:gap-x-8">
               {navItems.map((item, index) => {

@@ -62,7 +62,9 @@ const Header2 = () => {
   const isNoSubNavMode = noSubNavPaths.some(
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
   );
-
+  if (cleanPath === "/evocaLogin" || cleanPath.includes("evocalogin")) {
+    return null;
+  }
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", display: "flex" },
     { label: "Քարտեր", path: "/cards", display: "flex" },
@@ -275,9 +277,13 @@ const Header2 = () => {
         </div>
 
         <div className="shrink-0">
-          <button className="bg-[#5800EB] text-white px-5 py-2 lg:px-7 lg:py-2.5 rounded-full font-bold text-[12px] lg:text-[14px] hover:bg-[#4300B8] transition-colors">
+          {/* Այստեղ արտաքին հղումը փոխարինվել է ներքին React ռաութի Link-ով */}
+          <Link
+            to="/evocaLogin"
+            className="inline-block bg-[#5800EB] text-white px-5 py-2 lg:px-7 lg:py-2.5 rounded-full font-bold text-[12px] lg:text-[14px] hover:bg-[#4300B8] transition-colors"
+          >
             EvocaONLINE
-          </button>
+          </Link>
         </div>
       </div>
     </div>
