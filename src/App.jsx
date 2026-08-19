@@ -51,8 +51,8 @@ import SemiAnnualReports from "./Pages/About/SemiAnnualReports";
 import AnnualReports from "./Pages/About/AnnualReports";
 import Announcements from "./Pages/About/Announcements";
 import ReviewsList from "./Pages/About/ReviewsList";
-import ConstructionCompanies from "./Pages/DontHeaderPages/ConstructionCompanies";
-import CustomerRights from "./Pages/DontHeaderPages/CustomerRights";
+import ConstructionCompanies from "./Pages/FooterPages/ConstructionCompanies";
+import CustomerRights from "./Pages/FooterPages/CustomerRights";
 
 // === NEWS AND BLOG ===
 import NewsPage from "./Pages/News/NewsPage";
@@ -124,23 +124,23 @@ import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage"
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
 import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage";
 
-import LegalActs from "./Pages/DontHeaderPages/LegalActs";
+import LegalActs from "./Pages/FooterPages/LegalActs";
 
 // === MAPS ===
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
-import AlienatedProperty from "./Pages/DontHeaderPages/AlienatedProperty";
-import PartnerCarDealerships from "./Pages/DontHeaderPages/PartnerCarDealerships";
-import CustomerResidencyCriteria from "./Pages/DontHeaderPages/CustomerResidencyCriteria";
-import Regulation from "./Pages/DontHeaderPages/Regulation";
-import FinancialMediator from "./Pages/DontHeaderPages/FinancialMediator";
-import FinancialCrimePrevention from "./Pages/DontHeaderPages/FinancialCrimePrevention";
-import CardholderLinks from "./Pages/DontHeaderPages/CardholderLinks";
-import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
-import Boxes from "./Pages/DontHeaderPages/Boxes";
-import FAQ from "./Pages/DontHeaderPages/Faq";
-import Dibrary from "./Pages/DontHeaderPages/Dibrary";
-import Booklets from "./Pages/DontHeaderPages/Booklets";
+import AlienatedProperty from "./Pages/FooterPages/AlienatedProperty";
+import PartnerCarDealerships from "./Pages/FooterPages/PartnerCarDealerships";
+import CustomerResidencyCriteria from "./Pages/FooterPages/CustomerResidencyCriteria";
+import Regulation from "./Pages/FooterPages/Regulation";
+import FinancialMediator from "./Pages/FooterPages/FinancialMediator";
+import FinancialCrimePrevention from "./Pages/FooterPages/FinancialCrimePrevention";
+import CardholderLinks from "./Pages/FooterPages/CardholderLinks";
+import EvocaOnlinefooter from "./Pages/FooterPages/EvocaOnlineFooter";
+import Boxes from "./Pages/FooterPages/Boxes";
+import FAQ from "./Pages/FooterPages/Faq";
+import Dibrary from "./Pages/FooterPages/Dibrary";
+import Booklets from "./Pages/FooterPages/Booklets";
 
 function App() {
   const location = useLocation();
