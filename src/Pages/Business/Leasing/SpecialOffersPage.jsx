@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 const SpecialOffersPage = () => {
-  // Состояние открытого аккордеона: по умолчанию открыта первая шторка (индекс 0)
+  
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Данные для таблицы первого аккордеона (Լոջիք Գրուպ ՍՊԸ)
+  
   const logicGroupTable = [
     { amd: "5.0%", usd: "0.0%", eur: "0.0%", term: "12" },
     { amd: "8.5%", usd: "5.0%", eur: "4.0%", term: "24" },
@@ -57,7 +57,7 @@ const SpecialOffersPage = () => {
   return (
     <div className="w-full bg-gray-50 py-4 sm:py-6">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Блок с аккордеонами */}
+        {}
         <div className="space-y-4">
           {accordions.map((item, index) => {
             const isOpen = openIndex === index;
@@ -67,7 +67,7 @@ const SpecialOffersPage = () => {
                 key={index}
                 className="bg-white border border-[#6000ff]/30 rounded-2xl overflow-hidden shadow-sm transition-all"
               >
-                {/* Кнопка аккордеона */}
+                {}
                 <button
                   onClick={() => toggleAccordion(index)}
                   className="w-full flex items-center justify-between p-5 sm:p-6 text-left bg-white hover:bg-[#6000ff]/5 transition-colors cursor-pointer"
@@ -98,7 +98,7 @@ const SpecialOffersPage = () => {
                   </div>
                 </button>
 
-                {/* Выпадающий контент */}
+                {}
                 <div
                   className={`grid transition-all duration-300 ease-in-out ${
                     isOpen

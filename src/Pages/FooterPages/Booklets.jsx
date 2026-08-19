@@ -49,12 +49,12 @@ const Booklets = () => {
   return (
     <div className="w-full min-h-screen bg-white py-10">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
-        {/* Գլխավոր Վերնագիր */}
+        {}
         <h2 className="text-2xl md:text-3xl font-bold text-gray-700 mb-10 md:ml-12">
           Բուկլետներ
         </h2>
 
-        {/* Քարտերի ցուցակ */}
+        {}
         <div className="flex flex-col items-center gap-8">
           {bookletsData.map((booklet) => (
             <a
@@ -64,7 +64,7 @@ const Booklets = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {/* Նկարի հատված */}
+              {}
               <div className="w-full md:w-1/2 flex justify-center md:justify-end md:pr-10">
                 <img
                   src={booklet.imgSrc}
@@ -73,7 +73,7 @@ const Booklets = () => {
                 />
               </div>
 
-              {/* Տեքստի հատված */}
+              {}
               <div className="w-full md:w-1/2 flex items-center justify-center md:justify-start mt-6 md:mt-0 md:pl-4">
                 <h3 className="text-[22px] md:text-[26px] text-[#6b2593] font-medium text-center md:text-left leading-snug whitespace-pre-line">
                   {booklet.title}

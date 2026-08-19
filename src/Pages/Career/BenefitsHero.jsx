@@ -1,8 +1,8 @@
 import React from "react";
 
-// ==========================================
-// 1. HERO ՀԱՏՎԱԾ
-// ==========================================
+
+
+
 function BenefitsHero() {
   return (
     <section
@@ -26,9 +26,9 @@ function BenefitsHero() {
   );
 }
 
-// ==========================================
-// 2. ԴԻՄՈՒՄԻ ՖՈՐՄԱ (Դառնալ թիմի անդամ)
-// ==========================================
+
+
+
 function JoinTeamForm() {
   return (
     <div className="w-full max-w-3xl mx-auto px-4 py-16">
@@ -45,7 +45,7 @@ function JoinTeamForm() {
       </div>
 
       <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-        {/* Անուն */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Անուն <span className="text-red-500">*</span>
@@ -58,7 +58,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Ազգանուն */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Ազգանուն <span className="text-red-500">*</span>
@@ -71,7 +71,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Հեռախոսահամար */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Հեռախոսահամար <span className="text-red-500">*</span>
@@ -98,7 +98,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Էլ. հասցե */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Էլ․ հասցե
@@ -126,7 +126,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Facebook */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Facebook սոց. կայքում անձնական էջի հղում
@@ -154,7 +154,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* LinkedIn */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             LinkedIn սոց. կայքում անձնական էջի հղում
@@ -182,7 +182,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Ուղեկցող նամակ */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Ուղեկցող նամակ
@@ -193,7 +193,7 @@ function JoinTeamForm() {
           ></textarea>
         </div>
 
-        {/* Վերբեռնեք Ձեր ռեզյումեն */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Վերբեռնեք Ձեր ռեզյումեն <span className="text-red-500">*</span>
@@ -220,7 +220,7 @@ function JoinTeamForm() {
           </div>
         </div>
 
-        {/* Ստուգման ծածկագիր (Captcha) */}
+        {}
         <div>
           <label className="block text-[15px] text-gray-700 mb-1">
             Ստուգման ծածկագիր <span className="text-red-500">*</span>
@@ -251,14 +251,14 @@ function JoinTeamForm() {
                 </svg>
               </button>
             </div>
-            {/* Սիմուլյացված Capctha նկար */}
+            {}
             <div className="bg-white border border-gray-200 w-[220px] h-[50px] flex items-center justify-center italic font-serif text-2xl tracking-widest text-gray-800 line-through decoration-gray-400 select-none">
               31CHMH
             </div>
           </div>
         </div>
 
-        {/* Ուղարկելու Կոճակ */}
+        {}
         <div className="pt-4">
           <button
             type="submit"
@@ -272,9 +272,9 @@ function JoinTeamForm() {
   );
 }
 
-// ==========================================
-// 3. ԳԼԽԱՎՈՐ ԷՋԸ (Միացնում է վերևի 2-ը)
-// ==========================================
+
+
+
 export default function EvocaAdvantagesPage() {
   const advantages = [
     {
@@ -319,12 +319,12 @@ export default function EvocaAdvantagesPage() {
 
   return (
     <div className="w-full bg-white pb-20">
-      {/* Գլխավոր նկարի հատված */}
+      {}
       <BenefitsHero />
 
-      {/* Մեր առավելությունները բաժին */}
+      {}
       <div className="container mx-auto px-6 md:px-12 lg:px-32 py-12 md:py-16">
-        {/* Վերնագիր և գիծ */}
+        {}
         <div className="mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-[#3d3333] mb-4">
             Մեր առավելությունները
@@ -332,7 +332,7 @@ export default function EvocaAdvantagesPage() {
           <hr className="border-t border-gray-200" />
         </div>
 
-        {/* Գրիդ (Grid) ցուցակը */}
+        {}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
           {advantages.map((item, idx) => (
             <div key={idx} className="flex flex-col items-center text-center">
@@ -349,12 +349,12 @@ export default function EvocaAdvantagesPage() {
         </div>
       </div>
 
-      {/* Բաժանարար գիծ նախքան ֆորման */}
+      {}
       <div className="container mx-auto px-6 md:px-12 lg:px-32">
         <hr className="border-t border-gray-200" />
       </div>
 
-      {/* Դառնալ թիմի անդամ Ֆորման */}
+      {}
       <JoinTeamForm />
     </div>
   );

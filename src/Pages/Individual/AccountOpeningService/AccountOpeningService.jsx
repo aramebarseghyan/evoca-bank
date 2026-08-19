@@ -258,7 +258,7 @@ const AccountOpeningService = () => {
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-10 md:pt-16">
-        {/* Բլոկ 1: Գլխավոր վերնագիր, տեքստ և նկար */}
+        {}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-24 mb-12 lg:mb-16 gap-6 lg:gap-0">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -280,7 +280,7 @@ const AccountOpeningService = () => {
           </div>
         </div>
 
-        {/* Բլոկ 2: Պայմանագրային տեքստ */}
+        {}
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-24 mb-16">
           <p className="text-gray-800 leading-relaxed text-sm sm:text-base font-medium">
             Մեր և ձեր պայմանագրային փոխհարաբերությունները կարգավորվում են
@@ -302,7 +302,7 @@ const AccountOpeningService = () => {
         </div>
       </div>
 
-      {/* Բլոկ 3: Full-width Banner */}
+      {}
       <div
         className="relative w-full h-[350px] sm:h-[450px] bg-cover bg-center flex items-center justify-center mb-16"
         style={{
@@ -324,7 +324,7 @@ const AccountOpeningService = () => {
       </div>
 
       <div className="max-w-[1440px] mx-auto">
-        {/* Բլոկ 4: Անհրաժեշտ տեղեկատվություն (Accordion) */}
+        {}
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-24 mb-16">
           <h3 className="text-xl sm:text-2xl font-extrabold text-gray-900 uppercase mb-8">
             Անհրաժեշտ տեղեկատվություն
@@ -390,7 +390,7 @@ const AccountOpeningService = () => {
           </div>
         </div>
 
-        {/* Բլոկ 5: Փաստաթղթեր (Documents) */}
+        {}
         <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-24">
           <h3 className="text-xl sm:text-2xl font-extrabold text-gray-900 uppercase mb-6">
             Փաստաթղթեր
@@ -406,7 +406,7 @@ const AccountOpeningService = () => {
                 className="group flex items-center justify-between bg-[#F8F6FD] hover:bg-[#F0ECFA] border border-transparent hover:border-[#5D00E0]/30 rounded-xl p-4 md:p-5 transition-all duration-300 shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  {/* Иконка документа с загрузкой */}
+                  {}
                   <div className="relative text-[#5D00E0]">
                     <svg
                       width="28"

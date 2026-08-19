@@ -392,7 +392,7 @@ export default function ConstructionCompanies() {
   const [openId, setOpenId] = useState(1);
 
   const toggleAccordion = (id) => {
-    // Եթե սեղմված է արդեն բացը՝ փակում ենք, հակառակ դեպքում բացում ենք նորը (իսկ հինն ավտոմատ փակվում է)
+    
     setOpenId(openId === id ? null : id);
   };
 
@@ -441,7 +441,7 @@ export default function ConstructionCompanies() {
                 {item.title}
               </button>
 
-              {/* Սահուն Grid Անիմացիա բացվելու և փակվելու համար */}
+              {}
               <div
                 className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
                   isOpen

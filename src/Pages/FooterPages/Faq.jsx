@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 const FAQ = () => {
-  // Ակտիվ կատեգորիայի state
+  
   const [activeCategory, setActiveCategory] = useState("bonds");
-  // Բացված ակորդեոնի ինդեքսը (լռելյայն առաջինը բաց է)
+  
   const [openIndex, setOpenIndex] = useState(0);
 
-  // Կողային մենյուի կատեգորիաները
+  
   const categories = [
     { id: "bonds", label: "Պարտատոմսեր" },
     { id: "career", label: "Կարիերա" },
@@ -19,7 +19,7 @@ const FAQ = () => {
     { id: "other", label: "Այլ" },
   ];
 
-  // Պարտատոմսերի հարցերն ու պատասխանները
+  
   const faqData = [
     {
       question: "Ի՞նչ է պարտատոմսը:",
@@ -104,14 +104,14 @@ const FAQ = () => {
   return (
     <div className="w-full bg-[#FAFAFC] min-h-screen py-10 px-4 sm:px-8 font-sans">
       <div className="max-w-[1280px] mx-auto">
-        {/* Վերնագիր */}
+        {}
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 tracking-tight">
           Հաճախ տրվող հարցեր
         </h1>
 
-        {/* Հիմնական layout՝ 2 սյունակով */}
+        {}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Ձախ կողային մենյու (Sidebar) */}
+          {}
           <div className="lg:col-span-3 bg-white rounded-2xl p-4 border border-gray-100 shadow-sm sticky top-6">
             <nav className="flex flex-col space-y-1">
               {categories.map((cat) => {
@@ -133,7 +133,7 @@ const FAQ = () => {
             </nav>
           </div>
 
-          {/* Աջ կողմի բովանդակություն (FAQ list) */}
+          {}
           <div className="lg:col-span-9">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
               Պարտատոմսեր
@@ -151,7 +151,7 @@ const FAQ = () => {
                         : "border border-gray-200 hover:border-gray-300"
                     }`}
                   >
-                    {/* Ակորդեոնի վերնագիր */}
+                    {}
                     <button
                       onClick={() => toggleAccordion(index)}
                       className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
@@ -179,7 +179,7 @@ const FAQ = () => {
                       </div>
                     </button>
 
-                    {/* Ակորդեոնի բովանդակություն */}
+                    {}
                     {isOpen && (
                       <div className="px-5 pb-5 pt-1 text-gray-700 text-xs sm:text-sm leading-relaxed border-t border-gray-50">
                         {item.answer}

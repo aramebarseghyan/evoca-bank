@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-// Импорт логотипов партнеров (названия файлов в точности как на вашем скриншоте)
+
 import partner1 from "../../assets/logos/partner-1.png";
 import partner2 from "../../assets/logos/partner-2.png";
 import partner3 from "../../assets/logos/partner-3.png";
@@ -13,7 +13,7 @@ const Footer2 = () => {
   const location = useLocation();
   const cleanPath = location.pathname ? location.pathname.toLowerCase() : "";
 
-  // Հեռացնում ենք ֆուտերը /evocaLogin էջերի դեպքում
+  
   if (cleanPath === "/evocalogin" || cleanPath.includes("evocalogin")) {
     return null;
   }
@@ -31,7 +31,7 @@ const Footer2 = () => {
   return (
     <div className="bg-[#f5f5f5] w-full pt-2 sm:pt-4 md:pt-6 pb-12 px-6 xl:px-8 border-t border-[#e5e5e5]">
       <div className="max-w-[1400px] mx-auto flex flex-col 2xl:flex-row items-center justify-between gap-6 2xl:gap-8">
-        {/* Текст дисклеймера */}
+        {}
         <div className="w-full 2xl:max-w-[780px]">
           <p className="text-[#999] text-[10.5px] sm:text-[11px] md:text-[12px] 2xl:text-[12.5px] leading-[1.7] md:leading-relaxed text-justify m-0">
             Հարգելի՛ այցելու, Կայքի որևէ տեղեկատվության վերաբերյալ տարբեր
@@ -45,7 +45,7 @@ const Footer2 = () => {
           </p>
         </div>
 
-        {/* Логотипы партнеров в одну строку для 2xl */}
+        {}
         <div className="w-full 2xl:w-auto flex flex-wrap 2xl:flex-nowrap items-center justify-start 2xl:justify-end gap-4 sm:gap-5 md:gap-6 2xl:gap-5">
           {partners.map((logo, index) => (
             <img

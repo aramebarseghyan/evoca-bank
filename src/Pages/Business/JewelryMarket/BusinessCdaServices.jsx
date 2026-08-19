@@ -4,12 +4,12 @@ const BusinessCdaServices = () => {
   return (
     <div className="w-full bg-white sm:bg-transparent pt-[30px] sm:pt-[50px] pb-16">
       <div className="max-w-[1150px] mx-auto lg:ml-[300px] lg:mx-0 px-4 sm:px-6 lg:px-8">
-        {/* Главный заголовок страницы */}
+        {}
         <h1 className="text-2xl sm:text-3xl font-bold text-[#222222] mb-8 leading-snug">
           Հայաստանի Կենտրոնական դեպոզիտարիայի (ՀԿԴ) ծառայություններ
         </h1>
 
-        {/* Текстовый блок */}
+        {}
         <div className="mb-8 text-[#333333] text-sm sm:text-base leading-relaxed space-y-6">
           <p>
             ՀՀ Կենտրոնական Դեպոզիտարիան հաճախորդների սպասարկումը իրականացնում է
@@ -31,7 +31,7 @@ const BusinessCdaServices = () => {
           </p>
         </div>
 
-        {/* Фиолетовые ссылки на документы */}
+        {}
         <div className="flex flex-col gap-4 mb-12">
           <a
             href="#"
@@ -51,7 +51,7 @@ const BusinessCdaServices = () => {
           </a>
         </div>
 
-        {/* Дата обновления страницы */}
+        {}
         <div className="text-right text-xs sm:text-sm text-[#777777]">
           Թարմացվել է` 22/05/2026 10:27
         </div>

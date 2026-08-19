@@ -1,6 +1,6 @@
 import React from "react";
 
-// Пример данных по годам для презентаций инвесторам (Investor Presentations)
+
 const presentationsData = [
   {
     year: "2026",
@@ -85,7 +85,7 @@ const presentationsData = [
 export default function InvestorPresentations() {
   return (
     <div className="w-full bg-white min-h-screen pb-16 font-sans">
-      {/* Основной контент */}
+      {}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {presentationsData.map((section) => (
           <div key={section.year} className="mb-12">
@@ -93,7 +93,7 @@ export default function InvestorPresentations() {
               {section.year}
             </h2>
 
-            {/* Светло-серый/сиреневый фон, оборачивающий карточки года */}
+            {}
             <div className="bg-[#F8F6FA] w-full py-10 px-8">
               <div className="flex flex-wrap gap-8">
                 {section.items.map((item) => (
@@ -104,14 +104,14 @@ export default function InvestorPresentations() {
                     rel="noopener noreferrer"
                     className="flex flex-col group w-full sm:w-[310px] cursor-pointer"
                   >
-                    {/* Изображение презентации */}
+                    {}
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-auto object-contain transition-opacity duration-300 group-hover:opacity-90"
                     />
 
-                    {/* Текст под изображением */}
+                    {}
                     <span className="mt-4 text-[13px] font-bold text-gray-800 uppercase">
                       {item.title}
                     </span>

@@ -4,7 +4,7 @@ import { Home, ChevronRight } from "lucide-react";
 export default function SafeDepositBoxes() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top Navbar */}
+      {}
       <header className="bg-purple-700 text-white">
         <div className="max-w-7xl mx-auto px-4 flex space-x-8">
           <button className="py-4 border-b-4 border-white font-medium text-sm focus:outline-none">
@@ -16,9 +16,9 @@ export default function SafeDepositBoxes() {
         </div>
       </header>
 
-      {/* Main Container */}
+      {}
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {/* Breadcrumbs */}
+        {}
         <nav className="flex items-center text-sm text-gray-500 mb-8 space-x-2">
           <a href="#" className="hover:text-gray-700 flex items-center">
             <Home className="w-4 h-4" />
@@ -35,9 +35,9 @@ export default function SafeDepositBoxes() {
           <span className="text-gray-800 font-medium">Պահատուփեր</span>
         </nav>
 
-        {/* Content Section */}
+        {}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Text Card */}
+          {}
           <div className="lg:col-span-6 bg-white p-8 lg:p-12 rounded-3xl shadow-sm border border-gray-100 relative z-10">
             <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
               Պահատուփեր
@@ -49,7 +49,7 @@ export default function SafeDepositBoxes() {
             </p>
           </div>
 
-          {/* Right Image Section */}
+          {}
           <div className="lg:col-span-6 relative rounded-3xl overflow-hidden shadow-lg h-[400px] lg:h-[450px]">
             <img
               src="/path-to-your-image.jpg"

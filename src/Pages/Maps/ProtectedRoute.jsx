@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center animate-in fade-in duration-300">
         <div className="bg-white p-8 rounded-3xl max-w-md w-full border border-gray-100 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)]">
-          {/* Կողպեքի պատկերակ */}
+          {}
           <div className="w-20 h-20 bg-gradient-to-br from-red-50 to-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
             <svg
               className="w-10 h-10"

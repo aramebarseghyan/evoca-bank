@@ -130,7 +130,7 @@ const EvocaBackground = () => {
 
   return (
     <div className="w-full relative py-6 lg:py-10">
-      {/* 1. MOBILE BLOCK */}
+      {}
       <div className="lg:hidden relative w-full min-h-[360px] sm:min-h-[420px] md:min-h-[600px] bg-[#6F00FF] rounded-tl-[5rem] sm:rounded-tl-[6.5rem] md:rounded-tl-[8rem] overflow-hidden pt-12 sm:pt-12 md:pt-20 flex flex-col items-center sm:items-start md:items-center">
         <img
           src={statue}
@@ -174,7 +174,7 @@ const EvocaBackground = () => {
         </div>
       </div>
 
-      {/* 2. LG BLOCK */}
+      {}
       <div className="hidden lg:block xl:hidden relative w-full max-w-[1440px] mx-auto min-h-[820px] overflow-hidden">
         <div className="relative w-full bg-[#6F00FF] rounded-tl-[160px] rounded-br-[100px] pt-14 pb-36 px-12 min-h-[340px]">
           <div className="absolute top-[30px] left-[-30px] w-[550px] h-[550px] pointer-events-none z-20 opacity-90">
@@ -248,7 +248,7 @@ const EvocaBackground = () => {
         </div>
       </div>
 
-      {/* 3. XL BLOCK */}
+      {}
       <div className="hidden xl:block relative w-full max-w-[1440px] 2xl:max-w-full mx-auto min-h-[980px] 2xl:min-h-[1100px] overflow-hidden rounded-tl-[240px] rounded-bl-[100px] bg-[#6F00FF]">
         <div className="absolute top-[280px] 2xl:top-[340px] right-0 w-[96%] h-[460px] 2xl:h-[520px] pointer-events-none z-0">
           <img

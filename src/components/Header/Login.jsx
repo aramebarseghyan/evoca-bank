@@ -5,7 +5,7 @@ import { Globe, EyeOff, QrCode, Phone, Mail } from "lucide-react";
 const EvocaLogin = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F7] flex flex-col font-sans">
-      {/* Header (Գլխամաս) */}
+      {}
       <header className="flex justify-between items-center py-6 px-8 md:px-12">
         <Link
           to="/"
@@ -19,16 +19,16 @@ const EvocaLogin = () => {
         </button>
       </header>
 
-      {/* Main Content (Հիմնական բլոկ) */}
+      {}
       <main className="flex-grow flex flex-col items-center justify-center px-4 pt-10 pb-20">
-        {/* Login Form Container */}
+        {}
         <div className="bg-white p-8 md:p-10 rounded-lg shadow-[0_2px_10px_rgba(0,0,0,0.04)] w-full max-w-[460px]">
           <h1 className="text-[22px] font-bold text-[#1d1d1f] mb-8">
             Մուտք համակարգ
           </h1>
 
           <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            {/* Օգտանուն */}
+            {}
             <div>
               <input
                 type="text"
@@ -38,7 +38,7 @@ const EvocaLogin = () => {
               />
             </div>
 
-            {/* Գաղտնաբառ */}
+            {}
             <div className="relative">
               <input
                 type="password"
@@ -53,7 +53,7 @@ const EvocaLogin = () => {
               </button>
             </div>
 
-            {/* Մուտքի Կոճակ */}
+            {}
             <button
               type="submit"
               className="w-full bg-[#6411C9] hover:bg-[#520fa6] text-white py-3.5 rounded-md text-[15px] font-medium transition-colors mt-2"
@@ -62,7 +62,7 @@ const EvocaLogin = () => {
             </button>
           </form>
 
-          {/* Մոռացել եք հղում */}
+          {}
           <div className="mt-6 text-center">
             <a
               href="#"
@@ -73,7 +73,7 @@ const EvocaLogin = () => {
           </div>
         </div>
 
-        {/* QR Login Container */}
+        {}
         <div className="bg-white p-5 rounded-lg shadow-[0_2px_10px_rgba(0,0,0,0.04)] w-full max-w-[460px] mt-4 flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors">
           <div className="flex items-center space-x-2">
             <QrCode size={20} className="text-[#6411C9]" />
@@ -83,7 +83,7 @@ const EvocaLogin = () => {
           </div>
         </div>
 
-        {/* Հին տարբերակ */}
+        {}
         <div className="mt-16">
           <a
             href="#"
@@ -94,16 +94,16 @@ const EvocaLogin = () => {
         </div>
       </main>
 
-      {/* Footer (Վերջամաս) */}
+      {}
       <footer className="px-8 py-6 md:px-12 flex flex-col xl:flex-row justify-between items-center text-[12px] text-[#8a8a8f] gap-6 xl:gap-0 pb-10">
-        {/* Ձախ մաս (Հեղինակային իրավունքներ) */}
+        {}
         <div className="space-y-1.5 text-center xl:text-left">
           <p>© 2026 Էվոկաբանկ</p>
           <p>Բանկը վերահսկվում է ՀՀ Կենտրոնական բանկի կողմից</p>
           <p>Տարբերակ 8.17.3.0</p>
         </div>
 
-        {/* Կենտրոն (Կոնտակտներ) */}
+        {}
         <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-8 text-[13px] text-[#5c5d61]">
           <a
             href="tel:+37410605555"
@@ -121,7 +121,7 @@ const EvocaLogin = () => {
           </a>
         </div>
 
-        {/* Աջ մաս (Հավելվածների կոճակներ) */}
+        {}
         <div className="flex items-center space-x-3">
           <button className="bg-black text-white px-2.5 py-1.5 rounded-[5px] flex items-center space-x-2 hover:bg-gray-800 transition-colors">
             <div className="flex flex-col items-start leading-none">

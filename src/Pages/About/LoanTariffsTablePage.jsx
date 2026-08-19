@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const LoanTariffsTablePage = () => {
-  // Структура меню (категории и подкатегории)
+  
   const sidebarCategories = [
     {
       id: "consumer",
@@ -46,9 +46,9 @@ const LoanTariffsTablePage = () => {
     },
   ];
 
-  // Генератор случайных данных для таблицы
+  
   const generateRandomData = () => {
-    const randomRowCount = Math.floor(Math.random() * 5) + 4; // От 4 до 8 строк
+    const randomRowCount = Math.floor(Math.random() * 5) + 4; 
     const newData = [];
 
     for (let i = 1; i <= randomRowCount; i++) {
@@ -63,42 +63,42 @@ const LoanTariffsTablePage = () => {
     return newData;
   };
 
-  // Состояния компонента
-  const [expandedCategory, setExpandedCategory] = useState("mortgage"); // По умолчанию открыта Ипотека
+  
+  const [expandedCategory, setExpandedCategory] = useState("mortgage"); 
   const [activeProduct, setActiveProduct] = useState(
-    sidebarCategories[1].items[4], // Активный продукт по умолчанию (как на скрине)
+    sidebarCategories[1].items[4], 
   );
   const [tableData, setTableData] = useState(generateRandomData());
 
-  // Обработчик клика по категории (свернуть/развернуть)
+  
   const toggleCategory = (categoryId) => {
     setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
   };
 
-  // Обработчик клика по конкретному продукту
+  
   const handleProductClick = (productName) => {
     setActiveProduct(productName);
-    setTableData(generateRandomData()); // Генерируем новые случайные данные при клике
+    setTableData(generateRandomData()); 
   };
 
   return (
     <div className="w-full bg-white font-sans text-gray-800">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8">
-        {/* Главный заголовок страницы */}
+        {}
         <h1 className="text-xl md:text-2xl lg:text-[26px] font-bold text-gray-900 mb-8 leading-snug">
           Ֆիզիկական անձանց տրամադրվող անհատական վարկեր ըստ պրոդուկտների /
           Պայմաններ և սակագներ /
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {/* Левый сайдбар (Аккордеон) */}
+          {}
           <div className="w-full lg:w-[320px] bg-white border border-gray-200 rounded-lg shadow-sm flex-shrink-0 overflow-hidden">
             {sidebarCategories.map((category) => (
               <div
                 key={category.id}
                 className="border-b border-gray-100 last:border-0"
               >
-                {/* Заголовок категории */}
+                {}
                 <div
                   onClick={() => toggleCategory(category.id)}
                   className="flex justify-between items-center px-4 py-4 cursor-pointer hover:bg-gray-50 transition-colors"
@@ -106,7 +106,7 @@ const LoanTariffsTablePage = () => {
                   <span className="font-bold text-gray-800 text-sm select-none">
                     {category.title}
                   </span>
-                  {/* Иконка стрелочки (меняется в зависимости от состояния) */}
+                  {}
                   <svg
                     className={`w-4 h-4 text-[#7034E4] transition-transform duration-200 ${
                       expandedCategory === category.id ? "rotate-180" : ""
@@ -125,7 +125,7 @@ const LoanTariffsTablePage = () => {
                   </svg>
                 </div>
 
-                {/* Список подкатегорий (Анимацию высоты можно добавить через framer-motion или CSS) */}
+                {}
                 {expandedCategory === category.id && (
                   <ul className="flex flex-col text-[13px] pb-2">
                     {category.items.map((item, index) => {
@@ -150,14 +150,14 @@ const LoanTariffsTablePage = () => {
             ))}
           </div>
 
-          {/* Правая часть: Контент с заголовком продукта и таблицей */}
+          {}
           <div className="flex-1 w-full overflow-hidden">
-            {/* Заголовок меняется динамически на выбранный продукт */}
+            {}
             <h2 className="text-xl md:text-xl font-bold text-[#7034E4] mb-6 leading-snug">
               {activeProduct}
             </h2>
 
-            {/* Таблица условий */}
+            {}
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <table className="w-full border-collapse text-left text-sm">
                 <tbody>

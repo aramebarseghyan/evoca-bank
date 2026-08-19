@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-// ==========================================
-// 1. HERO ՀԱՏՎԱԾ
-// ==========================================
+
+
+
 function WorkHero() {
   return (
     <section
@@ -23,9 +23,9 @@ function WorkHero() {
   );
 }
 
-// ==========================================
-// 2. ԴԻՄՈՒՄԻ ՀԱՅՏԻ ԲԱՂԱԴՐԻՉ (JobApplicationForm)
-// ==========================================
+
+
+
 function JobApplicationForm() {
   const [captchaText, setCaptchaText] = useState("7J5AJT");
   const [captchaInput, setCaptchaInput] = useState("");
@@ -243,9 +243,9 @@ function JobApplicationForm() {
   );
 }
 
-// ==========================================
-// 3. ԳԼԽԱՎՈՐ ԷՋԸ (WorkAtEvocaPage)
-// ==========================================
+
+
+
 export default function WorkAtEvocaPage() {
   const [openIndex, setOpenIndex] = useState(0);
 

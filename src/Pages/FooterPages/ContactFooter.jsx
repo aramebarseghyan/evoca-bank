@@ -7,12 +7,12 @@ const Contact = () => {
   return (
     <div className="w-full min-h-screen bg-white py-10">
       <div className="max-w-[900px] mx-auto px-4 md:px-8">
-        {/* Վերնագիր */}
+        {}
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-10 text-center md:text-left">
           Հետադարձ կապ
         </h2>
 
-        {/* Ինֆորմացիոն Աղյուսակ */}
+        {}
         <div className="w-full border border-gray-200 rounded-xl overflow-hidden mb-12 shadow-sm text-sm md:text-base">
           <div className="grid grid-cols-1 md:grid-cols-3 border-b border-gray-200 bg-[#fbfbFC] md:bg-white">
             <div className="p-4 text-gray-500 md:text-gray-600 md:border-r border-gray-200">
@@ -67,7 +67,7 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Ֆորմայի հատված */}
+        {}
         <div className="bg-[#fbfbFC] border border-gray-100 shadow-sm rounded-xl p-6 md:p-10 mb-20 max-w-[750px] mx-auto">
           <p className="text-gray-600 text-sm mb-6 leading-relaxed">
             Մենք կցանկանայինք լսել ձեր մտքերը, առաջարկությունները,
@@ -79,7 +79,7 @@ const Contact = () => {
           </p>
 
           <form className="space-y-5">
-            {/* Ռադիո խումբ 1 */}
+            {}
             <div>
               <p className="text-sm font-bold text-gray-800 mb-2">
                 Դուք հանդիսանում եք
@@ -108,7 +108,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Ռադիո խումբ 2 */}
+            {}
             <div>
               <p className="text-sm font-bold text-gray-800 mb-2">
                 Հետադարձ կապի տեսակը <span className="text-red-500">*</span>
@@ -137,7 +137,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Անուն */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Անուն <span className="text-red-500">*</span>
@@ -148,7 +148,7 @@ const Contact = () => {
               />
             </div>
 
-            {/* Ազգանուն */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Ազգանուն <span className="text-red-500">*</span>
@@ -159,7 +159,7 @@ const Contact = () => {
               />
             </div>
 
-            {/* Հեռախոս */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Հեռ՝ <span className="text-red-500">*</span>
@@ -184,7 +184,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Էլ. փոստ */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Էլ․ փոստ <span className="text-red-500">*</span>
@@ -195,7 +195,7 @@ const Contact = () => {
               />
             </div>
 
-            {/* Հաղորդագրություն */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Հաղորդագրություն <span className="text-red-500">*</span>
@@ -206,7 +206,7 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            {/* Կցել փաստաթուղթ */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Կցել փաստաթուղթ
@@ -231,7 +231,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Կապչա (Captcha) */}
+            {}
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-800">
                 Ստուգման ծածկագիր <span className="text-red-500">*</span>
@@ -263,18 +263,18 @@ const Contact = () => {
                     </svg>
                   </button>
                 </div>
-                {/* Կապչայի Նկարի վիզուալիզացիա */}
+                {}
                 <div className="bg-white border border-gray-300 rounded h-14 flex items-center justify-center relative overflow-hidden select-none">
                   <span className="text-[26px] font-serif italic tracking-[0.2em] text-gray-900 relative z-10">
                     ZFX7G6
                   </span>
-                  {/* Մեջտեղի գիծը */}
+                  {}
                   <div className="absolute w-[110%] h-[1.5px] bg-black top-1/2 left-[-5%] transform -translate-y-1/2 -rotate-3 z-20"></div>
                 </div>
               </div>
             </div>
 
-            {/* Ուղարկել Կոճակ */}
+            {}
             <div className="flex justify-center md:justify-center pt-6">
               <button
                 type="button"

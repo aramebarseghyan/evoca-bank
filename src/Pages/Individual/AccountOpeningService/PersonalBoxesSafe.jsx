@@ -5,7 +5,7 @@ const PersonalBoxesSafe = () => {
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-10 md:pt-16">
-        {/* Hero Section */}
+        {}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-24 mb-16 gap-6 lg:gap-0">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -19,7 +19,7 @@ const PersonalBoxesSafe = () => {
           </div>
           <div className="lg:w-[55%]">
             <img
-              // Вы можете заменить ссылку на актуальную картинку с сайта Evoca
+              
               src="https://www.evoca.am/images-cache/menu/1/17793417530511/780x585.jpg"
               alt="Անհատական պահատուփեր"
               className="w-full h-full object-cover min-h-[300px] bg-[#5D00E0] rounded-3xl lg:rounded-l-none lg:rounded-r-[3rem]"
@@ -27,7 +27,7 @@ const PersonalBoxesSafe = () => {
           </div>
         </div>
 
-        {/* Main Text Content */}
+        {}
         <div className="px-4 sm:px-8 lg:px-24 max-w-[1200px] mx-auto space-y-6 text-gray-700 text-sm md:text-base mb-16">
           <p>
             Պահատուփերի պարունակությունը միայն ձեր գաղտնիքն է: Դրանցում կարող եք
@@ -65,9 +65,9 @@ const PersonalBoxesSafe = () => {
           </p>
         </div>
 
-        {/* Tariffs Tables Section */}
+        {}
         <div className="px-4 sm:px-8 lg:px-24 max-w-[1200px] mx-auto">
-          {/* Table 1: Standard Tariffs */}
+          {}
           <div className="mb-16">
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
               Չհրկիզվող անհատական պահարանների վարձակալման սակագներ
@@ -174,7 +174,7 @@ const PersonalBoxesSafe = () => {
                     </td>
                     <td className="py-4 px-6 text-center">պայմանագրային</td>
                   </tr>
-                  {/* Additional Condition Rows */}
+                  {}
                   <tr className="border-b border-[#f0ecfc] hover:bg-gray-50 transition-colors">
                     <td className="py-4 px-6 border-r border-[#f0ecfc]">
                       Պահարանի բանալու կորուստ կամ վնասում
@@ -212,7 +212,7 @@ const PersonalBoxesSafe = () => {
             </div>
           </div>
 
-          {/* Table 2: Foreign Citizens Tariffs */}
+          {}
           <div>
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
               Չհրկիզվող անհատական պահարանների վարձակալում օտարերկրյա

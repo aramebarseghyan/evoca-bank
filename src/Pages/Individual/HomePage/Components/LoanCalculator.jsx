@@ -1,32 +1,32 @@
 import React, { useState } from "react";
 
 const LoanCalculator = () => {
-  // Տաբերի վիճակը (loan կամ deposit)
+  
   const [activeTab, setActiveTab] = useState("loan");
 
-  // Վարկի state-եր
+  
   const [loanAmount, setLoanAmount] = useState(0);
   const [interestRate, setInterestRate] = useState(1);
   const [term, setTerm] = useState(1);
   const [repaymentType, setRepaymentType] = useState("spring");
 
-  // Ավանդի state-եր
+  
   const [depositAmount, setDepositAmount] = useState(0);
   const [depositRate, setDepositRate] = useState(1);
   const [depositTerm, setDepositTerm] = useState(91);
 
   return (
-    // Ավելացված է mt-[150px] md:mt-0՝ միայն mobile և sm էկրաններին 150px իջեցնելու համար
+    
     <div className="w-full max-w-[900px] xl:max-w-[800px] 2xl:max-w-[1100px] mx-auto p-5 pt-25 font-sans mt-[150px] md:mt-0">
       <div className="-mt-[370px] md:-mt-[-30px] -mb-[290px] md:mb-[70px] relative z-10 transition-all">
-        {/* Հաշվիչներ վերնագիրը */}
+        {}
         <h1 className="text-[28px] md:text-[35px] 2xl:text-[40px] font-extrabold text-gray-900 mb-6 2xl:mb-8 tracking-tight px-1">
           Հաշվիչներ
         </h1>
 
-        {/* Հիմնական քարտ */}
+        {}
         <div className="bg-[#fdfbfe] rounded-[24px] 2xl:rounded-[32px] p-1.5 2xl:p-2 shadow-[0_0_35px_rgba(92,14,214,0.06)] border border-purple-50 relative">
-          {/* Տաբեր */}
+          {}
           <div className="flex px-3 2xl:px-4 cursor-pointer">
             <div
               onClick={() => setActiveTab("loan")}
@@ -50,14 +50,14 @@ const LoanCalculator = () => {
             </div>
           </div>
 
-          {/* Հաշվիչի բուն ձևը */}
+          {}
           <div className="bg-white rounded-[20px] 2xl:rounded-[24px] rounded-tl-none p-4 lg:p-8 xl:p-6 2xl:p-10 pt-6 2xl:pt-8 relative z-0 min-h-[450px] xl:min-h-[420px] 2xl:min-h-[480px] flex flex-col">
-            {/* ================= ՎԱՐԿԻ ԲԱԺԻՆ ================= */}
+            {}
             {activeTab === "loan" && (
               <div className="animate-fade-in flex flex-col h-full flex-grow">
-                {/* 2 սյունակով Grid մեծ էկրանների համար */}
+                {}
                 <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-8 2xl:gap-x-16">
-                  {/* Ձախ սյունակ */}
+                  {}
                   <div>
                     <RangeInput
                       label="Վարկի գումար"
@@ -83,7 +83,7 @@ const LoanCalculator = () => {
                     />
                   </div>
 
-                  {/* Աջ սյունակ */}
+                  {}
                   <div>
                     <RangeInput
                       label="Ժամկետ"
@@ -138,7 +138,7 @@ const LoanCalculator = () => {
                   </div>
                 </div>
 
-                {/* Ներքևի հատված՝ տեքստ և կոճակ */}
+                {}
                 <div className="mt-auto pt-6 2xl:pt-10 flex flex-col-reverse lg:flex-row justify-between items-start lg:items-end gap-6">
                   <p className="text-[12px] 2xl:text-[13px] text-gray-600 leading-relaxed px-1 max-w-[450px] 2xl:max-w-[500px]">
                     Բոլոր հաշվարկները կրում են մոտավոր բնույթ և չեն հանդիսանում
@@ -151,11 +151,11 @@ const LoanCalculator = () => {
               </div>
             )}
 
-            {/* ================= ԱՎԱՆԴԻ ԲԱԺԻՆ ================= */}
+            {}
             {activeTab === "deposit" && (
               <div className="animate-fade-in flex flex-col h-full flex-grow">
                 <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 xl:gap-x-8 2xl:gap-x-16">
-                  {/* Ձախ սյունակ */}
+                  {}
                   <div>
                     <RangeInput
                       label="Ներդրվող գումար"
@@ -192,7 +192,7 @@ const LoanCalculator = () => {
                     />
                   </div>
 
-                  {/* Աջ սյունակ - Արդյունքներ */}
+                  {}
                   <div className="mt-8 lg:mt-0 space-y-6 2xl:space-y-8 px-1 lg:pl-4 2xl:pl-8">
                     <div>
                       <p className="text-[14px] 2xl:text-[15px] text-gray-800 font-medium mb-2 2xl:mb-3">
@@ -227,7 +227,7 @@ const LoanCalculator = () => {
                   </div>
                 </div>
 
-                {/* Ինֆո բլոկ և ընդհանուր տեքստ */}
+                {}
                 <div className="mt-auto pt-8 2xl:pt-12 flex flex-col gap-6 2xl:gap-8">
                   <div className="flex items-start justify-between gap-4 px-1 max-w-[450px] 2xl:max-w-[550px]">
                     <p className="text-[12px] 2xl:text-[13px] text-gray-500 font-medium leading-[1.4]">

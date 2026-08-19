@@ -21,7 +21,7 @@ export const useFavoriteStore = create(
       },
     }),
     {
-      name: "favorite-loans-storage", // Պահպանում է localStorage-ում
+      name: "favorite-loans-storage", 
     }
   )
 );

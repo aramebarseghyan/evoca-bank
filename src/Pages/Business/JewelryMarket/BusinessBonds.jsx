@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// Вспомогательный компонент для аккордеона с анимацией (идентичен вашему)
+
 const AccordionItem = ({ title, children, isOpen, onClick }) => {
   return (
     <div
@@ -32,7 +32,7 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => {
         </svg>
       </button>
 
-      {/* Обертка для плавной анимации высоты */}
+      {}
       <div
         className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -47,7 +47,7 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => {
 };
 
 const BusinessBonds = () => {
-  // Открываем первый аккордеон по умолчанию (индекс 0)
+  
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
@@ -57,7 +57,7 @@ const BusinessBonds = () => {
   return (
     <div className="w-full bg-white sm:bg-transparent pt-[30px] sm:pt-[50px] pb-16">
       <div className="max-w-[1150px] mx-auto lg:ml-[300px] lg:mx-0 px-4 sm:px-6 lg:px-8">
-        {/* Верхняя текстовая часть */}
+        {}
         <div className="mb-12 text-[#333333] text-sm sm:text-base leading-relaxed">
           <p className="mb-6">
             Առաջին անգամ հայաստանյան ֆինանսական համակարգում Evocabank-ը, որպես
@@ -91,14 +91,14 @@ const BusinessBonds = () => {
           </ul>
         </div>
 
-        {/* Раздел: ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ (Аккордеоны) */}
+        {}
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#222222] mb-8 uppercase tracking-wide text-center sm:text-left">
             Անհրաժեշտ տեղեկատվություն
           </h2>
 
           <div className="flex flex-col gap-2">
-            {/* 1. ՏԱՍՆՉՈՐՍԵՐՈՐԴ ԵՎ ՏԱՍՆՀԻՆԳԵՐՈՐԴ ԹՈՂԱՐԿՈՒՄ */}
+            {}
             <AccordionItem
               title="Տասնչորսերորդ և տասնհինգերորդ թողարկում"
               isOpen={openIndex === 0}
@@ -109,7 +109,7 @@ const BusinessBonds = () => {
                   Թողարկվող պարտատոմսերի պայմաններ
                 </h4>
 
-                {/* Таблица параметров */}
+                {}
                 <div className="overflow-x-auto border border-gray-200 rounded-xl">
                   <table className="w-full text-left border-collapse text-sm sm:text-base">
                     <tbody>
@@ -194,7 +194,7 @@ const BusinessBonds = () => {
                   03.07.2024թ-ի թիվ 1/254Ա որոշմամբ:
                 </p>
 
-                {/* Ссылки на документы внутри аккордеона */}
+                {}
                 <div className="flex flex-wrap gap-4 pt-2">
                   <a
                     href="#"
@@ -218,7 +218,7 @@ const BusinessBonds = () => {
               </div>
             </AccordionItem>
 
-            {/* 2. ТУПИКОВЫЕ / ПРОШЛЫЕ ВЫПУСКИ */}
+            {}
             <AccordionItem
               title="Տասներկուրորդ և տասներեքերորդ"
               isOpen={openIndex === 1}
@@ -265,7 +265,7 @@ const BusinessBonds = () => {
           </div>
         </div>
 
-        {/* Раздел: Файлы / Документы */}
+        {}
         <div className="mt-12">
           <h3 className="text-xl sm:text-2xl font-bold text-[#222222] mb-6">
             Փաստաթղթեր

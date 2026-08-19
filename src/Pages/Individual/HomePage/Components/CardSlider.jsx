@@ -74,11 +74,7 @@ const CardSlider = () => {
   };
 
   if (loading) {
-    return (
-      <div className="w-full bg-[#F4F7FF] min-h-[500px] flex justify-center items-center font-sans">
-        <p className="text-slate-500">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (cards.length === 0) {
@@ -110,9 +106,9 @@ const CardSlider = () => {
         }
       `}</style>
 
-      {/* ========================================= */}
-      {/* ՄՈԲԱՅԼ ԵՎ ՊԼԱՆՇԵՏՆԵՐԻ ՏԱՐԲԵՐԱԿ (<1024px) */}
-      {/* ========================================= */}
+      {}
+      {}
+      {}
       <div className="relative w-full mb-6 lg:hidden">
         <Swiper
           modules={[Navigation]}
@@ -164,11 +160,11 @@ const CardSlider = () => {
         </button>
       </div>
 
-      {/* ========================================= */}
-      {/* LG DESKTOP ՏԱՐԲԵՐԱԿ (≥1024px)             */}
-      {/* ========================================= */}
+      {}
+      {}
+      {}
       <div className="hidden lg:flex flex-row w-full max-w-7xl mx-auto items-center justify-between min-h-[600px] xl:min-h-[550px] gap-8 xl:gap-12 px-4 xl:px-10">
-        {/* 1. Ձախ կողմ: Ուղղահայաց սլայդեր (Փոքր քարտեր) */}
+        {}
         <div className="flex flex-col items-center w-[180px] xl:w-[200px] h-[550px] relative shrink-0">
           <button className="swiper-button-prev-desktop flex justify-center items-center w-full pb-4 text-[#5A00C8] cursor-pointer disabled:opacity-30 disabled:cursor-default transition-opacity z-10">
             <svg
@@ -241,7 +237,7 @@ const CardSlider = () => {
           </button>
         </div>
 
-        {/* 2. Մեջտեղ: Մեծ քարտը (Ինտերակտիվ 3D էֆեկտով) */}
+        {}
         <div className="flex flex-1 justify-center items-center relative perspective-[1000px]">
           <div
             key={activeIndex}
@@ -260,7 +256,7 @@ const CardSlider = () => {
           </div>
         </div>
 
-        {/* 3. Աջ կողմ: Տեքստ և Կոճակ */}
+        {}
         <div className="flex flex-col justify-center w-[300px] xl:w-[350px] shrink-0 pr-4 2xl:-translate-y-[130px]">
           <h2 className="text-[28px] xl:text-[34px] font-semibold text-[#1A1F36] mb-5 text-left leading-tight">
             {cards[activeIndex]?.title}

@@ -1,6 +1,6 @@
 import React from "react";
 
-// Иконка документа со стрелкой скачивания
+
 const DownloadIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ const DownloadIcon = () => (
 );
 
 const FinancialStatementsList = () => {
-  // Данные по годам и кварталам
+  
   const yearsData = [
     {
       year: "2026",
@@ -80,21 +80,21 @@ const FinancialStatementsList = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 font-sans">
-      {/* Главный заголовок страницы */}
+      {}
       <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-10">
         Ֆինանսական հաշվետվություններ
       </h1>
 
-      {/* Сетка для блоков по годам */}
+      {}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
         {yearsData.map((item) => (
           <div key={item.year} className="flex flex-col">
-            {/* Год */}
+            {}
             <h2 className="text-[22px] font-bold text-gray-800 mb-4">
               {item.year}
             </h2>
 
-            {/* Вложенная сетка для файлов внутри одного года (2 в ряд) */}
+            {}
             <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
               {item.reports.map((report, idx) => (
                 <a

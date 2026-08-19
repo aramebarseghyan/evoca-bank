@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import evocaLogo from "../../assets/img/evocaLogo.png";
 
-// --- ИКОՆԿԻ СОЦСЕТЕЙ (SVG) ---
+
 const FacebookIcon = () => (
   <svg
     width="18"
@@ -67,7 +67,7 @@ const Footer1 = () => {
   const location = useLocation();
   const cleanPath = location.pathname ? location.pathname.toLowerCase() : "";
 
-  // Հեռացնում ենք ֆուտերը /evocaLogin էջերի դեպքում
+  
   if (cleanPath === "/evocalogin" || cleanPath.includes("evocalogin")) {
     return null;
   }
@@ -76,7 +76,7 @@ const Footer1 = () => {
     <footer className="bg-white py-10 sm:py-12 2xl:py-20 border-t border-[#eee]">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 xl:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-8 xl:gap-8 2xl:gap-12 items-start">
-          {/* 1. Левый блок: Логотип, адрес, копирайт */}
+          {}
           <div className="flex flex-col gap-5 sm:gap-6 2xl:gap-10">
             <div className="flex items-center">
               <img
@@ -101,7 +101,7 @@ const Footer1 = () => {
             </div>
           </div>
 
-          {/* 2. Второй блок: Բանկի մասին */}
+          {}
           <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
             <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Բանկի մասին
@@ -190,7 +190,7 @@ const Footer1 = () => {
             </ul>
           </div>
 
-          {/* 3. Третий блок: Օգտակար հղումներ */}
+          {}
           <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
             <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Օգտակար հղումներ
@@ -259,7 +259,7 @@ const Footer1 = () => {
             </ul>
           </div>
 
-          {/* 4. Четвертый блок - Այլ հղումներ */}
+          {}
           <div className="hidden xl:flex flex-col gap-3 sm:gap-4 2xl:gap-6">
             <h3 className="text-[#111] font-bold text-[15px] sm:text-[14px] xl:text-[15px] 2xl:text-[16px]">
               Այլ հղումներ
@@ -332,9 +332,9 @@ const Footer1 = () => {
             </ul>
           </div>
 
-          {/* 5. Пятый блок - Соцсети, маркеты, контакты */}
+          {}
           <div className="flex flex-col gap-6 sm:gap-8 2xl:gap-10 xl:mt-[2px]">
-            {/* Иконки соцсетей */}
+            {}
             <div className="flex items-center gap-4 sm:gap-3.5 2xl:gap-5">
               <a
                 href="#facebook"
@@ -373,7 +373,7 @@ const Footer1 = () => {
               </a>
             </div>
 
-            {/* Бейджи приложений */}
+            {}
             <div className="flex items-center gap-3 sm:gap-2.5 2xl:gap-3.5">
               <a
                 href="#appstore"
@@ -397,7 +397,7 @@ const Footer1 = () => {
               </a>
             </div>
 
-            {/* Ссылки и контакты */}
+            {}
             <div className="flex flex-col gap-3.5 sm:gap-4 2xl:gap-6">
               <a
                 href="#branches"

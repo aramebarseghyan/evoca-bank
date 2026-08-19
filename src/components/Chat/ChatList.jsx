@@ -39,7 +39,7 @@ const ChatList = ({
               onClick={() => setActiveChat(u)}
               className="flex items-center flex-1 p-3 cursor-pointer overflow-hidden"
             >
-              {/* АВАТАРКА ИЛИ БУКВА-ЗАГЛУШКА */}
+              {}
               {u.photoURL ? (
                 <img
                   src={u.photoURL}

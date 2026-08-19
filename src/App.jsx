@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import "./App.css";
 
-// Firebase & Store imports
+
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { useAuthStore } from "./store/authStore";
 import AuthModal from "./Pages/Acc/AuthModal";
 
-// --- ԱՎԵԼԱՑՎԱԾ Է PEER-Ը ---
+
 import { Peer } from "peerjs";
 
-// Header, Footer and Page Header imports
+
 import MainHeader from "./components/MainHeader";
 import Footer from "./components/Footer/Footer";
 import PageHeader from "./components/PageHeader";
@@ -20,7 +20,7 @@ import LocationTracker from "./Pages/Maps/LocationTracker";
 import ChatButton from "./components/Chat/ChatButton";
 import ChatWindow from "./components/Chat/ChatWindow";
 
-// === ABOUT PAGES ===
+
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
 import EvocaCulturePage from "./Pages/Career/EvocaCulturePage";
 import EvocaAdvantagesPage from "./Pages/Career/BenefitsHero";
@@ -54,7 +54,7 @@ import ReviewsList from "./Pages/About/ReviewsList";
 import ConstructionCompanies from "./Pages/FooterPages/ConstructionCompanies";
 import CustomerRights from "./Pages/FooterPages/CustomerRights";
 
-// === NEWS AND BLOG ===
+
 import NewsPage from "./Pages/News/NewsPage";
 import NewsArchive from "./Pages/News/NewsArchive";
 import NewsDetailPage from "./Pages/News/NewsDetailPage";
@@ -63,7 +63,7 @@ import BlogPage from "./Pages/Blog/BlogPage";
 import BlogArchive from "./Pages/Blog/BlogArchive";
 import BlogDetailPage from "./Pages/Blog/BlogDetailPage";
 
-// === BUSINESS ===
+
 import GuaranteeAccordion from "./Pages/Business/Finance/AccordionItem";
 import FactoringPage from "./Pages/Business/Finance/LoanSummarySection";
 import LetterOfCreditPage from "./Pages/Business/Finance/LetterOfCreditPage";
@@ -75,7 +75,7 @@ import TerminalInstallationForm from "./Pages/Business/Digital/TerminalInstallat
 import EvocaMobilePosPage from "./Pages/Business/Digital/EvocaMobilePosPage";
 import BusinessMoneyTransfers from "./Pages/Business/Others/BusinessMoneyTransfers";
 
-// === INDIVIDUALS ===
+
 import HomePage from "./Pages/Individual/HomePage/HomePage";
 import LoansPage from "./Pages/Individual/LoansPage/LoansPage";
 import LoanDetailsPage from "./Pages/Individual/LoansPage/Components/LoanDetailsPage";
@@ -104,7 +104,7 @@ import StocksCdaServices from "./Pages/Individual/Securities/StocksCdaServices";
 import RepoTransactions from "./Pages/Individual/Securities/RepoTransactions";
 import EvocaInvest from "./Pages/Individual/Securities/EvocaInvest";
 
-// === BUSINESS LOANS AND SERVICES ===
+
 import BusinessLoansList from "./Pages/Business/Loans/BusinessLoansList";
 import BusinessLoanDetails from "./Pages/Business/Loans/BusinessLoanDetails";
 import LeasingPage from "./Pages/Business/Leasing/LeasingPage";
@@ -118,7 +118,7 @@ import BusinessCdaServices from "./Pages/Business/JewelryMarket/BusinessCdaServi
 import BusinessRepoTransactions from "./Pages/Business/JewelryMarket/BusinessRepoTransactions";
 import BusinessEvocaInvest from "./Pages/Business/EvocalNVEST/EvocalNVEST";
 
-// === ONLINE PAYMENTS ===
+
 import InstantPaymentsPage from "./Pages/OnlinePayment/Components/OnlinePayment,";
 import EvocabankPage from "./Pages/OnlinePayment/Components/Pages/EvocabankPage";
 import LoanRepaymentPage from "./Pages/OnlinePayment/Components/Pages/LoanRepaymentPage";
@@ -126,7 +126,7 @@ import LoanInputPage from "./Pages/OnlinePayment/Components/Pages/LoanInputPage"
 
 import LegalActs from "./Pages/FooterPages/LegalActs";
 
-// === MAPS ===
+
 import LiveUsersMap from "./Pages/Maps/LiveUsersMap";
 import ProtectedRoute from "./Pages/Maps/ProtectedRoute";
 import AlienatedProperty from "./Pages/FooterPages/AlienatedProperty";
@@ -149,7 +149,7 @@ function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const user = useAuthStore((state) => state.user);
 
-  // СОСТОЯНИЕ ДЛЯ ЧАТА И ЗВОНКОВ
+  
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [peerInstance, setPeerInstance] = useState(null);
   const [incomingCall, setIncomingCall] = useState(null);
@@ -158,7 +158,7 @@ function App() {
     setIsChatOpen(!isChatOpen);
   };
 
-  // 1. АВТОРИЗАЦИЯ FIREBASE
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -166,7 +166,7 @@ function App() {
     return () => unsubscribe();
   }, [setUser]);
 
-  // --- ՆՈՐ: PEERJS ԳԼՈԲԱԼ ՄԻԱՑՈՒՄ ---
+  
   useEffect(() => {
     if (!user) return;
 
@@ -193,9 +193,9 @@ function App() {
       peer.destroy();
     };
   }, [user]);
-  // ------------------------------------
+  
 
-  // --- ԱՎԵԼԱՑՎԵԼ Է /login ԷՋԸ ՈՐՊԵՍ STANDALONE ---
+  
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
     location.pathname === "/instant-payments" ||
@@ -217,9 +217,9 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* --- ԱՎԵԼԱՑՎԱԾ Է ՄՈՒՏՔԻ ԷՋԻ ՌԱՈՒԹԸ --- */}
+          {}
           <Route path="/evocaLogin" element={<EvocaLogin />} />
-          {/* MAPS - ЗАЩИЩЕННЫЙ МАРШРУТ */}
+          {}
           <Route
             path="/live-map"
             element={
@@ -228,20 +228,20 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* PAYMENTS */}
+          {}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-          {/* NEWS */}
+          {}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
-          {/* BLOG */}
+          {}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
-          {/* BUSINESS */}
+          {}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
           <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
@@ -294,7 +294,7 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-          {/* ABOUT AND HOME */}
+          {}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/culture" element={<EvocaCulturePage />} />
@@ -316,7 +316,7 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
-          {/* TARIFFS */}
+          {}
           <Route
             path="/tariffs"
             element={<Navigate to="/tariffs/loans-to-individuals" replace />}
@@ -335,7 +335,7 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-          {/* INDIVIDUALS */}
+          {}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
@@ -427,7 +427,7 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
-          {/* CAREERS */}
+          {}
           <Route path="/how-to-apply" element={<EvocaCareers />} />
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
           <Route path="/work-at-evoca/:id" element={<JobDetail />} />

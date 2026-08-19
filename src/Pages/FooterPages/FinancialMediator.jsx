@@ -7,7 +7,7 @@ const FinancialMediator = () => {
         Ֆին. հաշտարար
       </h1>
 
-      {/* Intro */}
+      {}
       <p className="font-bold italic text-sm sm:text-base mb-4 text-gray-900 leading-relaxed">
         <span className="not-italic font-bold">
           Ֆինանսական համակարգի հաշտարարի
@@ -22,7 +22,7 @@ const FinancialMediator = () => {
         Հաշտարարի ծառայություններն անվճար են:
       </p>
 
-      {/* Goals */}
+      {}
       <div className="mb-8">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 mb-4">
           Ֆինանսական համակարգի հաշտարարի գործունեության նպատակներն են՝
@@ -50,7 +50,7 @@ const FinancialMediator = () => {
         </ul>
       </div>
 
-      {/* Office Details */}
+      {}
       <div className="mb-8">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 mb-4">
           Ֆինանսական համակարգի հաշտարարի գրասենյակ՝
@@ -98,7 +98,7 @@ const FinancialMediator = () => {
         </div>
       </div>
 
-      {/* Work Schedule */}
+      {}
       <div className="mb-8">
         <h2 className="text-sm sm:text-base font-bold text-gray-900 mb-3">
           Աշխատանքային ժամեր՝

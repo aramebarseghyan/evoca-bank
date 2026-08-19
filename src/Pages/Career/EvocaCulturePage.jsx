@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 
-// Swiper-ի ոճերը
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Վիդեոների տվյալների բազա
+
 const cultureVideos = [
   {
     id: 1,
@@ -53,7 +53,7 @@ const cultureVideos = [
   },
 ];
 
-// Թիմի կարծիքների տվյալների բազա
+
 const testimonials = [
   {
     id: 1,
@@ -86,9 +86,9 @@ export default function EvocaCulturePage() {
 
   return (
     <div className="w-full font-sans text-[#333333] overflow-x-hidden">
-      {/* Ներկառուցված ոճեր հատուկ սլայդերի անիմացիաների համար */}
+      {}
       <style>{`
-        /* Վիդեոների Սլայդերի ոճեր */
+        
         .culture-swiper .swiper-wrapper {
           align-items: center;
         }
@@ -109,17 +109,17 @@ export default function EvocaCulturePage() {
           font-size: 1.25rem;
         }
         
-        /* Թիմի կարծիքների սլայդերի (Testimonials) ոճեր */
+        
         .testimonial-swiper .swiper-pagination-bullet {
           width: 8px;
           height: 8px;
-          background-color: #d1d5db; /* մոխրագույն */
+          background-color: #d1d5db; 
           opacity: 1;
           margin: 0 6px !important;
           transition: background-color 0.3s ease;
         }
         .testimonial-swiper .swiper-pagination-bullet-active {
-          background-color: #5C00C9; /* մանուշակագույն */
+          background-color: #5C00C9; 
         }
         
         @media (max-width: 1024px) {
@@ -137,7 +137,7 @@ export default function EvocaCulturePage() {
         }
       `}</style>
 
-      {/* 1. HERO SECTION */}
+      {}
       <section
         className="relative w-full h-[350px] md:h-[500px] bg-cover bg-center flex items-center"
         style={{
@@ -157,7 +157,7 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 2. WHY WORK AT EVOCA SECTION */}
+      {}
       <section className="py-16 px-4 md:px-0">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">
@@ -178,9 +178,9 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 3. CULTURE VIDEOS SWIPER SECTION */}
+      {}
       <section className="bg-[#5C00C9] py-20 relative overflow-hidden">
-        {/* Աբստրակտ լողացող էլեմենտներ (Ֆոնային դիզայն) */}
+        {}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           <svg
             className="absolute top-[10%] left-[8%] w-10 h-10 text-[#FFD700] transform -rotate-12 opacity-90"
@@ -234,7 +234,7 @@ export default function EvocaCulturePage() {
           </div>
         </div>
 
-        {/* SWIPER CONTAINER */}
+        {}
         <div className="relative w-full z-10 px-0 md:px-12">
           <Swiper
             modules={[Navigation, Autoplay]}
@@ -338,7 +338,7 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 4. TESTIMONIALS SECTION (Թարմացված է ըստ տեսանյութի դիզայնի) */}
+      {}
       <section className="py-20 bg-white">
         <div className="container mx-auto text-center px-4 md:px-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-12 text-[#333]">
@@ -399,7 +399,7 @@ export default function EvocaCulturePage() {
               ))}
             </Swiper>
 
-            {/* Նավիգացիոն սլաքներ Testimonial սլայդերի համար */}
+            {}
             <button className="test-swiper-button-prev absolute left-0 md:left-2 top-1/2 -translate-y-1/2 z-20 text-[#5C00C9] hover:text-[#8c54ff] transition-colors p-2 bg-white rounded-full">
               <svg
                 className="w-8 h-8"
@@ -435,7 +435,7 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 5. JOB APPLICATION FORM */}
+      {}
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="container mx-auto max-w-3xl px-4">
           <div className="text-center mb-10">

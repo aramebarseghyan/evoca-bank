@@ -10,7 +10,7 @@ const InfoList = ({ activeFilter, collectionName = "loansImportantInfo" }) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        // Используем переданное имя коллекции или дефолтное
+        
         const querySnapshot = await getDocs(collection(db, collectionName));
         const itemsList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -53,11 +53,7 @@ const InfoList = ({ activeFilter, collectionName = "loansImportantInfo" }) => {
   });
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (filteredItems.length === 0) {

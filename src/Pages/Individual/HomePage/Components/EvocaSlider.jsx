@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "../../../../firebase";
 
@@ -10,7 +9,6 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 
 function EvocaSlider() {
-  const navigate = useNavigate();
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -45,12 +43,6 @@ function EvocaSlider() {
     return (
       bg.includes("#efefef") || bg.includes("#ffffff") || bg.includes("#f3f4f6")
     );
-  };
-
-  const handleButtonClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate("/cards");
   };
 
   if (loading) {
@@ -137,16 +129,16 @@ function EvocaSlider() {
                       </p>
                     )}
 
-                    <button
-                      onClick={handleButtonClick}
-                      className={`inline-flex items-center justify-center py-3 px-8 md:py-3.5 md:px-10 font-medium rounded-full transition-all duration-300 text-center text-[15px] md:text-[17px] tracking-wide shadow-sm active:scale-95 cursor-pointer ${
+                    <a
+                      href={slide.link || "#"}
+                      className={`inline-flex items-center justify-center py-3 px-8 md:py-3.5 md:px-10 font-medium rounded-full transition-all duration-300 text-center text-[15px] md:text-[17px] tracking-wide shadow-sm active:scale-95 ${
                         slideIsLight
                           ? "bg-[#6200EE] text-white hover:bg-[#5000C9] hover:shadow-md"
                           : "bg-white text-[#6200EE] hover:bg-gray-100 hover:shadow-md"
                       }`}
                     >
                       {slide.buttonText || "Իմանալ ավելին"}
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

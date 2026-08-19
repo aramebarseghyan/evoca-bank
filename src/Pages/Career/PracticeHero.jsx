@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-// ==========================================
-// 1. HERO ՀԱՏՎԱԾ (ՍԵԿՑԻԱ)
-// ==========================================
+
+
+
 function PracticeHero() {
   return (
     <section
@@ -29,9 +29,9 @@ function PracticeHero() {
   );
 }
 
-// ==========================================
-// 2. ԳՈՐԾԸՆԿԵՐ ԲՈՒՀԵՐԻ ՍԵԿՑԻԱ
-// ==========================================
+
+
+
 function PartnerUniversities() {
   const universities = [
     {
@@ -91,9 +91,9 @@ function PartnerUniversities() {
   );
 }
 
-// ==========================================
-// 3. ԴԻՄՈՒՄԻ ՀԱՅՏԻ ԲԱՂԱԴՐԻՉ (JobApplicationForm)
-// ==========================================
+
+
+
 function PracticeApplicationForm() {
   const [captchaText, setCaptchaText] = useState("5K9L2M");
   const [captchaInput, setCaptchaInput] = useState("");
@@ -293,9 +293,9 @@ function PracticeApplicationForm() {
   );
 }
 
-// ==========================================
-// 4. ԳԼԽԱՎՈՐ ԷՋԸ (PracticePage)
-// ==========================================
+
+
+
 export default function PracticePage() {
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -336,7 +336,7 @@ export default function PracticePage() {
       <PracticeHero />
       <PartnerUniversities />
 
-      {/* ՓՈՒԼԵՐԻ ԱԿԿՈՐԴԵՈՆ */}
+      {}
       <div className="container mx-auto px-6 md:px-12 lg:px-32 py-12 md:py-20 flex justify-center">
         <div className="w-full max-w-4xl">
           <div className="mb-12 text-center">

@@ -52,11 +52,7 @@ const LoanList = ({ activeFilter }) => {
   });
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (filteredProducts.length === 0) {

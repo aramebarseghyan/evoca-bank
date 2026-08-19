@@ -1,12 +1,12 @@
-// Функция для очистки языковых префиксов (/hy, /ru, /en) из URL
+
 export const normalizePath = (path) => {
   return path.replace(/^\/(hy|ru|en)/, "") || "/";
 };
 
 export const subNavigationGroups = [
-  // ==========================================
-  //  ԱՆՀԱՏ (ФИЗИЧЕСКИЕ ЛИЦА)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/loans",
     isBusiness: false,
@@ -115,9 +115,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ԲԻԶՆԵՍ (БИЗНЕС)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/business-loans",
     isBusiness: true,
@@ -220,9 +220,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ՄԵՐ ՄԱՍԻՆ (О НАС)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/about",
     isBusiness: false,
@@ -248,9 +248,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ՍԱԿԱԳՆԵՐ (ТАРИФЫ)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/tariffs",
     isBusiness: false,
@@ -277,9 +277,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ՀԱՇՎԵՏՎՈՒԹՅՈՒՆՆԵՐ (ОТЧЕТЫ)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/auditors-opinion",
     isBusiness: false,
@@ -299,9 +299,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ՀԱՅՏԱՐԱՐՈՒԹՅՈՒՆՆԵՐ (ОБЪЯВЛЕНИЯ)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/announcements",
     isBusiness: false,
@@ -309,9 +309,9 @@ export const subNavigationGroups = [
     items: [{ name: "Հայտարարություններ", path: "/announcements" }],
   },
 
-  // ==========================================
-  //  ԿԱՐԻԵՐԱ 1: Evoca Լայֆ
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/culture",
     isBusiness: false,
@@ -327,9 +327,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ԿԱՐԻԵՐԱ 2: Աշխատանք և պրակտիկա
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/work-at-evoca",
     isBusiness: false,
@@ -341,9 +341,9 @@ export const subNavigationGroups = [
     ],
   },
 
-  // ==========================================
-  //  ՆՈՐՈՒԹՅՈՒՆՆԵՐ (НОВОСТИ)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/news",
     isBusiness: false,
@@ -351,9 +351,9 @@ export const subNavigationGroups = [
     items: [{ name: "Նորություններ", path: "/news" }],
   },
 
-  // ==========================================
-  //  ԲԼՈԳ (БЛОГ)
-  // ==========================================
+  
+  
+  
   {
     mainPath: "/blog",
     isBusiness: false,
@@ -361,11 +361,11 @@ export const subNavigationGroups = [
     items: [{ name: "Բլոգ", path: "/blog" }],
   },
 
-  // ==========================================
-  //  ԱԿՆԹԱՐԹԱՅԻՆ ՎՃԱՐՈՒՄՆԵՐ (МГНОВЕННЫЕ ПЛАТЕЖИ)
-  // ==========================================
+  
+  
+  
   {
-    mainPath: "/instant-payments", // Убедись, что этот URL соответствует твоему роуту
+    mainPath: "/instant-payments", 
     isBusiness: false,
     paths: ["/instant-payments"],
     items: [{ name: "Ակնթարթային վճարումներ", path: "/instant-payments" }],

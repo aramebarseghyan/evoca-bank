@@ -20,7 +20,7 @@ const FilterDropdown = ({ activeFilter, setActiveFilter }) => {
 
   return (
     <div className="w-full font-sans bg-white mb-8">
-      {/* Filter button: hidden on xl and 2xl */}
+      {}
       <div className="flex justify-end mb-5 xl:hidden 2xl:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -50,7 +50,7 @@ const FilterDropdown = ({ activeFilter, setActiveFilter }) => {
         </button>
       </div>
 
-      {/* Filter list: always open on xl and 2xl */}
+      {}
       <div
         className={`overflow-hidden transition-all duration-500 ease-in-out origin-top ${
           isOpen

@@ -47,9 +47,9 @@ const LetterOfCreditPage = () => {
 
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
-      {/* Основной контент страницы */}
+      {}
       <div className="max-w-5xl mx-auto p-6 md:p-10">
-        {/* Заголовок и вводный текст */}
+        {}
         <div className="mb-10">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             Ակրեդիտիվ
@@ -70,7 +70,7 @@ const LetterOfCreditPage = () => {
           </div>
         </div>
 
-        {/* Секция условий */}
+        {}
         <div className="mb-10">
           <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
             Ակրեդիտիվի թողարկման հիմնական պայմանները`
@@ -101,12 +101,12 @@ const LetterOfCreditPage = () => {
           </p>
         </div>
 
-        {/* Заголовок таблицы тарифов */}
+        {}
         <h2 className="text-xl font-bold text-gray-900 mb-6 tracking-wide">
           Սակագներ
         </h2>
 
-        {/* Таблица */}
+        {}
         <div className="border border-purple-100 rounded-xl overflow-hidden mb-4 shadow-sm">
           <div className="bg-purple-50/50 py-3 px-4 border-b border-purple-100 font-semibold text-sm text-gray-800">
             Ակրեդիտիվի`
@@ -130,7 +130,7 @@ const LetterOfCreditPage = () => {
           </table>
         </div>
 
-        {/* Примечание под таблицей */}
+        {}
         <p className="text-sm text-gray-600 mb-16">
           <span className="font-semibold text-gray-900">ՆՇՈՒՄ</span> – Այս
           դրույթներով և սակագներով սահմանված վճարներից բացի՝ գանձում ենք մեր
@@ -138,7 +138,7 @@ const LetterOfCreditPage = () => {
         </p>
       </div>
 
-      {/* Секция последних новостей на полную ширину (Full Width) */}
+      {}
       <div className="w-full mb-16">
         <LatestNews />
       </div>

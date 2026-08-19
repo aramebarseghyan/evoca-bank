@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 const GuaranteePage = () => {
-  // Состояние для управления активным аккордеоном
+  
   const [openAccordionId, setOpenAccordionId] = useState(1);
 
   const toggleAccordion = (id) => {
     setOpenAccordionId((prevId) => (prevId === id ? null : id));
   };
 
-  // Данные для карточек
+  
   const guaranteeTypes = [
     {
       id: 1,
@@ -59,7 +59,7 @@ const GuaranteePage = () => {
     },
   ];
 
-  // Данные для аккордеонов
+  
   const accordionItems = [
     { id: 1, title: "Միջազգային Բանկային Երաշխիքներ" },
     { id: 2, title: "Տեղական Բանկային Երաշխիքներ" },
@@ -79,12 +79,12 @@ const GuaranteePage = () => {
   return (
     <div className="relative min-h-screen bg-white font-sans text-gray-800 leading-relaxed overflow-x-hidden">
       <div className="max-w-5xl mx-auto p-6 md:p-10 pt-12">
-        {/* Главный заголовок */}
+        {}
         <h1 className="text-[32px] font-bold text-gray-900 mb-10 tracking-tight">
           Երաշխիք
         </h1>
 
-        {/* Вводный текст */}
+        {}
         <section className="mb-14 text-[15px]">
           <p className="mb-4">
             Բանկային երաշխիքը անկախ, անվերապահ և գրավոր պարտավորություն է, որը
@@ -106,12 +106,12 @@ const GuaranteePage = () => {
           </p>
         </section>
 
-        {/* Заголовок секции */}
+        {}
         <h2 className="text-xl font-bold text-purple-800 mb-8">
           Բանկային երաշխիքների հիմնական տեսակները
         </h2>
 
-        {/* Список типов гарантий */}
+        {}
         <div className="space-y-8 mb-16">
           {guaranteeTypes.map((guarantee) => (
             <div key={guarantee.id} className="flex flex-col">
@@ -133,7 +133,7 @@ const GuaranteePage = () => {
           ))}
         </div>
 
-        {/* Секция аккордеонов (Шторки) */}
+        {}
         <section>
           <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wide mb-6">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
@@ -187,7 +187,7 @@ const GuaranteePage = () => {
                   >
                     <div className="overflow-hidden">
                       <div className="p-5 pt-0">
-                        {/* Таблица внутри аккордеона */}
+                        {}
                         <div className="border border-gray-100 rounded-lg overflow-hidden mt-2">
                           <table className="w-full text-sm text-left text-gray-600">
                             <tbody>

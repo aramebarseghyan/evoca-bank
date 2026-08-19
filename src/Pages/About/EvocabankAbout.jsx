@@ -54,7 +54,7 @@ const EvocabankAbout = () => {
 
   return (
     <div className="bg-white text-gray-800 font-sans antialiased overflow-x-hidden relative">
-      {/* 1. Общая информация */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Ընդհանուր տեղեկատվություն
@@ -90,7 +90,7 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 2. Наше видение */}
+      {}
       <section className="bg-[#6005c5] w-full py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
@@ -107,7 +107,7 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 3. Наша миссия */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pb-20 sm:pb-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Մեր առաքելությունը
@@ -131,15 +131,15 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 4. История банка (Адаптивный таймлайн и слайдер) */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Բանկի պատմությունը
         </h2>
 
-        {/* Интерактивный таймлайн-навигатор (с горизонтальным скроллом на мобилках) */}
+        {}
         <div className="flex items-center gap-1 sm:gap-4 mb-10 w-full">
-          {/* Левая стрелка */}
+          {}
           <button
             className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === 0 ? "text-gray-300 cursor-not-allowed" : "text-gray-400 hover:text-[#6005c5]"}`}
             onClick={() => {
@@ -163,7 +163,7 @@ const EvocabankAbout = () => {
 
           <div className="relative flex-1 overflow-x-auto scrollbar-none pt-2 px-1">
             <div className="min-w-[420px] flex flex-col gap-3">
-              {/* Текст годов */}
+              {}
               <div className="relative flex justify-between items-center px-3">
                 {historyData.map((item, index) => {
                   const isActive = index === activeIndex;
@@ -179,12 +179,12 @@ const EvocabankAbout = () => {
                 })}
               </div>
 
-              {/* Линия времени и кружочки */}
+              {}
               <div className="relative w-full px-3">
-                {/* Серая фоновая линия */}
+                {}
                 <div className="absolute top-1/2 -translate-y-1/2 left-3 right-3 h-[2px] bg-gray-200 z-0"></div>
 
-                {/* Фиолетовая заполняющаяся линия */}
+                {}
                 <div
                   className="absolute top-1/2 -translate-y-1/2 left-3 h-[2px] bg-[#6005c5] z-0 transition-all duration-500 ease-in-out"
                   style={{
@@ -192,7 +192,7 @@ const EvocabankAbout = () => {
                   }}
                 ></div>
 
-                {/* Кружочки */}
+                {}
                 <div className="relative flex justify-between items-center z-10">
                   {historyData.map((item, index) => {
                     const isActive = index === activeIndex;
@@ -221,7 +221,7 @@ const EvocabankAbout = () => {
             </div>
           </div>
 
-          {/* Правая стрелка */}
+          {}
           <button
             className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === historyData.length - 1 ? "text-gray-300 cursor-not-allowed" : "text-[#6005c5] hover:text-[#4a0499]"}`}
             onClick={() => {
@@ -245,7 +245,7 @@ const EvocabankAbout = () => {
           </button>
         </div>
 
-        {/* Слайдер с контентом истории */}
+        {}
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
@@ -274,7 +274,7 @@ const EvocabankAbout = () => {
         </Swiper>
       </section>
 
-      {/* 5. Ценности и приоритеты */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Արժեքներ և առաջնայնություններ
@@ -337,7 +337,7 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 6. Логотип банка */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի լոգոտիպը
@@ -356,7 +356,7 @@ const EvocabankAbout = () => {
         />
       </section>
 
-      {/* 7. Брендбук */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի բրենդբուքը
@@ -377,7 +377,7 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 8. Корпоративные цвета */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի կորպորատիվ գույները
@@ -409,7 +409,7 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 9. Видео */}
+      {}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20 sm:mb-24">
         <div
           className="relative w-full max-w-4xl"

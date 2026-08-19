@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 const LeasingPage = () => {
-  // Состояние открытого аккордеона: 0 означает, что первая шторка открыта по умолчанию
+  
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  // Данные для таблиц
+  
   const generalLeasingConditions = [
     { label: "Արժույթը", value: "ՀՀ դրամ, ԱՄՆ դոլար, Եվրո" },
     {
@@ -129,14 +129,14 @@ const LeasingPage = () => {
   return (
     <div className="w-full bg-gray-50 pt-[30px] sm:pt-[50px] pb-4">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Заголовок страницы */}
+        {}
         <div className="mb-6">
           <h4 className="text-2xl sm:text-3xl lg:text-2xl font-bold text-[#222222]">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h4>
         </div>
 
-        {/* Блок с аккордеонами */}
+        {}
         <div className="space-y-4">
           {accordions.map((item, index) => {
             const isOpen = openIndex === index;
@@ -146,7 +146,7 @@ const LeasingPage = () => {
                 key={index}
                 className="bg-white border border-[#6000ff]/30 rounded-2xl overflow-hidden shadow-sm transition-all"
               >
-                {/* Кнопка аккордеона */}
+                {}
                 <button
                   onClick={() => toggleAccordion(index)}
                   className="w-full flex items-center justify-between p-5 sm:p-6 text-left bg-white hover:bg-[#6000ff]/5 transition-colors cursor-pointer"
@@ -177,7 +177,7 @@ const LeasingPage = () => {
                   </div>
                 </button>
 
-                {/* Выпадающий контент с плавной анимацией */}
+                {}
                 <div
                   className={`grid transition-all duration-300 ease-in-out ${
                     isOpen

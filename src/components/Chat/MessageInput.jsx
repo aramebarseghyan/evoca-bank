@@ -20,7 +20,7 @@ const MessageInput = ({
             </span>
           </div>
 
-          {/* Кнопка отмены записи */}
+          {}
           <button
             onClick={() => stopRecording(true)}
             className="p-2 text-gray-400 hover:text-red-500 transition-colors"
@@ -41,7 +41,7 @@ const MessageInput = ({
             </svg>
           </button>
 
-          {/* Кнопка отправки записи */}
+          {}
           <button
             onClick={() => stopRecording(false)}
             className="bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition-colors"

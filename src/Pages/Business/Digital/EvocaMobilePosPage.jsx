@@ -4,7 +4,7 @@ const EvocaMobilePosPage = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-10">
-        {/* Վերնագիր և նկարով բլոկ */}
+        {}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -24,7 +24,7 @@ const EvocaMobilePosPage = () => {
           </div>
         </div>
 
-        {/* Հիմնական տեքստային բաժին */}
+        {}
         <div className="space-y-6 text-gray-700 text-base md:text-lg leading-relaxed max-w-4xl">
           <p>
             <strong className="text-gray-900">mPOS</strong>-ը ստանդարտ POS

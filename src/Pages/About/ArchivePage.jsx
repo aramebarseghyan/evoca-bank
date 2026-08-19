@@ -92,11 +92,11 @@ const archiveData = [
 ];
 
 const ArchivePage = () => {
-  // Изначально открыт элемент с id "loans"
+  
   const [openId, setOpenId] = useState("loans");
 
   const toggleAccordion = (id) => {
-    // Если кликаем на тот же - закрываем, иначе открываем новый (старый закроется сам)
+    
     setOpenId(openId === id ? null : id);
   };
 
@@ -145,7 +145,7 @@ const ArchivePage = () => {
                 </span>
               </button>
 
-              {/* Сетка для анимации высоты */}
+              {}
               <div
                 style={{
                   display: "grid",

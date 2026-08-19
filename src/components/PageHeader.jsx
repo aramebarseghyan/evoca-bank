@@ -7,7 +7,7 @@ const PageHeader = () => {
 
   const cleanPath = normalizePath(location.pathname);
 
-  // Hide on main, standalone pages, live-map, as well as internship, FAQ, and work pages
+  
   if (
     cleanPath === "/live-map" ||
     cleanPath === "/evocaLogin" ||
@@ -45,7 +45,7 @@ const PageHeader = () => {
   const getPageDetails = (path) => {
     const lowerPath = path.toLowerCase();
 
-    /* Ուղղված է EvocaOnline էջը` առանց «Անհատ > Թվային ծառայություններ»-ի */
+    
     if (
       lowerPath === "/digital-services-evocaonline-online-banking" ||
       lowerPath === "/evocaonline-online-banking"

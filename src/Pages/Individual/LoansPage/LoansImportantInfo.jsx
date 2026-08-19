@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoansImportantInfo = () => {
-  // Historical variables data table
+  
   const historicalRates = [
     { date: "15/07/2019", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
     { date: "15/01/2020", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
@@ -20,7 +20,7 @@ const LoansImportantInfo = () => {
     { date: "01/08/2026", amd: "7%", usd: "1.0%", eur: "0.0%" },
   ];
 
-  // Insurance companies
+  
   const insuranceCompanies = [
     {
       name: "«ԻՆԳՈ ԱՐՄԵՆԻԱ» ապահովագրական ՓԲԸ",
@@ -66,7 +66,7 @@ const LoansImportantInfo = () => {
     },
   ];
 
-  // Appraisal companies
+  
   const appraisalCompanies = [
     {
       name: "«ԱՐ ՎԻ ԷՄ ՔՈՆՍԱԼՏ» ՍՊԸ",
@@ -116,7 +116,7 @@ const LoansImportantInfo = () => {
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans text-gray-800">
-      {/* 1. Ուշադրություն */}
+      {}
       <section className="mb-10">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
           Ուշադրություն
@@ -300,7 +300,7 @@ const LoansImportantInfo = () => {
         </ul>
       </section>
 
-      {/* 2. Կարևոր տեղեկատվություն վարկային պատմության վերաբերյալ */}
+      {}
       <section className="mb-10 bg-gray-50 p-6 sm:p-8 rounded-2xl border border-gray-100">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Կարևոր տեղեկատվություն վարկային պատմության վերաբերյալ
@@ -454,7 +454,7 @@ const LoansImportantInfo = () => {
         </div>
       </section>
 
-      {/* 3. Վարկի տրամադրման վերաբերյալ որոշման կայացման չափանիշները */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Վարկի տրամադրման վերաբերյալ որոշման կայացման չափանիշները
@@ -506,7 +506,7 @@ const LoansImportantInfo = () => {
         </div>
       </section>
 
-      {/* 4. Պետական տուրքեր և այլ ծախսեր */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Պետական տուրքեր և այլ ծախսեր
@@ -567,7 +567,7 @@ const LoansImportantInfo = () => {
         </ul>
       </section>
 
-      {/* 5. Տարեկան փաստացի տոկոսադրույքի հաշվարկման օրինակ */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Տարեկան փաստացի տոկոսադրույքի հաշվարկման օրինակ
@@ -579,7 +579,7 @@ const LoansImportantInfo = () => {
           հաշվարկված` հիմք ընդունելով համապատասխան բանաձևը:
         </p>
 
-        {/* Formula block */}
+        {}
         <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 my-6">
           <p className="font-semibold text-gray-900 mb-2">
             Ենթադրենք բանկը սպառողին տրամադրում է վարկ հետևյալ պայմաններով`
@@ -616,7 +616,7 @@ const LoansImportantInfo = () => {
         </ul>
       </section>
 
-      {/* 6. Լողացող տոկոսադրույքի հաշվարկման կարգ */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Լողացող տոկոսադրույքի հաշվարկման կարգ
@@ -646,7 +646,7 @@ const LoansImportantInfo = () => {
           մինչև փետրվարի 1-ը և օգոստոսի 1-ը:
         </p>
 
-        {/* Table of past and current values */}
+        {}
         <h4 className="font-bold text-gray-900 mb-3">
           Անցյալ և ներկա փոփոխական բաղադրիչների արժեքները
         </h4>
@@ -677,7 +677,7 @@ const LoansImportantInfo = () => {
         </div>
       </section>
 
-      {/* 7. «ԷՎՈԿԱԲԱՆԿ» ԲԲԸ կողմից կիրառվող վարկային սքոր */}
+      {}
       <section className="mb-10 bg-purple-50/40 border border-purple-100 p-6 sm:p-8 rounded-2xl">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
           «ԷՎՈԿԱԲԱՆԿ» ԲԲԸ կողմից կիրառվող վարկային սքոր
@@ -709,7 +709,7 @@ const LoansImportantInfo = () => {
         </ul>
       </section>
 
-      {/* 8. Բանկի հետ համագործակցող ապահովագրական ընկերությունների ցանկ */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Բանկի հետ համագործակցող ապահովագրական ընկերությունների ցանկ
@@ -743,7 +743,7 @@ const LoansImportantInfo = () => {
         </div>
       </section>
 
-      {/* 9. Բանկի հետ համագործակցող գնահատող կազմակերպությունների ցանկ */}
+      {}
       <section className="mb-10">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Բանկի հետ համագործակցող գնահատող կազմակերպությունների ցանկ
@@ -777,7 +777,7 @@ const LoansImportantInfo = () => {
         </div>
       </section>
 
-      {/* 10. Վերջնական տեղեկատվություն / կոնտակտ */}
+      {}
       <section className="bg-gradient-to-r from-purple-900 to-[#5D00E0] text-white p-6 sm:p-8 rounded-2xl shadow-lg">
         <h4 className="font-bold text-lg mb-2">Հարգելի Հաճախորդ՝</h4>
         <p className="text-purple-100 leading-relaxed">

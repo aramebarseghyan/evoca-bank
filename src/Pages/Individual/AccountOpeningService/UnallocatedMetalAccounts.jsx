@@ -5,7 +5,7 @@ const UnallocatedMetalAccounts = () => {
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-10 md:pt-16">
-        {/* Hero Section */}
+        {}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-24 mb-16 gap-6 lg:gap-0">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -29,7 +29,7 @@ const UnallocatedMetalAccounts = () => {
           </div>
         </div>
 
-        {/* Main Conditions Section */}
+        {}
         <div className="px-4 sm:px-8 lg:px-24 max-w-[1200px] mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 md:mb-10 text-center md:text-left">
             Հիմնական պայմաններ
@@ -111,7 +111,7 @@ const UnallocatedMetalAccounts = () => {
             </li>
           </ul>
 
-          {/* Additional Information Blocks */}
+          {}
           <div className="mt-10 space-y-6 text-gray-700 text-sm md:text-base">
             <p>
               Հաշիվներ բացելու համար կարող եք դիմել մեր Գլխամասային գրասենյակ և
@@ -142,13 +142,13 @@ const UnallocatedMetalAccounts = () => {
             </p>
           </div>
 
-          {/* Documents Section (Стилизовано под скриншот) */}
+          {}
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               Փաստաթղթեր
             </h3>
             <div className="flex flex-col gap-4">
-              {/* Document Item 1 */}
+              {}
               <a
                 href="https://www.evoca.am/files/global_files/1/bank-account-08-06-26.pdf"
                 target="_blank"
@@ -157,7 +157,7 @@ const UnallocatedMetalAccounts = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="relative text-[#5D00E0]">
-                    {/* Иконка файла с бейджем скачивания */}
+                    {}
                     <svg
                       className="w-8 h-8"
                       fill="none"
@@ -193,7 +193,7 @@ const UnallocatedMetalAccounts = () => {
                 </div>
               </a>
 
-              {/* Document Item 2 */}
+              {}
               <a
                 href="https://www.evoca.am/files/global_files/1/provision-terms-for-general-banking-services-arm.pdf"
                 target="_blank"

@@ -17,7 +17,7 @@ const PeerCallModal = ({
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
 
-  // Стейты для управления микрофоном и камерой
+  
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
 
@@ -53,7 +53,7 @@ const PeerCallModal = ({
         localStream.getTracks().forEach((track) => track.stop());
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const PeerCallModal = ({
     onClose();
   };
 
-  // 🎤 Функция включения/выключения микрофона
+  
   const toggleAudio = () => {
     if (localStream) {
       localStream.getAudioTracks().forEach((track) => {
@@ -169,7 +169,7 @@ const PeerCallModal = ({
     }
   };
 
-  // 📹 Функция включения/выключения камеры
+  
   const toggleVideo = () => {
     if (localStream) {
       localStream.getVideoTracks().forEach((track) => {
@@ -183,7 +183,7 @@ const PeerCallModal = ({
     <div
       className={`fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-sm ${actualCallType === "video" ? "bg-black/90" : "bg-black/70"}`}
     >
-      {/* ИНТЕРФЕЙС АУДИОЗВОНКА */}
+      {}
       {actualCallType === "audio" && (
         <div className="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col items-center text-center">
           <audio ref={remoteAudioRef} autoPlay />
@@ -216,7 +216,7 @@ const PeerCallModal = ({
 
           {((!incomingCall && !incomingCallInit) || isCalling) && (
             <div className="flex flex-col gap-3 w-full">
-              {/* Кнопка мута микрофона для аудиозвонка */}
+              {}
               <button
                 onClick={toggleAudio}
                 className={`w-full py-2.5 rounded-xl font-medium transition-colors shadow-md text-white flex items-center justify-center gap-2 ${
@@ -241,10 +241,10 @@ const PeerCallModal = ({
         </div>
       )}
 
-      {/* ИНТЕРФЕЙС ВИДЕОЗВОНКА */}
+      {}
       {actualCallType === "video" && (
         <div className="relative w-full h-full sm:max-w-[90vw] sm:max-h-[90vh] bg-gray-900 sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col items-center justify-center">
-          {/* Видео собеседника */}
+          {}
           {remoteStream && (
             <video
               ref={remoteVideoRef}
@@ -254,7 +254,7 @@ const PeerCallModal = ({
             />
           )}
 
-          {/* Экран ожидания */}
+          {}
           {(!remoteStream || callStatus !== "Զրույցն ընթացքի մեջ է") && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/80 z-10 backdrop-blur-sm">
               <div className="w-24 h-24 bg-blue-500/20 rounded-3xl flex items-center justify-center text-5xl mb-6 text-blue-400 animate-pulse">
@@ -308,10 +308,10 @@ const PeerCallModal = ({
             </div>
           )}
 
-          {/* Твое видео (Picture-in-Picture) */}
+          {}
           {localStream && (
             <div className="absolute bottom-28 right-6 w-32 h-44 sm:w-48 sm:h-64 bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-700 z-20 flex items-center justify-center">
-              {/* Если камера выключена, показываем заглушку */}
+              {}
               {isVideoOff ? (
                 <div className="text-gray-400 text-sm flex flex-col items-center">
                   <span>📷</span>
@@ -329,10 +329,10 @@ const PeerCallModal = ({
             </div>
           )}
 
-          {/* Панель управления внизу (Микрофон, Сброс, Камера) */}
+          {}
           {isCalling && (
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4 bg-gray-800/80 backdrop-blur-md px-6 py-3 rounded-full border border-gray-700 shadow-xl">
-              {/* Кнопка микрофона */}
+              {}
               <button
                 onClick={toggleAudio}
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:scale-105 ${
@@ -340,16 +340,16 @@ const PeerCallModal = ({
                     ? "bg-red-500 hover:bg-red-600"
                     : "bg-gray-700 hover:bg-gray-600"
                 }`}
-                title={isMuted ? "Включить микрофон" : "Выключить микрофон"}
+                title={isMuted ? "Enable microphone" : "Disable microphone"}
               >
                 {isMuted ? "🔇" : "🎤"}
               </button>
 
-              {/* Кнопка сброса */}
+              {}
               <button
                 onClick={hangUp}
                 className="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-all shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:scale-110"
-                title="Завершить звонок"
+                title="End call"
               >
                 <svg
                   className="w-7 h-7 transform rotate-[135deg]"
@@ -366,7 +366,7 @@ const PeerCallModal = ({
                 </svg>
               </button>
 
-              {/* Кнопка камеры */}
+              {}
               <button
                 onClick={toggleVideo}
                 className={`w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:scale-105 ${
@@ -374,7 +374,7 @@ const PeerCallModal = ({
                     ? "bg-red-500 hover:bg-red-600"
                     : "bg-gray-700 hover:bg-gray-600"
                 }`}
-                title={isVideoOff ? "Включить камеру" : "Выключить камеру"}
+                title={isVideoOff ? "Enable camera" : "Disable camera"}
               >
                 {isVideoOff ? "📷❌" : "📹"}
               </button>

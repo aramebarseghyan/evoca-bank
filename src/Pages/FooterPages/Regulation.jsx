@@ -59,7 +59,7 @@ const Regulation = () => {
         Բանկի կողմից ծառայությունների մատուցումը կարգավորվում է ՝
       </h2>
 
-      {/* Section 1: ՀՀ Օրենքներով */}
+      {}
       <div className="mb-6">
         <div className="flex items-start gap-2 text-sm sm:text-base font-bold text-gray-900 mb-3">
           <span className="text-[#8A2BE2] font-extrabold text-lg leading-none">
@@ -77,7 +77,7 @@ const Regulation = () => {
         </ul>
       </div>
 
-      {/* Section 2: ՀՀ Կենտրոնական Բանկի Նորմատիվ իրավական ակտերով */}
+      {}
       <div className="mb-6">
         <div className="flex items-start gap-2 text-sm sm:text-base font-bold text-gray-900 mb-3">
           <span className="text-[#8A2BE2] font-extrabold text-lg leading-none">
@@ -95,7 +95,7 @@ const Regulation = () => {
         </ul>
       </div>
 
-      {/* Section 3: Բանկի Խորհրդի կողմից հաստատված... */}
+      {}
       <div className="mb-12">
         <div className="flex items-start gap-2 text-sm sm:text-base font-bold text-gray-900">
           <span className="text-[#8A2BE2] font-extrabold text-lg leading-none">
@@ -108,7 +108,7 @@ const Regulation = () => {
         </div>
       </div>
 
-      {/* Section 4: Փաստաթղթեր */}
+      {}
       <div className="mt-12">
         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
           Փաստաթղթեր

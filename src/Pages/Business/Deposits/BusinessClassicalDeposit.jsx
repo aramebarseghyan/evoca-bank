@@ -2,7 +2,7 @@ import React from "react";
 import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 
 const BusinessClassicalDeposit = () => {
-  // Օգնական կոմպոնենտներ ցուցակի կետերի համար
+  
   const PurpleDot = () => (
     <div className="w-1.5 h-1.5 rounded-full bg-[#6000ff] mt-2.5 mr-4 shrink-0" />
   );
@@ -14,7 +14,7 @@ const BusinessClassicalDeposit = () => {
   return (
     <div className="w-full bg-white sm:bg-transparent pt-[30px] sm:pt-[50px] pb-16">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Հերոս բաժին (Hero Section) */}
+        {}
         <div className="flex flex-col lg:flex-row w-full mb-16 lg:min-h-[440px]">
           <div className="lg:w-[40%] bg-[#f8f6fa] p-8 sm:p-10 lg:p-14 xl:p-16 flex flex-col justify-center lg:rounded-bl-[70px]">
             <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#222222] mb-5 leading-[1.3]">
@@ -36,13 +36,13 @@ const BusinessClassicalDeposit = () => {
           </div>
         </div>
 
-        {/* ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ */}
+        {}
         <div className="max-w-[1000px] mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#222222] mb-8 uppercase tracking-wide">
             Անհրաժեշտ տեղեկատվություն
           </h2>
 
-          {/* Ընդհանուր տեղեկատվություն */}
+          {}
           <div className="mb-10">
             <h3 className="text-xl font-bold text-[#6000ff] mb-4">
               Ընդհանուր տեղեկատվություն
@@ -106,7 +106,7 @@ const BusinessClassicalDeposit = () => {
             </ul>
           </div>
 
-          {/* Ավանդի տոկոսագումարների հաշվարկման և վճարման կարգը */}
+          {}
           <div className="mb-10">
             <h3 className="text-xl font-bold text-[#6000ff] mb-4">
               Ավանդի տոկոսագումարների հաշվարկման և վճարման կարգը
@@ -201,7 +201,7 @@ const BusinessClassicalDeposit = () => {
             </ul>
           </div>
 
-          {/* Ավանդային հաշվի վերաբերյալ տրամադրվող տեղեկատվություն */}
+          {}
           <div className="mb-10">
             <h3 className="text-xl font-bold text-[#6000ff] mb-4">
               Ավանդային հաշվի վերաբերյալ տրամադրվող տեղեկատվություն
@@ -239,7 +239,7 @@ const BusinessClassicalDeposit = () => {
             </ul>
           </div>
 
-          {/* Այլ պայմաններ */}
+          {}
           <div className="mb-10">
             <h3 className="text-xl font-bold text-[#6000ff] mb-4">
               Այլ պայմաններ
@@ -276,7 +276,7 @@ const BusinessClassicalDeposit = () => {
             </ul>
           </div>
 
-          {/* Երաշխավորված ավանդների սահմանաչափերը */}
+          {}
           <div className="mb-6">
             <h3 className="text-xl font-bold text-[#6000ff] mb-4">
               Երաշխավորված ավանդների սահմանաչափերը
@@ -333,13 +333,13 @@ const BusinessClassicalDeposit = () => {
           </div>
         </div>
 
-        {/* ՊԱՅՄԱՆՆԵՐ ԵՎ ՍԱԿԱԳՆԵՐ */}
+        {}
         <div className="max-w-[1000px] mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#222222] mb-8 uppercase tracking-wide">
             Պայմաններ և սակագներ
           </h2>
 
-          {/* Աղյուսակ 1 */}
+          {}
           <div className="overflow-x-auto mb-8 border border-gray-200 rounded-2xl shadow-sm">
             <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
@@ -401,7 +401,7 @@ const BusinessClassicalDeposit = () => {
             </table>
           </div>
 
-          {/* Կետեր պայմանների տակ */}
+          {}
           <div className="space-y-4 text-sm sm:text-base text-[#333333] leading-relaxed mb-10">
             <div className="flex items-start">
               <span className="font-bold text-[#6000ff] mr-3">1.</span>
@@ -499,7 +499,7 @@ const BusinessClassicalDeposit = () => {
           </div>
         </div>
 
-        {/* ԼՐԱՑՈՒՑԻՉ ՊԱՅՄԱՆՆԵՐ (ՔԱՐՏԵՐ) */}
+        {}
         <div className="max-w-[1000px]">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#222222] mb-6 uppercase tracking-wide">
             Լրացուցիչ պայմաններ

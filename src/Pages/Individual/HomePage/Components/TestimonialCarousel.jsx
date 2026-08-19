@@ -4,17 +4,17 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase";
 
-// Картинки из assets/img
+
 import hand1 from "../../../../assets/img/hand1.png";
 import hand2 from "../../../../assets/img/hand2.png";
 import shape5 from "../../../../assets/img/shape5.png";
 import shape6 from "../../../../assets/img/shape6.png";
 
-// Обязательные стили Swiper
+
 import "swiper/css";
 import "swiper/css/pagination";
 
-// --- ИКОНКИ (SVG) ---
+
 const QuoteIcon = ({ color = "#6F00FF", className = "" }) => (
   <svg
     className={className}
@@ -48,14 +48,14 @@ const TestimonialCard = ({ testimonial }) => {
 
   return (
     <div className="text-center px-1 pb-1 flex flex-col justify-between h-full items-center">
-      {/* 1. Звездочки */}
+      {}
       <div className="flex justify-center gap-1 mb-2.5 xl:mb-2">
         {[...Array(5)].map((_, index) => (
           <StarIcon key={index} filled={index < rating} />
         ))}
       </div>
 
-      {/* 2. Блок текста с кавычками по бокам (flex, без наложения) */}
+      {}
       <div className="relative py-2 flex items-center justify-between w-full max-w-[320px] sm:max-w-[500px] lg:max-w-[650px] xl:max-w-[750px] mx-auto px-2">
         <QuoteIcon className="shrink-0 w-5 lg:w-6 xl:w-7 h-auto self-start mt-1" />
 
@@ -66,7 +66,7 @@ const TestimonialCard = ({ testimonial }) => {
         <QuoteIcon className="shrink-0 rotate-180 w-5 lg:w-6 xl:w-7 h-auto self-end mb-1" />
       </div>
 
-      {/* 3. Блок имени и должности */}
+      {}
       <div className="mt-3 xl:mt-2 flex flex-col justify-center items-center">
         <h3 className="text-[#1A1A26] text-[16px] sm:text-[17px] lg:text-[18px] font-bold m-0 leading-tight">
           {authorName}
@@ -93,7 +93,7 @@ const TestimonialCarousel = () => {
         }));
         setTestimonials(data);
       } catch (error) {
-        console.error("Ошибка при загрузке отзывов из Firebase:", error);
+        console.error("Error loading reviews from Firebase:", error);
       } finally {
         setLoading(false);
       }
@@ -103,13 +103,7 @@ const TestimonialCarousel = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="bg-[#F7F6F9] py-16 flex justify-center">
-        <div className="animate-pulse text-[#6F00FF] font-medium">
-          Բեռնվում է...
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (testimonials.length === 0) {
@@ -152,9 +146,9 @@ const TestimonialCarousel = () => {
         `}
       </style>
 
-      {/* Общая обертка с адаптивным максимальным размером */}
+      {}
       <div className="relative w-full max-w-[450px] md:max-w-[750px] lg:max-w-[1100px] xl:max-w-[1250px] 2xl:max-w-[1400px] flex justify-center items-center px-4 lg:px-10 xl:px-16">
-        {/* --- Декорации слева --- */}
+        {}
         <img
           src={hand2}
           alt="Hand OK"
@@ -166,7 +160,7 @@ const TestimonialCarousel = () => {
           className="animate-shape-1 hidden md:block absolute md:left-2 lg:left-12 xl:left-16 2xl:left-24 bottom-2 xl:bottom-2 w-8 lg:w-10 xl:w-10 2xl:w-12 pointer-events-none select-none z-10"
         />
 
-        {/* --- Карточка слайдера --- */}
+        {}
         <div
           className="
             bg-transparent 
@@ -206,7 +200,7 @@ const TestimonialCarousel = () => {
           </Swiper>
         </div>
 
-        {/* --- Декорации справа --- */}
+        {}
         <img
           src={hand1}
           alt="Hand Like"

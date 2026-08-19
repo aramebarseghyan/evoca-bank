@@ -7,9 +7,9 @@ import onlineBankingShape2 from "../../assets/img/online-banking__shape2.png";
 import evocaBestShape2 from "../../assets/img/evoca-best-shape2.png";
 import logoV from "../../assets/img/logo.png";
 
-// Տվյալների կառուցվածքը թողել եմ նույնը (Ձեր ուղարկածով):
-// Եթե ցանկանում եք, որ օրինակ "Մեր մասին"-ը նույնպես բացվի առանձին պատուհանով,
-// պարզապես ավելացրեք children զանգված դրա մեջ:
+
+
+
 const menuData = {
   title: "Գլխավոր",
   links: [
@@ -366,10 +366,10 @@ const MobileMenu = ({ isOpen, onClose }) => {
         {
           title: link.name,
           links: link.children,
-          bottomLinks: link.bottomLinks, // ենթամենյուի bottom link-երը (եթե կան)
+          bottomLinks: link.bottomLinks, 
         },
       ]);
-      // Սպասում ենք չնչին պահ (10ms), որպեսզի DOM-ը թարմանա նոր պատուհանով, ապա ակտիվացնում անիմացիան
+      
       setTimeout(() => {
         setActiveIndex((prev) => prev + 1);
       }, 10);
@@ -393,9 +393,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
-      {/* MOBILE LAYOUT */}
+      {}
       <div className="lg:hidden flex flex-col w-full h-full relative bg-[#5200e8]">
-        {/* Հիմնական Header - Միշտ երևում է վերևում */}
+        {}
         <div className="flex justify-between items-center px-6 py-5 shrink-0 z-10 bg-[#5200e8]">
           <img
             src={evocabankLogo}
@@ -422,14 +422,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Stack-ի անիմացիոն պատուհանները */}
+        {}
         <div className="relative flex-1 w-full overflow-hidden bg-[#5200e8]">
           {stack.map((menuObj, index) => {
             let translateClass = "translate-x-full";
             if (index === activeIndex) {
-              translateClass = "translate-x-0"; // Ակտիվ պատուհան
+              translateClass = "translate-x-0"; 
             } else if (index < activeIndex) {
-              translateClass = "-translate-x-full"; // Նախորդ պատուհանները գնում են ձախ
+              translateClass = "-translate-x-full"; 
             }
 
             return (
@@ -438,7 +438,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                 className={`absolute inset-0 w-full h-full flex flex-col transition-transform duration-300 ease-in-out bg-[#5200e8] ${translateClass}`}
               >
                 <div className="flex-1 overflow-y-auto flex flex-col pb-6">
-                  {/* Եթե գլխավոր էջը չէ (այսինքն ենթամենյու է), ցույց ենք տալիս Back կոճակը և վերնագիրը */}
+                  {}
                   {index > 0 && (
                     <div
                       className="px-6 py-4 flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors shrink-0 border-b border-white/20 mb-2"
@@ -471,7 +471,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                         return (
                           <li
                             key={linkIdx}
-                            // Բոլոր մակարդակներում հիմա կունենանք border, որպեսզի տեսքը լինի ճիշտ այնպես, ինչպես հեռախոսների վրա է:
+                            
                             className={`border-b border-white/10 px-6 ${
                               index === 0 ? "py-5 sm:py-6" : "py-4"
                             } hover:bg-white/5 transition-colors`}
@@ -481,7 +481,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                               className="flex justify-between items-center text-white font-bold text-[17px] sm:text-[18px] cursor-pointer"
                             >
                               <span>{link.name}</span>
-                              {/* Սլաքը կցուցադրվի միայն այն դեպքում, եթե կա մուտք դեպի ներքին մենյու կամ հատուկ hasArrow: true */}
+                              {}
                               {(link.hasArrow || hasValidChildren) && (
                                 <svg
                                   className="w-5 h-5 text-white"
@@ -503,7 +503,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       })}
                   </ul>
 
-                  {/* Ներքևի հղումները (օրինակ՝ Բանկի մասին) ցուցադրվում են միայն Գլխավոր էջում */}
+                  {}
                   {index === 0 && menuObj.bottomLinks && (
                     <div className="bg-[#4300c4] flex-1 flex flex-col mt-[70px] pb-10 sm:hidden">
                       {menuObj.bottomLinks.map((link, bottomIdx) => (
@@ -540,9 +540,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
         </div>
       </div>
 
-      {/* DESKTOP LAYOUT */}
+      {}
       <div className="hidden lg:flex w-full h-full flex-row overflow-hidden">
-        {/* Left Side */}
+        {}
         <div className="w-[45%] xl:w-[40%] 2xl:w-[35%] bg-[#1a1a1a] relative shrink-0 transition-all duration-300">
           <div
             className="absolute inset-0 z-0 bg-cover bg-left bg-no-repeat opacity-40 mix-blend-screen"
@@ -596,7 +596,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Right Side */}
+        {}
         <div className="w-[55%] xl:w-[60%] 2xl:w-[65%] bg-[#5200e8] relative flex flex-col px-12 xl:px-24 2xl:px-32 py-16 overflow-y-auto overflow-x-hidden custom-scrollbar transition-all duration-300">
           <img
             src={logoV}

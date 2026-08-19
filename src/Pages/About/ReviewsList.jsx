@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-// ВАЖНО: Укажи правильный путь к твоему firebase.js
+
 import { db } from "../../firebase";
 
-// Картинки из assets/img (убедись, что пути правильные)
+
 import hand1 from "../../assets/img/hand1.png";
 import hand2 from "../../assets/img/hand2.png";
 import shape5 from "../../assets/img/shape5.png";
 import shape6 from "../../assets/img/shape6.png";
 
-// --- ИКОНКИ (SVG) ---
+
 const LargeQuoteIcon = () => (
   <svg
     width="36"
@@ -38,10 +38,10 @@ const StarIcon = ({ filled }) => (
   </svg>
 );
 
-// Ամեն քարտի համար առանձին ֆոնային և դիզայներական ոճեր
+
 const getAuthorCardStyle = (index) => {
   const styles = [
-    // 0: Սուսաննա Վանյան
+    
     {
       cardClass: "rounded-[40px] rounded-tr-none rounded-bl-none",
       bgElement: "bg-blue-100",
@@ -49,7 +49,7 @@ const getAuthorCardStyle = (index) => {
       decorImage: hand2,
       decorClass: "w-16 -right-8 top-1/2 -translate-y-1/2",
     },
-    // 1: Նոնե Գևորգյան
+    
     {
       cardClass:
         "rounded-full aspect-square flex justify-center items-center p-6",
@@ -58,7 +58,7 @@ const getAuthorCardStyle = (index) => {
       decorImage: hand1,
       decorClass: "w-16 -left-10 bottom-0",
     },
-    // 2: Արամ Ազարյան
+    
     {
       cardClass: "rotate-45 rounded-[24px]",
       innerClass: "-rotate-45",
@@ -67,7 +67,7 @@ const getAuthorCardStyle = (index) => {
       decorImage: shape5,
       decorClass: "w-16 -right-6 bottom-6",
     },
-    // 3: Էլեն Վարդանյան
+    
     {
       cardClass: "rounded-[30px]",
       bgElement: "bg-yellow-100",
@@ -94,7 +94,7 @@ const ReviewsList = () => {
         }));
         setTestimonials(data);
       } catch (error) {
-        console.error("Ошибка при загрузке отзывов:", error);
+        console.error("Error loading reviews:", error);
       } finally {
         setLoading(false);
       }
@@ -104,11 +104,7 @@ const ReviewsList = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="bg-[#f8f9fc] min-h-[400px] flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#6F00FF]"></div>
-      </div>
-    );
+    return null;
   }
 
   if (testimonials.length === 0) return null;
@@ -140,16 +136,16 @@ const ReviewsList = () => {
                   isReverse ? "lg:flex-row-reverse" : ""
                 }`}
               >
-                {/* --- 1. Карточка Автора --- */}
+                {}
                 <div className="w-full lg:w-4/12 flex justify-center relative">
-                  {/* Фоновый элемент */}
+                  {}
                   <div
                     className={`absolute w-48 h-48 md:w-56 md:h-56 opacity-60 ${cardStyle.bgElement} ${cardStyle.bgShapeClass} ${
                       isReverse ? "-right-2" : "-left-2"
                     } top-2`}
                   ></div>
 
-                  {/* Белая карточка с тенью */}
+                  {}
                   <div
                     className={`bg-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center w-48 h-48 md:w-56 md:h-56 relative z-10 p-4 ${
                       cardStyle.cardClass
@@ -165,7 +161,7 @@ const ReviewsList = () => {
                     </div>
                   </div>
 
-                  {/* Плавающая 3D рука / фигура */}
+                  {}
                   {cardStyle.decorImage && (
                     <img
                       src={cardStyle.decorImage}
@@ -175,7 +171,7 @@ const ReviewsList = () => {
                   )}
                 </div>
 
-                {/* --- 2. Блок Текста --- */}
+                {}
                 <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-center lg:text-left">
                   <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 mb-3 w-full">
                     <LargeQuoteIcon />

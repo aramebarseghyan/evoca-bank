@@ -16,7 +16,7 @@ const BlogArchive = () => {
           ...doc.data(),
         }));
         
-        // Сортировка или просто переворот массива, чтобы новые были сверху
+        
         setBlogs(blogArray.reverse());
         setLoading(false);
       } catch (error) {
@@ -29,18 +29,14 @@ const BlogArchive = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[50vh] text-purple-700 text-xl font-bold">
-        Բեռնվում է...
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className="w-full font-sans text-[#333] pb-20">
       <div className="max-w-[1200px] mx-auto px-4 pt-10 pb-8">
         
-        {/* Хлебные крошки */}
+        {}
         <div className="flex items-center gap-3 mb-8 text-sm font-medium">
           <Link to="/blog" className="text-[#6a00ff] hover:underline">
             Բլոգ
@@ -49,12 +45,12 @@ const BlogArchive = () => {
           <span className="text-gray-500">Արխիվ</span>
         </div>
         
-        {/* Заголовок страницы */}
+        {}
         <h1 className="text-4xl md:text-[42px] font-extrabold text-[#2a1b54] mb-12">
           Բլոգի Արխիվ
         </h1>
 
-        {/* Сетка всех статей */}
+        {}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
           {blogs.map((item) => (
             <Link

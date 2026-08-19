@@ -2,7 +2,7 @@ import React from "react";
 import TestimonialCarousel from "../../Individual/HomePage/Components/TestimonialCarousel";
 
 const BusinessMetalAccounts = () => {
-  // Օգնական կոմպոնենտներ ցուցակի կետերի համար
+  
   const PurpleDot = () => (
     <div className="w-1.5 h-1.5 rounded-full bg-[#6000ff] mt-2.5 mr-4 shrink-0" />
   );
@@ -36,7 +36,7 @@ const BusinessMetalAccounts = () => {
           </div>
         </div>
 
-        {/* Սեկցիա: Հիմնական պայմաններ */}
+        {}
         <div className="max-w-[1000px]">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#222222] mb-8">
             Հիմնական պայմաններ

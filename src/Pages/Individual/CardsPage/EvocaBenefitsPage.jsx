@@ -192,7 +192,7 @@ export default function EvocaBenefitsPage() {
         }));
         setBenefits(data);
       } catch (error) {
-        console.error("Ошибка при загрузке бенефитов:", error);
+        console.error("Error loading benefits:", error);
       } finally {
         setLoading(false);
       }
@@ -211,7 +211,7 @@ export default function EvocaBenefitsPage() {
       <HeroSectionBenefits />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-16">
-        {/* Поиск и мобильная кнопка фильтров */}
+        {}
         <div className="max-w-2xl mx-auto mb-10 flex items-center gap-3">
           <button
             onClick={() => setMobileFiltersOpen(true)}
@@ -259,7 +259,7 @@ export default function EvocaBenefitsPage() {
           </div>
         </div>
 
-        {/* Выдвижная панель мобильных фильтров */}
+        {}
         <div
           className={`fixed inset-0 z-50 flex bg-black/50 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
             mobileFiltersOpen
@@ -323,7 +323,7 @@ export default function EvocaBenefitsPage() {
           ></div>
         </div>
 
-        {/* Основная сетка: Сайдбар + Карточки */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 items-start">
           <aside className="hidden md:block md:col-span-1 lg:col-span-1 sticky top-24">
             <FilterSidebarBenefits
@@ -342,9 +342,7 @@ export default function EvocaBenefitsPage() {
           <div className="md:col-span-3 lg:col-span-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               {loading ? (
-                <p className="text-center text-gray-500 py-12 col-span-full">
-                  Բեռնվում է...
-                </p>
+                null
               ) : filteredBenefits.length > 0 ? (
                 filteredBenefits
                   .slice(0, visibleCount)

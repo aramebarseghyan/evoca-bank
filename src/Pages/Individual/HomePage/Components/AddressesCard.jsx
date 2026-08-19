@@ -11,11 +11,11 @@ const AddressesCard = () => {
       onClick={() => navigate("/live-map")}
       className="group w-full flex flex-col items-start text-left sm:items-center sm:text-center lg:items-start lg:text-left gap-5 sm:gap-6 xl:gap-8 cursor-pointer"
     >
-      {/* 
-        Встроенные стили для быстрой и плавной анимации.
-        - Время анимации уменьшено до 1.2s (стало быстрее).
-        - scale в shadow-pulse увеличен (тень становится больше).
-      */}
+      {
+
+
+
+}
       <style>{`
         @keyframes pin-float {
           0%, 100% { transform: translateY(0); }
@@ -35,7 +35,7 @@ const AddressesCard = () => {
         }
       `}</style>
 
-      {/* Текст заголовка и подзаголовка */}
+      {}
       <div className="w-full">
         <h2 className="text-[#1A1A26] text-[20px] sm:text-[22px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] font-bold mb-2 sm:mb-3">
           Մեր հասցեները
@@ -46,25 +46,25 @@ const AddressesCard = () => {
         </p>
       </div>
 
-      {/* Блок с картой, пином и тенью */}
+      {}
       <div className="relative flex justify-start sm:justify-center lg:justify-start items-center py-2 w-full">
         <div className="relative w-[240px] sm:w-[270px] lg:w-[260px] xl:w-[300px] 2xl:w-[340px]">
-          {/* Фоновая карта */}
+          {}
           <img
             src={mapImg}
             alt="Map background"
             className="w-full h-auto object-contain drop-shadow-sm"
           />
 
-          {/* 
-            Фиолетовая тень под пином.
-            На смартфонах она чуть сжимается (group-hover:scale-75), 
-            а на экранах xl и выше подхватывает CSS-анимацию "shadow-pulse" 
-            и становится заметно больше.
-          */}
+          {
+
+
+
+
+}
           <div className="absolute w-[38px] h-[12px] sm:w-[44px] sm:h-[14px] xl:w-[52px] xl:h-[16px] 2xl:w-[58px] 2xl:h-[18px] bg-[#6F00FF]/35 rounded-[50%] blur-[2px] z-0 -bottom-2 left-3.5 sm:left-5 lg:left-3.5 xl:left-4 2xl:left-5 transition-all duration-300 ease-out group-hover:scale-75 group-hover:opacity-50 custom-shadow" />
 
-          {/* Маркер (пин) */}
+          {}
           <div className="absolute z-10 -bottom-3 left-2 sm:left-4 lg:left-2 2xl:left-3 transition-transform duration-300 ease-out group-hover:-translate-y-3 xl:group-hover:-translate-y-4 2xl:group-hover:-translate-y-5">
             <img
               src={pinImg}
@@ -75,7 +75,7 @@ const AddressesCard = () => {
         </div>
       </div>
 
-      {/* Кнопка */}
+      {}
       <button
         onClick={(e) => {
           e.stopPropagation();

@@ -8,17 +8,17 @@ const EvocabankPage = () => {
     {
       title: "Վարկի մարում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Ведет на страницу погашения кредита
+      path: "/loan-repayment", 
     },
     {
       title: "Հաշվի համալրում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Теперь тоже ведут сюда
+      path: "/loan-repayment", 
     },
     {
       title: "Քարտի համալրում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-repayment", // Теперь тоже ведут сюда
+      path: "/loan-repayment", 
     },
   ];
 
@@ -28,7 +28,7 @@ const EvocabankPage = () => {
 
       <main className="w-full py-8 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1240px]">
-          {/* Хлебные крошки */}
+          {}
           <div className="text-sm text-[#6000ff] mb-8">
             <Link to="/instant-payments" className="hover:underline">
               Գլխավոր

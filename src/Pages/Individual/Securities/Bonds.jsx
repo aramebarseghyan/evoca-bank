@@ -9,7 +9,7 @@ const Bonds = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Данные выпусков облигаций (аккордеоны)
+  
   const bondsData = [
     {
       title: "ՏԱՍՆԵՐԿՈՒՐՈՐԴ ԵՎ ՏԱՍՆԵՐԵՔԵՐՈՐԴ",
@@ -150,7 +150,7 @@ const Bonds = () => {
       }`}
     >
       <div className="max-w-[1440px] mx-auto pt-8 md:pt-12">
-        {/* 1. Hero Section */}
+        {}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -171,7 +171,7 @@ const Bonds = () => {
           </div>
         </div>
 
-        {/* 2. Main Description Section */}
+        {}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <div className="space-y-6 text-gray-700 text-sm md:text-base leading-relaxed">
             <p>
@@ -202,7 +202,7 @@ const Bonds = () => {
           </div>
         </div>
 
-        {/* 3. Required Information / Active Bonds Section */}
+        {}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
@@ -222,7 +222,7 @@ const Bonds = () => {
               ԹՈՂԱՐԿՎԱԾ ՊԱՐՏԱՏՈՄՍԵՐԻ ՊԱՅՄԱՆՆԵՐ
             </h4>
 
-            {/* Table */}
+            {}
             <div className="overflow-x-auto mb-8 border border-gray-100 rounded-xl">
               <table className="w-full text-left border-collapse text-sm sm:text-base">
                 <tbody>
@@ -291,7 +291,7 @@ const Bonds = () => {
               11.03.2022թ. թիվ 1/106 Ա որոշմամբ:
             </p>
 
-            {/* Document Cards */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-100">
               <a
                 href="#prospectus"
@@ -337,7 +337,7 @@ const Bonds = () => {
             </div>
           </div>
 
-          {/* Accordions for Previous Issues */}
+          {}
           <div className="space-y-4">
             {bondsData.map((item, index) => {
               const isOpen = openAccordion === index;

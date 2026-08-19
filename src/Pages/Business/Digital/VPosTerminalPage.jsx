@@ -4,12 +4,12 @@ import MobilePromo from "../../Individual/HomePage/Components/MobilePromo";
 const VPosTerminalPage = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
-      {/* Основной контейнер страницы */}
+      {}
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Hero Секция (Точная копия стиля Evocabank) */}
+        {}
         <div className="bg-[#f4eeff] rounded-bl-[100px] lg:rounded-bl-[140px] rounded-tr-3xl rounded-tl-3xl rounded-br-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            {/* Левая часть: Заголовок и текст */}
+            {}
             <div className="flex-1 space-y-6 max-w-xl">
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
                 V-POS Տերմինալ
@@ -23,7 +23,7 @@ const VPosTerminalPage = () => {
               </p>
             </div>
 
-            {/* Правая часть: Точное изображение с сервера Evocabank */}
+            {}
             <div className="flex-1 w-full flex justify-center lg:justify-end">
               <div className="w-full max-w-lg rounded-2xl overflow-hidden">
                 <img
@@ -36,7 +36,7 @@ const VPosTerminalPage = () => {
           </div>
         </div>
 
-        {/* Дополнительный текст описания */}
+        {}
         <div className="max-w-5xl mx-auto space-y-4 text-gray-700 text-sm md:text-base leading-relaxed mb-10 px-2">
           <p>
             Evocabank-ը կապահովի Ձեր կայքում V-POS տերմինալի տեղադրումը: Այն
@@ -57,7 +57,7 @@ const VPosTerminalPage = () => {
           </p>
         </div>
 
-        {/* Секция: Իսկ ինչո՞ւ տեղադրել Evocabank-ի V-POS տերմինալ */}
+        {}
         <div className="max-w-5xl mx-auto mb-12 px-2">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             Իսկ ինչո՞ւ տեղադրել Evocabank-ի V-POS տերմինալ։
@@ -77,7 +77,7 @@ const VPosTerminalPage = () => {
             </li>
           </ul>
 
-          {/* Таблица тарифов */}
+          {}
           <div className="border border-purple-100 rounded-xl overflow-x-auto mb-6 shadow-sm">
             <table className="w-full text-xs md:text-sm text-left text-gray-700 min-w-[700px]">
               <thead className="bg-purple-50 text-gray-900 font-semibold border-b border-purple-100">
@@ -146,7 +146,7 @@ const VPosTerminalPage = () => {
             </table>
           </div>
 
-          {/* Сноски к таблице */}
+          {}
           <div className="space-y-1 text-xs text-gray-500 mb-8">
             <p>
               [1] Կախված ոլորտի առանձնահատկություններից և շրջանառությունից՝
@@ -156,7 +156,7 @@ const VPosTerminalPage = () => {
             <p>[3] Ներառյալ կիրառելի բոլոր հարկերը</p>
           </div>
 
-          {/* Преимущества пунктами */}
+          {}
           <ul className="space-y-3 text-gray-700 text-sm md:text-base list-disc pl-5 leading-relaxed">
             <li>
               Վճարումներն անվտանգ են, գործում են{" "}
@@ -175,7 +175,7 @@ const VPosTerminalPage = () => {
           </ul>
         </div>
 
-        {/* Секция: Обеспечение кредита и Овердрафт */}
+        {}
         <div className="max-w-5xl mx-auto space-y-6 mb-12 border-t border-purple-100 pt-8 px-2">
           <div className="space-y-3 text-gray-700 text-sm md:text-base leading-relaxed">
             <p>Որպես վարկի ապահովման միջոց կարող են հանդիսանալ՝</p>
@@ -258,7 +258,7 @@ const VPosTerminalPage = () => {
         </div>
       </div>
 
-      {/* Секция последних новостей на полную ширину */}
+      {}
       <div className="w-full mb-16">
         <MobilePromo></MobilePromo>
       </div>

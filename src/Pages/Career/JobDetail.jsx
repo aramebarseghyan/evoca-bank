@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Ստատիկ տեղեկատվություն, որը կցուցադրվի բոլոր էջերում, եթե Firebase-ում բացակայում է
+
 const staticJobInfo = {
   description: `
     Evoca-ն փնտրում է նվիրված և փորձառու մասնագետի, ով պատասխանատու կլինի բանկի համապատասխան պրոդուկտների թվային զարգացման և նորարարական լուծումների ներդրման համար։
@@ -71,11 +71,7 @@ const JobDetail = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="w-full flex justify-center py-20">
-        <p className="text-gray-500 font-medium">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (!job) {
@@ -88,7 +84,7 @@ const JobDetail = () => {
 
   return (
     <div className="w-full bg-white min-h-screen pb-20 font-sans">
-      {/* 1. Hero Section */}
+      {}
       <div
         className="relative text-white overflow-hidden py-16 md:py-24 px-4 bg-cover bg-center bg-no-repeat"
         style={{
@@ -105,9 +101,9 @@ const JobDetail = () => {
         </div>
       </div>
 
-      {/* 2. Content Details Section */}
+      {}
       <div className="max-w-4xl mx-auto px-4 mt-10">
-        {/* Վերջնաժամկետ և Աշխատանքի վայր բլոկ */}
+        {}
         <div className="bg-[#fcfbfe] rounded-[20px] p-6 md:p-8 border border-purple-100/60 flex flex-col md:flex-row gap-6 mb-12 shadow-sm">
           <div className="flex-1 border-b md:border-b-0 md:border-r border-purple-100 pb-4 md:pb-0 md:pr-6">
             <p className="text-xs text-[#888888] mb-1 font-medium">
@@ -123,7 +119,7 @@ const JobDetail = () => {
           </div>
         </div>
 
-        {/* Տեքստային բովանդակություն */}
+        {}
         <div className="text-[#333333] space-y-10">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">

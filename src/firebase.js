@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-// Добавляем импорты для аутентификации
+
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-// 1. ԱՎԵԼԱՑՎԱԾ Է. Ներմուծում ենք Storage-ը
+
 import { getStorage } from "firebase/storage";
 
-// Конфигурация через переменные окружения (.env)
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -17,14 +17,14 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// Инициализируем сервисы
-export const db = getFirestore(app);
-export const auth = getAuth(app); // Экспортируем сервис аутентификации
-export const googleProvider = new GoogleAuthProvider(); // Экспортируем провайдер Google
 
-// 2. ԱՎԵԼԱՑՎԱԾ Է. Ինիցիալիզացնում և արտահանում ենք storage-ը ձայնային ֆայլերի համար
+export const db = getFirestore(app);
+export const auth = getAuth(app); 
+export const googleProvider = new GoogleAuthProvider(); 
+
+
 export const storage = getStorage(app);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 const EvocaSalary = () => {
-  // Меняем заголовок страницы при монтировании
+  
   useEffect(() => {
     document.title = "EVOCA Աշխատավարձային նախագիծ | Evocabank";
   }, []);
@@ -9,7 +9,7 @@ const EvocaSalary = () => {
   return (
     <div className="w-full bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-8">
-        {/* Hero Section */}
+        {}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -29,7 +29,7 @@ const EvocaSalary = () => {
           </div>
         </div>
 
-        {/* Content Section */}
+        {}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto space-y-12 text-gray-700 text-sm md:text-base leading-relaxed">
           <p className="text-base md:text-lg">
             Evoca աշխատավարձային նախագիծը մեկնարկել է նրանց համար, ովքեր, իրենց
@@ -40,7 +40,7 @@ const EvocaSalary = () => {
             :
           </p>
 
-          {/* Block 1 */}
+          {}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Բեր աշխատավարձդ Evoca, տար անվճար{" "}
@@ -59,7 +59,7 @@ const EvocaSalary = () => {
             </ul>
           </div>
 
-          {/* Block 2 */}
+          {}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Բեր աշխատավարձդ Evoca, տար{" "}
@@ -84,7 +84,7 @@ const EvocaSalary = () => {
             </ul>
           </div>
 
-          {/* Block 3 */}
+          {}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Բեր աշխատավարձդ Evoca, տար մի շարք{" "}
@@ -106,7 +106,7 @@ const EvocaSalary = () => {
             </ul>
           </div>
 
-          {/* Block 4 */}
+          {}
           <div className="space-y-4">
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
               Բեր աշխատավարձդ Evoca, տար ավելի ցածր տոկոսադրույքով վարկեր

@@ -39,12 +39,12 @@ const CustomerRights = () => {
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans text-gray-800">
-      {/* Էջի Վերնագիր */}
+      {}
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight">
         Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)
       </h1>
 
-      {/* Տեքստային բովանդակություն */}
+      {}
       <div className="space-y-5 text-sm sm:text-base leading-relaxed text-gray-700 mb-12">
         <p className="font-semibold text-gray-900">Հարգելի Հաճախորդներ`</p>
 
@@ -87,7 +87,7 @@ const CustomerRights = () => {
           հեռախոսահամարով:
         </p>
 
-        {/* Ուշադրություն բաժին */}
+        {}
         <div className="pt-2">
           <p className="font-bold text-[#5D00E0] mb-3">Ուշադրություն`</p>
           <ul className="space-y-4 pl-2">
@@ -132,7 +132,7 @@ const CustomerRights = () => {
         </div>
       </div>
 
-      {/* Փաստաթղթեր Բաժին */}
+      {}
       <div>
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
           Փաստաթղթեր
@@ -148,7 +148,7 @@ const CustomerRights = () => {
               className="flex items-center justify-between p-4 sm:p-5 bg-[#F8F9FB] hover:bg-[#F0EBFA] border border-transparent hover:border-[#5D00E0]/20 rounded-2xl transition-all group duration-200"
             >
               <div className="flex items-center gap-4 pr-4">
-                {/* PDF Icon */}
+                {}
                 <div className="w-10 h-10 rounded-xl bg-purple-100 text-[#5D00E0] flex items-center justify-center shrink-0 group-hover:bg-[#5D00E0] group-hover:text-white transition-colors">
                   <svg
                     width="20"
@@ -166,7 +166,7 @@ const CustomerRights = () => {
                     <path d="m9 15 3 3 3-3" />
                   </svg>
                 </div>
-                {/* Title */}
+                {}
                 <span className="text-xs sm:text-sm md:text-base font-semibold text-gray-800 group-hover:text-[#5D00E0] transition-colors leading-snug">
                   {doc.title}
                 </span>

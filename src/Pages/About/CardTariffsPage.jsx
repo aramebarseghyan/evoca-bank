@@ -24,7 +24,7 @@ const cardTypes = [
 const CardTariffsPage = () => {
   const [activeCard, setActiveCard] = useState("payment-cards");
 
-  // Функция для генерации уникальных данных под каждый клик, чтобы таблица менялась
+  
   const getTableData = (id) => {
     switch (id) {
       case "digital":
@@ -92,7 +92,7 @@ const CardTariffsPage = () => {
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans">
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Боковое меню (Сайдбар) */}
+        {}
         <div className="w-full lg:w-[280px] shrink-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
             <div className="flex items-center justify-between text-purple-700 font-semibold mb-4 px-2">
@@ -172,7 +172,7 @@ const CardTariffsPage = () => {
           </div>
         </div>
 
-        {/* Основной контент: Таблица тарифов */}
+        {}
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-1">
@@ -201,7 +201,7 @@ const CardTariffsPage = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-sm text-gray-800">
-                  {/* Строка 1 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Քարտի տրամադրում
@@ -216,7 +216,7 @@ const CardTariffsPage = () => {
                       {currentData.issuance}
                     </td>
                   </tr>
-                  {/* Строка 2: Обслуживание */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Քարտի սպասարկում
@@ -257,7 +257,7 @@ const CardTariffsPage = () => {
                       {currentData.business}
                     </td>
                   </tr>
-                  {/* Строка 3 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Շտապ թողարկում
@@ -272,7 +272,7 @@ const CardTariffsPage = () => {
                       {currentData.express}
                     </td>
                   </tr>
-                  {/* Строка 4 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       24.02.2022թ.-ից հետո Բանկի հաճախորդ դարձած օտարերկրյա ոչ
@@ -284,7 +284,7 @@ const CardTariffsPage = () => {
                       30,000 ՀՀ դրամ
                     </td>
                   </tr>
-                  {/* Строка 5 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Visa Business քարտի դեպքում օտարերկրյա քաղաքացիություն
@@ -301,7 +301,7 @@ const CardTariffsPage = () => {
                       30,000 ՀՀ դրամ
                     </td>
                   </tr>
-                  {/* Строка 6 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Կից քարտի տրամադրում
@@ -310,7 +310,7 @@ const CardTariffsPage = () => {
                     <td className="py-4 px-4 border-l border-gray-200">0</td>
                     <td className="py-4 px-4 border-l border-gray-200">0</td>
                   </tr>
-                  {/* Строка 7 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Կից քարտի տարեկան սպասարկում
@@ -325,7 +325,7 @@ const CardTariffsPage = () => {
                       7,000 ՀՀ դրամ
                     </td>
                   </tr>
-                  {/* Строка 8 */}
+                  {}
                   <tr>
                     <td className="py-4 px-6 font-medium text-gray-900">
                       Քարտային հաշվի նվազագույն մնացորդ
@@ -334,7 +334,7 @@ const CardTariffsPage = () => {
                     <td className="py-4 px-4 border-l border-gray-200">0</td>
                     <td className="py-4 px-4 border-l border-gray-200">0</td>
                   </tr>
-                  {/* Строка 9 */}
+                  {}
                   <tr>
                     <td
                       className="py-4 px-6 font-medium text-gray-900"

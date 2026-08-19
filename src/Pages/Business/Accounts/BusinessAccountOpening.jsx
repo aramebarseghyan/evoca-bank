@@ -77,7 +77,7 @@ const BusinessAccountOpening = () => {
   return (
     <div className="w-full bg-white pt-[30px] sm:pt-[50px] pb-16">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Верхний блок с очень сильно скругленным левым нижним углом */}
+        {}
         <div className="flex flex-col lg:flex-row w-full mb-12 lg:min-h-[440px]">
           <div className="lg:w-[40%] bg-[#f5f5f5] p-8 sm:p-10 lg:p-14 xl:p-16 flex flex-col justify-center lg:rounded-bl-[70px]">
             <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#222222] mb-5 leading-[1.3]">
@@ -98,7 +98,7 @@ const BusinessAccountOpening = () => {
           </div>
         </div>
 
-        {/* Промежуточный текст */}
+        {}
         <div className="space-y-6 mb-12 text-[#333333] text-sm sm:text-base leading-relaxed">
           <p>
             Հաշիվների սպասարկումն իրականացնում ենք մեր{" "}
@@ -126,14 +126,14 @@ const BusinessAccountOpening = () => {
           </p>
         </div>
 
-        {/* Заголовок секции аккордеонов */}
+        {}
         <div className="mb-6">
           <h4 className="text-xl sm:text-2xl font-bold text-[#222222]">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h4>
         </div>
 
-        {/* Блок с аккордеонами */}
+        {}
         <div className="space-y-4">
           {accordions.map((item, index) => {
             const isOpen = openIndex === index;
@@ -191,7 +191,7 @@ const BusinessAccountOpening = () => {
           })}
         </div>
 
-        {/* Рандомный текст в самом низу */}
+        {}
         <div className="mt-8 p-6 bg-white border border-gray-200 rounded-2xl shadow-sm">
           <h5 className="font-bold text-base text-[#222222] mb-2">
             Լրացուցիչ ծանուցում և պայմաններ
