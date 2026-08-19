@@ -64,6 +64,14 @@ const PageHeader = () => {
       };
     }
 
+    if (lowerPath === "/contact") {
+      return {
+        section: null,
+        category: null,
+        title: "Հետադարձ կապ",
+      };
+    }
+
     if (
       lowerPath === "/personal-safe-boxes" ||
       lowerPath === "/personal-boxes-safe"
@@ -288,6 +296,7 @@ const PageHeader = () => {
 
   const hideH1Paths = [
     "/booklets",
+    "/contact",
     "/digital-services-evocaonline-online-banking",
     "/evocaonline-online-banking",
     "/evoca-dibrary",
