@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const InfoCard = ({ item }) => {
-  
+  // Проверяем, является ли элемент кредитом/займом (varker), чтобы не выводить карточные условия
   const isLoan = item.type === "loan" || item.category === "loan";
 
   return (
     <div className="w-full font-sans py-8 border-b border-gray-200 last:border-b-0">
       <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
-        {}
+        {/* Ձախ մաս (Նկար) */}
         <div
           className={`w-full lg:w-[450px] shrink-0 h-56 sm:h-72 lg:h-[280px] rounded-3xl overflow-hidden mb-6 lg:mb-0 flex items-center justify-center p-4 ${item.imageBgColor || "bg-[#f8f9fa]"}`}
         >
@@ -21,7 +21,7 @@ const InfoCard = ({ item }) => {
           )}
         </div>
 
-        {}
+        {/* Աջ մաս (Կոնտենտ) */}
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 leading-tight">
@@ -31,7 +31,7 @@ const InfoCard = ({ item }) => {
               {item.description}
             </p>
 
-            {}
+            {/* Сетка условий отображается только для карт, исключая кредиты (varker) */}
             {!isLoan && item.conditions && item.conditions.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
                 {item.conditions.map((cond, idx) => (

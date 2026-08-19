@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 
-
+// Swiper стили
 import "swiper/css";
 import "swiper/css/navigation";
 
-
+// Импорт руки
 import handImg from "../../../../assets/img/hand.png";
 
-
+// Импорт логотипов партнеров
 import adelie from "../../../../assets/partners/adelie.png";
 import dalma from "../../../../assets/partners/dalma.png";
 import dignisi from "../../../../assets/partners/dignisi.png";
@@ -65,7 +65,7 @@ const Partners = () => {
   return (
     <section className="w-full bg-white py-10 lg:py-16 2xl:py-20 px-4 sm:px-8 md:px-12 xl:px-16 2xl:px-20 overflow-visible relative">
       <div className="max-w-[1600px] mx-auto flex flex-col xl:flex-row xl:items-center justify-between gap-10 xl:gap-14 2xl:gap-16 relative">
-        {}
+        {/* ЛЕВАЯ КОЛОНКА */}
         <div className="w-full xl:w-[38%] 2xl:w-[32%] flex flex-col justify-center relative z-20">
           <div className="flex flex-row justify-between items-center w-full">
             <h2 className="text-[28px] sm:text-[34px] xl:text-[40px] 2xl:text-[44px] font-extrabold text-[#1E1E24] tracking-tight">
@@ -97,9 +97,9 @@ const Partners = () => {
           </div>
         </div>
 
-        {}
+        {/* ПРАВАЯ КОЛОНКА */}
         <div className="w-full xl:w-[60%] 2xl:w-[65%] relative overflow-visible mt-4 lg:mt-8 xl:mt-0">
-          {}
+          {/* ВРАЩАЮЩИЕСЯ ЖЕЛТЫЕ ТОЧКИ */}
           <div className="hidden md:flex absolute -left-10 lg:-left-12 xl:-left-14 2xl:-left-14 top-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] xl:w-[350px] 2xl:w-[370px] h-[280px] lg:h-[320px] xl:h-[350px] 2xl:h-[370px] items-center justify-center pointer-events-none z-0">
             <svg
               viewBox="0 0 500 500"
@@ -122,7 +122,7 @@ const Partners = () => {
             </svg>
           </div>
 
-          {}
+          {/* ФИОЛЕТОВАЯ КАРТОЧКА */}
           <div
             ref={cardRef}
             className="w-full bg-[#F8F3FE] rounded-l-2xl md:rounded-l-[36px] xl:rounded-l-[44px] 2xl:rounded-l-[48px] rounded-r-none py-6 sm:py-8 xl:py-12 2xl:py-14 px-4 sm:px-6 relative shadow-sm flex items-center overflow-visible z-10"
@@ -135,7 +135,7 @@ const Partners = () => {
               }}
             ></div>
 
-            {}
+            {/* 3D-РУКА */}
             <div className="hidden md:flex absolute -left-10 lg:-left-12 xl:-left-16 2xl:-left-20 top-1/2 -translate-y-[55%] w-[160px] lg:w-[190px] xl:w-[240px] 2xl:w-[270px] h-[320px] lg:h-[380px] xl:h-[480px] 2xl:h-[520px] items-center justify-center pointer-events-none z-30">
               <img
                 src={handImg}
@@ -144,7 +144,7 @@ const Partners = () => {
               />
             </div>
 
-            {}
+            {/* Swiper слайдер */}
             <div className="w-full md:pl-[150px] lg:pl-[180px] xl:pl-[200px] 2xl:pl-[220px] relative z-20">
               <Swiper
                 modules={[Navigation, Autoplay]}

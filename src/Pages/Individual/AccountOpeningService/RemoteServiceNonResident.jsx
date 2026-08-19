@@ -39,7 +39,7 @@ const RemoteServiceNonResident = () => {
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-10 md:pt-16">
-        {}
+        {/* Hero Section */}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-24 mb-16 gap-6 lg:gap-0">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -61,7 +61,7 @@ const RemoteServiceNonResident = () => {
           </div>
         </div>
 
-        {}
+        {/* Main Content & Features */}
         <div className="px-4 sm:px-8 lg:px-24 max-w-[1200px] mx-auto">
           <div className="space-y-6 text-gray-700 text-sm md:text-base mb-12">
             <p>
@@ -76,7 +76,7 @@ const RemoteServiceNonResident = () => {
             </p>
           </div>
 
-          {}
+          {/* Highlights Box */}
           <div className="bg-[#F8F6FD] rounded-3xl p-6 md:p-8 mb-12 border border-[#eae3fd]">
             <div className="space-y-6">
               <div>
@@ -100,7 +100,7 @@ const RemoteServiceNonResident = () => {
             </div>
           </div>
 
-          {}
+          {/* Accordions Section */}
           <div className="space-y-4 mb-16">
             {accordionsData.map((item, index) => (
               <div
@@ -137,7 +137,7 @@ const RemoteServiceNonResident = () => {
             ))}
           </div>
 
-          {}
+          {/* Documents Section */}
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               Փաստաթղթեր

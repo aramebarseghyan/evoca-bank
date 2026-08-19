@@ -54,7 +54,10 @@ const NewsDetailPage = () => {
   }, [id]);
 
   if (loading) {
-    return null;
+    return (
+      <div className="flex justify-center items-center min-h-[50vh] text-purple-700">
+      </div>
+    );
   }
 
   if (!newsItem) {

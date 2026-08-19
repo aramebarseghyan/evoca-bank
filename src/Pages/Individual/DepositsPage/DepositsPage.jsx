@@ -129,7 +129,7 @@ const DepositsPage = () => {
           setDeposits(itemsList);
         }
       } catch (error) {
-        console.error("Error loading data from Firebase:", error);
+        console.error("Ошибка при загрузке данных из Firebase:", error);
       } finally {
         setLoading(false);
       }
@@ -139,7 +139,11 @@ const DepositsPage = () => {
   }, []);
 
   if (loading) {
-    return null;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
+      </div>
+    );
   }
 
   return (

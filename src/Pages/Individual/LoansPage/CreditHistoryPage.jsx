@@ -4,12 +4,12 @@ const CreditHistoryPage = () => {
   return (
     <div className="w-full bg-white pb-20">
       <div className="mx-auto px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px] pt-6 lg:pt-10">
-        {}
+        {/* Обертка для сдвига контента на 60px вправо для 2xl */}
         <div className="2xl:ml-[70px]">
-          {}
+          {/* Заголовок страницы */}
          
 
-          {}
+          {/* Основной текстовый контент */}
           <div className="text-[#1C1C1C] space-y-6 text-[15px] leading-[1.6]">
             <p className="font-bold text-[16px]">
               Կարևոր տեղեկատվություն վարկային պատմության վերաբերյալ
@@ -48,7 +48,7 @@ const CreditHistoryPage = () => {
               ընկերությունները, հետաձգված վճարումներով գործարքներ իրականացնող
               կազմակերպությունները, ինչպես նաև՝ հանրային տվյալների բազաներից ՀՀ
               կառավարության սահմանած կարգով վարկային բյուրոյին անձանց վերաբերյալ
-              տեղեկություններ տրամադրող պետական մարմինները), որոնք տրամադրում են
+              տեղեկություններ տրամադրող պետական մարмиները), որոնք տրամադրում են
               վարկային տեղեկատվության սուբյեկտի վերաբերյալ
               տեղեկություններ(տվյալներ):
             </p>
@@ -223,7 +223,7 @@ const CreditHistoryPage = () => {
                 rel="noopener noreferrer"
                 className="text-[#5800EB] hover:underline"
               >
-                https:
+                https://www.abcfinance.am
               </a>
               , Հաճախ տրվող հարցեր -{" "}
               <a
@@ -247,7 +247,7 @@ const CreditHistoryPage = () => {
             </p>
           </div>
 
-          {}
+          {/* Блок "Документы" (Փաստաթղթեր) */}
           <div className="mt-16 border-t border-gray-100 pt-10">
             <h2 className="text-[22px] font-bold text-[#1C1C1C] mb-6">
               Փաստաթղթեր
@@ -257,7 +257,7 @@ const CreditHistoryPage = () => {
               href="#"
               className="flex items-center gap-4 bg-[#fbf9ff] hover:bg-[#f3edfc] transition-colors p-4 rounded-lg md:w-max min-w-full md:min-w-[600px] border border-transparent hover:border-[#5800EB]/10"
             >
-              {}
+              {/* Иконка документа (SVG) */}
               <div className="shrink-0">
                 <svg
                   width="28"

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Dibrary = () => {
-  
+  // Պարտնյորների և կրթական ռեսուրսների լոգոների ցանկ (աշխատող հղումներով)
   const partnerLogos = [
     { name: "EBSCO", url: "https://logo.clearbit.com/ebsco.com" },
     { name: "OpenStax", url: "https://logo.clearbit.com/openstax.org" },
@@ -31,9 +31,9 @@ const Dibrary = () => {
   return (
     <div className="w-full bg-white min-h-screen py-10 px-4 sm:px-8 font-sans">
       <div className="max-w-[1100px] mx-auto">
-        {}
+        {/* Top Hero Section */}
         <div className="flex flex-col md:flex-row items-stretch rounded-[2rem] overflow-hidden mb-12 shadow-sm bg-[#FAF8FC]">
-          {}
+          {/* Left Text Content */}
           <div className="w-full md:w-5/12 p-8 sm:p-12 flex flex-col justify-center">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
               Dibrary - Digital Library
@@ -45,7 +45,7 @@ const Dibrary = () => {
             </p>
           </div>
 
-          {}
+          {/* Right Image */}
           <div className="w-full md:w-7/12 min-h-[300px] md:min-h-[400px]">
             <img
               src="https://www.evoca.am/images-cache/menu/1/16117479662777/780x585.jpg"
@@ -55,7 +55,7 @@ const Dibrary = () => {
           </div>
         </div>
 
-        {}
+        {/* Text Content Section */}
         <div className="max-w-[950px] mx-auto space-y-6 text-sm sm:text-base text-gray-800 leading-relaxed mb-16">
           <p>
             <span className="text-[#5D00E0] font-medium">#dibrary</span>-ում
@@ -94,7 +94,7 @@ const Dibrary = () => {
           </p>
         </div>
 
-        {}
+        {/* Logos Grid Section */}
         <div className="max-w-[1000px] mx-auto border border-gray-100 rounded-2xl p-6 bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07)]">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {partnerLogos.map((logo, index) => (
@@ -106,7 +106,7 @@ const Dibrary = () => {
                   src={logo.url}
                   alt={logo.name}
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
-                  
+                  // Լոգոների բեռնման խնդրի դեպքում այլընտրանքային տեքստ և ոճ
                   onError={(e) => {
                     e.target.style.display = "none";
                     e.target.nextSibling.style.display = "block";

@@ -4,7 +4,7 @@ import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
-  
+  // 1. Բոլոր հուկերը հստակ հերթականությամբ՝ ֆունկցիայի ամենասկզբում
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -16,7 +16,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  
+  // 2. Մաքրում ենք փաթը և ստուգում պայմանը հուկերից հետո
   const rawPath = location.pathname;
   const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
 
@@ -24,7 +24,7 @@ const ScrollHeader = ({ onOpenMenu }) => {
     return null;
   }
 
-  
+  // 3. Մնացած լոգիկան և ռենդերը
   const minimalHeaderPages = ["/news", "/blog", "/live-map"];
   const isMinimalHeader = minimalHeaderPages.some(
     (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),

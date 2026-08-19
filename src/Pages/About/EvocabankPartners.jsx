@@ -18,7 +18,7 @@ const EvocabankPartners = () => {
         }));
         setPartners(data);
       } catch (error) {
-        console.error("Error loading partners:", error);
+        console.error("Ошибка загрузки партнеров:", error);
       } finally {
         setLoading(false);
       }
@@ -27,7 +27,11 @@ const EvocabankPartners = () => {
   }, []);
 
   if (loading) {
-    return null;
+    return (
+      <div className="text-center py-20 font-semibold text-gray-600">
+        Բեռնվում է...
+      </div>
+    );
   }
 
   const totalPages = Math.ceil(partners.length / itemsPerPage);

@@ -4,10 +4,10 @@ export default function PensionCardsPage() {
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 sm:py-12 text-gray-800">
       
-      {}
+      {/* Верхний блок: объединенный фон, левая часть бледно-фиолетовая, правая - картинка */}
       <div className="flex flex-col lg:flex-row items-stretch w-full mb-12 sm:mb-16 rounded-[2rem] overflow-hidden">
         
-        {}
+        {/* Текстовая часть слева с фоном как в оригинале */}
         <div className="flex-1 bg-[#F9F7FC] p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
           <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-gray-900 mb-6 leading-[1.2]">
             Սոցիալական<br/>ապահովության<br/>վճարային քարտեր
@@ -17,7 +17,7 @@ export default function PensionCardsPage() {
           </p>
         </div>
 
-        {}
+        {/* Картинка справа (растягивается на всю высоту блока) */}
         <div className="w-full lg:w-1/2 flex-shrink-0">
           <img 
             src="https://www.evoca.am/images-cache/menu/1/17218011250749/780x585.jpg" 
@@ -27,7 +27,7 @@ export default function PensionCardsPage() {
         </div>
       </div>
 
-      {}
+      {/* Основные условия */}
       <div className="space-y-4 text-sm sm:text-base leading-relaxed text-gray-700 mb-10">
         <p>
           Քարտերը տրամադրում և սպասարկում ենք մեր կողմից հաստատված Կենսաթոշակային քարտերի տրամադրման և սպասարկման սակագների համաձայն:
@@ -40,7 +40,7 @@ export default function PensionCardsPage() {
         </p>
       </div>
 
-      {}
+      {/* Блок сноски (Ծանոթագրություն) */}
       <div className="bg-[#FCFAFF] border border-purple-50 rounded-2xl p-6 sm:p-8 mb-10">
         <h3 className="font-bold text-gray-900 mb-3 text-base sm:text-lg">Ծանոթագրություն</h3>
         <p className="text-sm text-gray-700 leading-relaxed mb-3">
@@ -51,7 +51,7 @@ export default function PensionCardsPage() {
         </p>
       </div>
 
-      {}
+      {/* Операции по картам */}
       <div className="mb-10">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Վճարային քարտերով կատարվող գործառնություններ
@@ -73,7 +73,7 @@ export default function PensionCardsPage() {
         </div>
       </div>
 
-      {}
+      {/* Полезная информация */}
       <div className="mb-10">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Օգտակար տեղեկատվություն
@@ -89,7 +89,7 @@ export default function PensionCardsPage() {
         </ul>
       </div>
 
-      {}
+      {/* Предупреждение (Զգուշացում) */}
       <div className="bg-red-50/50 border border-red-100 rounded-2xl p-6 sm:p-8 text-sm sm:text-base text-gray-700 space-y-4 leading-relaxed mb-14">
         <h3 className="font-bold text-red-900 text-base sm:text-lg mb-2">Զգուշացում</h3>
         <p>
@@ -109,12 +109,12 @@ export default function PensionCardsPage() {
         </p>
       </div>
 
-      {}
+      {/* Блок документов (Փաստաթղթեր) с центрированным текстом */}
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Փաստաթղթեր</h2>
         
         <div className="space-y-4">
-          {}
+          {/* Документ 1 */}
           <a 
             href="https://www.evoca.am/files/global_files/1/provision-terms-for-general-banking-services-arm.pdf" 
             target="_blank" 
@@ -143,7 +143,7 @@ export default function PensionCardsPage() {
             </div>
           </a>
 
-          {}
+          {/* Документ 2 */}
           <a 
             href="https://www.evoca.am/files/global_files/1/credit-and-debit-cards-17-03-26.pdf" 
             target="_blank" 

@@ -57,7 +57,7 @@ const Header2 = () => {
     ? activeGroup.isBusiness
     : cleanPath.includes("business");
 
-  
+  // Check for "News" and "Blog" pages where sub-menu should be empty
   const noSubNavPaths = ["/news", "/blog", "/live-map"];
   const isNoSubNavMode = noSubNavPaths.some(
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
@@ -135,7 +135,7 @@ const Header2 = () => {
     { label: "Աշխատանք և պրակտիկա", path: "/work-at-evoca", display: "flex" },
   ];
 
-  
+  // Apply empty array if in news, blog, or map section
   let currentNavItems;
   if (isNoSubNavMode) {
     currentNavItems = [];
@@ -262,7 +262,7 @@ const Header2 = () => {
             />
           </Link>
 
-          {}
+          {/* Navigation will not render on news/blog/map pages as currentNavItems is empty */}
           <nav className="hidden md:flex items-center gap-6 xl:gap-8 h-full">
             {currentNavItems.map((item, index) => (
               <Link
@@ -277,7 +277,7 @@ const Header2 = () => {
         </div>
 
         <div className="shrink-0">
-          {}
+          {/* Այստեղ արտաքին հղումը փոխարինվել է ներքին React ռաութի Link-ով */}
           <Link
             to="/evocaLogin"
             className="inline-block bg-[#5800EB] text-white px-5 py-2 lg:px-7 lg:py-2.5 rounded-full font-bold text-[12px] lg:text-[14px] hover:bg-[#4300B8] transition-colors"

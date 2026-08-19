@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase"; 
+import { db } from "../../firebase"; // Проверьте правильность путей к firebase.js
 
 const MemberCard = ({ id, name, title, image }) => {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const EvocabankManagement = () => {
 
         setCategories({ supervisoryBoard, managementBoard, internalAudit });
       } catch (error) {
-        console.error("Error loading data from Firebase:", error);
+        console.error("Ошибка загрузки данных из Firebase:", error);
       } finally {
         setLoading(false);
       }
@@ -76,7 +76,11 @@ const EvocabankManagement = () => {
   }, []);
 
   if (loading) {
-    return null;
+    return (
+      <div className="text-center py-20 font-semibold text-gray-600">
+        Բեռնվում է...
+      </div>
+    );
   }
 
   return (
@@ -86,7 +90,7 @@ const EvocabankManagement = () => {
           Ղեկավարություն
         </h1>
 
-        {}
+        {/* Секция 1: Совет банка */}
         <section className="mb-12">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-100">
             Բանկի խորհուրդ
@@ -98,7 +102,7 @@ const EvocabankManagement = () => {
           </div>
         </section>
 
-        {}
+        {/* Секция 2: Правление банка */}
         <section className="mb-12">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-100">
             Բանկի վարչություն
@@ -110,7 +114,7 @@ const EvocabankManagement = () => {
           </div>
         </section>
 
-        {}
+        {/* Секция 3: Внутренний аудит */}
         <section>
           <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-6 pb-2 border-b border-gray-100">
             Բանկի ներքին աուդիտ

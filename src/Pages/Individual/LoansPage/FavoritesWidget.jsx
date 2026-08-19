@@ -9,7 +9,7 @@ const FavoritesWidget = () => {
 
   return (
     <>
-      {}
+      {/* Լողացող կոճակ (Floating ActionButton) */}
       <button
         onClick={() => setIsOpen(true)}
         className="fixed bottom-8 left-8 z-50 bg-[#5D00E0] text-white p-4 rounded-full shadow-[0_8px_30px_rgba(93,0,224,0.4)] hover:scale-105 transition-transform flex items-center justify-center cursor-pointer"
@@ -35,7 +35,7 @@ const FavoritesWidget = () => {
         </div>
       </button>
 
-      {}
+      {/* Մոդալ պատուհան սրտիկած վարկերի ցուցակով */}
       {isOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">

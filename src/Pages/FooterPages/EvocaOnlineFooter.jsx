@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const EvocaOnlinefooter = () => {
-  const [openAccordion, setOpenAccordion] = useState(0); 
+  const [openAccordion, setOpenAccordion] = useState(0); // По умолчанию открыта "Անվտանգությունը"
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
@@ -40,19 +40,19 @@ const EvocaOnlinefooter = () => {
     },
     {
       id: 3,
-      title: "SWIFT transfers to Russia (20.03.2026)",
+      title: "SWIFT переводы в РФ (20.03.2026)",
       link: "#",
     },
   ];
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-16 py-8 text-gray-800 font-sans leading-relaxed">
-      {}
+      {/* Top Main Title */}
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
         EvocaONLINE
       </h1>
 
-      {}
+      {/* Section Description & Features */}
       <div className="mb-12">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">
           Նկարագիրը և հնարավորությունները
@@ -65,7 +65,7 @@ const EvocaOnlinefooter = () => {
           Համակարգի միջոցով կարող եք՝
         </p>
 
-        {}
+        {/* Outer Bullet Category 1 */}
         <div className="mb-6">
           <div className="flex items-start gap-2.5 mb-3 text-sm sm:text-base font-bold text-[#8A2BE2]">
             <span className="w-2 h-2 rounded-full bg-[#8A2BE2] mt-2 shrink-0"></span>
@@ -103,7 +103,7 @@ const EvocaOnlinefooter = () => {
           </ul>
         </div>
 
-        {}
+        {/* Outer Bullet Category 2 */}
         <div>
           <div className="flex items-start gap-2.5 mb-3 text-sm sm:text-base font-bold text-[#8A2BE2]">
             <span className="w-2 h-2 rounded-full bg-[#8A2BE2] mt-2 shrink-0"></span>
@@ -152,7 +152,7 @@ const EvocaOnlinefooter = () => {
         </div>
       </div>
 
-      {}
+      {/* Offer Note */}
       <p className="text-sm sm:text-base text-gray-800 mb-12 leading-relaxed">
         Մեր և ձեր պայմանագրային փոխհարաբերությունները կարգավորվում են{" "}
         <span className="font-bold">
@@ -165,7 +165,7 @@ const EvocaOnlinefooter = () => {
         պայմաններին կարող եք ծանոթանալ այստեղ:
       </p>
 
-      {}
+      {/* Accordion Section */}
       <div className="mb-14">
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-6 uppercase tracking-wide">
           ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
@@ -223,7 +223,7 @@ const EvocaOnlinefooter = () => {
         </div>
       </div>
 
-      {}
+      {/* Documents Section */}
       <div>
         <h2 className="text-lg font-bold text-gray-900 mb-4">Փաստաթղթեր</h2>
         <div className="space-y-3">

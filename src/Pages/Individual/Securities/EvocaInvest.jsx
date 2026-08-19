@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 
 const EvocaInvest = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
-  const [openVideoAccordion, setOpenVideoAccordion] = useState(true); 
+  const [openVideoAccordion, setOpenVideoAccordion] = useState(true); // Открыт по умолчанию
 
-  
+  // Меняем заголовок страницы при монтировании
   useEffect(() => {
     document.title = "EvocaINVEST | Ներդրումային հարթակ";
   }, []);
@@ -81,7 +81,7 @@ const EvocaInvest = () => {
   return (
     <div className="w-full bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-8">
-        {}
+        {/* 1. Hero Section */}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -101,7 +101,7 @@ const EvocaInvest = () => {
           </div>
         </div>
 
-        {}
+        {/* 2. Intro Text Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16 space-y-6 text-gray-700 text-sm md:text-base leading-relaxed">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
             Apple, Tesla, Google, Amazon, թե՞ Nike:
@@ -119,7 +119,7 @@ const EvocaInvest = () => {
           </p>
         </div>
 
-        {}
+        {/* 3. Instruments Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16 space-y-6 text-gray-700 text-sm md:text-base leading-relaxed">
           <h2 className="text-2xl font-bold text-gray-900">
             Քո ներդրումային գործիքները
@@ -147,7 +147,7 @@ const EvocaInvest = () => {
           </ul>
         </div>
 
-        {}
+        {/* 4. Steps Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">
             Բացի՛ր բրոքերային հաշիվ 3 պարզ քայլով
@@ -159,7 +159,7 @@ const EvocaInvest = () => {
           />
         </div>
 
-        {}
+        {/* 5. Benefits Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16 space-y-6 text-gray-700 text-sm md:text-base leading-relaxed">
           <h2 className="text-2xl font-bold text-gray-900">
             Ինչո՞ւ ընտրել EvocaINVEST ներդրումային հարթակը
@@ -186,14 +186,14 @@ const EvocaInvest = () => {
           </div>
         </div>
 
-        {}
+        {/* 6. Required Info Header */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h2>
         </div>
 
-        {}
+        {/* 7. Video Accordion Section with 5 Stacked Videos */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-12">
           <div
             className={`border rounded-2xl transition-all duration-300 overflow-hidden ${openVideoAccordion ? "border-[#5D00E0] shadow-sm" : "border-gray-200"}`}
@@ -248,7 +248,7 @@ const EvocaInvest = () => {
           </div>
         </div>
 
-        {}
+        {/* 8. FAQ Accordions Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <div className="space-y-4">
             {faqData.map((item, index) => {

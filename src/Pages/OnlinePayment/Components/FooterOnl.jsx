@@ -3,23 +3,23 @@ import React from "react";
 const FooterOnl = () => {
   return (
     <footer className="w-full font-sans flex flex-col">
-      {}
+      {/* Верхняя часть футера (Белый фон) */}
       <div className="bg-white py-10 px-4 sm:px-6 lg:px-8 border-t border-gray-100">
         <div className="max-w-[1240px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-6">
-          {}
+          {/* 1. Логотип и копирайт */}
           <div className="flex flex-col max-w-[250px]">
-            {}
+            {/* Заглушка для логотипа. Замените src на ваш реальный логотип */}
             <img
               src="https://resource.evoca.am/images/evoca_logo.svg"
               alt="Evocabank Logo"
               className="h-8 mb-4 object-left object-contain"
               onError={(e) => {
-                
+                // Фолбэк, если картинка не загрузится (стилизация под логотип)
                 e.target.style.display = "none";
                 e.target.nextSibling.style.display = "block";
               }}
             />
-            {}
+            {/* Текстовый фолбэк для логотипа, если картинки нет */}
             <div className="hidden mb-4 text-[28px] font-bold tracking-tight">
               <span className="text-[#696969]">evoca</span>
               <span className="text-[#a5a5a5] font-light">BANK</span>
@@ -35,7 +35,7 @@ const FooterOnl = () => {
             </p>
           </div>
 
-          {}
+          {/* 2. Адрес */}
           <div className="flex flex-col pt-2">
             <p className="text-[#555555] text-[15px] leading-relaxed">
               ք. Երևան, 0010,
@@ -44,7 +44,7 @@ const FooterOnl = () => {
             </p>
           </div>
 
-          {}
+          {/* 3. Контакты */}
           <div className="flex flex-col pt-2 gap-4">
             <a
               href="mailto:hello@evoca.am"
@@ -60,10 +60,10 @@ const FooterOnl = () => {
             </a>
           </div>
 
-          {}
+          {/* 4. QR Код */}
           <div className="flex-shrink-0">
             <div className="p-2 border border-gray-100 rounded-2xl shadow-sm inline-block">
-              {}
+              {/* Замените на реальное изображение QR-кода */}
               <img
                 src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://evoca.am&color=6000ff"
                 alt="QR Code"
@@ -72,12 +72,12 @@ const FooterOnl = () => {
             </div>
           </div>
 
-          {}
+          {/* 5. Соцсети и Приложения */}
           <div className="flex flex-col gap-5 pt-2">
-            {}
+            {/* Иконки соцсетей */}
             <div className="flex items-center gap-2">
               {[
-                
+                // Иконки в формате SVG (Facebook, Instagram, YouTube, LinkedIn, Pinterest)
                 <svg
                   fill="currentColor"
                   viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ const FooterOnl = () => {
               ))}
             </div>
 
-            {}
+            {/* Кнопки App Store и Google Play */}
             <div className="flex flex-col gap-2 w-max">
               <a
                 href="#"
@@ -157,10 +157,10 @@ const FooterOnl = () => {
         </div>
       </div>
 
-      {}
+      {/* Нижняя часть футера (Серый фон) */}
       <div className="bg-[#f0f1f3] py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1240px] mx-auto flex flex-col lg:flex-row justify-between items-center lg:items-start gap-8">
-          {}
+          {/* Левая часть: Юридический текст */}
           <div className="lg:w-3/4">
             <p className="text-[#888888] text-[11px] leading-[1.6] text-justify">
               Հարգելի' այցելու, կայքի որևէ տեղեկատվության վերաբերյալ տարբեր
@@ -175,7 +175,7 @@ const FooterOnl = () => {
             </p>
           </div>
 
-          {}
+          {/* Правая часть: Логотипы партнеров (ArCa, и др.) */}
           <div className="lg:w-1/4 flex flex-wrap justify-end items-center gap-3 grayscale opacity-60">
             <img
               src="https://payments.evoca.am/assets/images/cb.png"

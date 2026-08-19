@@ -39,9 +39,9 @@ const MoneyTransfers = () => {
 
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20 overflow-x-hidden">
-      {}
+      {/* Контейнер для основных блоков */}
       <div className="max-w-[1440px] mx-auto pt-4 md:pt-6">
-        {}
+        {/* 1. Hero Section */}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -62,7 +62,7 @@ const MoneyTransfers = () => {
           </div>
         </div>
 
-        {}
+        {/* 2. General Provisions (Ընդհանուր դրույթներ) */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             Ընդհանուր դրույթներ
@@ -108,7 +108,7 @@ const MoneyTransfers = () => {
         </div>
       </div>
 
-      {}
+      {/* 3. Full-width Banner with Overlay Text (Вынесено наружу для абсолютной ширины экрана) */}
       <div className="relative w-screen left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] h-[350px] md:h-[450px] mb-16">
         <img
           src="https://www.evoca.am/images-cache/menu/1/1611294541215/1920x530.jpg"
@@ -123,9 +123,9 @@ const MoneyTransfers = () => {
         </div>
       </div>
 
-      {}
+      {/* Продолжение контейнера для остальных блоков */}
       <div className="max-w-[1440px] mx-auto">
-        {}
+        {/* 4. Required Information (Անհրաժեշտ տեղեկատվություն - Accordion) */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
@@ -174,7 +174,7 @@ const MoneyTransfers = () => {
           </div>
         </div>
 
-        {}
+        {/* 5. Documents Section (Փաստաթղթեր) */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
             Փաստաթղթեր

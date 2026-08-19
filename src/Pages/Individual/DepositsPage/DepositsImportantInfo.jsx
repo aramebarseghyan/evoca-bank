@@ -11,7 +11,7 @@ const DepositsImportantInfo = () => {
   return (
     <div className="w-full font-sans bg-white min-h-screen pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">
-        {}
+        {/* Ընդհանուր դրույթներ (Առանց ֆոնի և շրջանակի) */}
         <div className="space-y-6">
           <h2 className="text-3xl font-bold text-gray-900 pb-2">
             Ընդհանուր դրույթներ
@@ -282,9 +282,9 @@ const DepositsImportantInfo = () => {
           </div>
         </div>
 
-        {}
+        {/* Ակորդեոններ */}
         <div className="space-y-4 pt-6 border-t border-gray-100">
-          {}
+          {/* Ակորդեոն 1 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(1)}
@@ -322,7 +322,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 2 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(2)}
@@ -352,7 +352,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 3 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(3)}
@@ -433,7 +433,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 4 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(4)}
@@ -457,7 +457,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 5 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(5)}
@@ -483,7 +483,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 6 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(6)}
@@ -509,7 +509,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 7 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(7)}
@@ -536,7 +536,7 @@ const DepositsImportantInfo = () => {
             )}
           </div>
 
-          {}
+          {/* Ակորդեոն 8 */}
           <div className="border border-[#E9D7FE] rounded-2xl overflow-hidden bg-white shadow-sm">
             <button
               onClick={() => toggleAccordion(8)}

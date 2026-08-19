@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
-
+// ВНИМАНИЕ: проверь правильность пути до твоего файла firebase.js
 import { db } from "../../firebase";
 
 const LocationTracker = () => {
@@ -10,18 +10,18 @@ const LocationTracker = () => {
     let watchId = null;
     let currentUser = null;
 
-    
+    // Функция для установки статуса "Офлайн"
     const setOfflineStatus = () => {
       if (currentUser) {
         const userRef = doc(db, "users", currentUser.uid);
-        
+        // Используем updateDoc, чтобы не перезаписывать другие данные
         updateDoc(userRef, { isOnline: false }).catch((err) =>
-          console.error("Error setting offline status:", err),
+          console.error("Ошибка при установке офлайн:", err),
         );
       }
     };
 
-    
+    // Слушаем скрытие/показ вкладки (например, когда свернули браузер на телефоне)
     const handleVisibilityChange = () => {
       if (!currentUser) return;
       const userRef = doc(db, "users", currentUser.uid);
@@ -33,21 +33,21 @@ const LocationTracker = () => {
       }
     };
 
-    
+    // Слушаем закрытие вкладки/браузера
     const handleBeforeUnload = () => {
       setOfflineStatus();
     };
 
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
-      currentUser = user; 
+      currentUser = user; // Сохраняем текущего юзера для слушателей
 
       if (user) {
         const userRef = doc(db, "users", user.uid);
 
-        
+        // При входе сразу ставим онлайн
         await setDoc(userRef, { isOnline: true }, { merge: true });
 
-        
+        // Подписываемся на события браузера
         window.addEventListener("beforeunload", handleBeforeUnload);
         document.addEventListener("visibilitychange", handleVisibilityChange);
 
@@ -59,7 +59,7 @@ const LocationTracker = () => {
                 await setDoc(
                   userRef,
                   {
-                    isOnline: true, 
+                    isOnline: true, // Обновляем онлайн при каждом движении
                     photoURL: user.photoURL || null,
                     displayName: user.displayName || null,
                     email: user.email || null,
@@ -71,12 +71,12 @@ const LocationTracker = () => {
                   { merge: true },
                 );
               } catch (error) {
-                console.error("Error saving location to the database:", error);
+                console.error("Ошибка при записи локации в БД:", error);
               }
             },
             async (error) => {
-              console.warn("GPS error:", error.message);
-              
+              console.warn("Ошибка GPS:", error.message);
+              // Если GPS не работает, всё равно оставляем статус онлайн
               try {
                 await setDoc(
                   userRef,
@@ -84,7 +84,7 @@ const LocationTracker = () => {
                   { merge: true },
                 );
               } catch (err) {
-                console.error("Error updating status:", err);
+                console.error("Ошибка при обновлении статуса:", err);
               }
             },
             {
@@ -95,7 +95,7 @@ const LocationTracker = () => {
           );
         }
       } else {
-        
+        // Если юзер разлогинился
         if (watchId !== null) {
           navigator.geolocation.clearWatch(watchId);
         }
@@ -107,9 +107,9 @@ const LocationTracker = () => {
       }
     });
 
-    
+    // Очистка при размонтировании компонента (когда пользователь уходит с карты на другую страницу)
     return () => {
-      setOfflineStatus(); 
+      setOfflineStatus(); // Ставим офлайн при выходе из компонента
       unsubscribeAuth();
       if (watchId !== null && "geolocation" in navigator) {
         navigator.geolocation.clearWatch(watchId);

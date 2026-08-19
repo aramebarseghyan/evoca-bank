@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ScrollHeader from "../../components/Header/ScrollHeader";
 
-
+// 1. КОМПОНЕНТ АВТО-ЦЕНТРИРОВАНИЯ
 const AutoZoomToBounds = ({ users }) => {
   const map = useMap();
 
@@ -22,10 +22,10 @@ const AutoZoomToBounds = ({ users }) => {
   return null;
 };
 
-
+// 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК
 const createGmailAvatar = (user) => {
   const isOnline = user.isOnline;
-  const statusColor = isOnline ? "#10b981" : "#ef4444"; 
+  const statusColor = isOnline ? "#10b981" : "#ef4444"; // Зеленый / Красный
 
   let innerContent = "";
   if (user.photoURL) {
@@ -38,7 +38,7 @@ const createGmailAvatar = (user) => {
       />
     `;
   } else {
-    
+    // Безопасное получение начальной буквы
     const name = user.displayName || user.email || "Ա";
     const initial = name.length > 0 ? name.charAt(0).toUpperCase() : "Ա";
 
@@ -166,7 +166,7 @@ const LiveUsersMap = () => {
       <ScrollHeader onOpenMenu={() => {}} />
 
       <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px] lg:pt-[64px] pb-4 md:pb-6 flex flex-col gap-4">
-        {}
+        {/* Header Section */}
         <div className="flex-shrink-0 relative overflow-hidden flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 bg-white p-5 md:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-purple-50">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-purple-400/10 blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-400/10 blur-[80px] pointer-events-none"></div>
@@ -227,10 +227,18 @@ const LiveUsersMap = () => {
           </div>
         </div>
 
-        {}
+        {/* Map Section */}
         <div className="flex-1 relative w-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border-[6px] border-white z-0 bg-gray-50">
           {isLoading ? (
-            null
+            <div className="w-full h-full flex flex-col items-center justify-center bg-white/80 backdrop-blur-md space-y-5">
+              <div className="relative flex justify-center items-center">
+                <div className="absolute animate-ping w-16 h-16 rounded-full bg-purple-400 opacity-20"></div>
+                <div className="w-12 h-12 border-4 border-purple-100 border-t-purple-600 rounded-full animate-spin"></div>
+              </div>
+              <span className="text-purple-900/60 font-semibold tracking-wide animate-pulse">
+                Քարտեզի բեռնում...
+              </span>
+            </div>
           ) : (
             <MapContainer
               center={[40.1811, 44.5136]}

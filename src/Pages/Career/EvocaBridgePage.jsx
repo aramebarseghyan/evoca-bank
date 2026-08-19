@@ -58,7 +58,7 @@ export default function EvocaBridgePage() {
 
   return (
     <div className="w-full bg-white pb-20">
-      {}
+      {/* Hero Section */}
       <section
         className="relative w-full h-[350px] sm:h-[450px] lg:h-[500px] bg-cover bg-center bg-no-repeat flex items-center"
         style={{
@@ -78,15 +78,15 @@ export default function EvocaBridgePage() {
         </div>
       </section>
 
-      {}
+      {/* Main Content Section */}
       <div className="container mx-auto px-6 md:px-12 lg:px-32 pt-16 max-w-6xl">
-        {}
+        {/* Intro subtitle */}
         <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-8 leading-snug">
           Չունե՞ս աշխատանքային փորձ, բայց փնտրո՞ւմ ես աշխատանք, ուրեմն
           EvocaBRIDGE ծրագիրը քեզ համար է!
         </h2>
 
-        {}
+        {/* Benefits List */}
         <ul className="space-y-4 mb-12">
           {programBenefits.map((item, index) => (
             <li
@@ -99,7 +99,7 @@ export default function EvocaBridgePage() {
           ))}
         </ul>
 
-        {}
+        {/* Requirements Section */}
         <div className="mb-12">
           <h3 className="text-base md:text-lg font-bold text-[#6816cc] mb-4 flex items-center gap-2">
             <span>💼 EvocaBRIDGE-ին կարող ես մասնակցել, եթե...</span>
@@ -117,7 +117,7 @@ export default function EvocaBridgePage() {
           </ul>
         </div>
 
-        {}
+        {/* Application Docs Section */}
         <div className="mb-12">
           <h3 className="text-base md:text-lg font-bold text-[#6816cc] mb-4">
             💼 EvocaBRIDGE-ին մասնակցելու համար{" "}
@@ -142,13 +142,13 @@ export default function EvocaBridgePage() {
           </ul>
         </div>
 
-        {}
+        {/* Footer Note */}
         <div className="mb-16 text-gray-700 text-sm md:text-base leading-relaxed">
           Նախնական ընտրությունն անցած թեկնածուների հետ կիրականացվեն անհատական
           հարցազրույցներ, որի արդյունքում կընտրվեն ծրագրի մասնակիցները:
         </div>
 
-        {}
+        {/* Program Details Section */}
         <div className="border-t border-gray-200 pt-12">
           <h3 className="text-2xl md:text-3xl font-bold text-[#6816cc] mb-4">
             Ծրագրի մանրամասներ․

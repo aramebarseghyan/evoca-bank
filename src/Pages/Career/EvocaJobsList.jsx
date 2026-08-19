@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; // <--- Импортируем
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
@@ -19,7 +19,7 @@ const db = getFirestore(app);
 const EvocaJobsList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // <--- Инициализируем
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -40,12 +40,16 @@ const EvocaJobsList = () => {
   }, []);
 
   if (loading) {
-    return null;
+    return (
+      <div className="w-full flex justify-center py-20">
+        <p className="text-gray-500 font-medium">Բեռնվում է...</p>
+      </div>
+    );
   }
 
   return (
     <div className="w-full bg-white min-h-screen font-sans">
-      {}
+      {/* Hero Section */}
       <div
         className="relative text-white overflow-hidden py-16 md:py-24 px-4 bg-cover bg-center bg-no-repeat"
         style={{
@@ -62,7 +66,7 @@ const EvocaJobsList = () => {
         </div>
       </div>
 
-      {}
+      {/* Team Member Qualities Section */}
       <div className="max-w-6xl mx-auto py-16 px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-[#333333] mb-12">
           Ինչպիսի թիմակից ենք մենք փնտրում ?
@@ -120,7 +124,7 @@ const EvocaJobsList = () => {
         </div>
       </div>
 
-      {}
+      {/* Jobs List Section */}
       <div className="bg-[#fafafa] py-16 px-4 border-t border-gray-100">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8 text-center md:text-left">

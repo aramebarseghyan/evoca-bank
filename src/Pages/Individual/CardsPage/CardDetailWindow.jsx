@@ -84,7 +84,9 @@ const CardDetailWindow = () => {
     return () => clearInterval(interval);
   }, [otherCards.length]);
 
-  if (loading) return null;
+  if (loading) {
+    return <div className="text-center py-20 text-lg">Բեռնվում է...</div>;
+  }
 
   if (!cardData) {
     return <div className="text-center py-20 text-lg">Քարտը չի գտնվել:</div>;
@@ -301,7 +303,7 @@ const CardDetailWindow = () => {
 
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
-      {}
+      {/* Верхний баннер */}
       <div className="bg-[#f8f9fa] pt-12 pb-16 px-6 sm:px-12 lg:px-24">
         <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row justify-between items-center gap-12">
           <div className="max-w-xl">
@@ -324,7 +326,7 @@ const CardDetailWindow = () => {
         </div>
       </div>
 
-      {}
+      {/* Основной контент (внутри ограниченного контейнера) */}
       <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-24 py-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-start gap-8 mb-8">
           <button
@@ -532,7 +534,7 @@ const CardDetailWindow = () => {
           </div>
         )}
 
-        {}
+        {/* Секция "Այլ քարտեր" */}
         {otherCards.length > 0 && (
           <div className="mt-20 pt-12 border-t border-gray-200">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
@@ -606,7 +608,7 @@ const CardDetailWindow = () => {
         )}
       </div>
 
-      {}
+      {/* Вынесли MobilePromo за пределы ограничивающего max-w контейнера, чтобы фон был на полный экран (full width) */}
       <div className="mt-16 w-full">
         <MobilePromo />
       </div>

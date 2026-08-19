@@ -5,8 +5,8 @@ const ChatHeader = ({
   showDeletedView,
   setActiveChat,
   onClose,
-  onAudioCall, 
-  onVideoCall, 
+  onAudioCall, // <-- Функция для обычного звонка
+  onVideoCall, // <-- Функция для видеозвонка
 }) => {
   return (
     <div className="flex items-center justify-between bg-blue-600 px-4 py-3 text-white">
@@ -43,12 +43,12 @@ const ChatHeader = ({
         </h3>
       </div>
 
-      {}
+      {/* Обернули кнопки справа в flex-контейнер */}
       <div className="flex items-center space-x-1">
-        {}
+        {/* Кнопки звонка (показываются только в личных чатах) */}
         {activeChat && activeChat !== "group" && (
           <>
-            {}
+            {/* Кнопка Обычного (Аудио) звонка */}
             <button
               onClick={onAudioCall}
               title="Աուդիո զանգ"
@@ -70,7 +70,7 @@ const ChatHeader = ({
               </svg>
             </button>
 
-            {}
+            {/* Кнопка Видеозвонка */}
             <button
               onClick={onVideoCall}
               title="Վիդեո զանգ"
@@ -94,7 +94,7 @@ const ChatHeader = ({
           </>
         )}
 
-        {}
+        {/* Кнопка закрытия чата */}
         <button
           onClick={onClose}
           className="hover:bg-blue-700 p-1.5 rounded transition-colors"

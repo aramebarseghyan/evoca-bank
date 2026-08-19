@@ -6,7 +6,7 @@ const DepositTariffsPage = () => {
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans">
       <div className="flex flex-col lg:flex-row gap-8">
-        {}
+        {/* Боковое меню (Сайдбар) */}
         <div className="w-full lg:w-[280px] shrink-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
             <div className="flex items-center justify-between text-purple-700 font-semibold mb-4 px-2">
@@ -65,9 +65,9 @@ const DepositTariffsPage = () => {
           </div>
         </div>
 
-        {}
+        {/* Основной контент */}
         <div className="flex-1">
-          {}
+          {/* 1. Դասական ավանդ */}
           {activeTab === "classical" && (
             <div>
               <div className="mb-6">
@@ -76,7 +76,7 @@ const DepositTariffsPage = () => {
                 </h2>
               </div>
 
-              {}
+              {/* Таблица ставок Classical */}
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-10">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs sm:text-sm">
@@ -112,7 +112,7 @@ const DepositTariffsPage = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 text-gray-800">
-                      {}
+                      {/* AMD */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -198,7 +198,7 @@ const DepositTariffsPage = () => {
                         </td>
                       </tr>
 
-                      {}
+                      {/* USD */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -284,7 +284,7 @@ const DepositTariffsPage = () => {
                         </td>
                       </tr>
 
-                      {}
+                      {/* EUR */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -370,7 +370,7 @@ const DepositTariffsPage = () => {
                         </td>
                       </tr>
 
-                      {}
+                      {/* RUB */}
                       <tr>
                         <td
                           rowSpan="2"
@@ -436,7 +436,7 @@ const DepositTariffsPage = () => {
             </div>
           )}
 
-          {}
+          {/* 2. Evoca Online Ավանդ */}
           {activeTab === "online" && (
             <div>
               <div className="mb-6">
@@ -448,7 +448,7 @@ const DepositTariffsPage = () => {
                 </p>
               </div>
 
-              {}
+              {/* Таблица ставок Evoca Online */}
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-10">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs sm:text-sm">
@@ -484,7 +484,7 @@ const DepositTariffsPage = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 text-gray-800">
-                      {}
+                      {/* AMD */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -570,7 +570,7 @@ const DepositTariffsPage = () => {
                         </td>
                       </tr>
 
-                      {}
+                      {/* USD */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -656,7 +656,7 @@ const DepositTariffsPage = () => {
                         </td>
                       </tr>
 
-                      {}
+                      {/* EUR */}
                       <tr>
                         <td
                           rowSpan="3"
@@ -748,7 +748,7 @@ const DepositTariffsPage = () => {
             </div>
           )}
 
-          {}
+          {/* 3. Մանկական ավանդ */}
           {activeTab === "children" && (
             <div>
               <div className="mb-6">
@@ -757,7 +757,7 @@ const DepositTariffsPage = () => {
                 </h2>
               </div>
 
-              {}
+              {/* Таблица ставок для Малышового депозита */}
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-8">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left border-collapse text-xs sm:text-sm">
@@ -791,7 +791,7 @@ const DepositTariffsPage = () => {
                 </div>
               </div>
 
-              {}
+              {/* Условия */}
               <div className="space-y-4 text-xs sm:text-sm text-gray-700 leading-relaxed px-1">
                 <div className="flex items-start gap-3">
                   <span className="font-semibold text-purple-700 shrink-0">

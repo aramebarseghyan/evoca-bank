@@ -4,7 +4,7 @@ const BusinessMoneyTransfers = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed pb-16">
       
-      {}
+      {/* 1. Վերնագիր և նկարով գլխավոր բլոկ */}
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div>
@@ -27,7 +27,7 @@ const BusinessMoneyTransfers = () => {
           </div>
         </div>
 
-        {}
+        {/* 2. Ընդհանուր դրույթներ */}
         <div className="space-y-6 text-gray-700 text-base md:text-lg leading-relaxed max-w-5xl">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             Ընդհանուր դրույթներ

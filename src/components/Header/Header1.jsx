@@ -122,7 +122,7 @@ const Header1 = ({ onOpenMenu }) => {
   return (
     <div className="w-full border-b border-gray-200 bg-white shadow-sm z-40 relative">
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
-        {}
+        {/* LEFT SECTION: Tabs */}
         <div className="hidden lg:flex items-center lg:gap-5 xl:gap-6 2xl:gap-8">
           {tabs.map((tab) => {
             const isActive = tab.prefixes.some((prefix) => {
@@ -169,11 +169,11 @@ const Header1 = ({ onOpenMenu }) => {
           })}
         </div>
 
-        {}
+        {/* RIGHT SECTION: Links and Icons */}
         <div className="flex items-center shrink-0 ml-auto gap-5 lg:gap-7 2xl:gap-9 py-4 lg:py-5">
-          {}
+          {/* Dropdown Menus */}
           <div className="flex items-center gap-5 lg:gap-6" ref={dropdownRef}>
-            {}
+            {/* 1. Առցանց հայտեր */}
             <div className="relative hidden lg:block">
               <div
                 className="flex items-center gap-1.5 cursor-pointer group"
@@ -217,7 +217,7 @@ const Header1 = ({ onOpenMenu }) => {
               </div>
             </div>
 
-            {}
+            {/* 2. Հետադարձ կապ */}
             <div className="relative hidden md:block">
               <div
                 className="flex items-center gap-1.5 cursor-pointer group"
@@ -266,9 +266,9 @@ const Header1 = ({ onOpenMenu }) => {
             </div>
           </div>
 
-          {}
+          {/* Icons Section */}
           <div className="flex items-center gap-4 lg:gap-5 text-gray-700">
-            {}
+            {/* Location / Live Map */}
             <Link to="/live-map" title="Live Map">
               <svg
                 className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
@@ -290,7 +290,7 @@ const Header1 = ({ onOpenMenu }) => {
               </svg>
             </Link>
 
-            {}
+            {/* Help */}
             <svg
               className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors hidden sm:block"
               fill="none"
@@ -311,7 +311,7 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {}
+            {/* Profile / Login */}
             <div className="relative flex items-center justify-center">
               {user ? (
                 <img
@@ -341,7 +341,7 @@ const Header1 = ({ onOpenMenu }) => {
               )}
             </div>
 
-            {}
+            {/* Search */}
             <svg
               className="w-5 h-5 cursor-pointer hover:text-[#6000ff] transition-colors"
               fill="none"
@@ -356,7 +356,7 @@ const Header1 = ({ onOpenMenu }) => {
               />
             </svg>
 
-            {}
+            {/* Burger Menu */}
             <svg
               onClick={onOpenMenu}
               className="w-6 h-6 cursor-pointer hover:text-[#6000ff] transition-colors lg:hidden"

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
+// Տվյալների բազա օրենքների համար
 const lawsData = [
   { text: "Կենտրոնական բանկի մասին ՀՀ օրենք", link: "#" },
   { text: "ՀՀ քաղաքացիական օրենսգիրք", link: "#" },
@@ -21,7 +21,7 @@ const lawsData = [
   { text: "Անձնական տվյալների պաշտպանության մասին ՀՀ օրենք", link: "#" },
 ];
 
-
+// Տվյալների բազա կանոնակարգերի համար
 const regulationsData = [
   {
     id: 1,
@@ -73,20 +73,20 @@ const regulationsData = [
     text: "ՀՀ տարածքում գործող և նոր ստեղծվող բանկերի կանոնադրական հիմնադրամի համալրման նպատակով ՀՀ ԿԲ-ում ՀՀ դրամով և արտարժույթով կուտակային հաշիվների բացման, վարման և փակման կարգ",
     link: "#",
   },
-  
+  // Կարող ես ավելացնել մնացած կետերը այստեղ ըստ անհրաժեշտության
 ];
 
 const LegalActs = () => {
   return (
     <div className="w-full min-h-screen bg-white">
-      {}
+      {/* Էջի կոնտեյներ */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {}
+        {/* Breadcrumb (Հղումների շղթա) */}
        
 
       
 
-        {}
+        {/* Բաժին 1: Օրենքներ */}
         <div className="mb-12">
           <h2 className="text-[24px] md:text-[28px] font-bold text-[#443f38] mb-6">
             Օրենքներ
@@ -105,7 +105,7 @@ const LegalActs = () => {
           </ul>
         </div>
 
-        {}
+        {/* Բաժին 2: Կանոնակարգեր և այլ իրավական ակտեր */}
         <div>
           <h2 className="text-[24px] md:text-[28px] font-bold text-[#443f38] mb-6">
             Կանոնակարգեր և այլ իրավական ակտեր

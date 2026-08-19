@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-
+// Փոխարինեք ձեր իրական լոգոների ճանապարհներով (import-ներով կամ URL-ներով)
 import arcaLogo from "./assets/arca.svg";
 import visaLogo from "./assets/visa.svg";
 import mastercardLogo from "./assets/mastercard.svg";
@@ -31,8 +31,8 @@ export default function PaymentFilters() {
             onClick={() => setActiveTab(item.id)}
             className={`flex items-center justify-center px-5 py-3 rounded-full transition-all duration-200 shrink-0 ${
               isActive
-                ? "bg-[#7f00ff] text-white shadow-md" 
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200" 
+                ? "bg-[#7f00ff] text-white shadow-md" // Մանուշակագույն ակտիվ ֆոն
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200" // Ոչ ակտիվ ֆոն
             }`}
           >
             {item.label ? (

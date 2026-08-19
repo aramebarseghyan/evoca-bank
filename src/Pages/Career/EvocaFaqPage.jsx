@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-
-
-
+// ==========================================
+// 1. HERO ՀԱՏՎԱԾ
+// ==========================================
 function FaqHero() {
   return (
     <section
@@ -12,7 +12,7 @@ function FaqHero() {
       }}
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-32 w-full">
-        {}
+        {/* Սպիտակ քարտը (վերնագրով) */}
         <div className="bg-white rounded-[30px] p-8 md:p-12 w-full max-w-[450px] lg:max-w-[500px] shadow-lg">
           <h1 className="text-3xl md:text-4xl font-bold text-[#3d3333] tracking-wide">
             Հաճախ տրվող հարցեր
@@ -23,16 +23,16 @@ function FaqHero() {
   );
 }
 
-
-
-
+// ==========================================
+// 3. ԴԱՌՆԱԼ ԹԻՄԻ ԱՆԴԱՄ (ՖՈՐՄԱ) ՀԱՏՎԱԾ
+// ==========================================
 
 function JobApplicationForm() {
   const [captchaText, setCaptchaText] = useState("7J5AJT");
   const [captchaInput, setCaptchaInput] = useState("");
   const [fileName, setFileName] = useState("");
 
-  
+  // Կապչայի թարմացման ֆունկցիա
   const regenerateCaptcha = () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
@@ -60,7 +60,7 @@ function JobApplicationForm() {
   return (
     <section className="container mx-auto px-6 md:px-12 lg:px-32 py-16">
       <div className="max-w-4xl mx-auto bg-white">
-        {}
+        {/* Վերնագիր */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-[#6816cc] mb-3">
             Դառնալ թիմի անդամ
@@ -72,9 +72,9 @@ function JobApplicationForm() {
           </p>
         </div>
 
-        {}
+        {/* Ֆորմա */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {}
+          {/* Անուն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Անուն <span className="text-red-500">*</span>
@@ -87,7 +87,7 @@ function JobApplicationForm() {
             />
           </div>
 
-          {}
+          {/* Ազգանուն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ազգանուն <span className="text-red-500">*</span>
@@ -100,7 +100,7 @@ function JobApplicationForm() {
             />
           </div>
 
-          {}
+          {/* Հեռախոսահամար */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Հեռախոսահամար <span className="text-red-500">*</span>
@@ -119,7 +119,7 @@ function JobApplicationForm() {
             </div>
           </div>
 
-          {}
+          {/* Էլ. հասցե */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Էլ. հասցե
@@ -131,7 +131,7 @@ function JobApplicationForm() {
             />
           </div>
 
-          {}
+          {/* Facebook հղում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Facebook սոց. կայքում անձնական էջի հղում
@@ -143,7 +143,7 @@ function JobApplicationForm() {
             />
           </div>
 
-          {}
+          {/* LinkedIn հղում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               LinkedIn սոց. կայքում անձնական էջի հղում
@@ -155,7 +155,7 @@ function JobApplicationForm() {
             />
           </div>
 
-          {}
+          {/* Ուղեկցող նամակ */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ուղեկցող նամակ
@@ -166,7 +166,7 @@ function JobApplicationForm() {
             ></textarea>
           </div>
 
-          {}
+          {/* Վերբեռնեք Ձեր ռեզյումեն */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Վերբեռնեք Ձեր ռեզյումեն <span className="text-red-500">*</span>
@@ -205,7 +205,7 @@ function JobApplicationForm() {
             </label>
           </div>
 
-          {}
+          {/* Ստուգման ծածկագիր (Captcha) */}
           <div className="max-w-sm">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ստուգման ծածկագիր <span className="text-red-500">*</span>
@@ -247,7 +247,7 @@ function JobApplicationForm() {
             </div>
           </div>
 
-          {}
+          {/* Կոճակ */}
           <div className="pt-4">
             <button
               type="submit"
@@ -262,14 +262,14 @@ function JobApplicationForm() {
   );
 }
 
-
-
-
+// ==========================================
+// 2. ԳԼԽԱՎՈՐ ԷՋԸ ԵՎ ACCORDION ՏՐԱՄԱԲԱՆՈՒԹՅՈՒՆԸ
+// ==========================================
 export default function EvocaFaqPage() {
-  
+  // Պահում ենք բացված հարցի ինդեքսը (սկզբում՝ 0, որպեսզի առաջինը բաց լինի)
   const [openIndex, setOpenIndex] = useState(0);
 
-  
+  // Հարց ու պատասխանների տվյալների զանգված
   const faqData = [
     {
       question: "Կարո՞ղ եմ միաժամանակ դիմել տարբեր աշխատատեղերի համար:",
@@ -289,20 +289,20 @@ export default function EvocaFaqPage() {
     },
   ];
 
-  
+  // Ֆունկցիա, որը կանչվում է հարցի վրա սեղմելիս
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <div className="w-full bg-white pb-24">
-      {}
+      {/* Գլխավոր նկարի հատված */}
       <FaqHero />
 
-      {}
+      {/* Հարցերի ցանկ բաժին */}
       <div className="container mx-auto px-6 md:px-12 lg:px-32 py-12 md:py-20 flex justify-center">
         <div className="w-full max-w-4xl">
-          {}
+          {/* Վերնագիր և նկարագրություն */}
           <div className="mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-[#3d3333] mb-4">
               Հարցերի ցանկ
@@ -314,7 +314,7 @@ export default function EvocaFaqPage() {
             </p>
           </div>
 
-          {}
+          {/* Accordion Ցուցակ */}
           <div className="flex flex-col space-y-4">
             {faqData.map((item, index) => {
               const isOpen = openIndex === index;
@@ -326,12 +326,12 @@ export default function EvocaFaqPage() {
                     isOpen ? "border-[#6816cc]" : "border-gray-200"
                   }`}
                 >
-                  {}
+                  {/* Հարցի կոճակ */}
                   <button
                     onClick={() => handleToggle(index)}
                     className="w-full flex items-center px-5 py-4 bg-white text-left focus:outline-none"
                   >
-                    {}
+                    {/* Սլաք (Chevron) */}
                     <svg
                       className={`w-5 h-5 shrink-0 transition-transform duration-300 text-[#6816cc] mr-4 ${
                         isOpen ? "rotate-180" : "rotate-0"
@@ -359,7 +359,7 @@ export default function EvocaFaqPage() {
                     </span>
                   </button>
 
-                  {}
+                  {/* Պատասխանը (Անիմացիոն բլոկ) */}
                   <div
                     className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
                       isOpen
@@ -380,7 +380,7 @@ export default function EvocaFaqPage() {
         </div>
       </div>
 
-      {}
+      {/* Դիմելու Ֆորման (Անմիջապես FAQ-ի տակ) */}
       <JobApplicationForm />
     </div>
   );

@@ -45,7 +45,7 @@ const TerminalInstallationForm = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           
-          {}
+          {/* Անուն / Ազգանուն */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -73,7 +73,7 @@ const TerminalInstallationForm = () => {
             </div>
           </div>
 
-          {}
+          {/* Տնօրենի անձնագրի համարը */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Տնօրենի անձնագրի համարը <span className="text-red-500">*</span>
@@ -88,7 +88,7 @@ const TerminalInstallationForm = () => {
             />
           </div>
 
-          {}
+          {/* Անձնագրի տրման ամսաթիվը և Ում կողմից է տրված */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -119,7 +119,7 @@ const TerminalInstallationForm = () => {
             </div>
           </div>
 
-          {}
+          {/* Կոնտակտային տվյալներ */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -148,7 +148,7 @@ const TerminalInstallationForm = () => {
             </div>
           </div>
 
-          {}
+          {/* Կազմակերպության իրավական ձևը */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Կազմակերպության իրավական ձևը <span className="text-red-500">*</span>
@@ -170,7 +170,7 @@ const TerminalInstallationForm = () => {
             </div>
           </div>
 
-          {}
+          {/* Պահանջվող տերմինալի ձևը */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Պահանջվող տերմինալի ձևը <span className="text-red-500">*</span>
@@ -192,7 +192,7 @@ const TerminalInstallationForm = () => {
             </div>
           </div>
 
-          {}
+          {/* Առևտրային և սպասարկման կետի անվանում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Առևտրային և սպասարկման կետի անվանում (հայերեն և անգլերեն) <span className="text-red-500">*</span>
@@ -207,7 +207,7 @@ const TerminalInstallationForm = () => {
             ></textarea>
           </div>
 
-          {}
+          {/* Առևտրային և սպասարկման կետի հասցե */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Առևտրային և սպասարկման կետի հասցե
@@ -221,7 +221,7 @@ const TerminalInstallationForm = () => {
             ></textarea>
           </div>
 
-          {}
+          {/* Ինտերնետային կայքի անվանում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Ինտերնետային կայքի անվանում (V-POS-ի դեպքում)
@@ -235,7 +235,7 @@ const TerminalInstallationForm = () => {
             />
           </div>
 
-          {}
+          {/* Վերջին տարվա, ամսվա միջին շրջանառությունը */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Վերջին տարվա, ամսվա միջին շրջանառությունը ՀՀ դրամով
@@ -249,7 +249,7 @@ const TerminalInstallationForm = () => {
             />
           </div>
 
-          {}
+          {/* Ապրանքների կամ ծառայությունների համառոտ նկարագիրը */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Կազմակերպության կողմից վաճառվող ապրանքների կամ ծառայությունների համառոտ նկարագիրը <span className="text-red-500">*</span>
@@ -264,7 +264,7 @@ const TerminalInstallationForm = () => {
             ></textarea>
           </div>
 
-          {}
+          {/* Նախկինում քարտերով վճարումներ ընդունելու մասին */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Արդյոք նախկինում վճարումներ ընդունել եք վճարային քարտերով: Եթե այն, խնդրում ենք նշել նաև սպասարկող կազմակերպության անվանումը և վերջինիս հետ պայմանագիրը խզելու պատճառները:
@@ -278,7 +278,7 @@ const TerminalInstallationForm = () => {
             ></textarea>
           </div>
 
-          {}
+          {/* Որքան ամսական իրացում եք կանխատեսում */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Որքան ամսական իրացում եք կանխատեսում վճարային քարտերով վճարումներով <span className="text-red-500">*</span>
@@ -293,7 +293,7 @@ const TerminalInstallationForm = () => {
             />
           </div>
 
-          {}
+          {/* Նշումների համար */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Նշումների համար
@@ -307,7 +307,7 @@ const TerminalInstallationForm = () => {
             ></textarea>
           </div>
 
-          {}
+          {/* Համաձայնություն */}
           <div className="flex items-start space-x-3 pt-2">
             <input
               type="checkbox"
@@ -323,7 +323,7 @@ const TerminalInstallationForm = () => {
             </label>
           </div>
 
-          {}
+          {/* Ուղարկել կոճակ */}
           <div className="pt-4 flex justify-center">
             <button
               type="submit"

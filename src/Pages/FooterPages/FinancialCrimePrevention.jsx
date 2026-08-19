@@ -3,7 +3,7 @@ import React from "react";
 const FinancialCrimePrevention = () => {
   return (
     <div className="w-full max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-16 py-8 text-gray-800 font-sans leading-relaxed">
-      {}
+      {/* Banner Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f7f3fb] rounded-3xl overflow-hidden mb-10 items-center">
         <div className="p-8 sm:p-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
@@ -19,7 +19,7 @@ const FinancialCrimePrevention = () => {
         </div>
       </div>
 
-      {}
+      {/* Main Announcement Title */}
       <h2 className="text-lg sm:text-xl font-bold text-[#8A2BE2] mb-6">
         Ֆինանսական հանցագործությունների կանխարգելման մասին հայտարարություն
       </h2>
@@ -42,7 +42,7 @@ const FinancialCrimePrevention = () => {
         </p>
       </div>
 
-      {}
+      {/* Section 1 */}
       <div className="mb-8">
         <h3 className="text-base sm:text-lg font-bold text-[#8A2BE2] mb-4">
           1. Ճանաչիր քո հաճախորդին և Հաճախորդի պատշաճ ուսումնասիրություն
@@ -86,7 +86,7 @@ const FinancialCrimePrevention = () => {
         </ul>
       </div>
 
-      {}
+      {/* Section 2 */}
       <div className="mb-8">
         <h3 className="text-base sm:text-lg font-bold text-[#8A2BE2] mb-4">
           2. Փողերի լվացման դեմ պայքարի միջոցառումներ
@@ -131,7 +131,7 @@ const FinancialCrimePrevention = () => {
         </ul>
       </div>
 
-      {}
+      {/* Section 3 */}
       <div className="mb-8">
         <h3 className="text-base sm:text-lg font-bold text-[#8A2BE2] mb-4">
           3. Ահաբեկչության ֆինանսավորման դեմ պայքար
@@ -168,7 +168,7 @@ const FinancialCrimePrevention = () => {
         </ul>
       </div>
 
-      {}
+      {/* Section 4 */}
       <div className="mb-8">
         <h3 className="text-base sm:text-lg font-bold text-[#8A2BE2] mb-4">
           4. Պատժամիջոցներից խուսափում

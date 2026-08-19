@@ -97,7 +97,7 @@ const dealershipsData = [
 ];
 
 const PartnerCarDealerships = () => {
-  
+  // Լռելյայն առաջին ակորդեոնը բաց է
   const [openId, setOpenId] = useState("eco-motors");
 
   const toggleAccordion = (id) => {
@@ -106,7 +106,7 @@ const PartnerCarDealerships = () => {
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans text-gray-800">
-      {}
+      {/* Վերնագիր և նկարագրություն */}
       <div className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
           Գործընկեր ավտոսրահներ
@@ -150,12 +150,12 @@ const PartnerCarDealerships = () => {
         </p>
       </div>
 
-      {}
+      {/* Բաժնի վերնագիր */}
       <h3 className="text-[#5D00E0] font-bold text-lg tracking-wider mb-6 uppercase">
         ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
       </h3>
 
-      {}
+      {/* Ակորդեոնների ցանկ */}
       <div className="space-y-3">
         {dealershipsData.map((item) => {
           const isOpen = openId === item.id;
@@ -169,7 +169,7 @@ const PartnerCarDealerships = () => {
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-              {}
+              {/* Ակորդեոնի Header */}
               <button
                 type="button"
                 onClick={() => toggleAccordion(item.id)}
@@ -195,7 +195,7 @@ const PartnerCarDealerships = () => {
                 </div>
               </button>
 
-              {}
+              {/* Ակորդեոնի բովանդակություն */}
               {isOpen && (
                 <div className="px-6 pb-6 pt-2 text-sm text-gray-700 space-y-3 border-t border-gray-100">
                   {item.amount && (
@@ -280,7 +280,7 @@ const PartnerCarDealerships = () => {
                     </p>
                   )}
 
-                  {}
+                  {/* Նկարների ցանց (Image Grid) */}
                   {item.images && item.images.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                       {item.images.map((imgUrl, i) => (
@@ -298,7 +298,7 @@ const PartnerCarDealerships = () => {
                     </div>
                   )}
 
-                  {}
+                  {/* Ներքևի հղումը */}
                   <div className="pt-4 text-xs sm:text-sm">
                     Ավտովարկի մանրամասներին կարող եք ծանոթանալ{" "}
                     <a

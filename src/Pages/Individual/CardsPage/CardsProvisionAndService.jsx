@@ -117,7 +117,7 @@ const CardsProvisionAndService = () => {
           ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
         </h2>
 
-        {}
+        {/* ԲԼՈԿ 1: Քարտի տրամադրում և ակտիվացում */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 1 ? null : 1)}
@@ -241,7 +241,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 2: Վճարային քարտի վճարներ և գանձումներ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 2 ? null : 2)}
@@ -330,7 +330,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 3: Վճարային քարտի անվտանգ օգտագործման կանոններ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 3 ? null : 3)}
@@ -467,7 +467,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 4: Վճարային քարտով գործարքների արժույթ և փոխարկում */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 4 ? null : 4)}
@@ -578,7 +578,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 5: Վճարային քարտի առգրավում բանկոմատի կողմից */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 5 ? null : 5)}
@@ -650,7 +650,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 6: Վճարային քարտի բլոկավորում և կորուստ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 6 ? null : 6)}
@@ -732,7 +732,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 7: Վճարային քարտի վերաթողարկում */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 7 ? null : 7)}
@@ -787,7 +787,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 8: Քարտային գործարքների բողոքարկում */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 8 ? null : 8)}
@@ -861,7 +861,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 9: Տեղեկատվության տրամադրում և SMS/USSD ծառայություններ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 9 ? null : 9)}
@@ -954,7 +954,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 10: Վճարային քարտի փակում */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 10 ? null : 10)}
@@ -1013,7 +1013,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 11: Հարկային համապատասխանություն (FATCA) */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 11 ? null : 11)}
@@ -1059,7 +1059,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 12: Բանկի մոնիտորինգ և պատասխանատվության սահմանափակումներ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 12 ? null : 12)}
@@ -1142,7 +1142,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 13: Մոբայլ (NFC) վճարումներ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden mb-6">
           <div
             onClick={() => setOpenSection(openSection === 13 ? null : 13)}
@@ -1306,7 +1306,7 @@ const CardsProvisionAndService = () => {
           </div>
         </div>
 
-        {}
+        {/* ԲԼՈԿ 14: Քարտային անվտանգության լրացուցիչ խորհուրդներ */}
         <div className="bg-white border-2 border-[#6500D8] rounded-2xl shadow-md overflow-hidden">
           <div
             onClick={() => setOpenSection(openSection === 14 ? null : 14)}
@@ -1339,7 +1339,7 @@ const CardsProvisionAndService = () => {
                   Սոցիալական ցանցերում հղումները ավտոմատ տանում են մի տեղ, որտեղ
                   մեկ հպումով/քլիկով կարող եք նրանց տրամադրել Ձեր անձնական ողջ
                   տեղեկատվությունը: Օգտվե՛ք այնպիսի կայքերից, որոնք սկսվում են
-                  https:
+                  https:// գրառումով, քանզի վերջին s տառը կայքի ապահովության
                   երաշխիքն է (secure): Ստուգե՛ք, ապա նոր վստահեք:
                 </p>
                 <p>

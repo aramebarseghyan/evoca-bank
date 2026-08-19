@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase"; 
+import { db } from "../../firebase"; // Проверьте правильность путей к firebase.js
 
 const ManagementDetail = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const ManagementDetail = () => {
           setMember(docSnap.data());
         }
       } catch (error) {
-        console.error("Error loading profile:", error);
+        console.error("Ошибка загрузки профиля:", error);
       } finally {
         setLoading(false);
       }
@@ -28,7 +28,11 @@ const ManagementDetail = () => {
   }, [id]);
 
   if (loading) {
-    return null;
+    return (
+      <div className="text-center py-20 font-semibold text-gray-600">
+        Բեռնվում է...
+      </div>
+    );
   }
 
   if (!member) {

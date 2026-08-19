@@ -3,18 +3,18 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 
-
+// Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
 
-
+// Zustand store import
 import { useFavoriteStore } from "../../../../store/useFavoriteStore";
 import FavoritesWidget from "../FavoritesWidget";
 
-
+// Shape imports from assets/img
 import shape1 from "../../../../assets/img/shape1.png";
 import shape2 from "../../../../assets/img/shape2.png";
 import shape3 from "../../../../assets/img/shape3.png";
@@ -31,7 +31,7 @@ const LoanDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("Վարկի մասին");
 
-  
+  // Zustand state
   const { toggleFavorite, isFavorite } = useFavoriteStore();
 
   const tabs = ["Վարկի մասին", "Պայմաններ", "Պահանջվող փաստաթղթերի ցանկ"];
@@ -41,7 +41,7 @@ const LoanDetailsPage = () => {
       if (!id) return;
       setLoading(true);
       try {
-        
+        // Fetching current loan
         const docRef = doc(db, "loans", id);
         const docSnap = await getDoc(docRef);
 
@@ -51,7 +51,7 @@ const LoanDetailsPage = () => {
           console.error("Վարկը չի գտնվել");
         }
 
-        
+        // Fetching other loans for slider
         const querySnapshot = await getDocs(collection(db, "loans"));
         const loansList = querySnapshot.docs
           .map((docSnapItem) => ({ id: docSnapItem.id, ...docSnapItem.data() }))
@@ -69,7 +69,11 @@ const LoanDetailsPage = () => {
   }, [id]);
 
   if (loading) {
-    return null;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
+      </div>
+    );
   }
 
   if (!product) {
@@ -228,7 +232,7 @@ const LoanDetailsPage = () => {
     <div className="w-full font-sans bg-white min-h-screen pb-0 relative">
       <FavoritesWidget />
 
-      {}
+      {/* Styles for shape animations */}
       <style>{`
         @keyframes floatSlow1 {
           0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
@@ -248,7 +252,7 @@ const LoanDetailsPage = () => {
         }
       `}</style>
 
-      {}
+      {/* 1. Hero Section */}
       <div className="bg-[#F8F6FA] rounded-br-[80px] lg:rounded-br-[120px] pt-12 pb-16 px-4 sm:px-8 lg:px-24 relative">
         <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-1/2 space-y-6">
@@ -278,7 +282,7 @@ const LoanDetailsPage = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24">
-        {}
+        {/* 2. Navigation & Back button */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-6 py-8">
           <button
             onClick={() => navigate(-1)}
@@ -344,7 +348,7 @@ const LoanDetailsPage = () => {
           </div>
         </div>
 
-        {}
+        {/* 3. Tabs */}
         <div className="relative border-b border-gray-200 mt-2">
           <div className="flex gap-8 overflow-x-auto no-scrollbar">
             {tabs.map((tab) => (
@@ -366,7 +370,7 @@ const LoanDetailsPage = () => {
           </div>
         </div>
 
-        {}
+        {/* 4. Tab Content */}
         <div className="pt-10 pb-16">
           {activeTab === "Վարկի մասին" && (
             <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between items-start">
@@ -394,7 +398,7 @@ const LoanDetailsPage = () => {
                 </p>
               </div>
 
-              {}
+              {/* Right conditions card */}
               <div className="lg:w-[45%] w-full">
                 <div className="bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-gray-50 overflow-hidden">
                   <div className="px-8 pt-8 pb-4">
@@ -467,7 +471,7 @@ const LoanDetailsPage = () => {
             </div>
           )}
 
-          {}
+          {/* TAB: "Պայմաններ" */}
           {activeTab === "Պայմաններ" && (
             <div className="max-w-5xl mx-auto py-4 animate-fadeIn">
               <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm">
@@ -586,7 +590,7 @@ const LoanDetailsPage = () => {
             </div>
           )}
 
-          {}
+          {/* TAB: "Պահանջվող փաստաթղթերի ցանկ" */}
           {activeTab === "Պահանջվող փաստաթղթերի ցանկ" && (
             <div className="max-w-4xl mx-auto py-6 animate-fadeIn text-[#333333]">
               <div className="space-y-6">
@@ -607,7 +611,7 @@ const LoanDetailsPage = () => {
         </div>
       </div>
 
-      {}
+      {/* 5. Infinite autoplay slider */}
       {otherLoans.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
@@ -649,10 +653,10 @@ const LoanDetailsPage = () => {
                       <div
                         className={`w-full aspect-[4/3] rounded-2xl overflow-hidden flex items-center justify-center relative ${loan.imageBgColor || "bg-[#5D00E0]"}`}
                       >
-                        {}
+                        {/* Սրտիկ կոճակ քարտի վրա */}
                         <button
                           onClick={(e) => {
-                            e.stopPropagation(); 
+                            e.stopPropagation(); // Որպեսզի էջը չփոխվի սեղմելիս
                             toggleFavorite(loan);
                           }}
                           className="absolute top-3 right-3 z-20 p-2 bg-white/80 backdrop-blur-md rounded-full shadow hover:scale-110 transition-transform cursor-pointer"
@@ -686,7 +690,7 @@ const LoanDetailsPage = () => {
               })}
             </Swiper>
 
-            {}
+            {/* Arrows */}
             <button className="other-loans-prev absolute -left-3 sm:-left-8 top-[38%] -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#5D00E0] text-3xl sm:text-4xl font-bold bg-transparent hover:opacity-75 transition-opacity cursor-pointer">
               ‹
             </button>
@@ -697,49 +701,49 @@ const LoanDetailsPage = () => {
         </div>
       )}
 
-      {}
+      {/* 6. Purple banner with animated shapes */}
       <div
         className="relative w-full py-32 sm:py-40 px-4 sm:px-8 lg:px-24 bg-cover bg-center overflow-hidden flex items-center justify-center text-center"
         style={{
           backgroundImage: `url('https://www.evoca.am/images-cache/loans/1/16142452390653/1920x527.jpg')`,
         }}
       >
-        {}
+        {/* Shape 1 */}
         <img
           src={shape1}
           alt="shape"
           className="absolute top-8 left-10 sm:left-20 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow1 7s ease-in-out infinite" }}
         />
-        {}
+        {/* Shape 2 */}
         <img
           src={shape2}
           alt="shape"
           className="absolute bottom-10 left-16 sm:left-32 w-10 sm:w-14 h-10 sm:h-14 object-contain opacity-80 pointer-events-none"
           style={{ animation: "floatSlow2 6s ease-in-out infinite 1s" }}
         />
-        {}
+        {/* Shape 3 */}
         <img
           src={shape3}
           alt="shape"
           className="absolute top-12 right-12 sm:right-24 w-14 sm:w-20 h-14 sm:h-20 object-contain opacity-90 pointer-events-none"
           style={{ animation: "floatSlow3 8s ease-in-out infinite 0.5s" }}
         />
-        {}
+        {/* Shape 4 */}
         <img
           src={shape4}
           alt="shape"
           className="absolute bottom-12 right-20 sm:right-40 w-12 sm:w-16 h-12 sm:h-16 object-contain opacity-85 pointer-events-none"
           style={{ animation: "floatSlow4 6.5s ease-in-out infinite 1.5s" }}
         />
-        {}
+        {/* Shape 5 */}
         <img
           src={shape5}
           alt="shape"
           className="absolute top-1/2 left-6 sm:left-12 -translate-y-1/2 w-8 sm:w-12 h-8 sm:h-12 object-contain opacity-75 pointer-events-none"
           style={{ animation: "floatSlow2 7.5s ease-in-out infinite 2s" }}
         />
-        {}
+        {/* Shape 6 */}
         <img
           src={shape6}
           alt="shape"

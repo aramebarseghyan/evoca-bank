@@ -4,7 +4,7 @@ import { db } from "../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import MobilePromo from "../HomePage/Components/MobilePromo";
 
-
+// --- ՏՎՅԱԼՆԵՐ ՊԱՅՄԱՆՆԵՐԻ ԵՎ ՍԱԿԱԳՆԵՐԻ ՀԱՄԱՐ ---
 const tableColumns = [
   "31 - 90\nօր",
   "91 - 180\nօր",
@@ -248,7 +248,11 @@ const DepositDetail = () => {
   };
 
   if (loading) {
-    return null;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
+      </div>
+    );
   }
 
   if (!deposit) {
@@ -267,7 +271,7 @@ const DepositDetail = () => {
 
   return (
     <div className="w-full font-sans bg-white min-h-screen pb-16">
-      {}
+      {/* Էջի վերնամաս */}
       <div className="bg-[#F8F9FA] py-12 px-4 sm:px-8 lg:px-24 border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="max-w-2xl w-full">
@@ -293,7 +297,7 @@ const DepositDetail = () => {
         </div>
       </div>
 
-      {}
+      {/* Նավիգացիա - Տեղաշարժված է ձախ 100px-ով xl և 2xl էկրանների վրա */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pt-6">
         <div className="flex flex-wrap items-center gap-4 mb-8 xl:-ml-[100px]">
           <button
@@ -314,7 +318,7 @@ const DepositDetail = () => {
         </div>
       </div>
 
-      {}
+      {/* Տաբեր */}
       <div className="border-b border-gray-200 px-4 sm:px-8 lg:px-24">
         <div className="max-w-7xl mx-auto flex gap-8">
           {tabs.map((tab) => (
@@ -333,7 +337,7 @@ const DepositDetail = () => {
         </div>
       </div>
 
-      {}
+      {/* Տաբերի բովանդակություն */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pt-8">
         {activeTab === "Ավանդի մասին" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
@@ -407,10 +411,10 @@ const DepositDetail = () => {
           </div>
         )}
 
-        {}
+        {/* --- Պայմաններ և սակագներ ԲԱԺԻՆԸ --- */}
         {activeTab === "Պայմաններ և սակագներ" && (
           <div className="space-y-10 animate-fade-in text-gray-800">
-            {}
+            {/* Աղյուսակ */}
             <div className="w-full overflow-x-auto rounded-xl border border-[#F0E6FF] shadow-sm">
               <table className="w-full min-w-[900px] border-collapse bg-white text-sm text-center">
                 <thead className="text-gray-800 font-semibold bg-gray-50/30">
@@ -482,7 +486,7 @@ const DepositDetail = () => {
               </table>
             </div>
 
-            {}
+            {/* Պայմանների ցանկ */}
             <div className="space-y-6 mt-8">
               <div className="flex gap-3 text-sm sm:text-base leading-relaxed text-[#333333]">
                 <span className="text-[#5D00E0] font-bold">1.</span>
@@ -530,7 +534,7 @@ const DepositDetail = () => {
         )}
       </div>
 
-      {}
+      {/* Անվերջ Սլայդեր */}
       {otherDeposits.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 mt-20 pt-10 border-t border-gray-100 mb-16">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">
@@ -538,7 +542,7 @@ const DepositDetail = () => {
           </h2>
 
           <div className="relative flex items-center">
-            {}
+            {/* Ձախ սլաք */}
             <button
               onClick={slideLeft}
               className="absolute -left-4 md:-left-8 w-10 h-10 flex items-center justify-center text-[#5D00E0] hover:text-purple-900 z-10 cursor-pointer bg-white rounded-full shadow-sm"
@@ -557,7 +561,7 @@ const DepositDetail = () => {
               </svg>
             </button>
 
-            {}
+            {/* Սլայդերի Կոնտեյներ */}
             <div
               ref={sliderRef}
               className="flex gap-6 overflow-x-auto snap-x snap-mandatory w-full px-2 py-4"
@@ -594,7 +598,7 @@ const DepositDetail = () => {
               ))}
             </div>
 
-            {}
+            {/* Աջ սլաք */}
             <button
               onClick={slideRight}
               className="absolute -right-4 md:-right-8 w-10 h-10 flex items-center justify-center text-[#5D00E0] hover:text-purple-900 z-10 cursor-pointer bg-white rounded-full shadow-sm"
@@ -616,7 +620,7 @@ const DepositDetail = () => {
         </div>
       )}
 
-      {}
+      {/* MobilePromo */}
       <MobilePromo />
     </div>
   );

@@ -15,7 +15,7 @@ export default function FilterSidebarBenefits({
     <div className="space-y-6">
       <h2 className="text-xl font-bold text-gray-900">Ֆիլտրներ</h2>
 
-      {}
+      {/* Сортировка */}
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700">
           Դասավորել
@@ -34,7 +34,7 @@ export default function FilterSidebarBenefits({
         </div>
       </div>
 
-      {}
+      {/* 1. Քարտատեսակ */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
         <button
           onClick={() => toggleSection("cardType")}
@@ -80,7 +80,7 @@ export default function FilterSidebarBenefits({
         )}
       </div>
 
-      {}
+      {/* 2. Վայր */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
         <button
           onClick={() => toggleSection("location")}
@@ -121,7 +121,7 @@ export default function FilterSidebarBenefits({
         )}
       </div>
 
-      {}
+      {/* 3. Բենեֆիթ */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
         <button
           onClick={() => toggleSection("benefit")}
@@ -162,7 +162,7 @@ export default function FilterSidebarBenefits({
         )}
       </div>
 
-      {}
+      {/* 4. Ոլորտ */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
         <button
           onClick={() => toggleSection("sector")}
@@ -203,7 +203,7 @@ export default function FilterSidebarBenefits({
         )}
       </div>
 
-      {}
+      {/* 5. Հարթակ */}
       <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-4">
         <button
           onClick={() => toggleSection("platform")}

@@ -2,7 +2,7 @@ import React from "react";
 import MobilePromo from "../Individual/HomePage/Components/MobilePromo";
 
 const Boxes = () => {
-  
+  // Ստանդարտ սակագների տվյալները
   const standardTariffs = [
     {
       period: "14 օր",
@@ -42,7 +42,7 @@ const Boxes = () => {
     },
   ];
 
-  
+  // Օտարերկրյա քաղաքացիների սակագների տվյալները
   const foreignTariffs = [
     {
       period: "14 օր",
@@ -66,9 +66,9 @@ const Boxes = () => {
 
   return (
     <div className="w-full text-gray-800 font-sans leading-relaxed">
-      {}
+      {/* 1. Հիմնական սահմանափակված բովանդակություն (Max Width Container) */}
       <div className="max-w-[1100px] mx-auto px-4 sm:px-8 py-8">
-        {}
+        {/* Top Banner Section */}
         <div className="flex flex-col md:flex-row items-stretch rounded-3xl overflow-hidden bg-[#F6F4F9] mb-12 shadow-sm">
           <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
@@ -89,7 +89,7 @@ const Boxes = () => {
           </div>
         </div>
 
-        {}
+        {/* Main Description Content */}
         <div className="space-y-5 text-sm sm:text-base text-gray-800 leading-relaxed mb-12">
           <p>
             Պահատուփերի պարունակությունը միայն ձեր գաղտնիքն է: Դրանցում կարող եք
@@ -130,7 +130,7 @@ const Boxes = () => {
           </p>
         </div>
 
-        {}
+        {/* Table 1: Standard Tariffs */}
         <div className="mb-14">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-6">
             Չհրկիզվող անհատական պահարանների վարձակալման սակագներ
@@ -220,7 +220,7 @@ const Boxes = () => {
           </div>
         </div>
 
-        {}
+        {/* Table 2: Foreign Citizens Tariffs */}
         <div>
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-6">
             Չհրկիզվող անհատական պահարանների վարձակալում օտարերկրյա քաղաքացիների
@@ -280,7 +280,7 @@ const Boxes = () => {
         </div>
       </div>
 
-      {}
+      {/* 2. Full-width Section for MobilePromo */}
       <div className="w-full">
         <MobilePromo />
       </div>

@@ -4,9 +4,9 @@ import LatestNews from "../../Individual/HomePage/Components/LatestNews";
 const DocumentaryCollectionPage = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
-      {}
+      {/* Основной контент страницы */}
       <div className="max-w-5xl mx-auto p-6 md:p-10">
-        {}
+        {/* Заголовок и вводный текст */}
         <div className="mb-10">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             Ինկասո
@@ -21,7 +21,7 @@ const DocumentaryCollectionPage = () => {
           </div>
         </div>
 
-        {}
+        {/* Секция основных форм */}
         <div className="mb-10">
           <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4">
             Ինկասոյի վճարման հիմնական ձևերն են՝
@@ -36,7 +36,7 @@ const DocumentaryCollectionPage = () => {
           </ul>
         </div>
 
-        {}
+        {/* Секция тарифов и контактов */}
         <div className="mb-16">
           <h2 className="text-xl font-bold text-gray-900 mb-6 tracking-wide">
             Սակագներ
@@ -47,7 +47,7 @@ const DocumentaryCollectionPage = () => {
         </div>
       </div>
 
-      {}
+      {/* Секция последних новостей на полную ширину (Full Width) */}
       <div className="w-full mb-16">
         <LatestNews />
       </div>

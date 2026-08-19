@@ -53,7 +53,7 @@ const TransferPaymentSystems = () => {
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20">
       <div className="max-w-[1440px] mx-auto pt-4 md:pt-6 px-4 sm:px-8 lg:px-16">
-        {}
+        {/* Sub-navigation tabs */}
         <div className="flex border-b border-gray-200 mb-12">
           <a
             href="/money-transfers"
@@ -69,7 +69,7 @@ const TransferPaymentSystems = () => {
           </a>
         </div>
 
-        {}
+        {/* Systems Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {systems.map((sys, idx) => (
             <div

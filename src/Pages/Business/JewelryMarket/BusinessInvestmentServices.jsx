@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-
+// Вспомогательный компонент для аккордеона с анимацией
 const AccordionItem = ({ title, children, isOpen, onClick }) => {
   return (
     <div
@@ -32,7 +32,7 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => {
         </svg>
       </button>
 
-      {}
+      {/* Обертка для плавной анимации высоты */}
       <div
         className={`grid transition-[grid-template-rows] duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
@@ -47,18 +47,18 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => {
 };
 
 const BusinessInvestmentServices = () => {
-  
+  // Состояние для управления открытыми аккордеонами (0 - открыт первый по умолчанию)
   const [openIndex, setOpenIndex] = useState(0);
 
   const toggleAccordion = (index) => {
-    
+    // Если кликаем по открытому, он закрывается. Иначе открывается новый, а предыдущий закрывается.
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <div className="w-full bg-white sm:bg-transparent pt-[30px] sm:pt-[50px] pb-16">
       <div className="max-w-[1150px] mx-auto lg:ml-[300px] lg:mx-0 px-4 sm:px-6 lg:px-8">
-        {}
+        {/* Верхняя часть с текстом */}
         <div className="mb-12 text-[#333333] text-sm sm:text-base leading-relaxed">
           <p className="mb-6">
             Բանկն իր հաճախորդներին Ներդրումային ծառայություններ է մատուցում
@@ -113,14 +113,14 @@ const BusinessInvestmentServices = () => {
           </p>
         </div>
 
-        {}
+        {/* Раздел ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ (Аккордеоны) */}
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#222222] mb-8 uppercase tracking-wide text-center sm:text-left">
             Անհրաժեշտ տեղեկատվություն
           </h2>
 
           <div className="flex flex-col gap-2">
-            {}
+            {/* 1. Ներդրումային ծառայությունների մատուցման կանոններ */}
             <AccordionItem
               title="Ներդրումային ծառայությունների մատուցման կանոններ"
               isOpen={openIndex === 0}
@@ -159,7 +159,7 @@ const BusinessInvestmentServices = () => {
               </div>
             </AccordionItem>
 
-            {}
+            {/* 2. Ծառայությունների մատուցման սակագներ */}
             <AccordionItem
               title="Ծառայությունների մատուցման սակագներ"
               isOpen={openIndex === 1}
@@ -182,7 +182,7 @@ const BusinessInvestmentServices = () => {
               </div>
             </AccordionItem>
 
-            {}
+            {/* 3. Լրացուցիչ տեղեկատվություն */}
             <AccordionItem
               title="Լրացուցիչ տեղեկատվություն"
               isOpen={openIndex === 2}

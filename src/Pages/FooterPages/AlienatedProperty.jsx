@@ -49,12 +49,12 @@ const AlienatedProperty = () => {
   return (
     <div className="w-full bg-white min-h-screen py-8">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        {}
+        {/* H1 Վերնագիր */}
         <h1 className="text-3xl sm:text-[36px] font-bold text-[#443f38] mb-8">
           Օտարվող գույք
         </h1>
 
-        {}
+        {/* Աղյուսակ */}
         <div className="w-full overflow-x-auto border border-gray-200 rounded-lg shadow-sm mb-6">
           <table className="w-full border-collapse text-left">
             <thead>
@@ -96,7 +96,7 @@ const AlienatedProperty = () => {
           </table>
         </div>
 
-        {}
+        {/* Ամսաթիվ աջ անկյունում */}
         <div className="text-right text-xs text-gray-400 font-sans">
           Թարմացվել է՝ 06/10/2025 10:00
         </div>

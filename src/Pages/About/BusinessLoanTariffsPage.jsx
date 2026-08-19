@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const BusinessLoanTariffsPage = () => {
-  
+  // Список продуктов для левого меню
   const sidebarItems = [
     "Բիզնես վարկ",
     "Վարկային գիծ",
@@ -21,7 +21,7 @@ const BusinessLoanTariffsPage = () => {
     "Լիզինգ",
   ];
 
-  
+  // Хардкод данных для первой (дефолтной) вкладки, чтобы в точности совпадало со скриншотом
   const defaultBusinessLoanData = [
     {
       parameter: "Արժույթը",
@@ -174,7 +174,7 @@ const BusinessLoanTariffsPage = () => {
     },
   ];
 
-  
+  // Генератор случайных данных (для остальных вкладок при клике)
   const generateRandomData = () => {
     const randomRowCount = Math.floor(Math.random() * 5) + 4;
     const newData = [];
@@ -189,12 +189,12 @@ const BusinessLoanTariffsPage = () => {
     return newData;
   };
 
-  const [activeProduct, setActiveProduct] = useState(sidebarItems[0]); 
+  const [activeProduct, setActiveProduct] = useState(sidebarItems[0]); // По умолчанию "Բիզնես վարկ"
   const [tableData, setTableData] = useState(defaultBusinessLoanData);
 
   const handleProductClick = (productName) => {
     setActiveProduct(productName);
-    
+    // Если кликнули на первую вкладку - возвращаем красивый дефолтный стейт, иначе генерируем рандомный текст
     if (productName === sidebarItems[0]) {
       setTableData(defaultBusinessLoanData);
     } else {
@@ -205,15 +205,15 @@ const BusinessLoanTariffsPage = () => {
   return (
     <div className="w-full bg-white font-sans text-gray-800">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-10">
-        {}
+        {/* Главный заголовок страницы (H1) */}
         <h1 className="text-[28px] md:text-[32px] font-bold text-gray-900 mb-8 leading-snug">
           Վարկեր իրավաբանական անձանց
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
-          {}
+          {/* Левый сайдбар */}
           <div className="w-full lg:w-[320px] bg-white border border-gray-100 rounded-lg shadow-sm flex-shrink-0 overflow-hidden py-4">
-            {}
+            {/* Заголовок сайдбара */}
             <div className="px-5 mb-2">
               <h3 className="font-bold text-[#7034E4] text-[15px] border-l-4 border-[#7034E4] pl-3 leading-tight">
                 Վարկեր իրավաբանական
@@ -222,7 +222,7 @@ const BusinessLoanTariffsPage = () => {
               </h3>
             </div>
 
-            {}
+            {/* Список продуктов */}
             <ul className="flex flex-col text-[14px] mt-4">
               {sidebarItems.map((item, index) => {
                 const isActive = activeProduct === item;
@@ -243,14 +243,14 @@ const BusinessLoanTariffsPage = () => {
             </ul>
           </div>
 
-          {}
+          {/* Правая часть: Заголовок выбранного продукта и таблица */}
           <div className="flex-1 w-full overflow-hidden">
-            {}
+            {/* Динамический заголовок продукта (H2) */}
             <h2 className="text-[22px] md:text-[26px] font-bold text-gray-900 mb-6 leading-snug">
               {activeProduct}
             </h2>
 
-            {}
+            {/* Таблица */}
             <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <table className="w-full border-collapse text-left text-[14px]">
                 <tbody>
@@ -259,11 +259,11 @@ const BusinessLoanTariffsPage = () => {
                       key={idx}
                       className={idx % 2 === 0 ? "bg-white" : "bg-[#faf8fd]"}
                     >
-                      {}
+                      {/* Левая колонка - Название параметра */}
                       <td className="w-[35%] py-4 px-5 text-gray-700 font-medium border-b border-r border-gray-200 align-top">
                         {row.parameter}
                       </td>
-                      {}
+                      {/* Правая колонка - Значение (может содержать HTML/React Node) */}
                       <td className="w-[65%] py-4 px-5 text-gray-800 border-b border-gray-200 align-top leading-relaxed">
                         {row.value}
                       </td>

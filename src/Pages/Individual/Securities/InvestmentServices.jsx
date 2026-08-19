@@ -94,7 +94,7 @@ const InvestmentServices = () => {
       }`}
     >
       <div className="max-w-[1440px] mx-auto pt-8 md:pt-12">
-        {}
+        {/* 1. Hero Section */}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
             <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
@@ -115,7 +115,7 @@ const InvestmentServices = () => {
           </div>
         </div>
 
-        {}
+        {/* 2. General Description */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <div className="space-y-6 text-gray-700 text-sm md:text-base leading-relaxed">
             <p>
@@ -210,7 +210,7 @@ const InvestmentServices = () => {
           </div>
         </div>
 
-        {}
+        {/* 3. Required Information (Accordion) */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
