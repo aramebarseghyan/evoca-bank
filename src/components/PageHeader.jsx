@@ -295,6 +295,11 @@ const PageHeader = () => {
 
   const { section, category, title } = getPageDetails(cleanPath);
 
+  // Скрываем шапку на странице 404 (если путь не распознан)
+  if (section === "Անհատ" && category === "Էջ" && title === "Էջ") {
+    return null;
+  }
+
   const hideH1Paths = [
     "/booklets",
     "/contact",

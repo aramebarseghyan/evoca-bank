@@ -61,7 +61,9 @@ const BusinessLoanDetails = () => {
     fetchData();
   }, [id]);
 
-  if (loading || !loan) {
+  if (loading) return null;
+
+  if (!loan) {
     return <div className="min-h-[500px] bg-white"></div>;
   }
 

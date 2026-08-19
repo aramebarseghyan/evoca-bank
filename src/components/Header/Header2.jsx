@@ -57,14 +57,114 @@ const Header2 = () => {
     ? activeGroup.isBusiness
     : cleanPath.includes("business");
 
-  // Check for "News" and "Blog" pages where sub-menu should be empty
   const noSubNavPaths = ["/news", "/blog", "/live-map"];
   const isNoSubNavMode = noSubNavPaths.some(
     (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
   );
+
+  const allKnownPaths = [
+    "/",
+    "/hy",
+    "/ru",
+    "/en",
+    "/evocaLogin",
+    "/news",
+    "/blog",
+    "/live-map",
+    "/booklets",
+    "/contact",
+    "/evoca-dibrary",
+    "/links-for-the-banks-cardholders",
+    "/financial-crime-prevention",
+    "/financial-mediator",
+    "/regulation",
+    "/customer-residency-criteria",
+    "/customer-rights",
+    "/partner-car-dealerships",
+    "/construction-companies",
+    "/legal-acts",
+    "/evocatouch",
+    "/evoca-codes",
+    "/evocasalary",
+    "/pension-cards",
+    "/instant-payments",
+    "/about",
+    "/structure",
+    "/shareholders",
+    "/management",
+    "/partners",
+    "/awards",
+    "/reviews",
+    "/csr",
+    "/tariffs",
+    "/reports",
+    "/announcements",
+    "/auditors-opinion",
+    "/financial-statements",
+    "/for-investors",
+    "/semi-annual-reports",
+    "/annual-reports",
+    "/culture",
+    "/advantages",
+    "/faq",
+    "/how-to-apply",
+    "/evoca-life",
+    "/work-at-evoca",
+    "/internship",
+    "/evocabridge",
+    "/career",
+    "/loans",
+    "/cards",
+    "/deposits",
+    "/account-opening-service",
+    "/money-transfers",
+    "/investment-services",
+    "/transfer-payment-systems",
+    "/bonds",
+    "/stocks-cda-services",
+    "/stocks-repo-transactions",
+    "/business-loans",
+    "/leasing-evoca",
+    "/business-account-opening-and-services",
+    "/business-classical-deposit",
+    "/business-investment-services",
+    "/guarantee",
+    "/v-pos-terminal",
+    "/individual-safe-deposit-boxes",
+    "/business-unallocated-metal-accounts",
+    "/business-cda-services",
+    "/business-repo-transactions",
+    "/business-evocainvest",
+    "/factoring",
+    "/letter-of-credit",
+    "/collection",
+    "/pos-terminal",
+    "/pos-tariffs",
+    "/evoca-mobile-pos",
+    "/business-transfers",
+    "/alienated-property",
+    "/unallocated-metal-accounts",
+    "/remote-service-for-non-resident-clients",
+    "/personal-safe-boxes",
+    "/personal-boxes-safe",
+  ];
+
+  const isKnownPath =
+    allKnownPaths.some(
+      (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+    ) ||
+    subNavigationGroups.some(
+      (g) =>
+        g.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)) ||
+        cleanPath.startsWith(`${g.mainPath}/`),
+    );
+
+  const is404 = !isKnownPath;
+
   if (cleanPath === "/evocaLogin" || cleanPath.includes("evocalogin")) {
     return null;
   }
+
   const individualNavItems = [
     { label: "Վարկեր", path: "/loans", display: "flex" },
     { label: "Քարտեր", path: "/cards", display: "flex" },
@@ -135,9 +235,8 @@ const Header2 = () => {
     { label: "Աշխատանք և պրակտիկա", path: "/work-at-evoca", display: "flex" },
   ];
 
-  // Apply empty array if in news, blog, or map section
   let currentNavItems;
-  if (isNoSubNavMode) {
+  if (is404 || isNoSubNavMode) {
     currentNavItems = [];
   } else if (isAboutMode) {
     currentNavItems = aboutNavItems;
@@ -262,7 +361,6 @@ const Header2 = () => {
             />
           </Link>
 
-          {/* Navigation will not render on news/blog/map pages as currentNavItems is empty */}
           <nav className="hidden md:flex items-center gap-6 xl:gap-8 h-full">
             {currentNavItems.map((item, index) => (
               <Link
@@ -277,7 +375,6 @@ const Header2 = () => {
         </div>
 
         <div className="shrink-0">
-          {/* Այստեղ արտաքին հղումը փոխարինվել է ներքին React ռաութի Link-ով */}
           <Link
             to="/evocaLogin"
             className="inline-block bg-[#5800EB] text-white px-5 py-2 lg:px-7 lg:py-2.5 rounded-full font-bold text-[12px] lg:text-[14px] hover:bg-[#4300B8] transition-colors"

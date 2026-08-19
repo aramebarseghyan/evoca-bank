@@ -29,11 +29,7 @@ const BlogArchive = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-[50vh] text-purple-700 text-xl font-bold">
-        Բեռնվում է...
-      </div>
-    );
+    return null;
   }
 
   return (

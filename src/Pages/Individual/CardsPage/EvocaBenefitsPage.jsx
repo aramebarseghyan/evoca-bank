@@ -342,9 +342,7 @@ export default function EvocaBenefitsPage() {
           <div className="md:col-span-3 lg:col-span-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               {loading ? (
-                <p className="text-center text-gray-500 py-12 col-span-full">
-                  Բեռնվում է...
-                </p>
+                null
               ) : filteredBenefits.length > 0 ? (
                 filteredBenefits
                   .slice(0, visibleCount)

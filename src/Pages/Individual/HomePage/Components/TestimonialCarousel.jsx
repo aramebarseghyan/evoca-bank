@@ -103,13 +103,7 @@ const TestimonialCarousel = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="bg-[#F7F6F9] py-16 flex justify-center">
-        <div className="animate-pulse text-[#6F00FF] font-medium">
-          Բեռնվում է...
-        </div>
-      </div>
-    );
+    return null;
   }
 
   if (testimonials.length === 0) {

@@ -69,11 +69,7 @@ const LoanDetailsPage = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (!product) {

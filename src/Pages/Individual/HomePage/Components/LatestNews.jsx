@@ -47,11 +47,7 @@ const LatestNews = () => {
   }, [loading]);
 
   if (loading) {
-    return (
-      <div className="w-full bg-[#f6f8fb] py-8 pl-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-28 text-[#a8aeb7] text-[14px]">
-        Բեռնվում է...
-      </div>
-    );
+    return null;
   }
 
   return (

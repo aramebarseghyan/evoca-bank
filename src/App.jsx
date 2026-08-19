@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useAuthStore } from "./store/authStore";
 import AuthModal from "./Pages/Acc/AuthModal";
 
-// --- ԱՎԵԼԱՑՎԱԾ Է PEER-Ը ---
+// --- PEERJS ---
 import { Peer } from "peerjs";
 
 // Header, Footer and Page Header imports
@@ -19,6 +19,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import LocationTracker from "./Pages/Maps/LocationTracker";
 import ChatButton from "./components/Chat/ChatButton";
 import ChatWindow from "./components/Chat/ChatWindow";
+import NotFoundPage from "./components/NotFoundPage";
 
 // === ABOUT PAGES ===
 import EvocabankAbout from "./Pages/About/EvocabankAbout";
@@ -149,7 +150,6 @@ function App() {
   const setUser = useAuthStore((state) => state.setUser);
   const user = useAuthStore((state) => state.user);
 
-  // СОСТОЯНИЕ ДЛЯ ЧАТА И ЗВОНКОВ
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [peerInstance, setPeerInstance] = useState(null);
   const [incomingCall, setIncomingCall] = useState(null);
@@ -158,7 +158,6 @@ function App() {
     setIsChatOpen(!isChatOpen);
   };
 
-  // 1. АВТОРИЗАЦИЯ FIREBASE
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -166,7 +165,6 @@ function App() {
     return () => unsubscribe();
   }, [setUser]);
 
-  // --- ՆՈՐ: PEERJS ԳԼՈԲԱԼ ՄԻԱՑՈՒՄ ---
   useEffect(() => {
     if (!user) return;
 
@@ -193,9 +191,7 @@ function App() {
       peer.destroy();
     };
   }, [user]);
-  // ------------------------------------
 
-  // --- ԱՎԵԼԱՑՎԵԼ Է /login ԷՋԸ ՈՐՊԵՍ STANDALONE ---
   const isStandalonePage =
     location.pathname === "/evoca_benefits" ||
     location.pathname === "/instant-payments" ||
@@ -217,9 +213,7 @@ function App() {
 
       <main className="flex-1">
         <Routes>
-          {/* --- ԱՎԵԼԱՑՎԱԾ Է ՄՈՒՏՔԻ ԷՋԻ ՌԱՈՒԹԸ --- */}
           <Route path="/evocaLogin" element={<EvocaLogin />} />
-          {/* MAPS - ЗАЩИЩЕННЫЙ МАРШРУТ */}
           <Route
             path="/live-map"
             element={
@@ -228,20 +222,16 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* PAYMENTS */}
           <Route path="/instant-payments" element={<InstantPaymentsPage />} />
           <Route path="/evocabank" element={<EvocabankPage />} />
           <Route path="/loan-repayment" element={<LoanRepaymentPage />} />
           <Route path="/loan-input" element={<LoanInputPage />} />
-          {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news/archive" element={<NewsArchive />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
-          {/* BLOG */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/archive" element={<BlogArchive />} />
           <Route path="/blog/:id" element={<BlogDetailPage />} />
-          {/* BUSINESS */}
           <Route path="/guarantee" element={<GuaranteeAccordion />} />
           <Route path="/factoring" element={<FactoringPage />} />
           <Route path="/letter-of-credit" element={<LetterOfCreditPage />} />
@@ -294,7 +284,6 @@ function App() {
             path="/leasing-special-offer"
             element={<SpecialOffersPage />}
           />
-          {/* ABOUT AND HOME */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<EvocabankAbout />} />
           <Route path="/culture" element={<EvocaCulturePage />} />
@@ -316,7 +305,6 @@ function App() {
           <Route path="/annual-reports" element={<AnnualReports />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/reviews" element={<ReviewsList />} />
-          {/* TARIFFS */}
           <Route
             path="/tariffs"
             element={<Navigate to="/tariffs/loans-to-individuals" replace />}
@@ -335,7 +323,6 @@ function App() {
           />
           <Route path="/tariffs/deposits" element={<DepositTariffsPage />} />
           <Route path="/tariffs/archive" element={<ArchivePage />} />
-          {/* INDIVIDUALS */}
           <Route path="/loans" element={<LoansPage />} />
           <Route path="/loans/:id" element={<LoanDetailsPage />} />
           <Route path="/deposits" element={<DepositsPage />} />
@@ -418,8 +405,8 @@ function App() {
             path="/loans-important-information"
             element={<LoansImportantInfo />}
           />
-          <Route path="/cards" element={<CardsPage />} />
-          <Route path="/cards/:id" element={<CardDetailWindow />} />
+          <Route path="cards" element={<CardsPage />} />
+          <Route path="cards/:id" element={<CardDetailWindow />} />
           <Route
             path="/cards-provision-and-service"
             element={<CardsProvisionAndService />}
@@ -427,14 +414,14 @@ function App() {
           <Route path="/pension-cards" element={<PensionCardsPage />} />
           <Route path="/evoca_benefits" element={<EvocaBenefitsPage />} />
           <Route path="/faq" element={<EvocaFaq />} />
-          {/* CAREERS */}
           <Route path="/how-to-apply" element={<EvocaCareers />} />
           <Route path="/work-at-evoca" element={<EvocaJobsList />} />
           <Route path="/work-at-evoca/:id" element={<JobDetail />} />
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
           <Route path="/evocabridge" element={<EvocaBridgePage />} />
-          <Route path="*" element={<div />} />
+
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 

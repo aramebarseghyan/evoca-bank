@@ -55,10 +55,7 @@ const NewsArchive = () => {
   });
 
   if (loading) {
-    return (
-      <div className="w-full min-h-[60vh] flex items-center justify-center bg-white text-[#a8aeb7]">
-      </div>
-    );
+    return null;
   }
 
   return (

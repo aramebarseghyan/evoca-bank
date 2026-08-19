@@ -74,11 +74,7 @@ const CardSlider = () => {
   };
 
   if (loading) {
-    return (
-      <div className="w-full bg-[#F4F7FF] min-h-[500px] flex justify-center items-center font-sans">
-        <p className="text-slate-500">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (cards.length === 0) {

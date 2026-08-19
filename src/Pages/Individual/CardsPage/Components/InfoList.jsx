@@ -130,11 +130,7 @@ const InfoList = ({ activeFilter, collectionName = "cards" }) => {
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <p className="text-gray-500 text-lg">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   return (

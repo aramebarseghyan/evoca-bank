@@ -29,7 +29,7 @@ const BlogPage = () => {
     fetchBlog();
   }, []);
 
-  if (loading) return <div className="text-center py-20 text-purple-700"></div>;
+  if (loading) return null;
   if (blog.length < 10)
     return (
       <div className="text-center py-20">

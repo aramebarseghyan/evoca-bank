@@ -36,7 +36,7 @@ const NewsPage = () => {
     fetchNews();
   }, []);
 
-  if (loading) return <div className="text-center py-20 text-purple-700"></div>;
+  if (loading) return null;
   if (news.length < 10)
     return (
       <div className="text-center py-20">

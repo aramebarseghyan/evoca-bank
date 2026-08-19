@@ -4,7 +4,6 @@ import { subNavigationGroups, normalizePath } from "../../data/navigationData";
 import logo from "../../assets/img/evocabank.png";
 
 const ScrollHeader = ({ onOpenMenu }) => {
-  // 1. Բոլոր հուկերը հստակ հերթականությամբ՝ ֆունկցիայի ամենասկզբում
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -16,7 +15,6 @@ const ScrollHeader = ({ onOpenMenu }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 2. Մաքրում ենք փաթը և ստուգում պայմանը հուկերից հետո
   const rawPath = location.pathname;
   const cleanPath = normalizePath ? normalizePath(rawPath) : rawPath;
 
@@ -24,11 +22,111 @@ const ScrollHeader = ({ onOpenMenu }) => {
     return null;
   }
 
-  // 3. Մնացած լոգիկան և ռենդերը
+  const allKnownPaths = [
+    "/",
+    "/hy",
+    "/ru",
+    "/en",
+    "/evocaLogin",
+    "/news",
+    "/blog",
+    "/live-map",
+    "/booklets",
+    "/contact",
+    "/evoca-dibrary",
+    "/links-for-the-banks-cardholders",
+    "/financial-crime-prevention",
+    "/financial-mediator",
+    "/regulation",
+    "/customer-residency-criteria",
+    "/customer-rights",
+    "/partner-car-dealerships",
+    "/construction-companies",
+    "/legal-acts",
+    "/evocatouch",
+    "/evoca-codes",
+    "/evocasalary",
+    "/pension-cards",
+    "/instant-payments",
+    "/about",
+    "/structure",
+    "/shareholders",
+    "/management",
+    "/partners",
+    "/awards",
+    "/reviews",
+    "/csr",
+    "/tariffs",
+    "/reports",
+    "/announcements",
+    "/auditors-opinion",
+    "/financial-statements",
+    "/for-investors",
+    "/semi-annual-reports",
+    "/annual-reports",
+    "/culture",
+    "/advantages",
+    "/faq",
+    "/how-to-apply",
+    "/evoca-life",
+    "/work-at-evoca",
+    "/internship",
+    "/evocabridge",
+    "/career",
+    "/loans",
+    "/cards",
+    "/deposits",
+    "/account-opening-service",
+    "/money-transfers",
+    "/investment-services",
+    "/transfer-payment-systems",
+    "/bonds",
+    "/stocks-cda-services",
+    "/stocks-repo-transactions",
+    "/business-loans",
+    "/leasing-evoca",
+    "/business-account-opening-and-services",
+    "/business-classical-deposit",
+    "/business-investment-services",
+    "/guarantee",
+    "/v-pos-terminal",
+    "/individual-safe-deposit-boxes",
+    "/business-unallocated-metal-accounts",
+    "/business-cda-services",
+    "/business-repo-transactions",
+    "/business-evocainvest",
+    "/factoring",
+    "/letter-of-credit",
+    "/collection",
+    "/pos-terminal",
+    "/pos-tariffs",
+    "/evoca-mobile-pos",
+    "/business-transfers",
+    "/alienated-property",
+    "/unallocated-metal-accounts",
+    "/remote-service-for-non-resident-clients",
+    "/personal-safe-boxes",
+    "/personal-boxes-safe",
+  ];
+
+  const isKnownPath =
+    allKnownPaths.some(
+      (p) => cleanPath === p || cleanPath.startsWith(`${p}/`),
+    ) ||
+    subNavigationGroups.some(
+      (g) =>
+        g.paths.some((p) => cleanPath === p || cleanPath.startsWith(`${p}/`)) ||
+        cleanPath.startsWith(`${g.mainPath}/`),
+    );
+
+  const is404 = !isKnownPath;
+
   const minimalHeaderPages = ["/news", "/blog", "/live-map"];
-  const isMinimalHeader = minimalHeaderPages.some(
-    (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
-  );
+  const isMinimalHeader =
+    is404 ||
+    minimalHeaderPages.some(
+      (prefix) => cleanPath === prefix || cleanPath.startsWith(`${prefix}/`),
+    );
 
   const careerPrefixes = [
     "/culture",

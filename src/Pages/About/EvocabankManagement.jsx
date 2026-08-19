@@ -76,11 +76,7 @@ const EvocabankManagement = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="text-center py-20 font-semibold text-gray-600">
-        Բեռնվում է...
-      </div>
-    );
+    return null;
   }
 
   return (

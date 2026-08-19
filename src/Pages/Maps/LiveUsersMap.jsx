@@ -230,15 +230,7 @@ const LiveUsersMap = () => {
         {/* Map Section */}
         <div className="flex-1 relative w-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border-[6px] border-white z-0 bg-gray-50">
           {isLoading ? (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-white/80 backdrop-blur-md space-y-5">
-              <div className="relative flex justify-center items-center">
-                <div className="absolute animate-ping w-16 h-16 rounded-full bg-purple-400 opacity-20"></div>
-                <div className="w-12 h-12 border-4 border-purple-100 border-t-purple-600 rounded-full animate-spin"></div>
-              </div>
-              <span className="text-purple-900/60 font-semibold tracking-wide animate-pulse">
-                Քարտեզի բեռնում...
-              </span>
-            </div>
+            null
           ) : (
             <MapContainer
               center={[40.1811, 44.5136]}

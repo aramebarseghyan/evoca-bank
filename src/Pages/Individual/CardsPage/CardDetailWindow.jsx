@@ -84,9 +84,7 @@ const CardDetailWindow = () => {
     return () => clearInterval(interval);
   }, [otherCards.length]);
 
-  if (loading) {
-    return <div className="text-center py-20 text-lg">Բեռնվում է...</div>;
-  }
+  if (loading) return null;
 
   if (!cardData) {
     return <div className="text-center py-20 text-lg">Քարտը չի գտնվել:</div>;

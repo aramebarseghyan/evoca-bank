@@ -71,11 +71,7 @@ const JobDetail = () => {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="w-full flex justify-center py-20">
-        <p className="text-gray-500 font-medium">Բեռնվում է...</p>
-      </div>
-    );
+    return null;
   }
 
   if (!job) {
