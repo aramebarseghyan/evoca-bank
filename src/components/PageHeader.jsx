@@ -56,6 +56,14 @@ const PageHeader = () => {
       };
     }
 
+    if (lowerPath === "/booklets") {
+      return {
+        section: null,
+        category: null,
+        title: "Բուկլետներ",
+      };
+    }
+
     if (
       lowerPath === "/personal-safe-boxes" ||
       lowerPath === "/personal-boxes-safe"
@@ -279,6 +287,7 @@ const PageHeader = () => {
   const { section, category, title } = getPageDetails(cleanPath);
 
   const hideH1Paths = [
+    "/booklets",
     "/digital-services-evocaonline-online-banking",
     "/evocaonline-online-banking",
     "/evoca-dibrary",

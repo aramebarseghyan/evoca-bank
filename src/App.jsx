@@ -140,6 +140,7 @@ import EvocaOnlinefooter from "./Pages/DontHeaderPages/EvocaOnlineFooter";
 import Boxes from "./Pages/DontHeaderPages/Boxes";
 import FAQ from "./Pages/DontHeaderPages/Faq";
 import Dibrary from "./Pages/DontHeaderPages/Dibrary";
+import Booklets from "./Pages/DontHeaderPages/Booklets";
 
 function App() {
   const location = useLocation();
@@ -429,6 +430,7 @@ function App() {
             element={<FAQ />}
           />
           <Route path="/evoca-dibrary" element={<Dibrary />} />
+          <Route path="/booklets" element={<Booklets />} />
           <Route
             path="/partner-car-dealerships"
             element={<PartnerCarDealerships />}
