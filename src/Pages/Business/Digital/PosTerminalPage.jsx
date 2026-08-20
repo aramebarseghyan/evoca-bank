@@ -4,11 +4,11 @@ import LatestNews from "../../Individual/HomePage/Components/LatestNews";
 const PosTerminalPage = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
-      {/* Основной контейнер страницы */}
+
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Hero Секция (Точная копия оригинала) */}
+
         <div className="bg-[#f8f6fc] rounded-tr-[100px] lg:rounded-tr-[140px] rounded-tl-2xl rounded-bl-2xl rounded-br-2xl mb-12 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between">
-          {/* Левая часть: Текст внутри блока */}
+
           <div className="flex-1 p-8 md:p-12 lg:pr-4 space-y-6 max-w-xl z-10">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight">
               POS Տերմինալ
@@ -21,7 +21,7 @@ const PosTerminalPage = () => {
             </p>
           </div>
 
-          {/* Правая часть: Картинка, которая вплотную прилегает к правому краю */}
+
           <div className="w-full lg:w-[55%] flex justify-end">
             <div className="w-full h-full overflow-hidden">
               <img
@@ -33,7 +33,7 @@ const PosTerminalPage = () => {
           </div>
         </div>
 
-        {/* Основной текст описания */}
+
         <div className="max-w-5xl mx-auto space-y-4 text-gray-700 text-sm md:text-base leading-relaxed mb-10 px-2">
           <p>
             Ձեր գնորդները կկարողանան գնումներ կատարել իրենց միջազգային{" "}
@@ -47,7 +47,7 @@ const PosTerminalPage = () => {
           </p>
         </div>
 
-        {/* Секция: Իսկ ինչո՞ւ տեղադրել Evocabank-ի POS տերմինալ */}
+
         <div className="max-w-5xl mx-auto mb-12 px-2">
           <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             Իսկ ինչո՞ւ տեղադրել Evocabank-ի POS տերմինալ։
@@ -75,7 +75,7 @@ const PosTerminalPage = () => {
             </li>
           </ul>
 
-          {/* Подпункт 1 */}
+
           <div className="mb-6 pl-4 border-l-2 border-purple-300">
             <p className="text-gray-700 text-sm md:text-base mb-4 font-medium">
               • Եթե վաճառակետի գործունեության տեսակը չի համընկնում ԿԲ կողմից
@@ -83,7 +83,7 @@ const PosTerminalPage = () => {
               դրամի իրացման շրջանառության շեմը՝
             </p>
 
-            {/* Таблица 1 */}
+
             <div className="border border-purple-100 rounded-xl overflow-x-auto mb-4 shadow-sm">
               <table className="w-full text-xs md:text-sm text-left text-gray-700 min-w-[700px]">
                 <thead className="bg-purple-50 text-gray-900 font-semibold border-b border-purple-100">
@@ -128,7 +128,7 @@ const PosTerminalPage = () => {
               </table>
             </div>
 
-            {/* Вложенная подтаблица для минимальных ежемесячных комиссий */}
+
             <div className="border border-purple-100 rounded-xl overflow-x-auto mb-4 shadow-sm bg-white">
               <table className="w-full text-xs md:text-sm text-left text-gray-700">
                 <tbody>
@@ -168,7 +168,7 @@ const PosTerminalPage = () => {
             </p>
           </div>
 
-          {/* Подпункт 2 */}
+
           <div className="mb-8 pl-4 border-l-2 border-purple-300">
             <p className="text-gray-700 text-sm md:text-base mb-4 font-medium">
               • Եթե վաճառակետի գործունեության տեսակը համընկնում է ԿԲ կողմից
@@ -179,7 +179,7 @@ const PosTerminalPage = () => {
               (ՀՀ դրամ)՝
             </p>
 
-            {/* Таблица 2 */}
+
             <div className="border border-purple-100 rounded-xl overflow-x-auto mb-4 shadow-sm max-w-xl">
               <table className="w-full text-xs md:text-sm text-left text-gray-700">
                 <tbody>
@@ -217,7 +217,7 @@ const PosTerminalPage = () => {
             </p>
           </div>
 
-          {/* Преимущества пунктами */}
+
           <ul className="space-y-3 text-gray-700 text-sm md:text-base list-disc pl-5 leading-relaxed mb-8">
             <li>
               Վճարման պարզ գործընթաց, Ձեր գնորդները վճարում կկատարեն{" "}
@@ -230,7 +230,7 @@ const PosTerminalPage = () => {
             <li>Անհատական մոտեցում Ձեր բիզնեսին ու կայքին:</li>
           </ul>
 
-          {/* Блок призыва к действию (Заявка) */}
+
           <div className="bg-purple-50/60 border border-purple-100 rounded-2xl p-6 md:p-8 space-y-4">
             <p className="text-gray-900 font-bold text-base md:text-lg">
               1. POS տերմինալ տեղադրելու համար{" "}
@@ -251,7 +251,7 @@ const PosTerminalPage = () => {
         </div>
       </div>
 
-      {/* Секция последних новостей на полную ширину */}
+
       <div className="w-full mb-16">
         <LatestNews />
       </div>

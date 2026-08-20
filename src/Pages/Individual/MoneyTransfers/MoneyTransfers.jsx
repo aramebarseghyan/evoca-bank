@@ -1,138 +1,104 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
 import MobilePromo from "../HomePage/Components/MobilePromo";
+import { db } from "../../../firebase";
 
 const MoneyTransfers = () => {
   const [openAccordion, setOpenAccordion] = useState(0);
+  const [pageData, setPageData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const accordionData = [
-    {
-      title: "Փոխանցումներ դրամով",
-      content: [
-        "Մեզ մոտ գործող վճարահաշվարկային համակարգն ապահովում է արագ և հուսալի դրամային փոխանցումներ ինչպես մեր համակարգում, այնպես էլ հայաստանյան այլ բանկերի միջև:",
-        "Դրամով փոխանցումները Հայաստանի տարածքում կատարվում են 1 բանկային օրվա ընթացքում:",
-      ],
-    },
-    {
-      title: "Միջազգային փոխանցումներ",
-      content: [
-        "Իրականացրեք միջազգային արագ և անվտանգ դրամական փոխանցումներ աշխարհի ցանկացած կետ արտարժույթով:",
-        "Փոխանցումները կատարվում են միջազգային բանկային ստանդարտներին համապատասխան համակարգերով:",
-      ],
-    },
-    {
-      title: "Վճարային համակարգեր",
-      content: [
-        "Օգտվե՛ք հայտնի միջազգային վճարային համակարգերից՝ արագ փոխանցումներ ուղարկելու և ստանալու համար առանց հաշիվ բացելու անհրաժեշտության:",
-      ],
-    },
-    {
-      title: "Փոխանցման պայմանների փոփոխություն կամ չեղարկում",
-      content: [
-        "Դուք հնարավորություն ունեք դիմել բանկ՝ արդեն կատարված փոխանցման պայմանները փոխելու կամ այն չեղարկելու համար՝ համաձայն բանկի սակագների և գործող կանոնների:",
-      ],
-    },
-  ];
+  useEffect(() => {
+    const fetchPageData = async () => {
+      try {
+        const docRef = doc(db, "transfers_config", "money_transfers");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setPageData(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPageData();
+  }, []);
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
   };
 
+  if (loading || !pageData) {
+    return (
+      <div className="w-full min-h-screen bg-white flex items-center justify-center">
+        <div className="text-gray-500 font-medium text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  const { hero, generalProvisions, banner, accordion, documents } = pageData;
+
   return (
     <div className="w-full min-h-screen bg-white font-sans pb-20 overflow-x-hidden">
-      {/* Контейнер для основных блоков */}
       <div className="max-w-[1440px] mx-auto pt-4 md:pt-6">
         {/* 1. Hero Section */}
         <div className="flex flex-col lg:flex-row items-stretch px-4 sm:px-8 lg:px-16 mb-16 gap-6 lg:gap-0 2xl:ml-[-30px] 2xl:w-[calc(100%+30px)]">
           <div className="lg:w-[45%] bg-[#F8F6FD] rounded-3xl lg:rounded-r-none lg:rounded-l-[3rem] p-8 md:p-12 lg:p-16 flex flex-col justify-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight">
-              Դրամական <br className="hidden xl:block" /> փոխանցումներ
+            <h1 className="text-3xl sm:text-4xl lg:text-[2.5rem] font-bold text-gray-900 mb-6 leading-tight whitespace-pre-line">
+              {hero?.title}
             </h1>
             <p className="text-gray-700 leading-relaxed text-sm sm:text-base">
-              Իրականացնում ենք դրամական փոխանցումներ Հայաստանի տարածքում և դեպի
-              արտերկիր՝ դրամով և արտարժույթով: Փոխանցումներն իրականացվում են
-              միջազգային բանկային ստանդարտներին համապատասխան համակարգերով:
+              {hero?.description}
             </p>
           </div>
           <div className="lg:w-[55%]">
             <img
-              src="https://www.evoca.am/images-cache/menu/1/16115828343472/780x585.jpg"
-              alt="Դրամական փոխանցումներ"
+              src={hero?.imageUrl}
+              alt={hero?.title}
               className="w-full h-full object-cover min-h-[300px] bg-[#5D00E0] rounded-3xl lg:rounded-l-none lg:rounded-r-[3rem]"
             />
           </div>
         </div>
 
-        {/* 2. General Provisions (Ընդհանուր դրույթներ) */}
+        {/* 2. General Provisions */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-            Ընդհանուր դրույթներ
+            {generalProvisions?.title}
           </h2>
           <div className="space-y-4 text-gray-700 text-sm md:text-base leading-relaxed">
-            <p>
-              Ձեր բանկային փոխանցումներն իրականացնում ենք՝ ղեկավարվելով «Բանկերի
-              և բանկային գործունեության մասին» ՀՀ օրենքով, ՀՀ Կենտրոնական բանկի
-              իրավական ակտերով, ՀՀ այլ իրավական ակտերով, թղթակից բանկերի հետ
-              կնքված պայմանագրերով և սպասարկման սահմանված պայմաններով:
-            </p>
-            <p>
-              Ձեր փոխանցումները կատարում ենք վճարման հանձնարարագրերի հման վրա
-              (կախված գումարի չափից, փոխանցման բնույթից և նպատակից՝ կարող են
-              պահանջվել նաև այլ փաստաթղթեր):
-            </p>
-            <p>
-              Յուրաքանչյուր աշխատանքային օրվա ընթացքում՝ մինչև ժամը 15:30
-              ներկայացված վճարման հանձնարարագրերը կատարում ենք նույն բանկային
-              օրը, իսկ ժամը 15:30-ից հետո ներկայացված վճարման հանձնարարագրերը՝
-              հաջորդ բանկային օրը: Մինչև ժամը 16:30 ներկայացված դրամով
-              փոխանցումները (պետական և տեղական բյուջեի վճարումներ, կոմունալ կամ
-              սոցիալական այլ վճարներ) կատարման ենք ընդունում նույն բանկային օրը:
-            </p>
-            <p>
-              Դրամով և արտարժույթով բանկային փոխանցումներ իրականացնելիս Ձեզանից
-              գանձում ենք{" "}
-              <span className="text-[#5D00E0] font-medium underline cursor-pointer">
-                միջնորդավճարներ
-              </span>
-              ՝ ըստ մեր դրույքաչափերի և սակագների: Կոմունալ վճարների սպասարկման
-              դիմաց միջնորդավճար չենք գանձում: Արտարժույթի տոկոսային
-              հարաբերակցությամբ սահմանված միջնորդավճարները գանձվում են ՀՀ
-              դրամով՝ հիմք ընդունելով գանձման օրը տվյալ արտարժույթի համար մեր
-              կողմից սահմանված անկանխիկ վաճառքի փոխարժեքը:
-            </p>
-            <p>
-              Մենք պարտավոր ենք տրամադրել յուրաքանչյուր փոխանցման կատարումը
-              հավաստող փաստաթուղթ, որտեղ նշված կլինեն փոխանցման գումարը,
-              արժույթը, միջնորդավճարի չափը և այլ մանրամասներ:
-            </p>
+            {generalProvisions?.paragraphs?.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* 3. Full-width Banner with Overlay Text (Вынесено наружу для абсолютной ширины экрана) */}
+      {/* 3. Full-width Banner */}
       <div className="relative w-screen left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] h-[350px] md:h-[450px] mb-16">
         <img
-          src="https://www.evoca.am/images-cache/menu/1/1611294541215/1920x530.jpg"
+          src={banner?.imageUrl}
           alt="Evoca Bank Interior"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center px-4 text-center">
           <h2 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold max-w-[900px] leading-snug">
-            Կարող եք գումարներ փոխանցել ինչպես ձեր հաշվից, այնպես էլ առանց հաշվի
-            բացման:
+            {banner?.text}
           </h2>
         </div>
       </div>
 
-      {/* Продолжение контейнера для остальных блоков */}
       <div className="max-w-[1440px] mx-auto">
-        {/* 4. Required Information (Անհրաժեշտ տեղեկատվություն - Accordion) */}
+        {/* 4. Required Information (Accordion) */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
-            ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
+            {accordion?.title}
           </h2>
 
           <div className="space-y-4">
-            {accordionData.map((item, index) => {
+            {accordion?.items?.map((item, index) => {
               const isOpen = openAccordion === index;
               return (
                 <div
@@ -174,44 +140,32 @@ const MoneyTransfers = () => {
           </div>
         </div>
 
-        {/* 5. Documents Section (Փաստաթղթեր) */}
+        {/* 5. Documents Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
-            Փաստաթղթեր
+            {documents?.title}
           </h2>
 
           <div className="space-y-4">
-            <a
-              href="#download"
-              className="flex items-center justify-between p-5 bg-[#F8F6FD] hover:bg-[#f0ecfc] rounded-2xl transition-colors border border-transparent hover:border-[#5D00E0]"
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-[#5D00E0] text-2xl">📄</span>
-                <span className="text-gray-900 font-medium text-sm md:text-base">
-                  Միջազգային վճարման հանձնարարականներով փոխանցումների
-                  իրականացման կանոններ
-                </span>
-              </div>
-              <span className="text-[#5D00E0] text-xl font-bold">⬇</span>
-            </a>
-
-            <a
-              href="#download"
-              className="flex items-center justify-between p-5 bg-[#F8F6FD] hover:bg-[#f0ecfc] rounded-2xl transition-colors border border-transparent hover:border-[#5D00E0]"
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-[#5D00E0] text-2xl">📄</span>
-                <span className="text-gray-900 font-medium text-sm md:text-base">
-                  Համալիր բանկային ծառայությունների մատուցման պայմաններ
-                  16.05.2025
-                </span>
-              </div>
-              <span className="text-[#5D00E0] text-xl font-bold">⬇</span>
-            </a>
+            {documents?.items?.map((docItem) => (
+              <a
+                key={docItem.id}
+                href={docItem.link}
+                className="flex items-center justify-between p-5 bg-[#F8F6FD] hover:bg-[#f0ecfc] rounded-2xl transition-colors border border-transparent hover:border-[#5D00E0]"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="text-[#5D00E0] text-2xl">📄</span>
+                  <span className="text-gray-900 font-medium text-sm md:text-base">
+                    {docItem.title}
+                  </span>
+                </div>
+                <span className="text-[#5D00E0] text-xl font-bold">⬇</span>
+              </a>
+            ))}
           </div>
         </div>
       </div>
-      <MobilePromo></MobilePromo>
+      <MobilePromo />
     </div>
   );
 };

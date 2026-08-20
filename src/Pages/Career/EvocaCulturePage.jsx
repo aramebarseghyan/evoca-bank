@@ -1,143 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
+
+// Ներմուծում ենք Firebase-ի db-ն (ստուգեք՝ ճիշտ ուղին արդյոք համապատասխանում է ձեր նախագծին)
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 // Swiper-ի ոճերը
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Վիդեոների տվյալների բազա
-const cultureVideos = [
-  {
-    id: 1,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16760069357338/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/PvDYyPGb3RU?si=H2jQ8EcL6IRC5DR9",
-    title: "Evocabank neon art corporate party",
-  },
-  {
-    id: 2,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16760071256254/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/PF9JbEC-z-I?si=Mk4gQ2xDQnh7OJAe",
-    title: "EVOCAISLAND Evoca Summer Party 2022",
-  },
-  {
-    id: 3,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16335942010669/744x419.png",
-    iframeSrc: "https://www.youtube.com/embed/Abpc2dbNEdU?si=dlgIQ672OsH2AwQG",
-    title: "Evoca corporate Party 2021",
-  },
-  {
-    id: 4,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16196069660929/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/X9yAx39078s?si=D__yQi2UVLP2nnV_",
-    title: "Evoca New Year Corporate Party 2022",
-  },
-  {
-    id: 5,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16196066065187/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/ygQS-e1-2I8?si=Cv55owTSLKG5uPbt",
-    title: "Evoca Team Building",
-  },
-  {
-    id: 6,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16412988100187/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/VNVSaTULcBk?si=fBnMwgnNWVehitKT",
-    title: "Evoca Life",
-  },
-  {
-    id: 7,
-    img: "https://www.evoca.am/images-cache/culture_sliders/1/16196059430279/744x419.jpg",
-    iframeSrc: "https://www.youtube.com/embed/gowxeSi1iJs?si=HZa4mhLtNTCd8rXX",
-    title: "Evoca Events",
-  },
-];
-
-// Թիմի կարծիքների տվյալների բազա
-const testimonials = [
-  {
-    id: 1,
-    words: ["Դինամիկ", "Պրպտող", "Զարգացող"],
-    name: "Լիլիթ Գաբոյան",
-    role: "Գլխավոր ֆինանսական տնօրեն",
-  },
-  {
-    id: 2,
-    words: ["Կրեատիվ", "Նորարար", "Մանուշակագույն"],
-    name: "Ալլա Զաքարյան",
-    role: "Վճարային գործիքների մասնագետ",
-  },
-  {
-    id: 3,
-    words: ["Գույներ", "Էմոցիաներ", "Նորարարություններ"],
-    name: "Գայանե Առաքելյան",
-    role: "Մասնաճյուղի կառավարիչ",
-  },
-  {
-    id: 4,
-    words: ["Թրենդային", "Պահանջված", "Ուրախ"],
-    name: "Հարություն Սահակյան",
-    role: "Անվտանգության մասնագետ",
-  },
-];
-
 export default function EvocaCulturePage() {
   const [activeVideo, setActiveVideo] = useState(null);
+  const [cultureVideos, setCultureVideos] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videosSnapshot = await getDocs(collection(db, "cultureVideos"));
+        const videosList = videosSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCultureVideos(videosList);
+
+        const testimonialsSnapshot = await getDocs(
+          collection(db, "testimonials"),
+        );
+        const testimonialsList = testimonialsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setTestimonials(testimonialsList);
+      } catch (error) {
+        console.error("Սխալ տվյալների բեռնման ժամանակ:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center bg-white text-[#5C00C9] font-bold text-xl">
+        Բեռնվում է...
+      </div>
+    );
+  }
 
   return (
     <div className="w-full font-sans text-[#333333] overflow-x-hidden">
-      {/* Ներկառուցված ոճեր հատուկ սլայդերի անիմացիաների համար */}
       <style>{`
-        /* Վիդեոների Սլայդերի ոճեր */
-        .culture-swiper .swiper-wrapper {
-          align-items: center;
-        }
-        .culture-swiper .swiper-slide {
-          width: 320px !important;
-          opacity: 0.9;
-          transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
-        }
-        .culture-swiper .swiper-slide-active {
-          width: 780px !important;
-          opacity: 1;
-        }
-        .culture-swiper .swiper-slide .slide-title {
-          font-size: 0.875rem;
-          transition: font-size 0.5s ease;
-        }
-        .culture-swiper .swiper-slide-active .slide-title {
-          font-size: 1.25rem;
-        }
-        
-        /* Թիմի կարծիքների սլայդերի (Testimonials) ոճեր */
-        .testimonial-swiper .swiper-pagination-bullet {
-          width: 8px;
-          height: 8px;
-          background-color: #d1d5db; /* մոխրագույն */
-          opacity: 1;
-          margin: 0 6px !important;
-          transition: background-color 0.3s ease;
-        }
-        .testimonial-swiper .swiper-pagination-bullet-active {
-          background-color: #5C00C9; /* մանուշակագույն */
-        }
-        
-        @media (max-width: 1024px) {
-          .culture-swiper .swiper-slide-active {
-            width: 600px !important;
-          }
-        }
-        @media (max-width: 768px) {
-          .culture-swiper .swiper-slide {
-            width: 260px !important;
-          }
-          .culture-swiper .swiper-slide-active {
-            width: 85vw !important;
-          }
-        }
+        .culture-swiper .swiper-wrapper { align-items: center; }
+        .culture-swiper .swiper-slide { width: 320px !important; opacity: 0.9; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease; }
+        .culture-swiper .swiper-slide-active { width: 780px !important; opacity: 1; }
+        .culture-swiper .swiper-slide .slide-title { font-size: 0.875rem; transition: font-size 0.5s ease; }
+        .culture-swiper .swiper-slide-active .slide-title { font-size: 1.25rem; }
+        .testimonial-swiper .swiper-pagination-bullet { width: 8px; height: 8px; background-color: #d1d5db; opacity: 1; margin: 0 6px !important; transition: background-color 0.3s ease; }
+        .testimonial-swiper .swiper-pagination-bullet-active { background-color: #5C00C9; }
+        @media (max-width: 1024px) { .culture-swiper .swiper-slide-active { width: 600px !important; } }
+        @media (max-width: 768px) { .culture-swiper .swiper-slide { width: 260px !important; } .culture-swiper .swiper-slide-active { width: 85vw !important; } }
       `}</style>
 
-      {/* 1. HERO SECTION */}
+      {/* HERO SECTION */}
       <section
         className="relative w-full h-[350px] md:h-[500px] bg-cover bg-center flex items-center"
         style={{
@@ -157,7 +87,7 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 2. WHY WORK AT EVOCA SECTION */}
+      {/* WHY WORK AT EVOCA SECTION */}
       <section className="py-16 px-4 md:px-0">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">
@@ -178,48 +108,8 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 3. CULTURE VIDEOS SWIPER SECTION */}
+      {/* CULTURE VIDEOS SWIPER SECTION */}
       <section className="bg-[#5C00C9] py-20 relative overflow-hidden">
-        {/* Աբստրակտ լողացող էլեմենտներ (Ֆոնային դիզայն) */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <svg
-            className="absolute top-[10%] left-[8%] w-10 h-10 text-[#FFD700] transform -rotate-12 opacity-90"
-            viewBox="0 0 100 100"
-            fill="currentColor"
-          >
-            <polygon points="50,0 100,100 0,100" />
-          </svg>
-          <div className="absolute top-[25%] left-[5%] w-4 h-4 rounded-full bg-[#00F0FF] opacity-80 shadow-[0_0_15px_#00F0FF]"></div>
-          <svg
-            className="absolute top-[40%] left-[10%] w-20 h-20 text-[#FF007F] opacity-80"
-            viewBox="0 0 100 100"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="12"
-          >
-            <circle cx="50" cy="50" r="40" />
-          </svg>
-          <div className="absolute bottom-[20%] left-[12%] w-16 h-16 bg-[#FFD700] rounded-[40%] transform rotate-45 opacity-90 blur-[1px]"></div>
-
-          <div className="absolute top-[15%] right-[8%] w-28 h-28 rounded-full border-[14px] border-[#FF007F] opacity-80"></div>
-          <svg
-            className="absolute top-[12%] right-[22%] w-8 h-8 text-[#00F0FF] opacity-90"
-            viewBox="0 0 100 100"
-            fill="currentColor"
-          >
-            <polygon points="0,0 100,0 50,100" />
-          </svg>
-          <div className="absolute top-[50%] right-[6%] w-14 h-14 rounded-full bg-[#A800FF] shadow-[0_0_25px_#A800FF] opacity-100"></div>
-          <svg
-            className="absolute bottom-[25%] right-[12%] w-16 h-16 text-white opacity-60 transform rotate-12"
-            viewBox="0 0 100 100"
-            fill="currentColor"
-          >
-            <rect x="42" y="0" width="16" height="100" rx="8" />
-            <rect x="0" y="42" width="100" height="16" rx="8" />
-          </svg>
-        </div>
-
         <div className="container mx-auto px-6 md:px-12 lg:px-20 mb-10 relative z-10">
           <div className="max-w-4xl">
             <h2 className="text-white text-3xl md:text-4xl font-bold mb-6">
@@ -234,7 +124,6 @@ export default function EvocaCulturePage() {
           </div>
         </div>
 
-        {/* SWIPER CONTAINER */}
         <div className="relative w-full z-10 px-0 md:px-12">
           <Swiper
             modules={[Navigation, Autoplay]}
@@ -303,7 +192,7 @@ export default function EvocaCulturePage() {
               </SwiperSlide>
             ))}
           </Swiper>
-
+          {/* Նավիգացիոն սլաքներ */}
           <button className="custom-swiper-button-prev absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 text-white hover:scale-110 hover:text-[#00F0FF] transition-all p-2 cursor-pointer">
             <svg
               className="w-10 h-10 md:w-12 md:h-12"
@@ -319,7 +208,6 @@ export default function EvocaCulturePage() {
               />
             </svg>
           </button>
-
           <button className="custom-swiper-button-next absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 text-white hover:scale-110 hover:text-[#00F0FF] transition-all p-2 cursor-pointer">
             <svg
               className="w-10 h-10 md:w-12 md:h-12"
@@ -338,13 +226,12 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 4. TESTIMONIALS SECTION (Թարմացված է ըստ տեսանյութի դիզայնի) */}
+      {/* TESTIMONIALS SECTION */}
       <section className="py-20 bg-white">
         <div className="container mx-auto text-center px-4 md:px-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-12 text-[#333]">
             Հարցրու՛ մեր թիմին. «Ինչպիսի՞ն է Evoca-ն՝ 3 բառով»
           </h2>
-
           <div className="relative px-10 md:px-16 max-w-[1200px] mx-auto">
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
@@ -354,21 +241,12 @@ export default function EvocaCulturePage() {
               }}
               pagination={{ clickable: true }}
               loop={true}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-              }}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
               slidesPerView={1}
               spaceBetween={20}
               breakpoints={{
-                768: {
-                  slidesPerView: 2,
-                  spaceBetween: 25,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 30,
-                },
+                768: { slidesPerView: 2, spaceBetween: 25 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
               }}
               className="testimonial-swiper pb-16"
             >
@@ -380,12 +258,14 @@ export default function EvocaCulturePage() {
                     </span>
                     <div className="mt-4 mb-8">
                       <h3 className="text-[#5C00C9] font-bold text-xl md:text-2xl leading-snug">
-                        {test.words.map((word, index) => (
-                          <React.Fragment key={index}>
-                            {word}
-                            {index < test.words.length - 1 && <br />}
-                          </React.Fragment>
-                        ))}
+                        {Array.isArray(test.words)
+                          ? test.words.map((word, index) => (
+                              <React.Fragment key={index}>
+                                {word}
+                                {index < test.words.length - 1 && <br />}
+                              </React.Fragment>
+                            ))
+                          : test.words}
                       </h3>
                     </div>
                     <div>
@@ -398,7 +278,6 @@ export default function EvocaCulturePage() {
                 </SwiperSlide>
               ))}
             </Swiper>
-
             {/* Նավիգացիոն սլաքներ Testimonial սլայդերի համար */}
             <button className="test-swiper-button-prev absolute left-0 md:left-2 top-1/2 -translate-y-1/2 z-20 text-[#5C00C9] hover:text-[#8c54ff] transition-colors p-2 bg-white rounded-full">
               <svg
@@ -415,7 +294,6 @@ export default function EvocaCulturePage() {
                 />
               </svg>
             </button>
-
             <button className="test-swiper-button-next absolute right-0 md:right-2 top-1/2 -translate-y-1/2 z-20 text-[#5C00C9] hover:text-[#8c54ff] transition-colors p-2 bg-white rounded-full">
               <svg
                 className="w-8 h-8"
@@ -435,7 +313,7 @@ export default function EvocaCulturePage() {
         </div>
       </section>
 
-      {/* 5. JOB APPLICATION FORM */}
+      {/* JOB APPLICATION FORM */}
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="container mx-auto max-w-3xl px-4">
           <div className="text-center mb-10">
@@ -445,11 +323,9 @@ export default function EvocaCulturePage() {
             <p className="text-gray-600 text-sm">
               Եթե ցանկանում ես միանալ{" "}
               <span className="text-[#5C00C9] font-bold">EvocaTEAM</span>-ին,
-              <br />
               կարող ես ուղարկել դիմում՝ կցելով ինքնակենսագրականդ:
             </p>
           </div>
-
           <form className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
@@ -471,7 +347,6 @@ export default function EvocaCulturePage() {
                 />
               </div>
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 Հեռախոսահամար <span className="text-red-500">*</span>
@@ -486,7 +361,6 @@ export default function EvocaCulturePage() {
                 />
               </div>
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 Էլ. հասցե
@@ -496,7 +370,6 @@ export default function EvocaCulturePage() {
                 className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:border-[#5C00C9]"
               />
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 Facebook սոց. կայքում անձնական էջի հղում
@@ -506,7 +379,6 @@ export default function EvocaCulturePage() {
                 className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:border-[#5C00C9]"
               />
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 LinkedIn սոց. կայքում անձնական էջի հղում
@@ -516,7 +388,6 @@ export default function EvocaCulturePage() {
                 className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:border-[#5C00C9]"
               />
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 Ուղեկցող նամակ
@@ -526,7 +397,6 @@ export default function EvocaCulturePage() {
                 className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:border-[#5C00C9]"
               ></textarea>
             </div>
-
             <div>
               <label className="block text-sm text-gray-700 mb-1">
                 Վերբեռնեք Ձեր ռեզյումեն <span className="text-red-500">*</span>
@@ -548,7 +418,6 @@ export default function EvocaCulturePage() {
                 </svg>
               </div>
             </div>
-
             <div className="w-full max-w-xs border border-gray-300 p-4 rounded">
               <label className="block text-sm text-gray-700 mb-2">
                 Ստուգման ծածկագիր <span className="text-red-500">*</span>
@@ -572,7 +441,6 @@ export default function EvocaCulturePage() {
                 </div>
               </div>
             </div>
-
             <button
               type="button"
               className="w-full bg-[#6A00F4] hover:bg-[#5C00C9] text-white font-bold py-4 rounded-full transition duration-300 mt-8 shadow-lg shadow-purple-500/30"

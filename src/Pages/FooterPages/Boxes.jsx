@@ -1,74 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MobilePromo from "../Individual/HomePage/Components/MobilePromo";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const Boxes = () => {
-  // Ստանդարտ սակագների տվյալները
-  const standardTariffs = [
-    {
-      period: "14 օր",
-      small: "5,000 ՀՀ դրամ",
-      medium: "7,000 ՀՀ դրամ",
-      large: "10,000 ՀՀ դրամ",
-    },
-    {
-      period: "1 ամիս",
-      small: "7,000 ՀՀ դրամ",
-      medium: "10,000 ՀՀ դրամ",
-      large: "12,000 ՀՀ դրամ",
-    },
-    {
-      period: "3 ամիս",
-      small: "10,000 ՀՀ դրամ",
-      medium: "15,000 ՀՀ դրամ",
-      large: "20,000 ՀՀ դրամ",
-    },
-    {
-      period: "6 ամիս",
-      small: "15,000 ՀՀ դրամ",
-      medium: "20,000 ՀՀ դրամ",
-      large: "25,000 ՀՀ դրամ",
-    },
-    {
-      period: "12 ամիս",
-      small: "30,000 ՀՀ դրամ",
-      medium: "40,000 ՀՀ դրամ",
-      large: "50,000 ՀՀ դրամ",
-    },
-    {
-      period: "Երկարաժամկետ",
-      small: "պայմանագրային",
-      medium: "պայմանագրային",
-      large: "պայմանագրային",
-    },
-  ];
+  const [standardTariffs, setStandardTariffs] = useState([]);
+  const [foreignTariffs, setForeignTariffs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Օտարերկրյա քաղաքացիների սակագների տվյալները
-  const foreignTariffs = [
-    {
-      period: "14 օր",
-      small: "25,000 ՀՀ դրամ",
-      medium: "35,000 ՀՀ դրամ",
-      large: "50,000 ՀՀ դրամ",
-    },
-    {
-      period: "1 ամիս",
-      small: "35,000 ՀՀ դրամ",
-      medium: "50,000 ՀՀ դրամ",
-      large: "60,000 ՀՀ դրամ",
-    },
-    {
-      period: "3 ամիս",
-      small: "50,000 ՀՀ դրամ",
-      medium: "75,000 ՀՀ դրամ",
-      large: "100,000 ՀՀ դրամ",
-    },
-  ];
+  useEffect(() => {
+    const fetchTariffs = async () => {
+      try {
+        const stdDoc = await getDoc(doc(db, "boxes", "standard"));
+        const forDoc = await getDoc(doc(db, "boxes", "foreign"));
+
+        if (stdDoc.exists()) setStandardTariffs(stdDoc.data().tariffs || []);
+        if (forDoc.exists()) setForeignTariffs(forDoc.data().tariffs || []);
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTariffs();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full text-gray-800 font-sans leading-relaxed">
-      {/* 1. Հիմնական սահմանափակված բովանդակություն (Max Width Container) */}
       <div className="max-w-[1100px] mx-auto px-4 sm:px-8 py-8">
-        {/* Top Banner Section */}
         <div className="flex flex-col md:flex-row items-stretch rounded-3xl overflow-hidden bg-[#F6F4F9] mb-12 shadow-sm">
           <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
@@ -89,7 +52,6 @@ const Boxes = () => {
           </div>
         </div>
 
-        {/* Main Description Content */}
         <div className="space-y-5 text-sm sm:text-base text-gray-800 leading-relaxed mb-12">
           <p>
             Պահատուփերի պարունակությունը միայն ձեր գաղտնիքն է: Դրանցում կարող եք
@@ -130,7 +92,6 @@ const Boxes = () => {
           </p>
         </div>
 
-        {/* Table 1: Standard Tariffs */}
         <div className="mb-14">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-6">
             Չհրկիզվող անհատական պահարանների վարձակալման սակագներ
@@ -220,7 +181,6 @@ const Boxes = () => {
           </div>
         </div>
 
-        {/* Table 2: Foreign Citizens Tariffs */}
         <div>
           <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-6">
             Չհրկիզվող անհատական պահարանների վարձակալում օտարերկրյա քաղաքացիների
@@ -280,7 +240,6 @@ const Boxes = () => {
         </div>
       </div>
 
-      {/* 2. Full-width Section for MobilePromo */}
       <div className="w-full">
         <MobilePromo />
       </div>

@@ -1,82 +1,45 @@
 import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase"; 
 
 const EvocaInvest = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
-  const [openVideoAccordion, setOpenVideoAccordion] = useState(true); // Открыт по умолчанию
+  const [openVideoAccordion, setOpenVideoAccordion] = useState(true);
 
-  // Меняем заголовок страницы при монтировании
+
+  const [faqData, setFaqData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     document.title = "EvocaINVEST | Ներդրումային հարթակ";
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const docRef = doc(db, "evoca_invest_config", "main");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.faqData) {
+            setFaqData(data.faqData);
+          }
+        } else {
+          console.warn("Document evoca_invest_config/main not found!");
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
   };
-
-  const faqData = [
-    {
-      title: "Ի՞նչ է բաժնետոմսը:",
-      content:
-        "Բաժնետոմսը արժեթուղթ է, որը հավաստում է ընկերության կանոնադրական կապիտալում բաժնեմասի առկայությունը և իրավունք է տալիս ստանալ շահութաբաժիններ...",
-    },
-    {
-      title: "Ի՞նչ է պարտատոմսը:",
-      content:
-        "Պարտատոմսը պարտքային արժեթուղթ է, որով թողարկողը պարտավորվում է սահմանված ժամկետում վերադարձնել անվանական արժեքը և վճարել տոկոսներ:",
-    },
-    {
-      title: "Ի՞նչ է ETF-ը:",
-      content:
-        "ETF-ը (Exchange Traded Fund) փոխանակվող ֆոնդ է, որը հետևում է ինդեքսներին, ապրանքներին կամ զամբյուղներին և վաճառվում է բորսայում ինչպես սովորական բաժնետոմս:",
-    },
-    {
-      title:
-        "Ո՞րն է տարբերությունը բաժնետոմսերի, պարտատոմսերի և ETF-ների միջև:",
-      content:
-        "Բաժնետոմսերը տալիս են սեփականության իրավունք, պարտատոմսերը՝ ֆիքսված եկամտով պարտքային գործիքներ են, իսկ ETF-ները միավորում են բազմաթիվ ակտիվներ մեկ գործիքի մեջ:",
-    },
-    {
-      title: "Կարո՞ղ եմ բրոքերային հաշիվ բացել առանց մասնաճյուղ այցելելու:",
-      content:
-        "Այո, հաշիվը կարելի է բացել ամբողջությամբ առցանց՝ EvocaTOUCH հավելվածի միջոցով:",
-    },
-    {
-      title:
-        "Ո՞ր շուկաներին և գործիքներին է EvocaINVEST-ը ապահովում հասանելիություն:",
-      content:
-        "Հարթակն ապահովում է հասանելիություն ամերիկյան, եվրոպական և ասիական ֆոնդային բորսաներ:",
-    },
-    {
-      title: "Կարո՞ղ եմ միաժամանակ ունենալ տարբեր տեսակի արժեթղթեր:",
-      content:
-        "Այո, դուք կարող եք ձևավորել դիվերսիֆիկացված պորտֆոլիո տարբեր գործիքներից:",
-    },
-    {
-      title: "Ինչպե՞ս գտնել և գնել կոնկրետ արժեթուղթ:",
-      content:
-        "Կարող եք որոնել ընկերության անունով կամ թիքերով EvocaINVEST հավելվածում և տեղադրել համապատասխան պատվեր:",
-    },
-    {
-      title: "Ո՞րն է տարբերությունը լիմիտային և շուկայական պատվերների միջև:",
-      content:
-        "Լիմիտային պատվերը կատարվում է ձեր նշած կամ ավելի լավ գնով, իսկ շուկայականը՝ անմիջապես ընթացիկ շուկայական գնով:",
-    },
-    {
-      title: "Ի՞նչ է ticker-ը:",
-      content:
-        "Թիքերը արժեթղթի եզակի կրճատ հապավումն է բորսայում (օրինակ՝ AAPL Apple-ի համար):",
-    },
-    {
-      title: "Ի՞նչ է շահութաբաժինը:",
-      content:
-        "Շահութաբաժինը ընկերության շահույթի մի մասն է, որը վճարվում է բաժնետոմսերի սեփականատերերին:",
-    },
-    {
-      title: "Կարո՞ղ եմ պատվերներ տեղադրել բորսայի աշխատանքային ժամերից դուրս:",
-      content:
-        "Այո, կարող եք տեղադրել ցանկացած ժամ, և դրանք կուղարկվեն բորսա բացվելուն պես:",
-    },
-  ];
 
   return (
     <div className="w-full bg-white font-sans pb-20">
@@ -196,7 +159,11 @@ const EvocaInvest = () => {
         {/* 7. Video Accordion Section with 5 Stacked Videos */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-12">
           <div
-            className={`border rounded-2xl transition-all duration-300 overflow-hidden ${openVideoAccordion ? "border-[#5D00E0] shadow-sm" : "border-gray-200"}`}
+            className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
+              openVideoAccordion
+                ? "border-[#5D00E0] shadow-sm"
+                : "border-gray-200"
+            }`}
           >
             <button
               onClick={() => setOpenVideoAccordion(!openVideoAccordion)}
@@ -248,53 +215,64 @@ const EvocaInvest = () => {
           </div>
         </div>
 
-        {/* 8. FAQ Accordions Section */}
+        {/* 8. Dynamic FAQ Accordions Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
-          <div className="space-y-4">
-            {faqData.map((item, index) => {
-              const isOpen = openAccordion === index;
-              return (
+          {loading ? (
+            <div className="space-y-4 animate-pulse">
+              {[1, 2, 3, 4].map((i) => (
                 <div
-                  key={index}
-                  className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                    isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
-                  }`}
-                >
-                  <button
-                    onClick={() => toggleAccordion(index)}
-                    className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <span className="text-base sm:text-lg font-bold text-gray-900">
-                      {item.title}
-                    </span>
-                    <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 shrink-0 ml-4 ${
-                        isOpen
-                          ? "rotate-180 bg-[#5D00E0] text-white"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
-                    >
-                      ▼
-                    </span>
-                  </button>
-
+                  key={i}
+                  className="h-20 bg-gray-100 rounded-2xl border border-gray-200"
+                ></div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {faqData.map((item, index) => {
+                const isOpen = openAccordion === index;
+                return (
                   <div
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
+                    key={index}
+                    className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
+                      isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
                     }`}
                   >
-                    <div className="overflow-hidden">
-                      <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white text-gray-700 text-sm md:text-base leading-relaxed">
-                        {item.content}
+                    <button
+                      onClick={() => toggleAccordion(index)}
+                      className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
+                    >
+                      <span className="text-base sm:text-lg font-bold text-gray-900">
+                        {item.title}
+                      </span>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 shrink-0 ml-4 ${
+                          isOpen
+                            ? "rotate-180 bg-[#5D00E0] text-white"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white text-gray-700 text-sm md:text-base leading-relaxed">
+                          {item.content}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

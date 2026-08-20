@@ -5,14 +5,14 @@ const LoanProductCardBenefits = ({ product }) => {
   const navigate = useNavigate();
 
   const handleDetailsClick = () => {
-    // Переходим на страницу конкретного кредита по его ID из Firebase
+
     navigate(`/loans/${product.id}`);
   };
 
   return (
     <div className="w-full font-sans py-8 border-b border-gray-200 last:border-b-0">
       <div className="flex flex-col lg:flex-row lg:items-start lg:gap-12">
-        {/* Левая часть: Баннер */}
+
         <div
           className={`w-full lg:w-[450px] shrink-0 h-56 sm:h-72 lg:h-[320px] rounded-3xl overflow-hidden mb-6 lg:mb-0 flex items-center justify-center ${
             product.imageBgColor || "bg-yellow-300"
@@ -25,7 +25,7 @@ const LoanProductCardBenefits = ({ product }) => {
           />
         </div>
 
-        {/* Правая часть: Контент */}
+
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold text-gray-900 mb-3 leading-tight">

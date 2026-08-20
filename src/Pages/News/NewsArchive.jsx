@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import { db } from "../../firebase"; // Проверьте путь к вашему файлу firebase.js
+import { db } from "../../firebase";
 
-// Категории в точности как на вашем скриншоте
 const CATEGORIES = [
   "Բոլորը",
   "Գլխավոր",
@@ -31,10 +30,9 @@ const NewsArchive = () => {
           ...doc.data(),
         }));
 
-        console.log("Загруженные новости из Firebase:", items); // Для проверки в консоли браузера (F12)
         setNewsList(items);
       } catch (error) {
-        console.error("Ошибка при загрузке новостей из Firebase:", error);
+        console.error("Error loading news from Firebase:", error);
       } finally {
         setLoading(false);
       }
@@ -43,11 +41,9 @@ const NewsArchive = () => {
     fetchAllNews();
   }, []);
 
-  // Фильтрация новостей с учетом возможных пробелов или регистра
   const filteredNews = newsList.filter((news) => {
     if (activeCategory === "Բոլորը") return true;
 
-    // Сравнение категорий (приводим к строке и убираем лишние пробелы на всякий случай)
     const newsCat = (news.category || "").trim();
     const selectedCat = activeCategory.trim();
 
@@ -61,9 +57,7 @@ const NewsArchive = () => {
   return (
     <section className="w-full bg-white py-8 md:py-12 min-h-screen">
       <div className="max-w-[1520px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-12">
-        {/* Блок фильтров (Категории + визуальный Date Picker) */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10">
-          {/* Кнопки категорий */}
           <div className="flex flex-wrap gap-2 lg:gap-3">
             {CATEGORIES.map((category) => (
               <button
@@ -71,8 +65,6 @@ const NewsArchive = () => {
                 onClick={() => setActiveCategory(category)}
                 className={`px-4 py-2 rounded-full text-[13px] lg:text-[14px] font-bold transition-colors duration-300 ${
                   activeCategory === category
-                    ? "bg-[#6F00FF] text-white" // Активная категория (фиолетовая)
-                    : "bg-[#F3F4F6] text-[#222222] hover:bg-[#E5E7EB]" // Неактивная (серая)
                 }`}
               >
                 {category}
@@ -121,7 +113,6 @@ const NewsArchive = () => {
                   />
                 </div>
 
-                {/* Текст */}
                 <div>
                   <h3 className="text-[15px] xl:text-[16px] font-extrabold text-[#222222] leading-snug mb-2 group-hover:text-[#6F00FF] transition-colors duration-300 line-clamp-3">
                     {news.title}
@@ -134,7 +125,6 @@ const NewsArchive = () => {
             ))}
           </div>
         ) : (
-          /* Если в выбранной категории нет новостей */
           <div className="w-full py-20 text-center text-[#a8aeb7] text-[16px]">
             Այս կատեգորիայում նորություններ չկան
           </div>

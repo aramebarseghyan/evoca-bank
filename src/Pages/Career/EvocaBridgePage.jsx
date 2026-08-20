@@ -1,44 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ3_mGAyawhU5fZwKsg1CQLu-0MAGbZTY",
+  authDomain: "evoca-app-cdeac.firebaseapp.com",
+  projectId: "evoca-app-cdeac",
+  storageBucket: "evoca-app-cdeac.firebasestorage.app",
+  messagingSenderId: "197478671668",
+  appId: "1:197478671668:web:5661f415d8b4445649f161",
+  measurementId: "G-N469K2446L",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export default function EvocaBridgePage() {
-  const programBenefits = [
-    "Երկամսյա խորացված ուսումնական ծրագիր:",
-    "Ծանոթացում նորարար բանկային միջավայրին ներսից:",
-    "Գործնական կապերի հաստատում:",
-    "Ամսական 180.000 ՀՀ դրամ վարձատրություն` ներառյալ հարկերը և այլ պարտադիր վճարումները:",
-    "Անմիջապես ծրագրի ավարտից հետո աշխատանքի անցնելու հնարավորություն:",
-  ];
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const requirements = [
-    "Սովորում ես համալսարանի 4-րդ կուրսում, մագիստրատուրայում կամ մինչև 1 տարի է՝ ինչ ավարտել ես համալսարանը:",
-    "Ունես բարձր առաջադիմություն:",
-    "Հետաքրքրասեր ես, ակտիվ ու նպատակասլաց:",
-    "Սիրում ես բացահայտել նորը, սովորել ու զարգանալ:",
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, "evoca_bridge_page_config", "main");
+        const docSnap = await getDoc(docRef);
 
-  const applicationDocs = [
-    "Ինքնակենսագրական,",
-    "ՄՈԳ-ի ցուցանիշը հաստատող տեղեկանք,",
-    "«Նամակ ապագային» այն մասին, թե ինչպես ես ամենամեծ 2 նպատակները դարձրել հաջողված նախագիծ:",
-  ];
+        if (docSnap.exists()) {
+          setData(docSnap.data());
+        } else {
+          console.warn("error!");
+        }
+      } catch (error) {
+        console.error("error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const programStages = [
-    {
-      title: "Փուլ 1: Տեսական",
-      description:
-        "Տեսական ուսուցման ընթացքում մասնակիցներն ունենում են հանդիպումներ Բանկի մի շարք ստորաբաժանումների ղեկավարների հետ, ստանում խորացված գիտելիքներ բանկային պրոդուկտների, ծառայությունների և մի շարք գործընթացների վերաբերյալ:",
-    },
-    {
-      title: "Փուլ 2: Գործնական",
-      description:
-        "Գործնական փուլի շրջանակում մասնակիցները հնարավորություն են ունենում տեսական և գործնական գիտելիքները կիրառել պրակտիկ միջավայրում: Այս փուլի ընթացքում մասնակիցները նաև ներգրավվում են նախագծերի մշակման և ներկայացման հետաքրքիր գործընթացում:",
-    },
-    {
-      title: "Փուլ 3: Ամփոփում",
-      description:
-        "Տեսական և գործնական փուլերի ավարտից հետո իրականացվում է թեստավորում և ավարտական նախագծերի հանձնում։ Լավագույն արդյունք ցուցաբերած մասնակիցները ստանում են աշխատանքի առաջարկ Evocabank-ից և սկսում իրենց մասնագիտական ուղին։",
-    },
-  ];
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-pulse text-[#6816cc] font-medium text-lg">
+          Loading...
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) return null;
 
   const checkIcon = (
     <svg
@@ -69,10 +81,10 @@ export default function EvocaBridgePage() {
         <div className="container mx-auto px-6 md:px-12 lg:px-32 w-full">
           <div className="bg-white rounded-[30px] p-8 md:p-10 w-full max-w-[550px] lg:max-w-[620px] shadow-lg">
             <h1 className="text-2xl md:text-3xl font-bold text-[#3d3333] mb-2">
-              EvocaBRIDGE
+              {data.heroTitle}
             </h1>
             <p className="text-gray-600 text-sm md:text-[15px] font-medium">
-              EvocaBRIDGE: Bridging Ideas, Shaping The Future
+              {data.heroSubtitle}
             </p>
           </div>
         </div>
@@ -82,13 +94,12 @@ export default function EvocaBridgePage() {
       <div className="container mx-auto px-6 md:px-12 lg:px-32 pt-16 max-w-6xl">
         {/* Intro subtitle */}
         <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-8 leading-snug">
-          Չունե՞ս աշխատանքային փորձ, բայց փնտրո՞ւմ ես աշխատանք, ուրեմն
-          EvocaBRIDGE ծրագիրը քեզ համար է!
+          {data.introText}
         </h2>
 
         {/* Benefits List */}
         <ul className="space-y-4 mb-12">
-          {programBenefits.map((item, index) => (
+          {data.programBenefits?.map((item, index) => (
             <li
               key={index}
               className="flex items-start gap-3 text-gray-700 text-sm md:text-base"
@@ -102,10 +113,10 @@ export default function EvocaBridgePage() {
         {/* Requirements Section */}
         <div className="mb-12">
           <h3 className="text-base md:text-lg font-bold text-[#6816cc] mb-4 flex items-center gap-2">
-            <span>💼 EvocaBRIDGE-ին կարող ես մասնակցել, եթե...</span>
+            <span>{data.requirementsTitle}</span>
           </h3>
           <ul className="space-y-4">
-            {requirements.map((item, index) => (
+            {data.requirements?.map((item, index) => (
               <li
                 key={index}
                 className="flex items-start gap-3 text-gray-700 text-sm md:text-base"
@@ -130,7 +141,7 @@ export default function EvocaBridgePage() {
             էլեկտրոնային հասցեին ուղարկիր.
           </h3>
           <ul className="space-y-4">
-            {applicationDocs.map((item, index) => (
+            {data.applicationDocs?.map((item, index) => (
               <li
                 key={index}
                 className="flex items-start gap-3 text-gray-700 text-sm md:text-base"
@@ -144,21 +155,20 @@ export default function EvocaBridgePage() {
 
         {/* Footer Note */}
         <div className="mb-16 text-gray-700 text-sm md:text-base leading-relaxed">
-          Նախնական ընտրությունն անցած թեկնածուների հետ կիրականացվեն անհատական
-          հարցազրույցներ, որի արդյունքում կընտրվեն ծրագրի մասնակիցները:
+          {data.footerNote}
         </div>
 
         {/* Program Details Section */}
         <div className="border-t border-gray-200 pt-12">
           <h3 className="text-2xl md:text-3xl font-bold text-[#6816cc] mb-4">
-            Ծրագրի մանրամասներ․
+            {data.programStagesTitle}
           </h3>
           <p className="text-gray-800 font-medium mb-8 text-base">
-            EvocaBRIDGE-ն իրականացվում է 3 փուլերով:
+            {data.programStagesSubtitle}
           </p>
 
           <div className="space-y-6">
-            {programStages.map((stage, index) => (
+            {data.programStages?.map((stage, index) => (
               <div
                 key={index}
                 className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow"

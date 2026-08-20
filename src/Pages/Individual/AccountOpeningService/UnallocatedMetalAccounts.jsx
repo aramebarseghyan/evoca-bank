@@ -142,7 +142,7 @@ const UnallocatedMetalAccounts = () => {
             </p>
           </div>
 
-          {/* Documents Section (Стилизовано под скриншот) */}
+
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               Փաստաթղթեր
@@ -157,7 +157,7 @@ const UnallocatedMetalAccounts = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="relative text-[#5D00E0]">
-                    {/* Иконка файла с бейджем скачивания */}
+
                     <svg
                       className="w-8 h-8"
                       fill="none"

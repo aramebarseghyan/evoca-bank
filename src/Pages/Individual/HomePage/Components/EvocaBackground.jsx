@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+
+import { db } from "../../../../firebase";
 
 import statue from "../../../../assets/img/statue.png";
 import shape1 from "../../../../assets/img/shape1.png";
@@ -9,33 +12,6 @@ import shape5 from "../../../../assets/img/shape5.png";
 import shape6 from "../../../../assets/img/shape6.png";
 import evocaBestShape from "../../../../assets/img/evoca-best-shape1.png";
 import roundBg from "../../../../assets/img/round__bg.png";
-
-const cards = [
-  {
-    id: 1,
-    badge: "Թվային քարտեր",
-    title: "Evoca Digital քարտ",
-    desc: "Evoca Digital քարտն արդեն հասանելի է EvocaTOUCH հավելվածով: Ակտիվացրու այն հիմա և ընտրիր քո սիրելի դիզայնը:",
-  },
-  {
-    id: 2,
-    badge: "Նվեր քարտեր",
-    title: "Evoca Gift Card",
-    desc: "Գնիր Evoca Gift Card, և լավագույն նվերը կլինի քոնը: Քարտը հարմար է բոլոր առիթների համար:",
-  },
-  {
-    id: 3,
-    badge: "Նոր հավելված",
-    title: "EvocaTOUCH 2",
-    desc: "EvocaTOUCH-ը պարզապես բանկային հավելված չէ, վստահ ենք՝ այն քեզ համար դառնալու է ապրելակերպ:",
-  },
-  {
-    id: 4,
-    badge: "Օնլայն վճարումներ",
-    title: "Արագ online վճարումներ",
-    desc: "Կատարիր քո ընթացիկ վճարումները Evocabank-ի online տերմինալի միջոցով պարզ և արագ: Այն հասանելի է 24/7:",
-  },
-];
 
 const ringOffsets = [0, 45, 90, 135, 180, 225, 270, 315];
 
@@ -87,6 +63,28 @@ const SvgRings = () => (
 );
 
 const EvocaBackground = () => {
+  const [sectionTitle, setSectionTitle] = useState("Լավագույնը Evocabank-ից");
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    const fetchEvocaBestData = async () => {
+      try {
+        const docRef = doc(db, "benefits_config", "evoca_best");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.title) setSectionTitle(data.title);
+          if (data.cards) setCards(data.cards);
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+      }
+    };
+
+    fetchEvocaBestData();
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
@@ -99,7 +97,7 @@ const EvocaBackground = () => {
       .querySelectorAll(".cards-wrapper")
       .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [cards]);
 
   const renderCard = (card, index, type) => {
     const isMobile = type === "mobile",
@@ -114,7 +112,7 @@ const EvocaBackground = () => {
     const descCls = `text-[#6c747e] leading-relaxed ${isMobile ? "hidden md:block text-[13px] mt-2" : isLg ? "text-[13.5px] mt-1" : "text-[13.5px] 2xl:text-[15.5px]"}`;
 
     return (
-      <div key={card.id} className={wrapCls}>
+      <div key={card.id || index} className={wrapCls}>
         <div className="scroll-animate h-full w-full">
           <div className={innerCls}>
             <div>
@@ -164,7 +162,7 @@ const EvocaBackground = () => {
 
         <div className="relative z-20 px-6 w-full sm:px-0 sm:pl-[50px] sm:pr-6 sm:max-w-none md:max-w-[620px] md:pl-0 md:translate-x-[60px] text-left mt-[75px] sm:mt-[80px] md:-mt-[5px]">
           <h2 className="text-white text-[22px] sm:text-[26px] md:text-[34px] font-extrabold tracking-tight">
-            Լավագույնը Evocabank-ից
+            {sectionTitle}
           </h2>
         </div>
 
@@ -240,7 +238,7 @@ const EvocaBackground = () => {
 
         <div className="absolute top-[170px] left-0 w-full pl-[140px] pr-8 z-40">
           <h2 className="text-white text-[34px] font-extrabold tracking-tight mb-6">
-            Լավագույնը Evocabank-ից
+            {sectionTitle}
           </h2>
           <div className="cards-wrapper grid grid-cols-2 gap-6 max-w-[960px]">
             {cards.map((c, i) => renderCard(c, i, "lg"))}
@@ -311,7 +309,7 @@ const EvocaBackground = () => {
 
         <div className="absolute top-[180px] 2xl:top-[220px] left-0 w-full pl-[560px] 2xl:pl-[640px] pr-12 z-40">
           <h2 className="text-white text-[40px] 2xl:text-[48px] font-extrabold tracking-tight mb-8">
-            Լավագույնը Evocabank-ից
+            {sectionTitle}
           </h2>
           <div className="cards-wrapper grid grid-cols-2 gap-7 2xl:gap-5 max-w-[880px] 2xl:max-w-[1020px]">
             {cards.map((c, i) => renderCard(c, i, "xl"))}

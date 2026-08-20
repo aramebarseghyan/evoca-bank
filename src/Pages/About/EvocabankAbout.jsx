@@ -1,49 +1,35 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
-const historyData = [
-  {
-    year: 2026,
-    text: "Բանկը բացեց նոր «Աջափնյակ» մասնաճյուղը, կնքեց նոր միջազգային համագործակցության պայմանագրեր, մասնակցեց միջազգային կոնֆերանսների, արժանացավ հեղինակավոր մրցանակների և կյանքի կոչեց Երևանը գունավորող street art էջը:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/17823049564741/450x330.png",
-  },
-  {
-    year: 2025,
-    text: "Բանկը փոխեց իր կազմակերպաիրավական ձևը՝ ՓԲԸ-ից ԲԲԸ-ի: Evoca-ն և EBRD-ն ստորագրեցին համագործակցության համաձայնագիր: Ներկայացվեց Evoca Travel Card-ը: Մեկնարկեցին Evoca Partners Club-ը և Evoca Benefits նախագիծը:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/17574211752061/450x330.png",
-  },
-  {
-    year: 2024,
-    text: "Evocabank-ը ձեռք է բերել նոր միջազգային գործընկերներ, այդ թվում՝ EIB Global-ը, հովանավորել մի շարք նախագծեր, ներկայացրել իր նոր EvocaHOME օվերդրաֆտը, ինչպես նաև արժանացել միջազգային մրցանակների:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/17240707281875/450x330.png",
-  },
-  {
-    year: 2023,
-    text: "Evocabank-ը թողարկել է նոր, գերժամանակակից EvocaTOUCH 2 և EvocaINVEST հավելվածները: Գործընկերներին է ներկայացրել Evoca Digital քարտը, Action օնլայն վարկը, էլեկտրոնային ստորագրության e-Sign համակարգը:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/17001230844576/450x330.jpg",
-  },
-  {
-    year: 2022,
-    text: "Evoca-ն համալրել է կանոնադրական կապիտալը 3 մլրդ դրամով: Թողարկել է պարտատոմսեր: Ներկայացրել է Visa Vision քարտը: ՀայՓոստի հետ սկսել է համագործակցություն՝ հարմարավետ և հասանելի ֆինտեխ ծառայությունների գծով: Գործարկել է Evoca mobile POS-ը:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/16542512333235/450x330.png",
-  },
-  {
-    year: 2021,
-    text: "Evoca-ի նոր, կրատիվ լուծումներով կայքը Awwwards թիմի կողմից արժանացել է 2 մրցանակի: Բանկը ներկայացրել է իր Evoca Gift Card-ը: Բանկը 2 փուլով թողարկել է պարտատոմսեր, այդ թվում՝ online տարբերակով:",
-    image:
-      "https://www.evoca.am/images-cache/histories/1/16448252170155/450x330.png",
-  },
-];
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const EvocabankAbout = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [historyData, setHistoryData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const swiperRef = useRef(null);
+
+  // Տվյալների բեռնում Firebase-ից
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const q = query(collection(db, "about"), orderBy("year", "asc"));
+        const querySnapshot = await getDocs(q);
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setHistoryData(data);
+      } catch (error) {
+        console.error("Error fetching history:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, []);
 
   const handleYearClick = (index) => {
     setActiveIndex(index);
@@ -52,9 +38,12 @@ const EvocabankAbout = () => {
     }
   };
 
+  if (loading) {
+    return <div className="text-center py-20">Բեռնվում է...</div>;
+  }
+
   return (
     <div className="bg-white text-gray-800 font-sans antialiased overflow-x-hidden relative">
-      {/* 1. Общая информация */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Ընդհանուր տեղեկատվություն
@@ -65,7 +54,7 @@ const EvocabankAbout = () => {
             <p>
               <span className="text-[#6005c5] font-bold">Evocabank</span>-ը
               արագ, պարզ և նորարար ծառայություններ մատուցող բանկ է, որն
-              առանձնանում է տեղեկատվական նորագույն տեխնոլոգիաների ակտիվ
+              առանձնանում է տեկտատվական նորագույն տեխնոլոգիաների ակտիվ
               կիրառմամբ։
             </p>
             <p>
@@ -90,7 +79,6 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 2. Наше видение */}
       <section className="bg-[#6005c5] w-full py-12 sm:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
@@ -107,7 +95,6 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 3. Наша миссия */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pb-20 sm:pb-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Մեր առաքելությունը
@@ -131,150 +118,142 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 4. История банка (Адаптивный таймлайн и слайдер) */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
-          Բանկի պատմությունը
-        </h2>
+      {/* Բանկի պատմությունը (Բեռնվում է Firebase-ից) */}
+      {historyData.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 lg:mt-20">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
+            Բանկի պատմությունը
+          </h2>
 
-        {/* Интерактивный таймлайн-навигатор (с горизонтальным скроллом на мобилках) */}
-        <div className="flex items-center gap-1 sm:gap-4 mb-10 w-full">
-          {/* Левая стрелка */}
-          <button
-            className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === 0 ? "text-gray-300 cursor-not-allowed" : "text-gray-400 hover:text-[#6005c5]"}`}
-            onClick={() => {
-              if (activeIndex > 0) handleYearClick(activeIndex - 1);
-            }}
-            disabled={activeIndex === 0}
-          >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <div className="flex items-center gap-1 sm:gap-4 mb-10 w-full">
+            <button
+              className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === 0 ? "text-gray-300 cursor-not-allowed" : "text-gray-400 hover:text-[#6005c5]"}`}
+              onClick={() => {
+                if (activeIndex > 0) handleYearClick(activeIndex - 1);
+              }}
+              disabled={activeIndex === 0}
             >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-          <div className="relative flex-1 overflow-x-auto scrollbar-none pt-2 px-1">
-            <div className="min-w-[420px] flex flex-col gap-3">
-              {/* Текст годов */}
-              <div className="relative flex justify-between items-center px-3">
-                {historyData.map((item, index) => {
-                  const isActive = index === activeIndex;
-                  return (
-                    <span
-                      key={`text-${item.year}`}
-                      onClick={() => handleYearClick(index)}
-                      className={`cursor-pointer transition-all duration-300 select-none text-center ${isActive ? "text-[#6005c5] font-extrabold text-base sm:text-lg" : "text-gray-700 font-bold text-sm sm:text-base hover:text-[#6005c5]"}`}
-                    >
-                      {item.year}
-                    </span>
-                  );
-                })}
-              </div>
-
-              {/* Линия времени и кружочки */}
-              <div className="relative w-full px-3">
-                {/* Серая фоновая линия */}
-                <div className="absolute top-1/2 -translate-y-1/2 left-3 right-3 h-[2px] bg-gray-200 z-0"></div>
-
-                {/* Фиолетовая заполняющаяся линия */}
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 left-3 h-[2px] bg-[#6005c5] z-0 transition-all duration-500 ease-in-out"
-                  style={{
-                    width: `calc(${(activeIndex / (historyData.length - 1)) * 100}% - 24px)`,
-                  }}
-                ></div>
-
-                {/* Кружочки */}
-                <div className="relative flex justify-between items-center z-10">
+            <div className="relative flex-1 overflow-x-auto scrollbar-none pt-2 px-1">
+              <div className="min-w-[420px] flex flex-col gap-3">
+                <div className="relative flex justify-between items-center px-3">
                   {historyData.map((item, index) => {
                     const isActive = index === activeIndex;
-                    const isPassed = index < activeIndex;
-
                     return (
-                      <div
-                        key={`circle-${item.year}`}
+                      <span
+                        key={`text-${item.year}`}
                         onClick={() => handleYearClick(index)}
-                        className="cursor-pointer flex justify-center items-center bg-white p-1"
+                        className={`cursor-pointer transition-all duration-300 select-none text-center ${isActive ? "text-[#6005c5] font-extrabold text-base sm:text-lg" : "text-gray-700 font-bold text-sm sm:text-base hover:text-[#6005c5]"}`}
                       >
-                        <div
-                          className={`rounded-full transition-all duration-500 ease-in-out ${
-                            isActive
-                              ? "w-3 h-3 bg-[#6005c5] ring-[5px] ring-[#6005c5]/25"
-                              : isPassed
-                                ? "w-3 h-3 bg-white border-[2.5px] border-[#6005c5]"
-                                : "w-3 h-3 bg-white border-[2px] border-gray-300"
-                          }`}
-                        ></div>
-                      </div>
+                        {item.year}
+                      </span>
                     );
                   })}
                 </div>
+
+                <div className="relative w-full px-3">
+                  <div className="absolute top-1/2 -translate-y-1/2 left-3 right-3 h-[2px] bg-gray-200 z-0"></div>
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 left-3 h-[2px] bg-[#6005c5] z-0 transition-all duration-500 ease-in-out"
+                    style={{
+                      width: `calc(${(activeIndex / (historyData.length - 1)) * 100}% - 24px)`,
+                    }}
+                  ></div>
+
+                  <div className="relative flex justify-between items-center z-10">
+                    {historyData.map((item, index) => {
+                      const isActive = index === activeIndex;
+                      const isPassed = index < activeIndex;
+
+                      return (
+                        <div
+                          key={`circle-${item.year}`}
+                          onClick={() => handleYearClick(index)}
+                          className="cursor-pointer flex justify-center items-center bg-white p-1"
+                        >
+                          <div
+                            className={`rounded-full transition-all duration-500 ease-in-out ${
+                              isActive
+                                ? "w-3 h-3 bg-[#6005c5] ring-[5px] ring-[#6005c5]/25"
+                                : isPassed
+                                  ? "w-3 h-3 bg-white border-[2.5px] border-[#6005c5]"
+                                  : "w-3 h-3 bg-white border-[2px] border-gray-300"
+                            }`}
+                          ></div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
+
+            <button
+              className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === historyData.length - 1 ? "text-gray-300 cursor-not-allowed" : "text-[#6005c5] hover:text-[#4a0499]"}`}
+              onClick={() => {
+                if (activeIndex < historyData.length - 1)
+                  handleYearClick(activeIndex + 1);
+              }}
+              disabled={activeIndex === historyData.length - 1}
+            >
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
 
-          {/* Правая стрелка */}
-          <button
-            className={`p-1.5 sm:p-2 transition-colors shrink-0 ${activeIndex === historyData.length - 1 ? "text-gray-300 cursor-not-allowed" : "text-[#6005c5] hover:text-[#4a0499]"}`}
-            onClick={() => {
-              if (activeIndex < historyData.length - 1)
-                handleYearClick(activeIndex + 1);
-            }}
-            disabled={activeIndex === historyData.length - 1}
+          <Swiper
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+            spaceBetween={30}
+            slidesPerView={1}
+            className="w-full"
           >
-            <svg
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Слайдер с контентом истории */}
-        <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-          spaceBetween={30}
-          slidesPerView={1}
-          className="w-full"
-        >
-          {historyData.map((item) => (
-            <SwiperSlide key={item.year}>
-              <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-center bg-gray-50/50 p-4 sm:p-6 rounded-lg">
-                <div className="w-full md:w-1/2 bg-gray-100 p-5 sm:p-8 rounded-lg shadow-sm min-h-[180px] sm:min-h-[220px] flex items-center">
-                  <p className="text-gray-700 leading-relaxed text-sm sm:text-[15px]">
-                    {item.text}
-                  </p>
+            {historyData.map((item) => (
+              <SwiperSlide key={item.year}>
+                <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-center bg-gray-50/50 p-4 sm:p-6 rounded-lg">
+                  <div className="w-full md:w-1/2 bg-gray-100 p-5 sm:p-8 rounded-lg shadow-sm min-h-[180px] sm:min-h-[220px] flex items-center">
+                    <p className="text-gray-700 leading-relaxed text-sm sm:text-[15px]">
+                      {item.text}
+                    </p>
+                  </div>
+                  <div className="w-full md:w-1/2 flex justify-center">
+                    <img
+                      src={item.image}
+                      alt={`History ${item.year}`}
+                      className="max-w-full h-[240px] sm:h-[330px] object-contain rounded-md"
+                    />
+                  </div>
                 </div>
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <img
-                    src={item.image}
-                    alt={`History ${item.year}`}
-                    className="max-w-full h-[240px] sm:h-[330px] object-contain rounded-md"
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </section>
+      )}
 
-      {/* 5. Ценности и приоритеты */}
+      {/* Մնացած սեքցիաները (Արժեքներ, Լոգո, Բրենդբուք, Գույներ, Տեսանյութ) */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">
           Արժեքներ և առաջնայնություններ
@@ -337,7 +316,6 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 6. Логотип банка */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 sm:mt-24">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի լոգոտիպը
@@ -356,7 +334,6 @@ const EvocabankAbout = () => {
         />
       </section>
 
-      {/* 7. Брендбук */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի բրենդբուքը
@@ -377,7 +354,6 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 8. Корпоративные цвета */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">
           Բանկի կորպորատիվ գույները
@@ -409,7 +385,6 @@ const EvocabankAbout = () => {
         </div>
       </section>
 
-      {/* 9. Видео */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-20 sm:mb-24">
         <div
           className="relative w-full max-w-4xl"

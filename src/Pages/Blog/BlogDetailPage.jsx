@@ -12,7 +12,6 @@ const BlogDetailPage = () => {
     const fetchBlogPost = async () => {
       try {
         const db = getFirestore();
-        // Запрашиваем конкретный документ из коллекции "blog"
         const docRef = doc(db, "blog", id);
         const docSnap = await getDoc(docRef);
 
@@ -46,7 +45,7 @@ const BlogDetailPage = () => {
   return (
     <div className="w-full font-sans text-[#333] pb-20">
       <div className="max-w-[900px] mx-auto px-4 pt-10">
-        {/* Кнопка назад */}
+
         <button
           onClick={() => navigate(-1)}
           className="text-[#6a00ff] font-bold mb-8 flex items-center gap-2 hover:underline transition-all"
@@ -54,7 +53,7 @@ const BlogDetailPage = () => {
           <span className="text-2xl leading-none mb-1">‹</span> Վերադառնալ
         </button>
 
-        {/* Категория и дата */}
+
         <div className="flex items-center gap-3 mb-6">
           <span
             className="w-4 h-4 rounded-full"
@@ -68,14 +67,14 @@ const BlogDetailPage = () => {
           </span>
         </div>
 
-        {/* Заголовок */}
+
         <h1 className="text-3xl md:text-5xl font-extrabold text-[#2a1b54] mb-10 leading-tight">
           {blogPost.title}
         </h1>
 
-        {/* Главное изображение */}
+
         <div className="relative w-full mb-12">
-          {/* Декоративные уголки (в стиле Evoca) */}
+
           <div className="absolute -top-4 -left-4 w-12 h-12 border-t-[5px] border-l-[5px] border-[#2a1b54] z-10"></div>
           <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-[5px] border-r-[5px] border-[#2a1b54] z-10"></div>
 
@@ -86,7 +85,7 @@ const BlogDetailPage = () => {
           />
         </div>
 
-        {/* Контент статьи */}
+
         <div className="text-lg leading-relaxed text-gray-700 space-y-6">
           <p className="font-semibold text-xl md:text-2xl text-[#2a1b54] mb-6">
             {blogPost.description}

@@ -1,108 +1,36 @@
-import React, { useState } from "react";
-
-const dealershipsData = [
-  {
-    id: "eco-motors",
-    name: "ECO MOTORS",
-    amount: "մինչև 50,000,000 ՀՀ դրամ",
-    duration: "մինչև 84 ամիս",
-    rate: "14.5%",
-    cars: "BYD, Forthing, Geely",
-    kasko: "Անվճար ԿԱՍԿՈ",
-    addresses: [
-      "Երևան, Դավիթ Բեկ 97/26",
-      "Երևան, Դավիթ Բեկ 164/11",
-      "Երևան, Մալաթիա Սեբաստիա 108/2",
-      "Կոտայքի մարզ, Վերին Պտղնի 14",
-    ],
-    contacts: "+37495949466 | +37496949466",
-    website: "",
-    images: [
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop",
-    ],
-  },
-  {
-    id: "jcars",
-    name: "JCars",
-    amount: "մինչև 50,000,000 ՀՀ դրամ",
-    duration: "մինչև 84 ամիս",
-    rate: "14.5%",
-    cars: "Այլ մոդելներ",
-    kasko: "Անվճար ԿԱՍԿՈ",
-    addresses: ["Երևան, Արշակունյաց պող. 42"],
-    contacts: "+37410000000",
-    website: "jcars.am",
-    images: [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=600&auto=format&fit=crop",
-    ],
-  },
-  {
-    id: "city-auto",
-    name: "City Auto",
-    amount: "մինչև 50,000,000 ՀՀ դրամ",
-    duration: "մինչև 84 ամիս",
-    rate: "14.5%",
-    cars: "City Auto մոդելներ",
-    kasko: "Անվճար ԿԱՍԿՈ",
-    addresses: ["Երևան, Թբիլիսյան խճուղի 20"],
-    contacts: "+37410112233",
-    website: "",
-    images: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=600&auto=format&fit=crop",
-    ],
-  },
-  {
-    id: "original-motors",
-    name: "Original Motors",
-    amount: "մինչև 50,000,000 ՀՀ դրամ",
-    duration: "մինչև 84 ամիս",
-    rate: "14.5%",
-    cars: "Original Motors մոդելներ",
-    kasko: "Անվճար ԿԱՍԿՈ",
-    addresses: ["Երևան, Էրեբունի 14/1"],
-    contacts: "+37410445566",
-    website: "",
-    images: [],
-  },
-  {
-    id: "tesla-service",
-    name: "Tesla Service Yerevan",
-    amount: "մինչև 50,000,000 ՀՀ դրամ",
-    duration: "մինչև 84 ամիս",
-    rate: "14.5%",
-    cars: "Tesla",
-    kasko: "Անվճար ԿԱՍԿՈ",
-    addresses: ["Երևան, Գարեգին Նժդեհի փ. 37/4"],
-    contacts: "+37441040020",
-    website: "tsy.com.am",
-    images: [
-      "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1560958089-b8a1929cea89?q=80&w=600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1536700503339-1e4b06520771?q=80&w=600&auto=format&fit=crop",
-    ],
-  },
-  { id: "e-auto", name: "E-auto" },
-  { id: "tesla-energy", name: "TESLA ENERGY" },
-  { id: "e-mobile", name: "E-Mobile" },
-  { id: "imotors", name: "IMotors" },
-  { id: "ev-centre", name: "EV Centre" },
-  { id: "carmark", name: "Carmark" },
-  { id: "vv-trans", name: "V&V Trans" },
-  { id: "smart-motors", name: "Smart Motors" },
-  { id: "auto-gallery", name: "Auto Gallery" },
-  { id: "intercars", name: "INTERCARS Armenia" },
-];
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const PartnerCarDealerships = () => {
-  // Լռելյայն առաջին ակորդեոնը բաց է
+  const [dealershipsData, setDealershipsData] = useState([]);
   const [openId, setOpenId] = useState("eco-motors");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDealershipsData = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "dealerships", "main"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setDealershipsData(data.dealershipsData || []);
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDealershipsData();
+  }, []);
 
   const toggleAccordion = (id) => {
     setOpenId(openId === id ? null : id);
   };
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans text-gray-800">

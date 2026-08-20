@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// Иконка стрелочки для аккордеона
+
 const ChevronIcon = ({ isOpen }) => (
   <svg
     width="12"
@@ -22,7 +22,7 @@ const ChevronIcon = ({ isOpen }) => (
   </svg>
 );
 
-// Данные объявлений
+
 const announcementsData = [
   {
     id: 1,
@@ -57,7 +57,7 @@ const announcementsData = [
   },
 ];
 
-// Текст развернутого контента
+
 const DummyArmenianContent = () => {
   return (
     <div className="pt-2 pb-6 pl-2 pr-6 flex flex-col gap-5">
@@ -99,7 +99,7 @@ const Announcements = () => {
     <div className="w-full bg-[#f4f5f9] min-h-screen relative overflow-hidden font-sans pt-8">
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 relative z-10 pb-20">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
-          {/* Левая часть: Иллюстрация */}
+
           <div className="w-full lg:w-4/12 flex justify-center lg:justify-start pt-6">
             <div className="relative w-[320px] h-[340px] flex items-center justify-center">
               <div className="absolute inset-0 bg-[radial-gradient(#d1c4e9_2px,transparent_2px)] [background-size:16px_16px] rounded-full opacity-70"></div>
@@ -132,7 +132,7 @@ const Announcements = () => {
             </div>
           </div>
 
-          {/* Правая часть: Список аккордеонов */}
+
           <div className="w-full lg:w-8/12 flex flex-col">
             <div className="flex flex-col gap-3">
               {announcementsData.map((item) => {
@@ -174,7 +174,7 @@ const Announcements = () => {
               })}
             </div>
 
-            {/* Пагинация */}
+
             <div className="flex items-center justify-center gap-1.5 mt-12 mb-8">
               <button className="w-8 h-8 flex items-center justify-center mr-2 opacity-30 cursor-not-allowed">
                 <svg

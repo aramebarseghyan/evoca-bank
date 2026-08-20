@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useFavoriteStore } from "../../../../store/useFavoriteStore";
 
 const LoanProductCard = ({ product }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const favorites = useFavoriteStore((state) => state.favorites);
+  const toggleFavorite = useFavoriteStore((state) => state.toggleFavorite);
+
+  // ИСПРАВЛЕНИЕ: Надежное сравнение через String()
+  const liked = favorites.some((fav) => String(fav.id) === String(product.id));
 
   return (
     <div className="w-full font-sans py-8 border-b border-gray-200 last:border-b-0">
@@ -19,13 +24,13 @@ const LoanProductCard = ({ product }) => {
           />
 
           <button
-            className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors z-10 flex items-center justify-center"
+            className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-50 transition-colors z-10 flex items-center justify-center cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
-              setIsFavorite(!isFavorite);
+              toggleFavorite(product);
             }}
           >
-            {isFavorite ? (
+            {liked ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

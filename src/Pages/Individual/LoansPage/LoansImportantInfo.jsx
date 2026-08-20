@@ -1,118 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+
+
+import { db } from "../../../firebase";
 
 const LoansImportantInfo = () => {
-  // Historical variables data table
-  const historicalRates = [
-    { date: "15/07/2019", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "15/01/2020", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "15/07/2020", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "15/01/2021", amd: "6.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "15/07/2021", amd: "7.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "15/12/2021", amd: "8.0%", usd: "0.5%", eur: "0.0%" },
-    { date: "01/08/2022", amd: "9.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/02/2023", amd: "9.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/08/2023", amd: "9.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/02/2024", amd: "9.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/08/2024", amd: "9.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/02/2025", amd: "8.5%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/08/2025", amd: "8.0%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/02/2026", amd: "7.5%", usd: "1.0%", eur: "0.0%" },
-    { date: "01/08/2026", amd: "7%", usd: "1.0%", eur: "0.0%" },
-  ];
 
-  // Insurance companies
-  const insuranceCompanies = [
-    {
-      name: "«ԻՆԳՈ ԱՐՄԵՆԻԱ» ապահովագրական ՓԲԸ",
-      address: "ք. Երևան, Հանրապետության 51.53, տարածք 47, 48, 50",
-      phone: "+374 10 543134",
-      email: "info@ingoarmenia.am",
-    },
-    {
-      name: "«ԷՖԵՍ» ապահովագրական ՓԲԸ",
-      address: "ՀՀ, ք. Երևան, 0009, Զարոբյան 11 (մուտքը Բաղրամյան պող. 20-ից)",
-      phone: "+374 10 700 800",
-      email: "info@efes.am",
-    },
-    {
-      name: "«ՆԱԻՐԻ ԻՆՇՈՒՐԱՆՍ» ապահովագրական ՍՊԸ",
-      address: "ք. Երևան, Ավետ Ավետիսյան փող. 116/1, թիվ 116/5",
-      phone: "+374 10 539457, +374 10 539468",
-      email: "nairi@nairi-insurance.am",
-    },
-    {
-      name: "«ԼԻԳԱ ԻՆՇՈՒՐԱՆՍ» ապահովագրական ՓԲԸ",
-      address: "ք. Երևան, Հյուսիսային պողոտա 1",
-      phone: "+374 10 591010",
-      email: "info@liga.am",
-    },
-    {
-      name: "«ՍԻԼ ԻՆՇՈՒՐԱՆՍ» ԱՓԲԸ",
-      address: "ք. Երևան, Արամի փող. թիվ 3 եւ 5",
-      phone: "+374 60 580000",
-      email: "info@silinsurance.am",
-    },
-    {
-      name: "«ԱՐՄԵՆԻԱ ԻՆՇՈՒՐԱՆՍ» ապահովագրական ՍՊԸ",
-      address: "ք. Երևան, Վարդանանց փող., 16 շենք",
-      phone: "+374 11 560404",
-      email: "info@armeniainsurance.am",
-    },
-    {
-      name: "ՌԵԳՈ ԻՆՇՈՒՐԱՆՍ ԱՓԲԸ",
-      address: "ք. Երևան, Կոմիտասի պող., 62 շենք, №93-93/1",
-      phone: "+374 60 505757",
-      email: "info@regoinsurance.am",
-    },
-  ];
+  const [historicalRates, setHistoricalRates] = useState([]);
+  const [insuranceCompanies, setInsuranceCompanies] = useState([]);
+  const [appraisalCompanies, setAppraisalCompanies] = useState([]);
 
-  // Appraisal companies
-  const appraisalCompanies = [
-    {
-      name: "«ԱՐ ՎԻ ԷՄ ՔՈՆՍԱԼՏ» ՍՊԸ",
-      address: "ք. Երևան, Տպագրիչների փող., 9/114 շենք",
-      phone: "+374 10 546490, +374 98 944449",
-      email: "info@rvmconsult.am",
-    },
-    {
-      name: "«ԲԻԼԴ ԱՓ» ՍՊԸ",
-      address: "ք. Երևան, Զաքյան 5-1",
-      phone: "+374 10 547160, +374 91 177300",
-      email: "buildup@rambler.ru",
-    },
-    {
-      name: "«ԿՈՍՏ ԿՈՆՍԱԼՏ» ՍՊԸ",
-      address:
-        "ք. Երևան, Հանրապետության փողոց, 67 շենք, Republic բիզնես կենտրոն 2-րդ հարկ",
-      phone: "+374 10 544882, +374 91 471925",
-      email: "costconsult@mail.ru",
-    },
-    {
-      name: "«ՎԻ ԷՄ-ԱՐ ՓԻ » ՍՊԸ",
-      address: "ք. Երևան, Վարդանանց 8, թիվ 3",
-      phone: "+374 99 588797, +374 43 588797, +374 10 588797",
-      email: "vm-rp@mail.ru",
-    },
-    {
-      name: "«ՖԻՆԼՈՈՒ» ՍՊԸ",
-      address: "ք. Երևան, Նալբանդյան 50-3",
-      phone: "+374 10 506000, +374 91 911155, +374 77 780510, +374 60 747400",
-      email: "finlaw@inbox.ru",
-    },
-    {
-      name: "«ՕԼԻՎԵՐ ԳՐՈՒՊ» ՍՊԸ",
-      address: "ք. Երևան, Թումանյան փող., 8 շենք",
-      phone: "+374 10 542750, +374 10 542760",
-      email: "info@olivergroup.am",
-    },
-    {
-      name: "«ԻՆԷՔՍ» ՍՊԸ",
-      address:
-        "ք. Վանաձոր, Թամանցիների փող․ թիվ 14 (Իրավ. հասցե՝ ք. Երևան, Նար-Դոս 28)",
-      phone: "+374 41 042287, +374 96 042287, +374 94 042287",
-      email: "apresyan.expert@mail.ru",
-    },
-  ];
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchImportantInfo = async () => {
+      try {
+        const docRef = doc(db, "benefits_config", "LoansImportantInfo");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setHistoricalRates(data.historicalRates || []);
+          setInsuranceCompanies(data.insuranceCompanies || []);
+          setAppraisalCompanies(data.appraisalCompanies || []);
+        } else {
+          console.warn("Document not found in Firebase!");
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchImportantInfo();
+  }, []);
+
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center text-gray-500">
+        <p className="text-xl">Loading data...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans text-gray-800">

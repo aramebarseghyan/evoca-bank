@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-// Иконка документа со стрелкой скачивания
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ3_mGAyawhU5fZwKsg1CQLu-0MAGbZTY",
+  authDomain: "evoca-app-cdeac.firebaseapp.com",
+  projectId: "evoca-app-cdeac",
+  storageBucket: "evoca-app-cdeac.firebasestorage.app",
+  messagingSenderId: "197478671668",
+  appId: "1:197478671668:web:5661f415d8b4445649f161",
+  measurementId: "G-N469K2446L",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 const DownloadIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -22,96 +36,68 @@ const DownloadIcon = () => (
 );
 
 const FinancialStatementsList = () => {
-  // Данные по годам и кварталам
-  const yearsData = [
-    {
-      year: "2026",
-      reports: [
-        { title: "1-2026", url: "#" },
-        { title: "2-2026", url: "#" },
-      ],
-    },
-    {
-      year: "2025",
-      reports: [
-        { title: "1-2025", url: "#" },
-        { title: "2-2025", url: "#" },
-        { title: "3-2025", url: "#" },
-        { title: "4-2025", url: "#" },
-      ],
-    },
-    {
-      year: "2024",
-      reports: [
-        { title: "1-2024", url: "#" },
-        { title: "2-2024", url: "#" },
-        { title: "3-2024", url: "#" },
-        { title: "4-2024", url: "#" },
-      ],
-    },
-    {
-      year: "2023",
-      reports: [
-        { title: "1-2023", url: "#" },
-        { title: "2-2023", url: "#" },
-        { title: "3-2023", url: "#" },
-        { title: "4-2023", url: "#" },
-      ],
-    },
-    {
-      year: "2022",
-      reports: [
-        { title: "1-2022", url: "#" },
-        { title: "2-2022", url: "#" },
-        { title: "3-2022", url: "#" },
-        { title: "4-2022", url: "#" },
-      ],
-    },
-    {
-      year: "2021",
-      reports: [
-        { title: "1-2021", url: "#" },
-        { title: "2-2021", url: "#" },
-        { title: "3-2021", url: "#" },
-        { title: "4-2021", url: "#" },
-      ],
-    },
-  ];
+  const [yearsData, setYearsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const docRef = doc(db, "financialStatements", "reports_data");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists() && docSnap.data().yearsData) {
+          setYearsData(docSnap.data().yearsData);
+        }
+      } catch (error) {
+        console.error("Error fetching financial statements:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, []);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 font-sans">
-      {/* Главный заголовок страницы */}
       <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-10">
         Ֆինանսական հաշվետվություններ
       </h1>
 
-      {/* Сетка для блоков по годам */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
-        {yearsData.map((item) => (
-          <div key={item.year} className="flex flex-col">
-            {/* Год */}
-            <h2 className="text-[22px] font-bold text-gray-800 mb-4">
-              {item.year}
-            </h2>
+      {loading ? (
+        <div className="py-12 text-center text-gray-500 text-lg">
+          Բեռնվում է...
+        </div>
+      ) : yearsData.length === 0 ? (
+        <div className="py-12 text-center text-gray-500 text-lg">
+          Հաշվետվություններ չեն գտնվել:
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
+          {yearsData.map((item) => (
+            <div key={item.year} className="flex flex-col">
+              <h2 className="text-[22px] font-bold text-gray-800 mb-4">
+                {item.year}
+              </h2>
 
-            {/* Вложенная сетка для файлов внутри одного года (2 в ряд) */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
-              {item.reports.map((report, idx) => (
-                <a
-                  key={idx}
-                  href={report.url}
-                  className="flex items-center gap-3 bg-[#f5f2f8] px-4 py-3 rounded-lg hover:bg-[#ebe6f0] transition-colors duration-200 cursor-pointer"
-                >
-                  <DownloadIcon />
-                  <span className="text-[15px] font-semibold text-gray-800">
-                    {report.title}
-                  </span>
-                </a>
-              ))}
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3">
+                {item.reports.map((report, idx) => (
+                  <a
+                    key={idx}
+                    href={report.url}
+                    className="flex items-center gap-3 bg-[#f5f2f8] px-4 py-3 rounded-lg hover:bg-[#ebe6f0] transition-colors duration-200 cursor-pointer"
+                  >
+                    <DownloadIcon />
+                    <span className="text-[15px] font-semibold text-gray-800">
+                      {report.title}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

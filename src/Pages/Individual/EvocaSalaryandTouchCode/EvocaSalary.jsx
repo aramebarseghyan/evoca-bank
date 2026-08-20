@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 const EvocaSalary = () => {
-  // Меняем заголовок страницы при монтировании
+
   useEffect(() => {
     document.title = "EVOCA Աշխատավարձային նախագիծ | Evocabank";
   }, []);

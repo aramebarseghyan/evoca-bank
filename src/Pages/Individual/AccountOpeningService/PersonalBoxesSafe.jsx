@@ -19,7 +19,7 @@ const PersonalBoxesSafe = () => {
           </div>
           <div className="lg:w-[55%]">
             <img
-              // Вы можете заменить ссылку на актуальную картинку с сайта Evoca
+
               src="https://www.evoca.am/images-cache/menu/1/17793417530511/780x585.jpg"
               alt="Անհատական պահատուփեր"
               className="w-full h-full object-cover min-h-[300px] bg-[#5D00E0] rounded-3xl lg:rounded-l-none lg:rounded-r-[3rem]"

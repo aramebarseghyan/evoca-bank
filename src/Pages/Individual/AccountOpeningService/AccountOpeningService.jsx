@@ -406,7 +406,7 @@ const AccountOpeningService = () => {
                 className="group flex items-center justify-between bg-[#F8F6FD] hover:bg-[#F0ECFA] border border-transparent hover:border-[#5D00E0]/30 rounded-xl p-4 md:p-5 transition-all duration-300 shadow-sm"
               >
                 <div className="flex items-center gap-4">
-                  {/* Иконка документа с загрузкой */}
+
                   <div className="relative text-[#5D00E0]">
                     <svg
                       width="28"

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import { collection, getDocs } from "firebase/firestore";
-
+import { db } from "../../../firebase";
 import { Link } from "react-router-dom";
-
-import { db } from "../../../firebase"; // Укажи правильный путь к твоему firebase.js
 
 const BusinessLoansList = () => {
   const [loans, setLoans] = useState([]);
@@ -22,7 +20,7 @@ const BusinessLoansList = () => {
 
         setLoans(loansData);
       } catch (error) {
-        console.error("Ошибка при получении карточек:", error);
+        console.error("Error fetching cards:", error);
       }
     };
 
@@ -36,8 +34,6 @@ const BusinessLoansList = () => {
           key={card.id}
           className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:gap-10 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
         >
-          {/* Левый блок: Картинка */}
-
           <div className="w-full md:w-[320px] h-[200px] bg-[#F7F7F9] rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
             <img
               src={card.imageUrl}
@@ -46,23 +42,15 @@ const BusinessLoansList = () => {
             />
           </div>
 
-          {/* Правый блок: Контент */}
-
           <div className="flex-1 flex flex-col justify-between">
             <div>
-              {/* Заголовок */}
-
               <h2 className="text-2xl sm:text-[28px] font-bold text-[#111827] leading-tight mb-3">
                 {card.title}
               </h2>
 
-              {/* Описание */}
-
               <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-[700px]">
                 {card.description}
               </p>
-
-              {/* Сетка метрик (Срок, Сумма, Процент) */}
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
                 {card.metrics?.map((metric, index) => (
@@ -86,8 +74,6 @@ const BusinessLoansList = () => {
                 ))}
               </div>
             </div>
-
-            {/* Кнопка "Подробнее" (Ссылка на детальную страницу) */}
 
             <div>
               <Link

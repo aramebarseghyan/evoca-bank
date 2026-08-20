@@ -7,12 +7,10 @@ const Contact = () => {
   return (
     <div className="w-full min-h-screen bg-white py-10">
       <div className="max-w-[900px] mx-auto px-4 md:px-8">
-        {/* Վերնագիր */}
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-10 text-center md:text-left">
           Հետադարձ կապ
         </h2>
 
-        {/* Ինֆորմացիոն Աղյուսակ */}
         <div className="w-full border border-gray-200 rounded-xl overflow-hidden mb-12 shadow-sm text-sm md:text-base">
           <div className="grid grid-cols-1 md:grid-cols-3 border-b border-gray-200 bg-[#fbfbFC] md:bg-white">
             <div className="p-4 text-gray-500 md:text-gray-600 md:border-r border-gray-200">
@@ -67,7 +65,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Ֆորմայի հատված */}
         <div className="bg-[#fbfbFC] border border-gray-100 shadow-sm rounded-xl p-6 md:p-10 mb-20 max-w-[750px] mx-auto">
           <p className="text-gray-600 text-sm mb-6 leading-relaxed">
             Մենք կցանկանայինք լսել ձեր մտքերը, առաջարկությունները,

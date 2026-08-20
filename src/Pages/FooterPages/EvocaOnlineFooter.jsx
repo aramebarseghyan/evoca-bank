@@ -1,49 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const EvocaOnlinefooter = () => {
-  const [openAccordion, setOpenAccordion] = useState(0); // По умолчанию открыта "Անվտանգությունը"
+  const [openAccordion, setOpenAccordion] = useState(0);
+  const [accordionData, setAccordionData] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "evocaOnline", "main"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setAccordionData(data.accordionData || []);
+          setDocuments(data.documents || []);
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
   };
 
-  const accordionData = [
-    {
-      title: "Անվտանգությունը",
-      bullets: [
-        "Համակարգն առավել անվտանգ դարձնելու նպատակով մեր EvocaOnline համակարգի օգտատերերին առաջարկում ենք Vasco Token Digipass GO-6 սարք:",
-        "Vasco Token Digipass GO-6 անվտանգության սարքը մեր սեփականությունն է, որը տրամադրում ենք ձեզ EvocaOnline համակարգ մուտք գործելու անվտանգության համապատասխան գաղտնաբառերի գենեռացման համար:",
-        "Տվյալների գաղտնագրման համար օգտագործվում է Secure Socket Layer (SSL) տեխնոլոգիան:",
-      ],
-    },
-    {
-      title: "Ակտիվացման կարգը",
-      bullets: [
-        "Հավելվածը մեր հաճախորդներին տրամադրում ենք «Միայն դիտելու» կամ «Դիտելու և գործարքներ կատարելու» հնարավորությամբ:",
-        "Մեր և ձեր միջև բանկային ծառայությունների մատուցման որևէ պայմանագիր կնքելու դեպքում (հաշիվների բացում, վարկերի տրամադրում, ավանդների ներգրավում և այլն), հավելվածն ակտիվանում է ավտոմատ կերպով՝ «Միայն դիտելու» հնարավորությամբ: Համակարգեր մուտք գործելու տվյալները (Login, Password) առկա են ծառայությունների մատուցման պայմանագրերում: Պայմանագրերում առկա է նաև QR կոդի տեսքով հղում՝ հավելվածը App Store-ից կամ Play-Store-ից ներբեռնելու համար:",
-        "Ցանկության դեպքում կարող եք ակտիվացնել հավելվածը՝ «Դիտելու և գործարքներ կատարելու» հնարավորությամբ:",
-        "Եթե արդեն օգտվում եք մեր ծառայություններից,ապա կարող եք դիմել մեզ և ակտիվացնել հավելվածը՝ «Միայն դիտելու» կամ «Դիտելու և գործարքներ կատարելու» հնարավորությամբ:",
-      ],
-    },
-  ];
-
-  const documents = [
-    {
-      id: 1,
-      title: "Համալիր բանկային ծառայությունների մատուցման պայմաններ 16.05.2025",
-      link: "https://www.evoca.am/files/global_files/1/provision-terms-for-general-banking-services-arm.pdf",
-    },
-    {
-      id: 2,
-      title: "SWIFT Transfers (20.03.2026)",
-      link: "#",
-    },
-    {
-      id: 3,
-      title: "SWIFT переводы в РФ (20.03.2026)",
-      link: "#",
-    },
-  ];
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-16 py-8 text-gray-800 font-sans leading-relaxed">

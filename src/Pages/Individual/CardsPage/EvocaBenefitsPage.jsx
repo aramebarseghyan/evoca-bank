@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 import HeaderBenefits from "./EvocaBenefitsPage/HeaderBenefits";
@@ -11,9 +11,19 @@ import FooterBenefits from "./EvocaBenefitsPage/FooterBenefits";
 
 export default function EvocaBenefitsPage() {
   const [benefits, setBenefits] = useState([]);
+  const [filtersConfig, setFiltersConfig] = useState({
+    cardTypesList: [],
+    locationList: [],
+    benefitList: [],
+    sectorList: [],
+    platformList: [],
+  });
+  const [faqItems, setFaqItems] = useState([]);
+
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(true);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [openSections, setOpenSections] = useState({
     cardType: true,
@@ -23,70 +33,6 @@ export default function EvocaBenefitsPage() {
     platform: false,
   });
 
-  const toggleSection = (section) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
-
-  const cardTypesList = [
-    { id: "visaInfinite", label: "Visa Infinite", count: 113 },
-    { id: "evocaVisaPlatinum", label: "Evoca Visa Platinum", count: 88 },
-    { id: "evocaTravelCard", label: "Evoca Travel Card", count: 103 },
-    { id: "wilcoVisaInfinite", label: "Wilco Visa Infinite", count: 3 },
-    { id: "visaVision", label: "Visa Vision", count: 89 },
-    { id: "mastercardGold", label: "Mastercard Gold", count: 97 },
-    { id: "visaGold", label: "Visa Gold", count: 97 },
-    { id: "mastercardStandard", label: "Mastercard Standard", count: 89 },
-    { id: "visaClassic", label: "Visa Classic", count: 89 },
-    {
-      id: "mastercardWorldDigital",
-      label: "Mastercard World Digital",
-      count: 88,
-    },
-    { id: "visaDigital", label: "Visa Digital", count: 45 },
-    { id: "arcaClassic", label: "Arca Classic", count: 32 },
-    { id: "visaBusiness", label: "Visa Business", count: 19 },
-    { id: "evocaGiftCard", label: "Evoca Gift Card", count: 12 },
-    {
-      id: "unionPayBusinessPlatinum",
-      label: "UnionPay Business Platinum",
-      count: 8,
-    },
-    { id: "unionPayGold", label: "UnionPay Gold", count: 15 },
-  ];
-
-  const locationList = [
-    { id: "armenia", label: "Հայաստան" },
-    { id: "abroad", label: "Արտերկիր" },
-  ];
-
-  const benefitList = [
-    { id: "cashback", label: "Cashback" },
-    { id: "discount", label: "Զեղչ" },
-    { id: "giftCard", label: "Նվեր-քարտ" },
-  ];
-
-  const sectorList = [
-    { id: "cafes", label: "Սրճարաններ" },
-    { id: "gifts", label: "Նվերներ" },
-    { id: "interior", label: "Ինտերիեր" },
-    { id: "lifestyle", label: "Կենսակերպ" },
-    { id: "tech", label: "Տեխնիկա" },
-    { id: "fashion", label: "Նորաձևություն" },
-    { id: "health", label: "Առողջություն" },
-    { id: "beauty", label: "Գեղեցկություն" },
-    { id: "sport", label: "Սպորտ" },
-    { id: "accessories", label: "Աքսեսուարներ" },
-    { id: "rest", label: "Հանգիստ" },
-  ];
-
-  const platformList = [
-    { id: "online", label: "Օնլայն" },
-    { id: "offline", label: "Օֆլայն" },
-  ];
-
   const [selectedFilters, setSelectedFilters] = useState({
     cardType: {},
     location: {},
@@ -94,6 +40,42 @@ export default function EvocaBenefitsPage() {
     sector: {},
     platform: {},
   });
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        const filtersSnap = await getDoc(doc(db, "benefits_config", "filters"));
+        if (filtersSnap.exists()) {
+          setFiltersConfig(filtersSnap.data());
+        }
+
+        const faqSnap = await getDoc(doc(db, "benefits_config", "faq"));
+        if (faqSnap.exists() && faqSnap.data().items) {
+          setFaqItems(faqSnap.data().items);
+        }
+
+        const querySnapshot = await getDocs(collection(db, "evoca_benefits"));
+        const data = querySnapshot.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
+        setBenefits(data);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
 
   const handleCheckboxChange = (category, id) => {
     setSelectedFilters((prev) => ({
@@ -105,10 +87,14 @@ export default function EvocaBenefitsPage() {
     }));
   };
 
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [selectedFilters, searchQuery]);
+
   const filteredBenefits = useMemo(() => {
     return benefits.filter((item) => {
       const isAnyActive = (category) =>
-        Object.values(selectedFilters[category]).some(Boolean);
+        Object.values(selectedFilters[category] || {}).some(Boolean);
 
       const cardTypeMatch =
         !isAnyActive("cardType") || selectedFilters.cardType[item.cardType];
@@ -121,15 +107,21 @@ export default function EvocaBenefitsPage() {
       const platformMatch =
         !isAnyActive("platform") || selectedFilters.platform[item.platform];
 
+      const searchMatch =
+        !searchQuery.trim() ||
+        item.title?.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
+        item.name?.toLowerCase().includes(searchQuery.toLowerCase().trim());
+
       return (
         cardTypeMatch &&
         locationMatch &&
         benefitMatch &&
         sectorMatch &&
-        platformMatch
+        platformMatch &&
+        searchMatch
       );
     });
-  }, [benefits, selectedFilters]);
+  }, [benefits, selectedFilters, searchQuery]);
 
   const searchInputRef = useRef(null);
 
@@ -137,68 +129,6 @@ export default function EvocaBenefitsPage() {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
-  }, []);
-
-  const faqItems = [
-    {
-      question: "Ի՞նչ է Evoca Benefits-ը:",
-      answer:
-        "Evoca Benefits-ը նոր նախագիծ է, որի շրջանակում Evoca բոլոր քարտապանները ստանում են բենեֆիթներ` զեղչեր, քեշբեքեր կամ այլ առավելություններ՝ 100-ից ավել գործընկերների մոտ՝ պարզապես վճարելով իրենց Evoca քարտերով:",
-    },
-    {
-      question: "Ի՞նչ բենեֆիթներից կարող են օգտվել Բանկի քարտապանները:",
-      answer:
-        "Բենեֆիթներն են՝\n• Զեղչ, որը կստանաք տեղում՝ վճարելով Ձեր Evoca քարտով:\n• Cashback, որը տվյալ ամսվա բոլոր գնումների համար հանրագումարային կփոխանցվի Ձեր քարտին մինչև հաջորդ ամսվա 20-ը։\n• Նվեր քարտ, որը կարող եք օգտագործել տեղում կամ Ձեր հաջորդ գնման ժամանակ։",
-    },
-    {
-      question: "Ինչպե՞ս օգտվել բենեֆիթներից:",
-      answer:
-        "Օֆլայն՝ խանութում, սրճարանում կամ վաճառակետում բենեֆիթներից օգտվելու համար պարզապես պետք է վճարել Ձեր Evoca քարտով...",
-    },
-    {
-      question: "Քանի՞ անգամ է հնարավոր օգտվել Evoca բենեֆիթներից:",
-      answer:
-        "Evoca բենեֆիթներից կարող եք օգտվել անսահմանափակ՝ ընդամենը վճարելով Ձեր Evoca քարտով։",
-    },
-    {
-      question:
-        "Եթե տվյալ գործընկերոջ մոտ արդեն գործում են զեղչեր, դրանք գումարվո՞ւմ են Evoca բենեֆիթներին:",
-      answer:
-        "Բենեֆիթները տարբեր են, յուրաքանչյուր գործընկերոջ պայմանները կարող եք տեսնել վերևում՝ տվյալ գործընկերոջ նկարագրությունում։",
-    },
-    {
-      question: "Evocabank-ի ո՞ր քարտերին ունեն բենեֆիթներ:",
-      answer: "Բենեֆիթները տրամադրվում են բոլոր Evoca քարտերի համար...",
-    },
-    {
-      question: "Ինչպե՞ս պատվիրել Evoca քարտ:",
-      answer:
-        "Քարտ կարող եք պատվիրել evoca.am կայքի կամ EvocaTOUCH հավելվածի միջոցով...",
-    },
-    {
-      question: "Ինչպե՞ս կարող է իմ բիզնեսը միանալ Evoca բենեֆիթներին:",
-      answer:
-        "Ձգտելով մեր հաճախորդներին տրամադրել լավագույն առաջարկներն ու լուծումները՝ մենք միշտ բաց ենք համագործակցությունների համար...",
-    },
-  ];
-
-  useEffect(() => {
-    const fetchBenefits = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "evoca_benefits"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setBenefits(data);
-      } catch (error) {
-        console.error("Ошибка при загрузке бенефитов:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBenefits();
   }, []);
 
   const loadMore = () => {
@@ -211,7 +141,6 @@ export default function EvocaBenefitsPage() {
       <HeroSectionBenefits />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 pb-16">
-        {/* Поиск и мобильная кнопка фильтров */}
         <div className="max-w-2xl mx-auto mb-10 flex items-center gap-3">
           <button
             onClick={() => setMobileFiltersOpen(true)}
@@ -253,13 +182,14 @@ export default function EvocaBenefitsPage() {
             <input
               ref={searchInputRef}
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Որոնել"
               className="bg-transparent border-none outline-none ml-3 w-full text-base text-gray-700 placeholder-gray-500"
             />
           </div>
         </div>
 
-        {/* Выдвижная панель мобильных фильтров */}
         <div
           className={`fixed inset-0 z-50 flex bg-black/50 backdrop-blur-sm md:hidden transition-opacity duration-300 ${
             mobileFiltersOpen
@@ -298,11 +228,11 @@ export default function EvocaBenefitsPage() {
               <FilterSidebarBenefits
                 openSections={openSections}
                 toggleSection={toggleSection}
-                cardTypesList={cardTypesList}
-                locationList={locationList}
-                benefitList={benefitList}
-                sectorList={sectorList}
-                platformList={platformList}
+                cardTypesList={filtersConfig.cardTypesList}
+                locationList={filtersConfig.locationList}
+                benefitList={filtersConfig.benefitList}
+                sectorList={filtersConfig.sectorList}
+                platformList={filtersConfig.platformList}
                 selectedFilters={selectedFilters}
                 handleCheckboxCategoryChange={handleCheckboxChange}
               />
@@ -323,17 +253,16 @@ export default function EvocaBenefitsPage() {
           ></div>
         </div>
 
-        {/* Основная сетка: Сайдбар + Карточки */}
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 items-start">
           <aside className="hidden md:block md:col-span-1 lg:col-span-1 sticky top-24">
             <FilterSidebarBenefits
               openSections={openSections}
               toggleSection={toggleSection}
-              cardTypesList={cardTypesList}
-              locationList={locationList}
-              benefitList={benefitList}
-              sectorList={sectorList}
-              platformList={platformList}
+              cardTypesList={filtersConfig.cardTypesList}
+              locationList={filtersConfig.locationList}
+              benefitList={filtersConfig.benefitList}
+              sectorList={filtersConfig.sectorList}
+              platformList={filtersConfig.platformList}
               selectedFilters={selectedFilters}
               handleCheckboxCategoryChange={handleCheckboxChange}
             />
@@ -342,7 +271,9 @@ export default function EvocaBenefitsPage() {
           <div className="md:col-span-3 lg:col-span-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               {loading ? (
-                null
+                <div className="col-span-full text-center py-12 text-[#5D00E0] font-semibold animate-pulse">
+                  Բեռնում...
+                </div>
               ) : filteredBenefits.length > 0 ? (
                 filteredBenefits
                   .slice(0, visibleCount)

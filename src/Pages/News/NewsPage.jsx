@@ -56,21 +56,21 @@ const NewsPage = () => {
 
   return (
     <div className="w-full font-sans text-[#333] relative overflow-hidden pb-20">
-      {/* Обновленный блок фильтров (без скролла) */}
+
       <div className="w-full">
         <div className="max-w-[1200px] mx-auto px-4 py-8">
           <div
             className="flex items-center justify-between w-full overflow-x-auto gap-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {/* Скрываем ползунок скролла */}
+
             <style>{`
               .overflow-x-auto::-webkit-scrollbar {
                 display: none;
               }
             `}</style>
 
-            {/* Левая часть: категории */}
+
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
               {categories.map((cat, idx) => (
                 <button
@@ -82,7 +82,7 @@ const NewsPage = () => {
               ))}
             </div>
 
-            {/* Правая часть: кнопка «Բոլորը ›» */}
+
             <Link
               to="/news/archive"
               className="px-5 md:px-6 py-2 rounded-full text-sm font-bold bg-[#f2e6ff] text-[#6a00ff] flex items-center gap-2 hover:bg-[#e8d4ff] transition-colors shrink-0 ml-auto"

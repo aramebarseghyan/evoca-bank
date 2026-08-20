@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Иконка документа со стрелкой скачивания
+
 const DownloadIcon = () => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -22,13 +22,12 @@ const DownloadIcon = () => (
 );
 
 const AuditorsOpinionList = () => {
-  // Генерируем массив данных от 2025 до 2006 года, как на скриншотах
+
   const documents = Array.from({ length: 20 }, (_, i) => {
     const year = 2025 - i;
     return {
       year: year.toString(),
       title: `${year} Աուդիտորական եզրակացություն`,
-      url: "#" // Сюда можно подставить реальные ссылки на PDF
     };
   });
 
@@ -37,12 +36,12 @@ const AuditorsOpinionList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-10">
         {documents.map((doc, index) => (
           <div key={index} className="flex flex-col">
-            {/* Заголовок с годом */}
+
             <h2 className="text-[22px] font-bold text-gray-800 mb-4">
               {doc.year}
             </h2>
             
-            {/* Карточка документа */}
+
             <a 
               href={doc.url} 
               className="flex items-center gap-3 bg-[#f5f2f8] px-4 py-3.5 rounded-lg hover:bg-[#ebe6f0] transition-colors duration-200 cursor-pointer"

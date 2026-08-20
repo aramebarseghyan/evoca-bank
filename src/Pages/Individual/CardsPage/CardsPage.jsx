@@ -1,38 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterDropdown from "./Components/FilterDropdown";
 import InfoList from "./Components/InfoList";
-
-const mockCardFilters = [
-  { id: "all", label: "Քարտեր" },
-  { id: "premium", label: "Պրեմիում" },
-  { id: "gift", label: "Նվեր քարտեր" },
-  { id: "digital", label: "Թվային քարտեր" },
-  {
-    id: "arca",
-    label: "ArCa",
-    icon: "https://www.evoca.am/images-cache/menu/1/17485004055849/50x24.png",
-  },
-  {
-    id: "visa",
-    label: "Visa",
-    icon: "https://www.evoca.am/images-cache/menu/1/16137249251612/50x24.png",
-  },
-  {
-    id: "mastercard",
-    label: "Mastercard",
-    icon: "https://www.evoca.am/images-cache/menu/1/16137249504065/50x24.png",
-  },
-  {
-    id: "unionpay",
-    label: "UnionPay",
-    icon: "https://www.evoca.am/images-cache/menu/1/17288945044615/50x24.png",
-  },
-];
+import { db } from "../../../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const CardsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const activeFilter = searchParams.get("category") || "all";
+
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        setLoading(true);
+        const docRef = doc(db, "filters", "cards");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setFilters(docSnap.data().filters || []);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFilters();
+  }, []);
 
   const setActiveFilter = (filterId) => {
     if (filterId === "all") {
@@ -46,11 +44,14 @@ const CardsPage = () => {
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-10">
-      <FilterDropdown
-        activeFilter={activeFilter}
-        setActiveFilter={setActiveFilter}
-        filters={mockCardFilters}
-      />
+      {!loading && (
+        <FilterDropdown
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+          filters={filters}
+        />
+      )}
+
       <InfoList activeFilter={activeFilter} collectionName="cards" />
     </div>
   );

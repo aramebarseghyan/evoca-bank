@@ -15,7 +15,7 @@ import evocaBestShape2 from "../../../../assets/img/evoca-best-shape2.png";
 const MobilePromo = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  // Функция для открытия ссылки в новой вкладке
+
   const handleBecomeCustomer = () => {
     window.open(
       "https://online.evoca.am/InternetBank/MainForm.wgx",
@@ -26,7 +26,7 @@ const MobilePromo = () => {
 
   return (
     <div className="w-full bg-[#580BD4] rounded-tl-[60px] sm:rounded-tl-[80px] md:rounded-tl-[100px] xl:rounded-tl-[200px] 2xl:rounded-tl-[240px] text-white font-sans relative overflow-hidden shadow-2xl mt-[350px] md:mt-16 py-12 px-6 sm:px-10 md:px-16 2xl:px-20">
-      {/* 3D Декоративные фигуры */}
+
       <div
         className="hidden md:block absolute top-12 right-20 xl:right-36 z-0 opacity-80 pointer-events-none"
         style={{ animation: "float1 6s ease-in-out infinite" }}
@@ -110,14 +110,14 @@ const MobilePromo = () => {
         className="hidden md:block absolute left-4 bottom-2 z-0 w-32 xl:w-44 opacity-60 pointer-events-none"
       />
 
-      {/* Внутренний контентный контейнер */}
+
       <div className="max-w-[1400px] 2xl:max-w-[1600px] mx-auto flex flex-col xl:flex-row items-center justify-between gap-8 xl:gap-12 2xl:gap-16 relative z-10">
-        {/* Левый блок: Ноутбук + Телефон */}
+
         <div className="w-full xl:w-1/2 flex justify-center items-center relative min-h-[260px] sm:min-h-[340px] md:min-h-[440px] xl:min-h-[460px]">
-          {/* Макбук */}
+
           <div className="relative w-full max-w-[420px] sm:max-w-[500px] md:max-w-[560px] xl:max-w-[540px] 2xl:max-w-[600px] pr-8 sm:pr-12">
             <div className="relative w-full">
-              {/* Экран видео */}
+
               <div className="absolute top-[5.2%] left-[7%] w-[79.5%] h-[80.2%] z-20 overflow-hidden rounded-[2px] sm:rounded-[4px] bg-black">
                 {!isVideoPlaying ? (
                   <div
@@ -156,7 +156,7 @@ const MobilePromo = () => {
             </div>
           </div>
 
-          {/* Телефон */}
+
           <div className="absolute right-2 sm:right-4 md:right-8 xl:right-4 bottom-0 w-[24%] max-w-[130px] sm:max-w-[150px] md:max-w-[160px] 2xl:max-w-[170px] z-30 drop-shadow-2xl hover:-translate-y-1 transition-transform duration-300">
             <div className="relative w-full">
               <div className="absolute top-[3.2%] left-[6%] w-[67%] h-[93.5%] z-10 overflow-hidden rounded-[6px] sm:rounded-[10px]">
@@ -175,7 +175,7 @@ const MobilePromo = () => {
           </div>
         </div>
 
-        {/* Правый блок: Текст, Кнопка, QR и Store иконки */}
+
         <div className="w-full xl:w-1/2 flex flex-col items-start space-y-5 sm:space-y-6">
           <h2 className="text-[26px] sm:text-[34px] md:text-[42px] xl:text-[44px] 2xl:text-[48px] font-extrabold leading-[1.2] tracking-tight">
             Օնլայն և մոբայլ բանկինգ
@@ -187,7 +187,7 @@ const MobilePromo = () => {
             կիրառմամբ:
           </p>
 
-          {/* Добавлен onClick для перехода по ссылке */}
+
           <button
             onClick={handleBecomeCustomer}
             className="px-8 sm:px-10 py-3.5 bg-white text-[#580BD4] font-bold rounded-full text-[15px] sm:text-[16px] hover:bg-gray-100 transition-all shadow-md active:scale-95"

@@ -4,8 +4,11 @@ import { useFavoriteStore } from "../../../store/useFavoriteStore";
 
 const FavoritesWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { favorites, toggleFavorite } = useFavoriteStore();
   const navigate = useNavigate();
+
+  // ИСПРАВЛЕНО ЗДЕСЬ 👇
+  const favorites = useFavoriteStore((state) => state.favorites);
+  const toggleFavorite = useFavoriteStore((state) => state.toggleFavorite);
 
   return (
     <>

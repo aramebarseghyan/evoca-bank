@@ -1,98 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-const cardTypes = [
-  { id: "payment-cards", title: "Վճարային քարտեր" },
-  { id: "digital", title: "Visa Digital քարտեր" },
-  { id: "vision", title: "Visa Vision քարտեր" },
-  { id: "arca", title: "ArCa Classic քարտեր" },
-  { id: "social", title: "Սոցիալական հաշվի կենսաթոշակային քարտեր" },
-  { id: "mc-world", title: "Mastercard World Digital քարտեր" },
-  { id: "gift", title: "Evoca Gift Card" },
-  { id: "mc-digital", title: "Mastercard Digital Gift Card" },
-  { id: "unionpay", title: "UnionPay քարտեր" },
-  { id: "travel", title: "Evoca Travel Card" },
-  { id: "4u", title: "4U.am Gift card" },
-  { id: "homplex", title: "Homplex Gift card" },
-  { id: "dalma", title: "Dalma Gift Card" },
-  { id: "garage", title: "Garage Masters' Mall Gift Card" },
-  { id: "rio", title: "Rio Gift Card" },
-  { id: "myler", title: "MyLer Gift Card" },
-  { id: "infinite", title: "Visa Infinite քարտեր" },
-  { id: "platinum", title: "Visa Platinum վճարային քարտեր" },
-];
+// Firebase կարգավորումներ
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ3_mGAyawhU5fZwKsg1CQLu-0MAGbZTY",
+  authDomain: "evoca-app-cdeac.firebaseapp.com",
+  projectId: "evoca-app-cdeac",
+  storageBucket: "evoca-app-cdeac.firebasestorage.app",
+  messagingSenderId: "197478671668",
+  appId: "1:197478671668:web:5661f415d8b4445649f161",
+  measurementId: "G-N469K2446L",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const CardTariffsPage = () => {
-  const [activeCard, setActiveCard] = useState("payment-cards");
+  const [cardTypes, setCardTypes] = useState([]);
+  const [activeCard, setActiveCard] = useState("");
+  const [currentData, setCurrentData] = useState(null);
+  const [loadingTypes, setLoadingTypes] = useState(true);
+  const [loadingTariffs, setLoadingTariffs] = useState(false);
 
-  // Функция для генерации уникальных данных под каждый клик, чтобы таблица менялась
-  const getTableData = (id) => {
-    switch (id) {
-      case "digital":
-        return {
-          subtitle: "Visa Digital քարտեր",
-          issuance: "0",
-          annual1: "2,000 ՀՀ դրամ",
-          monthly1: "200 ՀՀ դրամ",
-          annual2: "8,000 ՀՀ դրամ",
-          monthly2: "800 ՀՀ դրամ",
-          business: "5,000 ՀՀ դրամ",
-          express: "Անδվճար (Էլեկտրոնային)",
-        };
-      case "vision":
-        return {
-          subtitle: "Visa Vision քարտեր",
-          issuance: "1,000 ՀՀ դրամ",
-          annual1: "4,000 ՀՀ դրամ",
-          monthly1: "400 ՀՀ դրամ",
-          annual2: "12,000 ՀՀ դրամ",
-          monthly2: "1,200 ՀՀ դրամ",
-          business: "8,000 ՀՀ դրամ",
-          express: "5,000 ՀՀ դրամ",
-        };
-      case "arca":
-        "arca";
-        return {
-          subtitle: "ArCa Classic քարտեր",
-          issuance: "0",
-          annual1: "3,000 ՀՀ դրամ",
-          monthly1: "300 ՀՀ դրամ",
-          annual2: "10,000 ՀՀ դրամ",
-          monthly2: "1,000 ՀՀ դրամ",
-          business: "6,000 ՀՀ դրամ",
-          express: "4,000 ՀՀ դրամ",
-        };
-      case "infinite":
-        return {
-          subtitle: "Visa Infinite քարտեր",
-          issuance: "25,000 ՀՀ դրամ",
-          annual1: "120,000 ՀՀ դրամ",
-          monthly1: "10,000 ՀՀ դրամ",
-          annual2: "200,000 ՀՀ դրամ",
-          monthly2: "18,000 ՀՀ դրամ",
-          business: "150,000 ՀՀ դրամ",
-          express: "20,000 ՀՀ դրամ",
-        };
-      default:
-        return {
-          subtitle:
-            cardTypes.find((c) => c.id === id)?.title || "Վճարային քարտեր",
-          issuance: "0",
-          annual1: "5,000 ՀՀ դրամ",
-          monthly1: "MasterCard Standard 500 ՀՀ դրամ",
-          annual2: "15,000 ՀՀ դրամ",
-          monthly2: "MasterCard Gold 1,500 ՀՀ դրամ",
-          business: "10,000 ՀՀ դրամ",
-          express: "10,000 ՀՀ դրամ",
-        };
-    }
-  };
+  // 1. Բեռնում ենք քարտերի ցանկը Firebase-ից (settings -> cardTypes)
+  useEffect(() => {
+    const fetchCardTypes = async () => {
+      try {
+        const docRef = doc(db, "settings", "cardTypes");
+        const docSnap = await getDoc(docRef);
 
-  const currentData = getTableData(activeCard);
+        if (docSnap.exists() && docSnap.data().list) {
+          const list = docSnap.data().list;
+          setCardTypes(list);
+          if (list.length > 0) {
+            setActiveCard(list[0].id); // Ավտոմատ ընտրում ենք առաջինը
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching card types:", error);
+      } finally {
+        setLoadingTypes(false);
+      }
+    };
+
+    fetchCardTypes();
+  }, []);
+
+  // 2. Բեռնում ենք ընտրված քարտի սակագները Firebase-ից (cardTariffs -> activeCard)
+  useEffect(() => {
+    if (!activeCard) return;
+
+    const fetchCardData = async () => {
+      setLoadingTariffs(true);
+      try {
+        const docRef = doc(db, "cardTariffs", activeCard);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setCurrentData(docSnap.data());
+        } else {
+          setCurrentData(null);
+        }
+      } catch (error) {
+        console.error("Error fetching card tariff data:", error);
+        setCurrentData(null);
+      } finally {
+        setLoadingTariffs(false);
+      }
+    };
+
+    fetchCardData();
+  }, [activeCard]);
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8 font-sans">
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Боковое меню (Сайдбар) */}
+        {/* Sidebar */}
         <div className="w-full lg:w-[280px] shrink-0">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
             <div className="flex items-center justify-between text-purple-700 font-semibold mb-4 px-2">
@@ -111,74 +95,46 @@ const CardTariffsPage = () => {
               </svg>
             </div>
 
-            <ul className="space-y-1 text-sm max-h-[500px] overflow-y-auto pr-1">
-              {cardTypes.map((card) => {
-                const isActive = activeCard === card.id;
-                return (
-                  <li key={card.id}>
-                    <button
-                      onClick={() => setActiveCard(card.id)}
-                      className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
-                        isActive
-                          ? "bg-purple-50 text-purple-700 font-medium"
-                          : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      {card.title}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <div className="mt-4 pt-4 border-t border-gray-100 space-y-1 text-sm">
-              <a
-                href="#transfers"
-                className="flex items-center justify-between px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-50"
-              >
-                <span>Փոխանցումներ</span>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </a>
-              <a
-                href="#other"
-                className="flex items-center justify-between px-3 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-50"
-              >
-                <span>Այլ</span>
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </a>
-            </div>
+            {loadingTypes ? (
+              <div className="py-4 text-center text-sm text-gray-500">
+                Բեռնվում է ցանկը...
+              </div>
+            ) : (
+              <ul className="space-y-1 text-sm max-h-[500px] overflow-y-auto pr-1">
+                {cardTypes.map((card) => {
+                  const isActive = activeCard === card.id;
+                  return (
+                    <li key={card.id}>
+                      <button
+                        onClick={() => setActiveCard(card.id)}
+                        className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-purple-50 text-purple-700 font-medium"
+                            : "text-gray-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        {card.title}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </div>
 
-        {/* Основной контент: Таблица тарифов */}
+        {/* Content */}
         <div className="flex-1">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-1">
               Միջնորդավճարների սակագները և դրույքները
             </h2>
-            <p className="text-gray-600">{currentData.subtitle}</p>
+            <p className="text-gray-600">
+              {loadingTariffs
+                ? "Բեռնվում է..."
+                : currentData?.subtitle ||
+                  cardTypes.find((c) => c.id === activeCard)?.title}
+            </p>
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
@@ -187,187 +143,98 @@ const CardTariffsPage = () => {
                 <thead>
                   <tr className="bg-gray-50/70 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     <th className="py-4 px-6 w-2/5">
-                      Մատուցվող ծառայություններ
+                      {currentData?.headers?.service ||
+                        "Մատուցվող ծառայություններ"}
                     </th>
-                    <th className="py-4 px-4 border-l border-gray-200 w-1/5">
-                      MasterCard Standard / Visa Classic
-                    </th>
-                    <th className="py-4 px-4 border-l border-gray-200 w-1/5">
-                      MasterCard Gold / Visa Gold
-                    </th>
-                    <th className="py-4 px-4 border-l border-gray-200 w-1/5">
-                      Visa Business
-                    </th>
+                    {currentData?.headers?.cols?.map((colTitle, idx) => (
+                      <th
+                        key={idx}
+                        className="py-4 px-4 border-l border-gray-200 w-1/5"
+                      >
+                        {colTitle}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-sm text-gray-800">
-                  {/* Строка 1 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Քարտի տրամադրում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.issuance}
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.issuance}
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.issuance}
-                    </td>
-                  </tr>
-                  {/* Строка 2: Обслуживание */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Քարտի սպասարկում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200 p-0">
-                      <div className="flex flex-col">
-                        <div className="px-4 py-2.5 border-b border-gray-200 flex justify-between">
-                          <span className="text-gray-500">Տարեկան</span>
-                          <span className="font-medium">
-                            {currentData.annual1}
-                          </span>
-                        </div>
-                        <div className="px-4 py-2.5 flex justify-between">
-                          <span className="text-gray-500">Ամսական</span>
-                          <span className="font-medium">
-                            {currentData.monthly1}
-                          </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200 p-0">
-                      <div className="flex flex-col">
-                        <div className="px-4 py-2.5 border-b border-gray-200 flex justify-between">
-                          <span className="text-gray-500">Տարեկան</span>
-                          <span className="font-medium">
-                            {currentData.annual2}
-                          </span>
-                        </div>
-                        <div className="px-4 py-2.5 flex justify-between">
-                          <span className="text-gray-500">Ամսական</span>
-                          <span className="font-medium">
-                            {currentData.monthly2}
-                          </span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.business}
-                    </td>
-                  </tr>
-                  {/* Строка 3 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Շտապ թողարկում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.express}
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.express}
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      {currentData.express}
-                    </td>
-                  </tr>
-                  {/* Строка 4 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      24.02.2022թ.-ից հետո Բանկի հաճախորդ դարձած օտարերկրյա ոչ
-                      ռեզիդենտ քաղաքացիների համար:
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">-</td>
-                    <td className="py-4 px-4 border-l border-gray-200">-</td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      30,000 ՀՀ դրամ
-                    </td>
-                  </tr>
-                  {/* Строка 5 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Visa Business քարտի դեպքում օտարերկրյա քաղաքացիություն
-                      ունեցող Հայաստանում գրանցված անհատ ձեռնարկատերերի և
-                      իրավաբանական անձանց քարտի տարեկան սպասարկում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      15,000 ՀՀ դրամ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      45,000 ՀՀ դրամ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      30,000 ՀՀ դրամ
-                    </td>
-                  </tr>
-                  {/* Строка 6 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Կից քարտի տրամադրում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                  </tr>
-                  {/* Строка 7 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Կից քարտի տարեկան սպասարկում
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      5,000 ՀՀ դրամ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      10,000 ՀՀ դրամ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">
-                      7,000 ՀՀ դրամ
-                    </td>
-                  </tr>
-                  {/* Строка 8 */}
-                  <tr>
-                    <td className="py-4 px-6 font-medium text-gray-900">
-                      Քարտային հաշվի նվազագույն մնացորդ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0</td>
-                  </tr>
-                  {/* Строка 9 */}
-                  <tr>
-                    <td
-                      className="py-4 px-6 font-medium text-gray-900"
-                      colSpan="4"
-                    >
-                      Քարտային հաշվի դրական մնացորդի նկատմամբ հաշվարկվող տարեկան
-                      %
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 px-6 pl-10 text-gray-600">
-                      մինչև 5 մլն. ՀՀ դրամ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 px-6 pl-10 text-gray-600">
-                      5 մլն. ՀՀ դրամից ավել
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">1%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">1%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">1%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 px-6 pl-10 text-gray-600">
-                      արտարժույթ
-                    </td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                    <td className="py-4 px-4 border-l border-gray-200">0%</td>
-                  </tr>
+                  {loadingTariffs ? (
+                    <tr>
+                      <td
+                        colSpan="4"
+                        className="py-8 text-center text-gray-500"
+                      >
+                        Տվյալները բեռնվում են...
+                      </td>
+                    </tr>
+                  ) : !currentData || !currentData.rows ? (
+                    <tr>
+                      <td
+                        colSpan="4"
+                        className="py-8 text-center text-gray-500"
+                      >
+                        Տվյալներ չեն գտնվել այս քարտի համար Firebase-ում:
+                      </td>
+                    </tr>
+                  ) : (
+                    currentData.rows.map((row, index) => {
+                      if (row.isHeader) {
+                        return (
+                          <tr key={index}>
+                            <td
+                              className="py-4 px-6 font-medium text-gray-900 bg-gray-50/50"
+                              colSpan={4}
+                            >
+                              {row.title}
+                            </td>
+                          </tr>
+                        );
+                      }
+
+                      return (
+                        <tr key={index}>
+                          <td
+                            className={`py-4 px-6 font-medium text-gray-900 ${
+                              row.isSubItem
+                                ? "pl-10 text-gray-600 font-normal"
+                                : ""
+                            }`}
+                          >
+                            {row.title}
+                          </td>
+
+                          {row.values?.map((val, vIdx) => (
+                            <td
+                              key={vIdx}
+                              className="py-4 px-4 border-l border-gray-200"
+                            >
+                              {typeof val === "object" && val !== null ? (
+                                <div className="flex flex-col">
+                                  <div className="px-4 py-2.5 border-b border-gray-200 flex justify-between">
+                                    <span className="text-gray-500">
+                                      Տարեկան
+                                    </span>
+                                    <span className="font-medium">
+                                      {val.annual || "-"}
+                                    </span>
+                                  </div>
+                                  <div className="px-4 py-2.5 flex justify-between">
+                                    <span className="text-gray-500">
+                                      Ամսական
+                                    </span>
+                                    <span className="font-medium">
+                                      {val.monthly || "-"}
+                                    </span>
+                                  </div>
+                                </div>
+                              ) : (
+                                val || "-"
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </div>

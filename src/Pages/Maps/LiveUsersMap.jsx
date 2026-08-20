@@ -23,7 +23,7 @@ const AutoZoomToBounds = ({ users }) => {
   return null;
 };
 
-// 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК
+
 const createGmailAvatar = (user) => {
   const isOnline = user.isOnline;
   const statusColor = isOnline ? "#10b981" : "#ef4444";

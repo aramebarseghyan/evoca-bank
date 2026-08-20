@@ -25,14 +25,6 @@ const AlienatedProperty = () => {
     fetchProperties();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="w-full bg-white min-h-screen flex justify-center items-center font-sans">
-        <p className="text-gray-500">Բեռնվում է...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full bg-white min-h-screen py-8">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">

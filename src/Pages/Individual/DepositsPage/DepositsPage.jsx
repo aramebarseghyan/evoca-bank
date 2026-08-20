@@ -1,141 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../../firebase";
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 const DepositsPage = () => {
   const navigate = useNavigate();
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const initialDeposits = [
-    {
-      id: "classical-deposit",
-      title: "Դասական ավանդ",
-      description:
-        "Ձեր անհոգ ապագայի համար առաջարկում ենք ավելացնել Ձեր խնայողությունները՝ ներդնելով «Դասական ավանդ» կայուն և բարձր եկամտաբերությամբ.",
-      fullDescription: [
-        {
-          parts: [
-            {
-              text: "Դասական ժամկետային ավանդն ընդունվում է և՛ ֆիզիկական, և՛ իրավաբանական անձանցից: Այն կայուն բարձր եկամտաբերությամբ կավելացնի Ձեր խնայած գումարը: Կուտակված տոկոսագումարները կարող եք ստանալ ինչպես ժամկետի վերջում, այնպես էլ Ձեր նախընտրած պարբերականությամբ: Որպես Բանկի ավանդատու՝ Դուք կստանաք նաև ",
-            },
-            { text: "միջազգային քարտ՝ բացարձակապես անվճար", highlight: true },
-            {
-              text: ", որին ցանկության դեպքում կփոխանցվեն Ձեր ավանդի տոկոսագումարները:",
-            },
-          ],
-        },
-        {
-          parts: [
-            { text: "Ավանդը", highlight: true, underline: true },
-            {
-              text: " ձևակերպվում է շատ արագ՝ Բանկի Գլխամասային գրասենյակում և բոլոր մասնաճյուղերում /բացառությամբ Էրեբունի մասնաճյուղի/.",
-            },
-          ],
-        },
-        {
-          parts: [
-            {
-              text: "Խնայելը Evocabank-ի հետ դառնում է ավելի արդյունավետ և հաճելի.",
-            },
-          ],
-        },
-      ],
-      image:
-        "https://www.evoca.am/images-cache/deposits/1/16142452390653/720x405.jpg",
-      imageBgColor: "bg-[#D8B4FE]",
-      metrics: [
-        { label: "Գումար", value: "100,000 ֏", prefix: "սկսած" },
-        { label: "Ժամկետ", value: "31-1,825 օր", prefix: "" },
-        { label: "Տոկոսադրույք", value: "10.5% ֏", prefix: "մինչև" },
-        {
-          label: "Համալրման հնարավորություն",
-          value: "100,000 ֏",
-          prefix: "սկսած",
-        },
-      ],
-    },
-    {
-      id: "children-deposit",
-      title: "Մանկական ավանդ",
-      description:
-        "Ձեր երեխայի պայծառ ապագայի համար առաջարկում ենք ներդնել «Մանկական» ավանդ։ «Մանկական» ժամկետային ավանդն ընդունում ենք ֆիզիկական անձանցից՝ երեխաների անունով ներդնելու պայմանով.",
-      fullDescription: [
-        {
-          parts: [
-            {
-              text: "Ձեր երեխայի պայծառ ապագայի համար առաջարկում ենք ներդնել «Մանկական» ավանդ։ «Մանկական» ժամկետային ավանդն ընդունում ենք ֆիզիկական անձանցից՝ երեխաների անունով ներդնելու պայմանով.",
-            },
-          ],
-        },
-      ],
-      image:
-        "https://www.evoca.am/images-cache/deposits/2/16142452390653/720x405.jpg",
-      imageBgColor: "bg-[#FDE047]",
-      metrics: [
-        { label: "Գումար", value: "100,000 ֏", prefix: "սկսած" },
-        { label: "Ժամկետ", value: "18 լրանալը", prefix: "մինչև" },
-        { label: "Տոկոսադրույք", value: "9.5% ֏", prefix: "" },
-        {
-          label: "Համալրման հնարավորություն",
-          value: "40,000 ֏",
-          prefix: "սկսած",
-        },
-      ],
-    },
-    {
-      id: "evoca-online-deposit",
-      title: "Ավանդ Evoca Online",
-      description:
-        "Ցանկանո՞ւմ եք ներդնել ավանդ բարձր տոկոսադրույքով, բայց չունե՞ք ժամանակ։ Ձևակերպեք EvocaONLINE ավանդ՝ առանց բանկ այցելելու: Իսկ մենք բոլոր փաստաթղթերը կուղարկենք Ձեր էլ. հասցեին:",
-      fullDescription: [
-        {
-          parts: [
-            {
-              text: "Ցանկանո՞ւմ եք ներդնել ավանդ բարձր տոկոսադրույքով, բայց չունե՞ք ժամանակ։ Ձևակերպեք EvocaONLINE ավանդ՝ առանց բանկ այցելելու: Իսկ մենք բոլոր փաստաթղթերը կուղարկենք Ձեր էլ. հասցեին:",
-            },
-          ],
-        },
-      ],
-      image:
-        "https://www.evoca.am/images-cache/deposits/3/16142452390653/720x405.jpg",
-      imageBgColor: "bg-[#E2E8F0]",
-      metrics: [
-        { label: "Գումար", value: "100,000 ֏", prefix: "սկսած" },
-        { label: "Ժամկետ", value: "31-1,825 օր", prefix: "" },
-        { label: "Տոկոսադրույք", value: "10.75% ֏", prefix: "մինչև" },
-        { label: "Համալրման հնարավորություն", value: "-", prefix: "" },
-      ],
-    },
-  ];
-
   useEffect(() => {
-    const fetchAndSeedDeposits = async () => {
+    const fetchDeposits = async () => {
       setLoading(true);
       try {
         const querySnapshot = await getDocs(collection(db, "deposits"));
-
-        if (querySnapshot.empty) {
-          for (const item of initialDeposits) {
-            await setDoc(doc(db, "deposits", item.id), item);
-          }
-          setDeposits(initialDeposits);
-        } else {
-          const itemsList = querySnapshot.docs.map((docSnap) => ({
-            id: docSnap.id,
-            ...docSnap.data(),
-          }));
-          setDeposits(itemsList);
-        }
+        const itemsList = querySnapshot.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data(),
+        }));
+        setDeposits(itemsList);
       } catch (error) {
-        console.error("Ошибка при загрузке данных из Firebase:", error);
+        console.error("error:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAndSeedDeposits();
+    fetchDeposits();
   }, []);
 
   if (loading) {

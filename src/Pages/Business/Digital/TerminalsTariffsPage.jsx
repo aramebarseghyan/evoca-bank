@@ -5,12 +5,12 @@ const TerminalsTariffsPage = () => {
   return (
     <div className="bg-white font-sans text-gray-800 leading-relaxed">
       <div className="max-w-5xl mx-auto px-4 py-8">
-        {/* Заголовок страницы */}
+
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
           Սակագներ
         </h1>
 
-        {/* Вводный текст */}
+
         <div className="space-y-4 text-gray-700 text-sm md:text-base leading-relaxed mb-10">
           <p>
             Տերմինալը փողոցում, ինչպես նաև առևտրի կետերում վճարումների համար
@@ -171,7 +171,7 @@ const TerminalsTariffsPage = () => {
           </div>
         </div>
 
-        {/* 3. МОБИДРАМ (Mobidram) */}
+
         <div className="mb-12 border-b border-gray-100 pb-10">
           <div className="mb-4">
             <img

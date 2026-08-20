@@ -18,7 +18,7 @@ const EvocabankPartners = () => {
         }));
         setPartners(data);
       } catch (error) {
-        console.error("Ошибка загрузки партнеров:", error);
+        console.error("Error loading partners:", error);
       } finally {
         setLoading(false);
       }

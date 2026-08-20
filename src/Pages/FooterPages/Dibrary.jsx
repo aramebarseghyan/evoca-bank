@@ -1,32 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-const Dibrary = () => {
-  // Պարտնյորների և կրթական ռեսուրսների լոգոների ցանկ (աշխատող հղումներով)
-  const partnerLogos = [
-    { name: "EBSCO", url: "https://logo.clearbit.com/ebsco.com" },
-    { name: "OpenStax", url: "https://logo.clearbit.com/openstax.org" },
-    { name: "Springer", url: "https://logo.clearbit.com/springer.com" },
-    { name: "DOAJ", url: "https://logo.clearbit.com/doaj.org" },
-    { name: "JSTOR", url: "https://logo.clearbit.com/jstor.org" },
-    {
-      name: "ScienceDirect",
-      url: "https://logo.clearbit.com/sciencedirect.com",
-    },
-    { name: "SAGE", url: "https://logo.clearbit.com/sagepub.com" },
-    { name: "Bookboon", url: "https://logo.clearbit.com/bookboon.com" },
-    { name: "Duke University", url: "https://logo.clearbit.com/duke.edu" },
-    { name: "OER Commons", url: "https://logo.clearbit.com/oercommons.org" },
-    { name: "Cambridge", url: "https://logo.clearbit.com/cambridge.org" },
-    { name: "Oxford", url: "https://logo.clearbit.com/oup.com" },
-    { name: "Wiley", url: "https://logo.clearbit.com/wiley.com" },
-    { name: "Nature", url: "https://logo.clearbit.com/nature.com" },
-    { name: "IEEE", url: "https://logo.clearbit.com/ieee.org" },
-    { name: "ACM", url: "https://logo.clearbit.com/acm.org" },
-    { name: "ArXiv", url: "https://logo.clearbit.com/arxiv.org" },
-    { name: "PLOS", url: "https://logo.clearbit.com/plos.org" },
-    { name: "Frontiers", url: "https://logo.clearbit.com/frontiersin.org" },
-    { name: "MDPI", url: "https://logo.clearbit.com/mdpi.com" },
-  ];
+export default function Dibrary() {
+  const [partnerLogos, setPartnerLogos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDibraryData = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "dibrary", "main"));
+        if (docSnap.exists()) {
+          setPartnerLogos(docSnap.data().partnerLogos || []);
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDibraryData();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full bg-white min-h-screen py-10 px-4 sm:px-8 font-sans">
@@ -106,10 +104,11 @@ const Dibrary = () => {
                   src={logo.url}
                   alt={logo.name}
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100"
-                  // Լոգոների բեռնման խնդրի դեպքում այլընտրանքային տեքստ և ոճ
                   onError={(e) => {
                     e.target.style.display = "none";
-                    e.target.nextSibling.style.display = "block";
+                    if (e.target.nextSibling) {
+                      e.target.nextSibling.style.display = "block";
+                    }
                   }}
                 />
                 <span className="hidden text-xs font-bold text-gray-400 text-center uppercase tracking-wider">
@@ -122,6 +121,4 @@ const Dibrary = () => {
       </div>
     </div>
   );
-};
-
-export default Dibrary;
+}

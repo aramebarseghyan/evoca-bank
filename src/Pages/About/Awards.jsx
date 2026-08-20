@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-// ВАЖНО: Укажи правильный путь к твоему файлу инициализации Firebase
+
 import { db } from "../../firebase";
 
 const Awards = () => {
@@ -16,12 +16,12 @@ const Awards = () => {
           ...doc.data(),
         }));
 
-        // Сортируем по году (от новых к старым), чтобы 2026 был наверху
+
         awardsList.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
         setAwards(awardsList);
       } catch (error) {
-        console.error("Ошибка при получении наград:", error);
+        console.error("Error fetching awards:", error);
       } finally {
         setLoading(false);
       }
@@ -43,7 +43,7 @@ const Awards = () => {
               key={award.id}
               className="bg-white rounded-[20px] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-300 flex flex-col justify-between min-h-[180px]"
             >
-              {/* Верхняя часть карточки: Год и Название */}
+
               <div>
                 <h3 className="text-[#6c2bd9] font-bold text-2xl mb-2">
                   {award.year} թ.
@@ -53,13 +53,13 @@ const Awards = () => {
                 </p>
               </div>
 
-              {/* Нижняя часть карточки: Кем выдано и Логотип (если есть) */}
+
               <div className="flex justify-between items-end mt-6">
                 <span className="text-gray-500 text-sm font-medium">
                   {award.issuer}
                 </span>
 
-                {/* Место под логотип, который ты добавишь позже */}
+
                 {award.image ? (
                   <img
                     src={award.image}
@@ -68,7 +68,7 @@ const Awards = () => {
                   />
                 ) : (
                   <div className="h-10 w-24 bg-gray-100 rounded-md animate-pulse flex items-center justify-center text-xs text-gray-400">
-                    Лого
+                    Logo
                   </div>
                 )}
               </div>

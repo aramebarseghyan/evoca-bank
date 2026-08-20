@@ -4,165 +4,17 @@ import { db } from "../../../firebase";
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import MobilePromo from "../HomePage/Components/MobilePromo";
 
-// --- ՏՎՅԱԼՆԵՐ ՊԱՅՄԱՆՆԵՐԻ ԵՎ ՍԱԿԱԳՆԵՐԻ ՀԱՄԱՐ ---
-const tableColumns = [
-  "31 - 90\nօր",
-  "91 - 180\nօր",
-  "181 - 270\nօր",
-  "271 - 365\nօր",
-  "366 - 549\nօր",
-  "550 - 730\nօր",
-  "731 - 1825\nօր",
-];
-
-const ratesData = [
-  {
-    currency: "100,000 ՀՀ դրամ",
-    rows: [
-      {
-        method: "Տոկոսները ժամկետի վերջում վճարմամբ",
-        rates: [
-          "4.50 %",
-          "6.00 %",
-          "7.00 %",
-          "8.00 %",
-          "9.50 %",
-          "10.00 %",
-          "10.50 %",
-        ],
-      },
-      {
-        method: "Ամենամսյա տոկոսների վճարմամբ",
-        rates: [
-          "4.00 %",
-          "5.50 %",
-          "6.50 %",
-          "7.50 %",
-          "9.00 %",
-          "9.50 %",
-          "10.00 %",
-        ],
-      },
-      {
-        method: "Տոկոսները եռամսյա վճարմամբ",
-        rates: [
-          "-",
-          "5.50 %",
-          "6.50 %",
-          "7.50 %",
-          "9.00 %",
-          "9.50 %",
-          "10.00 %",
-        ],
-      },
-    ],
-  },
-  {
-    currency: "200 ԱՄՆ դոլար",
-    rows: [
-      {
-        method: "Տոկոսները ժամկետի վերջում վճարմամբ",
-        rates: [
-          "0.75 %",
-          "2.00 %",
-          "2.50 %",
-          "3.00 %",
-          "4.00 %",
-          "4.50 %",
-          "5.00 %",
-        ],
-      },
-      {
-        method: "Ամենամսյա տոկոսների վճարմամբ",
-        rates: [
-          "0.50 %",
-          "1.75 %",
-          "2.25 %",
-          "2.75 %",
-          "3.75 %",
-          "4.25 %",
-          "4.75 %",
-        ],
-      },
-      {
-        method: "Տոկոսները եռամսյա վճարմամբ",
-        rates: [
-          "-",
-          "1.75 %",
-          "2.25 %",
-          "2.75 %",
-          "3.75 %",
-          "4.25 %",
-          "4.75 %",
-        ],
-      },
-    ],
-  },
-  {
-    currency: "200 Եվրո",
-    rows: [
-      {
-        method: "Տոկոսները ժամկետի վերջում վճարմամբ",
-        rates: [
-          "0.35 %",
-          "1.00 %",
-          "1.50 %",
-          "1.75 %",
-          "2.00 %",
-          "2.50 %",
-          "3.00 %",
-        ],
-      },
-      {
-        method: "Ամենամսյա տոկոսների վճարմամբ",
-        rates: [
-          "0.25 %",
-          "0.75 %",
-          "1.25 %",
-          "1.50 %",
-          "1.75 %",
-          "2.25 %",
-          "2.75 %",
-        ],
-      },
-      {
-        method: "Տոկոսները եռամսյա վճարմամբ",
-        rates: [
-          "-",
-          "0.75 %",
-          "1.25 %",
-          "1.50 %",
-          "1.75 %",
-          "2.25 %",
-          "2.75 %",
-        ],
-      },
-    ],
-  },
-  {
-    currency: "30,000 ՌԴ Ռուբլի",
-    rows: [
-      {
-        method: "Տոկոսները ժամկետի վերջում վճարմամբ",
-        rates: ["4.00 %", "5.00 %", "5.25 %", "5.50 %", "6.00 %", "-", "-"],
-      },
-      {
-        method: "Ամենամսյա տոկոսների վճարմամբ",
-        rates: ["3.75 %", "4.75 %", "5.00 %", "5.25 %", "5.75 %", "-", "-"],
-      },
-      {
-        method: "Տոկոսները եռամսյա վճարմամբ",
-        rates: ["-", "4.75 %", "5.00 %", "5.25 %", "5.75 %", "-", "-"],
-      },
-    ],
-  },
-];
-
 const DepositDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+
   const [deposit, setDeposit] = useState(null);
   const [otherDeposits, setOtherDeposits] = useState([]);
+  const [pageDetails, setPageDetails] = useState({
+    tableColumns: [],
+    ratesData: [],
+  });
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("Ավանդի մասին");
   const [selectedCurrency, setSelectedCurrency] = useState("֏");
@@ -181,6 +33,7 @@ const DepositDetail = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
+
         const docRef = doc(db, "deposits", id);
         const docSnap = await getDoc(docRef);
 
@@ -189,6 +42,19 @@ const DepositDetail = () => {
         } else {
           console.error("Ավանդը չի գտնվել");
         }
+
+
+        const detailsDocRef = doc(db, "depositdetails", "cards_page_data");
+        const detailsSnap = await getDoc(detailsDocRef);
+
+        if (detailsSnap.exists()) {
+          const data = detailsSnap.data();
+          setPageDetails({
+            tableColumns: data.tableColumns || [],
+            ratesData: data.ratesData || [],
+          });
+        }
+
 
         const querySnapshot = await getDocs(collection(db, "deposits"));
         const allDepositsList = querySnapshot.docs.map((doc) => ({
@@ -208,7 +74,7 @@ const DepositDetail = () => {
           setOtherDeposits(repeatedList);
         }
       } catch (error) {
-        console.error("Error fetching deposits:", error);
+        console.error("Error fetching deposit details from Firestore:", error);
       } finally {
         setLoading(false);
       }
@@ -293,7 +159,7 @@ const DepositDetail = () => {
         </div>
       </div>
 
-      {/* Նավիգացիա - Տեղաշարժված է ձախ 100px-ով xl և 2xl էկրանների վրա */}
+      {/* Նավիգացիա */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-24 pt-6">
         <div className="flex flex-wrap items-center gap-4 mb-8 xl:-ml-[100px]">
           <button
@@ -393,7 +259,7 @@ const DepositDetail = () => {
                       </div>
                     )}
                     <div className="text-[#5D00E0] text-2xl font-bold">
-                      {metric.value.includes("֏")
+                      {metric.value?.includes("֏")
                         ? metric.value.replace("֏", selectedCurrency)
                         : metric.value}
                     </div>
@@ -411,76 +277,81 @@ const DepositDetail = () => {
         {activeTab === "Պայմաններ և սակագներ" && (
           <div className="space-y-10 animate-fade-in text-gray-800">
             {/* Աղյուսակ */}
-            <div className="w-full overflow-x-auto rounded-xl border border-[#F0E6FF] shadow-sm">
-              <table className="w-full min-w-[900px] border-collapse bg-white text-sm text-center">
-                <thead className="text-gray-800 font-semibold bg-gray-50/30">
-                  <tr>
-                    <th
-                      rowSpan={2}
-                      className="p-4 border-r border-b border-[#F0E6FF] align-middle w-32"
-                    >
-                      Նվազագույն
-                      <br />
-                      գումար և<br />
-                      արժույթ
-                    </th>
-                    <th
-                      rowSpan={2}
-                      className="p-4 border-r border-b border-[#F0E6FF] align-middle w-48"
-                    >
-                      Տոկոսների
-                      <br />
-                      վճարման եղանակը
-                    </th>
-                    <th colSpan={7} className="p-4 border-b border-[#F0E6FF]">
-                      Ընդունման ժամկետներն ըստ օրերի քանակի
-                    </th>
-                  </tr>
-                  <tr>
-                    {tableColumns.map((col, idx) => (
+            {pageDetails.tableColumns.length > 0 && (
+              <div className="w-full overflow-x-auto rounded-xl border border-[#F0E6FF] shadow-sm">
+                <table className="w-full min-w-[900px] border-collapse bg-white text-sm text-center">
+                  <thead className="text-gray-800 font-semibold bg-gray-50/30">
+                    <tr>
                       <th
-                        key={idx}
-                        className="p-3 border-r last:border-r-0 border-b border-[#F0E6FF] font-semibold whitespace-pre-line"
+                        rowSpan={2}
+                        className="p-4 border-r border-b border-[#F0E6FF] align-middle w-32"
                       >
-                        {col}
+                        Նվազագույն
+                        <br />
+                        գումար և<br />
+                        արժույթ
                       </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="text-gray-600">
-                  {ratesData.map((group, groupIdx) => (
-                    <React.Fragment key={groupIdx}>
-                      {group.rows.map((row, rowIdx) => (
-                        <tr
-                          key={rowIdx}
-                          className="hover:bg-gray-50/50 transition-colors"
+                      <th
+                        rowSpan={2}
+                        className="p-4 border-r border-b border-[#F0E6FF] align-middle w-48"
+                      >
+                        Տոկոսների
+                        <br />
+                        վճարման եղանակը
+                      </th>
+                      <th
+                        colSpan={pageDetails.tableColumns.length}
+                        className="p-4 border-b border-[#F0E6FF]"
+                      >
+                        Ընդունման ժամկետներն ըստ օրերի քանակի
+                      </th>
+                    </tr>
+                    <tr>
+                      {pageDetails.tableColumns.map((col, idx) => (
+                        <th
+                          key={idx}
+                          className="p-3 border-r last:border-r-0 border-b border-[#F0E6FF] font-semibold whitespace-pre-line"
                         >
-                          {rowIdx === 0 && (
-                            <td
-                              rowSpan={group.rows.length}
-                              className="p-4 border-r border-b border-[#F0E6FF] font-medium text-gray-800 bg-white align-middle"
-                            >
-                              {group.currency}
-                            </td>
-                          )}
-                          <td className="p-4 border-r border-b border-[#F0E6FF] text-left">
-                            {row.method}
-                          </td>
-                          {row.rates.map((rate, rateIdx) => (
-                            <td
-                              key={rateIdx}
-                              className="p-4 border-r last:border-r-0 border-b border-[#F0E6FF] whitespace-nowrap"
-                            >
-                              {rate}
-                            </td>
-                          ))}
-                        </tr>
+                          {col}
+                        </th>
                       ))}
-                    </React.Fragment>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-600">
+                    {pageDetails.ratesData.map((group, groupIdx) => (
+                      <React.Fragment key={groupIdx}>
+                        {group.rows?.map((row, rowIdx) => (
+                          <tr
+                            key={rowIdx}
+                            className="hover:bg-gray-50/50 transition-colors"
+                          >
+                            {rowIdx === 0 && (
+                              <td
+                                rowSpan={group.rows.length}
+                                className="p-4 border-r border-b border-[#F0E6FF] font-medium text-gray-800 bg-white align-middle"
+                              >
+                                {group.currency}
+                              </td>
+                            )}
+                            <td className="p-4 border-r border-b border-[#F0E6FF] text-left">
+                              {row.method}
+                            </td>
+                            {row.rates?.map((rate, rateIdx) => (
+                              <td
+                                key={rateIdx}
+                                className="p-4 border-r last:border-r-0 border-b border-[#F0E6FF] whitespace-nowrap"
+                              >
+                                {rate}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </React.Fragment>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             {/* Պայմանների ցանկ */}
             <div className="space-y-6 mt-8">
@@ -579,7 +450,9 @@ const DepositDetail = () => {
                   }}
                 >
                   <div
-                    className={`w-full h-40 rounded-xl overflow-hidden mb-4 ${dep.imageBgColor || "bg-gray-100"}`}
+                    className={`w-full h-40 rounded-xl overflow-hidden mb-4 ${
+                      dep.imageBgColor || "bg-gray-100"
+                    }`}
                   >
                     <img
                       src={dep.image}

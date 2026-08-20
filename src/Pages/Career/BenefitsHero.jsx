@@ -1,8 +1,6 @@
 import React from "react";
 
-// ==========================================
-// 1. HERO ՀԱՏՎԱԾ
-// ==========================================
+
 function BenefitsHero() {
   return (
     <section

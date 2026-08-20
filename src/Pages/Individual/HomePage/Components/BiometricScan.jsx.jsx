@@ -126,7 +126,7 @@ function BiometricSection() {
         </div>
       </div>
 
-      {/* 2. Տեքստային բլոկ և QR-կոդ (Поднят выше для md: md:-mt-[80px]) */}
+
       <div className="w-full max-w-[360px] sm:max-w-[460px] md:max-w-full lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] flex flex-col items-start text-left shrink-0 self-center sm:self-start lg:self-center lg:pr-4 xl:order-2 -mt-[110px] md:-mt-[80px] lg:mt-0 relative z-10">
         {/* Վերնագիրը (h2) */}
         <h2 className="text-[22px] sm:text-[26px] md:text-[34px] lg:text-[28px] xl:text-[34px] 2xl:text-[42px] font-bold text-[#1c1d21] leading-[1.25] md:leading-[1.3] mb-4 md:mb-6 lg:mb-5 2xl:mb-7">
@@ -149,7 +149,7 @@ function BiometricSection() {
           Իմանալ ավելին
         </button>
 
-        {/* Контейнер QR + Кнопка */}
+
         <div className="hidden md:flex md:items-end lg:items-center justify-start gap-6 md:gap-8 lg:gap-12 w-full pt-2 xl:-mt-10 2xl:-mt-10">
           <img
             src={qrCode}

@@ -1,52 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBJ3_mGAyawhU5fZwKsg1CQLu-0MAGbZTY",
-  authDomain: "evoca-app-cdeac.firebaseapp.com",
-  projectId: "evoca-app-cdeac",
-  storageBucket: "evoca-app-cdeac.firebasestorage.app",
-  messagingSenderId: "197478671668",
-  appId: "1:197478671668:web:5661f415d8b4445649f161",
-  measurementId: "G-N469K2446L",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// Ստատիկ տեղեկատվություն, որը կցուցադրվի բոլոր էջերում, եթե Firebase-ում բացակայում է
-const staticJobInfo = {
-  description: `
-    Evoca-ն փնտրում է նվիրված և փորձառու մասնագետի, ով պատասխանատու կլինի բանկի համապատասխան պրոդուկտների թվային զարգացման և նորարարական լուծումների ներդրման համար։
-  `,
-  responsibilities: `
-    • Մշակել և զարգացնել բանկի պրոդուկտների թվային լուծումները։
-    • Իրականացնել ծառայությունների և գործընթացների թվայնացում։
-    • Ուսումնասիրել ՀՀ բանկային համակարգում և միջազգային շուկաներում կիրառվող արդիական լուծումները։
-    • Մասնակցել պրոդուկտների ինտեգրման և համակարգերի ներդրման գործընթացներին։
-    • Ներկայացնել առաջարկներ նոր պրոդուկտների ստեղծման կամ գործողների զարգացման վերաբերյալ։
-    • Համագործակցել բիզնես, տեխնիկական և գործընկեր կազմակերպությունների հետ։
-  `,
-  requirements: `
-    • Բարձրագույն կրթություն բարձր տեխնոլոգիաների կամ ֆինանսական ոլորտում։
-    • Առնվազն 2 տարվա աշխատանքային փորձ համապատասխան ոլորտում։
-    • Նորագույն թվային տեխնոլոգիաների և կառավարման գործիքների իմացություն։
-    • Թիմում աշխատելու և հաղորդակցման գերազանց հմտություններ։
-    • Հայերենի գերազանց, անգլերենի և ռուսերենի լավ իմացություն։
-  `,
-  benefits: `
-    • Բժշկական ապահովագրություն։
-    • Ճամփորդական ապահովագրություն։
-    • Evoca-ի պրոդուկտների և ծառայությունների արտոնյալ պայմաններ։
-    • Տոնական և տարեվերջյան բոնուսներ։
-    • Վճարվող հանգստյան օրեր։
-    • Սպորտ փաթեթ։
-    • Անգլերեն լեզվի դասընթացներ։
-    • Շարունակական կրթության և զարգացման լայն հնարավորություններ։
-  `,
-};
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase"; // Ճիշտ ներմուծում Firebase-ից
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -121,41 +76,49 @@ const JobDetail = () => {
 
         {/* Տեքստային բովանդակություն */}
         <div className="text-[#333333] space-y-10">
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
-              Աշխատատեղի նկարագրություն`
-            </h2>
-            <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
-              {job.description || staticJobInfo.description}
+          {job.description && (
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
+                Աշխատատեղի նկարագրություն`
+              </h2>
+              <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
+                {job.description}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
-              Աշխատանքային պարտականություններ`
-            </h2>
-            <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
-              {job.responsibilities || staticJobInfo.responsibilities}
+          {job.responsibilities && (
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
+                Աշխատանքային պարտականություններ`
+              </h2>
+              <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
+                {job.responsibilities}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
-              Ներկայացվող պահանջներ`
-            </h2>
-            <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
-              {job.requirements || staticJobInfo.requirements}
+          {job.requirements && (
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
+                Ներկայացվող պահանջներ`
+              </h2>
+              <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
+                {job.requirements}
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
-              Ի՞նչ արտոնություններ կստանաք Դուք`
-            </h2>
-            <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
-              {job.benefits || staticJobInfo.benefits}
+          {job.benefits && (
+            <div>
+              <h2 className="text-xl md:text-2xl font-bold text-[#5c1bb9] mb-4">
+                Ի՞նչ արտոնություններ կստանաք Դուք`
+              </h2>
+              <div className="prose max-w-none text-[15px] leading-relaxed whitespace-pre-line text-[#333333]">
+                {job.benefits}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

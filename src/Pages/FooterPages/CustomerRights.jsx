@@ -1,50 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
-const CustomerRights = () => {
-  const documents = [
-    {
-      id: 1,
-      title:
-        "«Անցանկալի հաճախորդների հետ հարաբերությունների կառավարման» ընթացակարգ (Ուժի մեջ է 30.04.2026թ.-ից)",
-      link: "https://www.evoca.am/files/global_files/1/unwanted-customer-relationship-management-30-04-26.pdf",
-    },
-    {
-      id: 2,
-      title: "Բողոքների քննության կանոններ (30.04.2026թ.)",
-      link: "https://www.evoca.am/files/global_files/1/Rules-for-handling-complaints-30-04-26.pdf",
-    },
-    {
-      id: 3,
-      title: "Ինչ անել, եթե բողոք ունեք (30.04.2026թ.)",
-      link: "https://www.evoca.am/files/global_files/1/Rules-for-handling-complaints-30-04-26.pdf",
-    },
-    {
-      id: 4,
-      title: "Բողոքի ներկայացման հայտ (30.04.2026թ.)",
-      link: "https://www.evoca.am/files/global_files/1/Rules-for-handling-complaints-30-04-26.pdf",
-    },
-    {
-      id: 5,
-      title:
-        "Անձնական տվյալների մշակման և երրորդ անձանց փոխանցման Համաձայնություն",
-      link: "https://www.evoca.am/files/global_files/1/unwanted-customer-relationship-management-30-04-26.pdf",
-    },
-    {
-      id: 6,
-      title:
-        "Հաճախորդներին ծառայությունների մատուցման նպատակով Բանկի կողմից «ԷԿԵՆԳ» ՓԲԸ և «ՆՈՐՔ» կենտրոն փոխանցվող տվյալներ",
-      link: "https://www.evoca.am/files/global_files/1/unwanted-customer-relationship-management-30-04-26.pdf",
-    },
-  ];
+export default function CustomerRights() {
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "customerRights", "main"));
+        if (docSnap.exists()) {
+          setDocuments(docSnap.data().documents || []);
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-8 font-sans text-gray-800">
-      {/* Էջի Վերնագիր */}
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight">
         Հաճախորդի իրավունքները (Բողոքի ներկայացման կանոններ)
       </h1>
 
-      {/* Տեքստային բովանդակություն */}
       <div className="space-y-5 text-sm sm:text-base leading-relaxed text-gray-700 mb-12">
         <p className="font-semibold text-gray-900">Հարգելի Հաճախորդներ`</p>
 
@@ -87,7 +74,6 @@ const CustomerRights = () => {
           հեռախոսահամարով:
         </p>
 
-        {/* Ուշադրություն բաժին */}
         <div className="pt-2">
           <p className="font-bold text-[#5D00E0] mb-3">Ուշադրություն`</p>
           <ul className="space-y-4 pl-2">
@@ -132,23 +118,21 @@ const CustomerRights = () => {
         </div>
       </div>
 
-      {/* Փաստաթղթեր Բաժին */}
       <div>
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
           Փաստաթղթեր
         </h2>
 
         <div className="space-y-3">
-          {documents.map((doc) => (
+          {documents.map((docItem) => (
             <a
-              key={doc.id}
-              href={doc.link}
+              key={docItem.id}
+              href={docItem.link}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between p-4 sm:p-5 bg-[#F8F9FB] hover:bg-[#F0EBFA] border border-transparent hover:border-[#5D00E0]/20 rounded-2xl transition-all group duration-200"
             >
               <div className="flex items-center gap-4 pr-4">
-                {/* PDF Icon */}
                 <div className="w-10 h-10 rounded-xl bg-purple-100 text-[#5D00E0] flex items-center justify-center shrink-0 group-hover:bg-[#5D00E0] group-hover:text-white transition-colors">
                   <svg
                     width="20"
@@ -166,9 +150,8 @@ const CustomerRights = () => {
                     <path d="m9 15 3 3 3-3" />
                   </svg>
                 </div>
-                {/* Title */}
                 <span className="text-xs sm:text-sm md:text-base font-semibold text-gray-800 group-hover:text-[#5D00E0] transition-colors leading-snug">
-                  {doc.title}
+                  {docItem.title}
                 </span>
               </div>
             </a>
@@ -177,6 +160,4 @@ const CustomerRights = () => {
       </div>
     </div>
   );
-};
-
-export default CustomerRights;
+}

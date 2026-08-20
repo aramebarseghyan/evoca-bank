@@ -8,12 +8,10 @@ const LoanRepaymentPage = () => {
     {
       title: "Վարկի մայր գումարի վաղաժամկետ մարում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-input", // Ведет на страницу ввода номера
     },
     {
       title: "Հերթական մարում",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/loan-input", // Тоже ведет на страницу ввода номера
     },
   ];
 
@@ -23,7 +21,7 @@ const LoanRepaymentPage = () => {
 
       <main className="w-full py-8 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1240px]">
-          {/* Хлебные крошки */}
+
           <div className="text-sm text-[#6000ff] mb-8">
             <Link to="/instant-payments" className="hover:underline">
               Գլխավոր

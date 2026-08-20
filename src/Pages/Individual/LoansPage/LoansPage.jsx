@@ -14,7 +14,6 @@ const LoansPage = () => {
       />
       <LoanList activeFilter={activeFilter} />
 
-      {/* Զամբյուղի լողացող կոճակ */}
       <FavoritesWidget />
     </div>
   );

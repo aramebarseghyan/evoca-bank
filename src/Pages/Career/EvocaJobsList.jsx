@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // <--- Импортируем
+import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
@@ -19,7 +19,7 @@ const db = getFirestore(app);
 const EvocaJobsList = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // <--- Инициализируем
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJobs = async () => {

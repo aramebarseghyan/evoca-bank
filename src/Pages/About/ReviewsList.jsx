@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-// ВАЖНО: Укажи правильный путь к твоему firebase.js
+
 import { db } from "../../firebase";
 
-// Картинки из assets/img (убедись, что пути правильные)
+
 import hand1 from "../../assets/img/hand1.png";
 import hand2 from "../../assets/img/hand2.png";
 import shape5 from "../../assets/img/shape5.png";
 import shape6 from "../../assets/img/shape6.png";
 
-// --- ИКОНКИ (SVG) ---
+
 const LargeQuoteIcon = () => (
   <svg
     width="36"
@@ -94,7 +94,7 @@ const ReviewsList = () => {
         }));
         setTestimonials(data);
       } catch (error) {
-        console.error("Ошибка при загрузке отзывов:", error);
+        console.error("Error loading testimonials:", error);
       } finally {
         setLoading(false);
       }
@@ -136,16 +136,16 @@ const ReviewsList = () => {
                   isReverse ? "lg:flex-row-reverse" : ""
                 }`}
               >
-                {/* --- 1. Карточка Автора --- */}
+
                 <div className="w-full lg:w-4/12 flex justify-center relative">
-                  {/* Фоновый элемент */}
+
                   <div
                     className={`absolute w-48 h-48 md:w-56 md:h-56 opacity-60 ${cardStyle.bgElement} ${cardStyle.bgShapeClass} ${
                       isReverse ? "-right-2" : "-left-2"
                     } top-2`}
                   ></div>
 
-                  {/* Белая карточка с тенью */}
+
                   <div
                     className={`bg-white shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center w-48 h-48 md:w-56 md:h-56 relative z-10 p-4 ${
                       cardStyle.cardClass
@@ -161,7 +161,7 @@ const ReviewsList = () => {
                     </div>
                   </div>
 
-                  {/* Плавающая 3D рука / фигура */}
+
                   {cardStyle.decorImage && (
                     <img
                       src={cardStyle.decorImage}
@@ -171,7 +171,7 @@ const ReviewsList = () => {
                   )}
                 </div>
 
-                {/* --- 2. Блок Текста --- */}
+
                 <div className="w-full lg:w-7/12 flex flex-col justify-center items-start text-center lg:text-left">
                   <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3 mb-3 w-full">
                     <LargeQuoteIcon />

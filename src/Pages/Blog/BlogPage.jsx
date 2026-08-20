@@ -12,7 +12,7 @@ const BlogPage = () => {
     const fetchBlog = async () => {
       try {
         const db = getFirestore();
-        // Берем данные из коллекции "blog"
+
         const querySnapshot = await getDocs(collection(db, "blog"));
         const blogArray = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -49,10 +49,10 @@ const BlogPage = () => {
 
   return (
     <div className="w-full font-sans text-[#333] relative overflow-hidden pb-20">
-      {/* Шапка Блога и блок фильтров */}
+
       <div className="w-full">
         <div className="max-w-[1200px] mx-auto px-4 pt-10 pb-4">
-          {/* Главный заголовок страницы (как на скринах) */}
+
           <h1 className="text-4xl md:text-[42px] font-extrabold text-[#2a1b54] mb-8">
             Բլոգ
           </h1>
@@ -67,7 +67,7 @@ const BlogPage = () => {
               }
             `}</style>
 
-            {/* Левая часть: категории */}
+
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
               {categories.map((cat, idx) => (
                 <button
@@ -79,7 +79,7 @@ const BlogPage = () => {
               ))}
             </div>
 
-            {/* Правая часть: кнопка «Արխիվ ›» */}
+
             <Link
               to="/blog/archive"
               className="px-5 md:px-6 py-2 rounded-full text-[13px] md:text-[14px] font-bold bg-[#f2e6ff] text-[#6a00ff] flex items-center gap-2 hover:bg-[#e8d4ff] transition-colors shrink-0 ml-auto"
@@ -91,7 +91,7 @@ const BlogPage = () => {
       </div>
 
       <section className="relative w-full mb-16 pt-8">
-        {/* Водяной знак "Գլխավոր" для первого блока */}
+
         <div className="absolute top-[-20px] left-[5%] text-[6rem] md:text-[10rem] font-bold text-gray-100 -z-20 select-none whitespace-nowrap opacity-70 pointer-events-none">
           Գլխավոր
         </div>

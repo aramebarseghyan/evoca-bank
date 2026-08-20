@@ -7,7 +7,6 @@ const AuthModal = () => {
   const { isAuthModalOpen, closeAuthModal, user, setUser } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Блокируем скролл страницы при открытой модалке
   useEffect(() => {
     if (isAuthModalOpen) {
       document.body.style.overflow = "hidden";
@@ -21,30 +20,30 @@ const AuthModal = () => {
 
   if (!isAuthModalOpen) return null;
 
-  // Логика выхода
+
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
       await signOut(auth);
     } catch (error) {
-      console.error("Ошибка при выходе:", error);
+      console.error("Sign-out error:", error);
     } finally {
       setUser(null);
       closeAuthModal();
     }
   };
 
-  // Логика входа (Google)
+
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       setUser(result.user);
-      // После успешного входа можно сразу закрыть модалку:
+
       // closeAuthModal();
     } catch (error) {
-      console.error("Ошибка при входе:", error);
+      console.error("Sign-in error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +58,7 @@ const AuthModal = () => {
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-[380px] bg-white rounded-3xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] overflow-hidden mx-4 animate-in zoom-in-95 duration-200"
       >
-        {/* Кнопка закрытия */}
+
         <button
           type="button"
           onClick={closeAuthModal}
@@ -80,16 +79,16 @@ const AuthModal = () => {
           </svg>
         </button>
 
-        {/* Верхняя шапка */}
+
         <div className="h-28 bg-gradient-to-r from-[#6000ff] via-[#7526ff] to-[#8f4dff] relative">
           <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,white_1px,transparent_1px)] bg-[size:12px_12px]"></div>
         </div>
 
         <div className="px-8 pb-8 pt-0 flex flex-col items-center relative">
           {user ? (
-            /* ================= СТАДИЯ 1: ПОЛЬЗОВАТЕЛЬ АВТОРИЗОВАН ================= */
+
             <>
-              {/* Аватар */}
+
               <div className="-mt-12 mb-4 relative">
                 {user.photoURL ? (
                   <img
@@ -106,15 +105,15 @@ const AuthModal = () => {
                 <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
               </div>
 
-              {/* Данные пользователя */}
+
               <h3 className="text-xl font-bold text-gray-900 mb-1 tracking-tight">
-                {user.displayName || "Пользователь"}
+                {user.displayName || "User"}
               </h3>
               <p className="text-sm text-gray-500 mb-6 font-medium text-center break-all">
                 {user.email}
               </p>
 
-              {/* Бейдж */}
+
               <div className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-gray-50/80 rounded-2xl mb-6 border border-gray-100">
                 <svg
                   className="w-4 h-4 text-gray-600"
@@ -143,7 +142,7 @@ const AuthModal = () => {
                 </span>
               </div>
 
-              {/* Выход */}
+
               <button
                 type="button"
                 onClick={handleLogout}
@@ -166,9 +165,9 @@ const AuthModal = () => {
               </button>
             </>
           ) : (
-            /* ================= СТАДИЯ 2: ПОЛЬЗОВАТЕЛЬ НЕ АВТОРИЗОВАН ================= */
+
             <>
-              {/* Пустой аватар */}
+
               <div className="-mt-12 mb-4 relative">
                 <div className="w-24 h-24 rounded-full bg-white text-gray-300 flex items-center justify-center border-[5px] border-white shadow-lg">
                   <svg
@@ -188,7 +187,7 @@ const AuthModal = () => {
                 Մուտք գործեք՝ ձեր հաշիվը կառավարելու համար
               </p>
 
-              {/* Кнопка входа Google */}
+
               <button
                 type="button"
                 onClick={handleGoogleLogin}

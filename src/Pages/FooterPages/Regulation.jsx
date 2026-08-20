@@ -1,53 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const Regulation = () => {
-  const laws = [
-    "«Հայաստանի Հանրապետության Քաղաքացիական օրենսգիրք»,",
-    "«Բանկային գաղտնիքի մասին»,",
-    "«Բանկային ավանդների ներգրավման մասին»,",
-    "«Վճարման հանձնարարականով միջոցների փոխանցումների մասին»,",
-    "«Արժութային կարգավորման և արժութային վերահսկողության մասին»,",
-    "«Արժեթղթերի շուկայի մասին»,",
-    "«Ֆիզիկական անձանց բանկային ավանդների հատուցումը երաշխավորելու մասին»,",
-    "«Վճարահաշվարկային համակարգերի և վճարահաշվարկային կազմակերպությունների մասին»,",
-    "«Փողերի լվացման և ահաբեկչության ֆինանսավորման դեմ պայքարի մասին»,",
-    "«Սպառողական կրեդիտավորման մասին»,",
-    "«Բնակարանային հիփոթեքային կրեդիտավորման մասին»,",
-    "«Պետական կենսաթոշակների մասին»,",
-    "«Ֆինանսական համակարգի հաշտարարի մասին»,",
-    "«Պետական նպաստների մասին»,",
-    "«Բանկերի և բանկային գործունեության մասին»:",
-  ];
+  const [laws, setLaws] = useState([]);
+  const [cbRegulations, setCbRegulations] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const cbRegulations = [
-    "Կանոնակարգ 8/01 «Տարեկան փաստացի տոկոսադրույքի հաշվարկման բացատրություններ և օրինակներ»,",
-    "Կանոնակարգ 8/02 «Բանկային ավանդների տարեկան տոկոսային եկամտաբերության հաշվարկումը»,",
-    "Կանոնակարգ 8/03 «Ֆինանսական կազմակերպությունների և ֆինանսական խմբերի կողմից տեղեկությունների հրապարակումը»,",
-    "Կանոնակարգ 8/04 «Հաճախորդների բողոքների քննության գործընթացը կարգավորող ներքին իրավական ակտերին ներկայացվող նվազագույն պայմաններ և սկզբունքներ»,",
-    "Կանոնակարգ 8/05 «Ֆինանսական կազմակերպությունների գործարար վարվելակերպի կանոնները»,",
-    "Կանոնակարգ 9 «ՀՀ տարածքում գործող բանկերում կանխիկ դրամով կատարվող գործառնությունները»:",
-  ];
+  useEffect(() => {
+    const fetchRegulationsData = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "regulations", "main"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setLaws(data.laws || []);
+          setCbRegulations(data.cbRegulations || []);
+          setDocuments(data.documents || []);
+        }
+      } catch (error) {
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const documents = [
-    {
-      title:
-        "«Անցանկալի հաճախորդների հետ հարաբերությունների կառավարման» ընթացակարգ (Ուժի մեջ է 30.04.2026թ.-ից)",
-      url: "https://www.evoca.am/files/global_files/1/unwanted-customer-relationship-management-30-04-26.pdf",
-    },
-    {
-      title: "Բնապահպանական և սոցիալական կառավարման համակարգ",
-      url: "https://www.evoca.am/files/global_files/1/esms-procedure-arm.pdf",
-    },
-    {
-      title: "Հաճախորդների սպասարկման գործելակարգ 15.03.2022թ.",
-      url: "https://www.evoca.am/files/global_files/1/customer-service-policy.pdf",
-    },
-    {
-      title:
-        "Տեղեկատվական անվտանգության քաղաքականություն (Ուժի մեջ է 25.12.2025թ.-ից)",
-      url: "https://www.evoca.am/files/global_files/1/information-security-policy-25-12-25.pdf",
-    },
-  ];
+    fetchRegulationsData();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <div className="w-full max-w-[1000px] mx-auto px-6 sm:px-10 lg:px-16 py-8 text-gray-800 font-sans leading-relaxed">

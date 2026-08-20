@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import InfoCard from "./InfoCard";
-import { db } from "../../../../firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { useSearchParams } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../../firebase";
+import InfoCard from "./InfoCard";
 
-const InfoList = ({ activeFilter, collectionName = "cards" }) => {
+export default function InfoList({ activeFilter = "all", collectionName = "cards" }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -95,7 +95,7 @@ const InfoList = ({ activeFilter, collectionName = "cards" }) => {
       return true;
     if (
       activeFilter === "tariffs" &&
-      (title.includes("սակագן") || title.includes("սակագներ"))
+      (title.includes("սակագն") || title.includes("սակագներ"))
     )
       return true;
     if (
@@ -183,11 +183,4 @@ const InfoList = ({ activeFilter, collectionName = "cards" }) => {
       )}
     </div>
   );
-};
-
-InfoList.defaultProps = {
-  activeFilter: "all",
-  collectionName: "cards",
-};
-
-export default InfoList;
+}

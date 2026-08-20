@@ -8,8 +8,8 @@ const LoanInputPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Введен номер договора:", contractNumber);
-    // Здесь в будущем можно сделать переход на следующий шаг или проверку
+    console.log("Contract number entered:", contractNumber);
+
   };
 
   return (
@@ -18,7 +18,7 @@ const LoanInputPage = () => {
 
       <main className="w-full py-8 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1240px]">
-          {/* Хлебные крошки */}
+
           <div className="text-sm text-[#6000ff] mb-8">
             <Link to="/instant-payments" className="hover:underline">
               Գլխավոր
@@ -33,12 +33,12 @@ const LoanInputPage = () => {
             </span>
           </div>
 
-          {/* Заголовок */}
+
           <h1 className="text-center text-[32px] lg:text-[40px] font-bold text-[#222222] mb-12">
             Վարկի մայր գումարի վաղաժամկետ մարում
           </h1>
 
-          {/* Форма ввода */}
+
           <div className="flex justify-center">
             <div className="bg-white rounded-[24px] p-8 sm:p-12 w-full max-w-[600px] shadow-sm">
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">

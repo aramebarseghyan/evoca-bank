@@ -1,87 +1,41 @@
 import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
 import LatestNews from "../HomePage/Components/LatestNews";
 
 const InvestmentServices = () => {
   const [openAccordion, setOpenAccordion] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [accordionData, setAccordionData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 50);
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const docRef = doc(db, "investment_services_config", "main");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.accordionData) {
+            setAccordionData(data.accordionData);
+          }
+        } else {
+          console.warn("Document investment_services_config/main not found!");
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
     return () => clearTimeout(timer);
   }, []);
-
-  const accordionData = [
-    {
-      title: "Ներդրումային ծառայությունների մատուցման կանոններ",
-      content: (
-        <div className="space-y-6">
-          <div>
-            <a
-              href="#rules1"
-              className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-80 block mb-2"
-            >
-              Արժեթղթերի շուկայում բրոքերային ծառայությունների մատուցման
-              կանոններ
-            </a>
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-              Այս կանոնները սահմանում են մեր հաճախորդների կողմից մեզ ներկայացված
-              արժեթղթերով գործարքների կնքման պատվերների ընդունման/հաղորդման,
-              հաճախորդների հետ կապի իրականացման, հաճախորդի հաշվին արժեթղթերով
-              գործարքների կատարման կարգն ու պայմանները, ինչպես նաև տրամադրում
-              գործառնությունների իրականացման հետ կապված հնարավոր ռիսկերի
-              վերաբերյալ ընդհանրական տեղեկություններ: Կանոնները մշակված են
-              Հայաստանի քաղաքացիական օրենսգրքին, «Արժեթղթերի շուկայի մասին» ՀՀ
-              օրենքին, ՀՀ Կենտրոնական բանկի նորմատիվ և այլ իրավական ակտերին
-              համապատասխան:
-            </p>
-          </div>
-
-          <div>
-            <a
-              href="#rules2"
-              className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-80 block mb-2"
-            >
-              Արժեթղթերի պահառության գործունեության կանոններ
-            </a>
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-              Այս կանոնները սահմանում են արժեթղթերի հաշիվների հետ կատարվող
-              գործառնությունների ցանկը, ծառայությունների մատուցման/կատարման
-              կարգն ու պայմանները, պահառության հետ կապված հարաբերությունները,
-              ինչպես նաև պահառության աշխատանքների կանոնները: Կանոնները մշակված
-              են Հայաստանի քաղաքացիական օրենսգրքին, «Արժեթղթերի շուկայի մասին»
-              ՀՀ օրենքին և պահառության գործունեությունը կանոնակարգող իրավական
-              այլ ակտերին (այդ թվում՝ Հայաստանի կենտրոնական դեպոզիտարիայի
-              կանոնների պահանջներին) համապատասխան:
-            </p>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: "Ծառայությունների մատուցման սակագներ",
-      content: (
-        <div className="text-gray-700 text-sm md:text-base leading-relaxed">
-          <p>
-            Ներդրումային և բրոքերային ծառայությունների մատուցման մանրամասն
-            սակագներին և միջնորդավճարներին կարող եք ծանոթանալ բանկի կողմից
-            սահմանված պաշտոնական փաստաթղթերում:
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "Լրացուցիչ տեղեկատվություն",
-      content: (
-        <div className="text-gray-700 text-sm md:text-base leading-relaxed">
-          <p>
-            Լրացուցիչ տեղեկությունների, հաշիվների բացման և անհրաժեշտ փաստաթղթերի
-            ցանկի համար կարող եք դիմել բանկի գլխամասային գրասենյակ կամ
-            զանգահարել նշված հեռախոսահամարներով:
-          </p>
-        </div>
-      ),
-    },
-  ];
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
@@ -210,60 +164,93 @@ const InvestmentServices = () => {
           </div>
         </div>
 
-        {/* 3. Required Information (Accordion) */}
+        {/* 3. Dynamic Accordion Section */}
         <div className="px-4 sm:px-8 lg:px-16 max-w-[1200px] mx-auto mb-16">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h2>
 
-          <div className="space-y-4">
-            {accordionData.map((item, index) => {
-              const isOpen = openAccordion === index;
-              return (
+          {loading ? (
+            <div className="space-y-4 animate-pulse">
+              {[1, 2, 3].map((i) => (
                 <div
-                  key={index}
-                  className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                    isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
-                  }`}
-                >
-                  <button
-                    onClick={() => toggleAccordion(index)}
-                    className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <span className="text-lg font-bold text-gray-900">
-                      {item.title}
-                    </span>
-                    <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 ${
-                        isOpen
-                          ? "rotate-180 bg-[#5D00E0] text-white"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
-                    >
-                      ▼
-                    </span>
-                  </button>
-
+                  key={i}
+                  className="h-20 bg-gray-100 rounded-2xl border border-gray-200"
+                ></div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {accordionData.map((item, index) => {
+                const isOpen = openAccordion === index;
+                return (
                   <div
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
+                    key={index}
+                    className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
+                      isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
                     }`}
                   >
-                    <div className="overflow-hidden">
-                      <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white">
-                        {item.content}
+                    <button
+                      onClick={() => toggleAccordion(index)}
+                      className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
+                    >
+                      <span className="text-lg font-bold text-gray-900">
+                        {item.title}
+                      </span>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 ${
+                          isOpen
+                            ? "rotate-180 bg-[#5D00E0] text-white"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white">
+                          {item.sections ? (
+                            <div className="space-y-6">
+                              {item.sections.map((sec, secIdx) => (
+                                <div key={secIdx}>
+                                  {sec.linkText && (
+                                    <a
+                                      href={sec.linkHref || "#"}
+                                      className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-80 block mb-2"
+                                    >
+                                      {sec.linkText}
+                                    </a>
+                                  )}
+                                  <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                                    {sec.text}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="text-gray-700 text-sm md:text-base leading-relaxed">
+                              <p>{item.text}</p>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
-      <LatestNews></LatestNews>
+      <LatestNews />
     </div>
   );
 };

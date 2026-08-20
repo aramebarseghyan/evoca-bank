@@ -1,53 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../../firebase";
 import LatestNews from "../HomePage/Components/LatestNews";
 
 const StocksCdaServices = () => {
   const [openAccordion, setOpenAccordion] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [accordionData, setAccordionData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 50);
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const docRef = doc(db, "stocks_cda_services_config", "main");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.accordionData) {
+            setAccordionData(data.accordionData);
+          }
+        } else {
+          console.warn("Document stocks_cda_services_config/main not found!");
+        }
+      } catch (error) {
+        console.error("Error fetching data from Firebase:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
     return () => clearTimeout(timer);
   }, []);
-
-  const accordionData = [
-    {
-      title: "ՀԿԴ ծառայությունների մատուցման սակագներ և կանոններ",
-      content: (
-        <div className="space-y-6">
-          <div>
-            <a
-              href="#tariffs"
-              className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-85 block mb-2"
-            >
-              Հայաստանի կենտրոնական դեպոզիտարիայի կողմից մատուցվող
-              ծառայությունների միջնորդավորման գործունեության սակագներ
-            </a>
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-              Ծանոթացեք Հայաստանի կենտրոնական դեպոզիտարիայի կողմից մատուցվող
-              ծառայությունների միջնորդավորման գործունեության հետ կապված
-              սակագներին և միջնորդավճարներին:
-            </p>
-          </div>
-
-          <div>
-            <a
-              href="#rules"
-              className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-85 block mb-2"
-            >
-              Հայաստանի կենտրոնական դեպոզիտարիայի կողմից մատուցվող
-              ծառայությունների միջնորդավորման գործունեության կանոններ
-            </a>
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-              Այս կանոնները սահմանում են հաճախորդների սպասարկման, հաշիվների
-              բացման, վարման և Հայաստանի կենտրոնական դեպոզիտարիայի հետ
-              համագործակցության հիմնական դրույթները:
-            </p>
-          </div>
-        </div>
-      ),
-    },
-  ];
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
@@ -110,54 +99,89 @@ const StocksCdaServices = () => {
             ԱՆՀՐԱԺԵՇՏ ՏԵՂԵԿԱՏՎՈՒԹՅՈՒՆ
           </h2>
 
-          <div className="space-y-4">
-            {accordionData.map((item, index) => {
-              const isOpen = openAccordion === index;
-              return (
+          {loading ? (
+            <div className="space-y-4 animate-pulse">
+              {[1].map((i) => (
                 <div
-                  key={index}
-                  className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                    isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
-                  }`}
-                >
-                  <button
-                    onClick={() => toggleAccordion(index)}
-                    className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <span className="text-lg font-bold text-gray-900">
-                      {item.title}
-                    </span>
-                    <span
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 ${
-                        isOpen
-                          ? "rotate-180 bg-[#5D00E0] text-white"
-                          : "bg-gray-100 text-gray-700"
-                      }`}
-                    >
-                      ▼
-                    </span>
-                  </button>
-
+                  key={i}
+                  className="h-20 bg-gray-100 rounded-2xl border border-gray-200"
+                ></div>
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {accordionData.map((item, index) => {
+                const isOpen = openAccordion === index;
+                return (
                   <div
-                    className={`grid transition-all duration-300 ease-in-out ${
-                      isOpen
-                        ? "grid-rows-[1fr] opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
+                    key={index}
+                    className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
+                      isOpen ? "border-[#5D00E0] shadow-sm" : "border-gray-200"
                     }`}
                   >
-                    <div className="overflow-hidden">
-                      <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white">
-                        {item.content}
+                    <button
+                      onClick={() => toggleAccordion(index)}
+                      className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors cursor-pointer"
+                    >
+                      <span className="text-lg font-bold text-gray-900">
+                        {item.title}
+                      </span>
+                      <span
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-300 ${
+                          isOpen
+                            ? "rotate-180 bg-[#5D00E0] text-white"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
+                        ▼
+                      </span>
+                    </button>
+
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen
+                          ? "grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white">
+                          {item.sections ? (
+                            <div className="space-y-6">
+                              {item.sections.map((sec, secIdx) => (
+                                <div key={secIdx}>
+                                  {sec.linkText && (
+                                    <a
+                                      href={sec.linkHref || "#"}
+                                      className="text-[#5D00E0] font-bold text-base md:text-lg underline hover:opacity-85 block mb-2"
+                                    >
+                                      {sec.linkText}
+                                    </a>
+                                  )}
+                                  {sec.text && (
+                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                                      {sec.text}
+                                    </p>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+                              {item.text}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
-      <LatestNews></LatestNews>
+      <LatestNews />
     </div>
   );
 };

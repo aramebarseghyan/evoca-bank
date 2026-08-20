@@ -5,23 +5,31 @@ export const useFavoriteStore = create(
   persist(
     (set, get) => ({
       favorites: [],
+
       toggleFavorite: (loan) => {
         const currentFavorites = get().favorites;
-        const isFav = currentFavorites.some((fav) => fav.id === loan.id);
+        // Переводим ID в строку для надежности
+        const loanId = String(loan.id);
+        const isFav = currentFavorites.some((fav) => String(fav.id) === loanId);
+
         if (isFav) {
           set({
-            favorites: currentFavorites.filter((fav) => fav.id !== loan.id),
+            favorites: currentFavorites.filter(
+              (fav) => String(fav.id) !== loanId,
+            ),
           });
         } else {
           set({ favorites: [...currentFavorites, loan] });
         }
       },
+
       isFavorite: (loanId) => {
-        return get().favorites.some((fav) => fav.id === loanId);
+        const id = String(loanId);
+        return get().favorites.some((fav) => String(fav.id) === id);
       },
     }),
     {
-      name: "favorite-loans-storage", // Պահպանում է localStorage-ում
-    }
-  )
+      name: "favorite-loans-storage",
+    },
+  ),
 );

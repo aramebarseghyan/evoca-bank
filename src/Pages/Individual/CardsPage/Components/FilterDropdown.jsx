@@ -10,7 +10,6 @@ const FilterDropdown = ({ activeFilter, setActiveFilter, filters }) => {
 
   return (
     <div className="mb-8">
-      {/* МОБИЛЬНАЯ КНОПКА */}
       <div className="lg:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -62,7 +61,7 @@ const FilterDropdown = ({ activeFilter, setActiveFilter, filters }) => {
         )}
       </div>
 
-      {/* ДЕСКТОПНАЯ ВЕРСИЯ */}
+
       <div className="hidden lg:flex items-center gap-3 overflow-x-auto py-2 scrollbar-none">
         {filters.map((filter) => {
           const isActive = activeFilter === filter.id;

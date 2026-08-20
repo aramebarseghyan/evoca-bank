@@ -1,6 +1,6 @@
 import React from "react";
 
-// Та же самая иконка документа со стрелочкой скачивания
+
 const DocumentIcon = () => (
   <svg
     width="28"
@@ -61,7 +61,7 @@ const DocumentIcon = () => (
 );
 
 const AnnualReports = () => {
-  // Список годовых отчетов в точности как на скриншоте
+
   const reports = [
     "2021 Տարեկան հաշվետվություն",
     "2020 Տարեկան հաշվետվություն",
@@ -75,12 +75,12 @@ const AnnualReports = () => {
   return (
     <div className="w-full bg-white flex justify-center py-12">
       <div className="w-full max-w-[850px] px-4 md:px-6">
-        {/* Заголовок */}
+
         <h2 className="text-xl md:text-[22px] font-extrabold text-[#1a1a26] mb-6">
           Փաստաթղթեր
         </h2>
 
-        {/* Список документов */}
+
         <div className="flex flex-col gap-3">
           {reports.map((report, index) => (
             <a
@@ -96,7 +96,7 @@ const AnnualReports = () => {
           ))}
         </div>
 
-        {/* Дата обновления */}
+
         <div className="w-full mt-16 pt-4 border-t border-gray-100 flex justify-end">
           <span className="text-[11px] md:text-[12px] text-gray-400 font-medium">
             Թարմացվել է՝ 08/07/2026 10:27

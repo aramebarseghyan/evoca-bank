@@ -1,104 +1,41 @@
-import React, { useState } from "react";
-
-const archiveData = [
-  {
-    id: "cash",
-    title: "Կանխիկի մուտքի համար Բանկի կողմից սահմանված դրույքաչափեր",
-    years: [
-      {
-        year: "2024",
-        items: [
-          {
-            text: "Կանխիկի մուտքի համար Բանկի կողմից սահմանված դրույքաչափեր (ՌԴ ռուբլի RUB, Բրիտանական ֆունտ GBP, Շվեյցարական ֆրանկ CHF)",
-            link: "#",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "complex",
-    title: "Համալիր բանկային ծառայությունների մատուցման պայմաններ",
-    years: [
-      {
-        year: "2025",
-        items: [
-          {
-            text: "16.05.2025 - Համալիր բանկային ծառայությունների մատուցման պայմաններ",
-            link: "#",
-          },
-        ],
-      },
-      {
-        year: "2023",
-        items: [
-          {
-            text: "01.11.2023 - Համալիր բանկային ծառայությունների մատուցման պայմաններ",
-            link: "#",
-          },
-          {
-            text: "10.04.2023 - Համալիր բանկային ծառայությունների մատուցման պայմաններ",
-            link: "#",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "loans",
-    title: "Վարկավորման պայմաններ և սակագներ",
-    years: [
-      {
-        year: "2026",
-        items: [
-          { text: "01.07.2026 - Վարկավորման պայմաններ և սակագներ", link: "#" },
-          { text: "09.06.2026 - Վարկավորման պայմաններ և սակագներ", link: "#" },
-        ],
-      },
-    ],
-  },
-  {
-    id: "deposits",
-    title: "Ավանդների ներգրավման պահմաններ և սակագներ",
-    years: [
-      {
-        year: "2026",
-        items: [
-          { text: "Ավանդների ընդհանուր պայմաններ և դրույքաչափեր", link: "#" },
-        ],
-      },
-    ],
-  },
-  {
-    id: "cards",
-    title: "Վճարային քարտերի տրամադրման և օգտագործման պայմաններ",
-    years: [
-      {
-        year: "2026",
-        items: [{ text: "Քարտերի թողարկման և սպասարկման սակագներ", link: "#" }],
-      },
-    ],
-  },
-  {
-    id: "tariffs",
-    title: "Սակագներ և դրույթներ",
-    years: [
-      {
-        year: "2026",
-        items: [{ text: "Ընդհանուր սակագներ և դրույթներ", link: "#" }],
-      },
-    ],
-  },
-];
+import React, { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase"; 
 
 const ArchivePage = () => {
-  // Изначально открыт элемент с id "loans"
+  const [archiveData, setArchiveData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [openId, setOpenId] = useState("loans");
 
+  useEffect(() => {
+    const fetchArchive = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "archive"));
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setArchiveData(data);
+        if (data.length > 0 && !openId) {
+          setOpenId(data[0].id);
+        }
+      } catch (error) {
+        console.error("Error fetching archive data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArchive();
+  }, []);
+
   const toggleAccordion = (id) => {
-    // Если кликаем на тот же - закрываем, иначе открываем новый (старый закроется сам)
     setOpenId(openId === id ? null : id);
   };
+
+  if (loading) {
+    return <div className="text-center py-20">Բեռնվում է...</div>;
+  }
 
   return (
     <div className="w-full max-w-[1200px] mx-auto px-4 py-8 font-sans">
@@ -145,7 +82,6 @@ const ArchivePage = () => {
                 </span>
               </button>
 
-              {/* Сетка для анимации высоты */}
               <div
                 style={{
                   display: "grid",
@@ -155,25 +91,26 @@ const ArchivePage = () => {
               >
                 <div className="overflow-hidden">
                   <div className="px-6 pb-6 pt-2 border-t border-gray-100 bg-white space-y-6">
-                    {section.years.map((yearBlock, idx) => (
-                      <div key={idx} className="space-y-3">
-                        <h3 className="text-purple-700 font-bold text-lg">
-                          {yearBlock.year}
-                        </h3>
-                        <ul className="space-y-2.5">
-                          {yearBlock.items.map((item, itemIdx) => (
-                            <li key={itemIdx}>
-                              <a
-                                href={item.link}
-                                className="text-purple-700 hover:text-purple-900 hover:underline text-sm sm:text-base inline-block transition-colors"
-                              >
-                                {item.text}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                    {section.years &&
+                      section.years.map((yearBlock, idx) => (
+                        <div key={idx} className="space-y-3">
+                          <h3 className="text-purple-700 font-bold text-lg">
+                            {yearBlock.year}
+                          </h3>
+                          <ul className="space-y-2.5">
+                            {yearBlock.items.map((item, itemIdx) => (
+                              <li key={itemIdx}>
+                                <a
+                                  href={item.link}
+                                  className="text-purple-700 hover:text-purple-900 hover:underline text-sm sm:text-base inline-block transition-colors"
+                                >
+                                  {item.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>

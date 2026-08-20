@@ -14,7 +14,6 @@ import "swiper/css/autoplay";
 import { useFavoriteStore } from "../../../../store/useFavoriteStore";
 import FavoritesWidget from "../FavoritesWidget";
 
-// Shape imports from assets/img
 import shape1 from "../../../../assets/img/shape1.png";
 import shape2 from "../../../../assets/img/shape2.png";
 import shape3 from "../../../../assets/img/shape3.png";

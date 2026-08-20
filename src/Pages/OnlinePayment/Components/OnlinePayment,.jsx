@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Импортируем твои шапку и подвал
+
 import HeaderOnl from "./HeaderOnl";
 import FooterOnl from "./FooterOnl";
 
 const OnlinePayment = () => {
-  // Теперь у всех категорий путь (path) ведет на "/evocabank"
+
   const categories = [
     {
       title: "EVOCABANK",
@@ -17,49 +17,43 @@ const OnlinePayment = () => {
     {
       title: "Միջազգային բջջային օպերատորներ",
       img: "https://resource.evoca.am/images/WebPayment/international.png",
-      path: "/evocabank", // <-- Изменено
     },
     {
       title: "Կոմունալ վճարումներ",
       img: "https://resource.evoca.am/images/WebPayment/utility.png",
-      path: "/evocabank", // <-- Изменено
     },
     {
       title: "Ինտերնետ և TV",
       img: "https://resource.evoca.am/images/WebPayment/internettv.png",
-      path: "/evocabank", // <-- Изменено
     },
     {
       title: "ՃՈ վճարներ",
       img: "https://resource.evoca.am/images/WebPayment/roadpolice.png",
-      path: "/evocabank", // <-- Изменено
     },
     {
       title: "Վարկային կազմակերպություններ",
       img: "https://resource.evoca.am/images/WebPayment/loan.png",
-      path: "/evocabank", // <-- Изменено
     },
     {
       title: "Միջոցառումներ",
       img: "https://resource.evoca.am/images/WebPayment/event.png",
-      path: "/evocabank", // <-- Изменено
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#f4f5f7] flex flex-col justify-between">
-      {/* Шапка */}
+
       <HeaderOnl />
 
-      {/* Основной контент */}
+
       <main className="w-full py-12 px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center">
         <div className="w-full max-w-[1240px]">
-          {/* Заголовок */}
+
           <h1 className="text-center text-[36px] lg:text-[40px] font-bold text-[#222222] mb-12">
             Գլխավոր
           </h1>
 
-          {/* Сетка карточек */}
+
           <div className="flex flex-wrap justify-center gap-6">
             {categories.map((item, index) => (
               <Link
@@ -67,7 +61,7 @@ const OnlinePayment = () => {
                 to={item.path}
                 className="bg-white rounded-[24px] p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-300 cursor-pointer h-[260px] w-full sm:w-[calc(50%-1.5rem)] md:w-[calc(33.33%-1.5rem)] lg:w-[calc(25%-1.125rem)] border border-transparent hover:border-[#6000ff] hover:bg-[#f6f0ff] group"
               >
-                {/* Картинка */}
+
                 <div className="flex-1 flex items-center justify-center mb-6">
                   <img
                     src={item.img}
@@ -76,7 +70,7 @@ const OnlinePayment = () => {
                   />
                 </div>
 
-                {/* Текст */}
+
                 <p
                   className={`text-[16px] font-medium leading-snug px-2 ${
                     item.isLogo
@@ -92,7 +86,7 @@ const OnlinePayment = () => {
         </div>
       </main>
 
-      {/* Подвал */}
+
       <FooterOnl />
     </div>
   );

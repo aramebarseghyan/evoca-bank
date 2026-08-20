@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db } from "../../../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
-// Импортируем флаги
+
 import usaFlag from "../../../../assets/partners/usaFlag.png";
 import europeFlag from "../../../../assets/partners/europeFlag.webp";
 import russiaFlag from "../../../../assets/partners/russiaFlag.jpg";
@@ -12,13 +12,13 @@ const ExchangeRates = () => {
   const [haveValue, setHaveValue] = useState("");
   const [getValue, setGetValue] = useState("");
 
-  // Состояния для данных из Firebase
+
   const [firebaseCash, setFirebaseCash] = useState([]);
   const [firebaseNonCash, setFirebaseNonCash] = useState([]);
   const [firebaseGold, setFirebaseGold] = useState([]);
   const [rubDepositRate, setRubDepositRate] = useState("10%");
 
-  // Загрузка данных из Firebase в реальном времени
+
   useEffect(() => {
     const unsubCash = onSnapshot(doc(db, "rates", "cash"), (docSnap) => {
       if (docSnap.exists()) setFirebaseCash(docSnap.data().items || []);
@@ -46,7 +46,7 @@ const ExchangeRates = () => {
     };
   }, []);
 
-  // Функция для подстановки флагов валютам
+
   const getFlag = (currency) => {
     if (currency === "USD") return usaFlag;
     if (currency === "EUR") return europeFlag;
@@ -69,7 +69,7 @@ const ExchangeRates = () => {
 
   return (
     <div className="w-full select-none">
-      {/* Текст предупреждения над табами (увеличен для xl / 2xl) */}
+
       <div className="mb-6 xl:mb-8">
         <p className="text-[#222222] text-[15px] sm:text-[16px] xl:text-[18px] 2xl:text-[20px] leading-[1.5] font-bold text-left">
           20,000 ԱՄՆ դոլարից ավել կամ դրան համարժեք այլ արտարժույթի փոխարկման
@@ -80,9 +80,9 @@ const ExchangeRates = () => {
         </p>
       </div>
 
-      {/* Табы сверху */}
+
       <div className="flex flex-col items-start gap-2 mb-4 xl:mb-6">
-        {/* Первая строка табов */}
+
         <div className="flex flex-wrap items-center gap-2 xl:gap-3">
           {tabsList.slice(0, 3).map((tab) => (
             <button
@@ -103,7 +103,7 @@ const ExchangeRates = () => {
           ))}
         </div>
 
-        {/* Вторая строка: «Ռուբլու կանխիկ մուտք» */}
+
         <div className="flex flex-wrap items-center gap-2 xl:gap-3">
           {tabsList.slice(3).map((tab) => (
             <button
@@ -125,7 +125,7 @@ const ExchangeRates = () => {
         </div>
       </div>
 
-      {/* Основной контейнер виджета */}
+
       <div
         className="bg-white rounded-3xl p-5 xl:p-7 2xl:p-8 border border-[#f5f5f5]"
         style={{
@@ -134,7 +134,7 @@ const ExchangeRates = () => {
         }}
       >
         <div className="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] xl:grid-cols-[1.3fr_1fr] gap-6 xl:gap-8 items-start">
-          {/* Левая колонка: Таблицы курсов */}
+
           <div>
             {(activeTab === "Կանխիկ" || activeTab === "Անկանխիկ") && (
               <>
@@ -259,7 +259,7 @@ const ExchangeRates = () => {
             )}
           </div>
 
-          {/* Правая колонка: Блок конвертера */}
+
           <div className="flex flex-col gap-4 xl:gap-6 border-t md:border-t-0 md:border-l border-[#f0f2f5] pt-4 md:pt-0 md:pl-6 xl:pl-8">
             <div className="flex flex-col gap-1.5 xl:gap-2">
               <span className="text-[13px] xl:text-[15px] 2xl:text-[16px] text-[#a8aeb7] font-medium">

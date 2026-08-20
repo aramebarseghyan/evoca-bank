@@ -16,7 +16,7 @@ const SubHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Скрываем SubHeader на страницах объявлений, новостей И БЛОГА
+
   if (
     cleanPath === "/announcements" ||
     cleanPath.startsWith("/announcements/") ||

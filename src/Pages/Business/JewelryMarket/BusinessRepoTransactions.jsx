@@ -3,14 +3,14 @@ import React from "react";
 const BusinessRepoTransactions = () => {
   return (
     <div className="w-full bg-white sm:bg-transparent pt-[30px] sm:pt-[50px] pb-16">
-      {/* Увеличена ширина до 1150px, по центру */}
+
       <div className="max-w-[1150px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Главный заголовок страницы */}
+
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#222222] mb-8 leading-snug">
           Ռեպո/Հակադարձ ռեպո գործարքներ
         </h1>
 
-        {/* Текстовый блок */}
+
         <div className="mb-12 text-[#333333] text-sm sm:text-base leading-relaxed space-y-5">
           <p>
             Բանկը Ռեպո/Հակադարձ Ռեպո գործարքներ է կնքում բացառապես Հայաստանի
@@ -33,7 +33,7 @@ const BusinessRepoTransactions = () => {
           </p>
         </div>
 
-        {/* Дата обновления */}
+
         <div className="text-right text-xs sm:text-sm text-[#888888]">
           Թարմացվել է` 04/10/2024 12:10
         </div>

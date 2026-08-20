@@ -81,17 +81,15 @@ const LatestNews = () => {
         </div>
 
         {/* 
-          1. flex и overflow-x-auto работают на mobile/sm/md 
-          2. Начиная с lg (desktop) включается сетка grid-cols-3 и выключается скролл
+          1. flex and overflow-x-auto work on mobile/sm/md 
+          2. Starting at lg (desktop), the grid-cols-3 layout is enabled and scrolling is disabled
         */}
         <div className="news-wrapper flex overflow-x-auto lg:overflow-visible lg:grid lg:grid-cols-3 gap-4 md:gap-6 2xl:gap-8 pb-6 pt-2 snap-x snap-mandatory lg:snap-none hide-scrollbar">
-          {/* Массив выводится целиком, без slice */}
           {newsList.map((news, index) => (
             <div
-              key={news.id}
               /* 
-                1. Ширина для мобилок: w-[270px], sm, md... а для lg:w-full (т.к. grid сам задаст размер)
-                2. Если индекс > 2 (четвертая карточка и далее) — скрываем их на десктопе через lg:hidden 
+                1. Mobile width: w-[270px], sm, md... and lg:w-full (the grid sets the size)
+                2. If the index is > 2 (the fourth card and onward), hide it on desktop with lg:hidden 
               */
               className={`scroll-animate flex-shrink-0 w-[270px] sm:w-[calc(50%-8px)] md:w-[320px] lg:w-full snap-start ${
                 index > 2 ? "lg:hidden" : ""
@@ -152,7 +150,7 @@ const LatestNews = () => {
           transform: translateY(0); 
         }
 
-        /* Возвращаем скрытие скроллбара для мобильных устройств */
+
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }

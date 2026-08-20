@@ -15,7 +15,7 @@ export default function FilterSidebarBenefits({
     <div className="space-y-6">
       <h2 className="text-xl font-bold text-gray-900">Ֆիլտրներ</h2>
 
-      {/* Сортировка */}
+
       <div className="space-y-2">
         <label className="block text-sm font-semibold text-gray-700">
           Դասավորել
