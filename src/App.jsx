@@ -420,7 +420,7 @@ function App() {
           <Route path="/work-at-evoca/stages" element={<WorkAtEvocaPage />} />
           <Route path="/internship" element={<PracticePage />} />
           <Route path="/evocabridge" element={<EvocaBridgePage />} />
-
+          <Route path="/individual-safe-deposit-boxes" element={<Boxes />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

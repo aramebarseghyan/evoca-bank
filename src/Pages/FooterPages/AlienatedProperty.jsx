@@ -1,60 +1,45 @@
-const propertyData = [
-  {
-    id: 1,
-    address: "Կոտայքի մարզ, հ․ Սոլակ 1-ին փող․, 4-րդ նրբ․, թիվ 2 հողամաս",
-    description: "հողատարածք",
-    area: "1540 քմ",
-    image: "https://www.evoca.am/file_manager/Alienated-Property/solak.png",
-  },
-  {
-    id: 2,
-    address: "ք. Երևան, Արաբկիր, Բաղրամյան պողոտա 53շ․ 69",
-    description: "ոչ բնակելի տարածք",
-    area: "180 քմ",
-    image:
-      "https://www.evoca.am/file_manager/Alienated-Property/baghramyan-53.jpg",
-  },
-  {
-    id: 3,
-    address: "Պռոշյան գյուղ, Մայիսյան 4-րդ նրբանցք, 21 տուն",
-    description: "բնակելի տուն",
-    area: "1400 քմ",
-    image: "https://www.evoca.am/file_manager/Alienated-Property/proshyan.jpg",
-  },
-  {
-    id: 4,
-    address: "Կոտայքի մարզ, գ․ Մարմարիկ",
-    description: "հողամաս",
-    area: "7600 քմ",
-    image: "https://www.evoca.am/file_manager/Alienated-Property/marmarik.jpg",
-  },
-  {
-    id: 5,
-    address: "Կոտայքի մարզ, Արտավազ համ․, Կարմիր Հովիտ",
-    description: "հողամաս (նպատակային նշ․' արոտավայր)",
-    area: "10000 քմ",
-    image:
-      "https://www.evoca.am/file_manager/Alienated-Property/karmir-hovit_0.jpg",
-  },
-  {
-    id: 6,
-    address: "ք․ Գյումրի, Ղուկասյան փողոց 8 շարք, թիվ 33 բն․",
-    description: "տուն",
-    area: "115 քմ",
-    image: "https://www.evoca.am/file_manager/Alienated-Property/Gyumri.jpg",
-  },
-];
+import React, { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const AlienatedProperty = () => {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "properties"));
+        const fetchedData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProperties(fetchedData);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full bg-white min-h-screen flex justify-center items-center font-sans">
+        <p className="text-gray-500">Բեռնվում է...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-white min-h-screen py-8">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* H1 Վերնագիր */}
         <h1 className="text-3xl sm:text-[36px] font-bold text-[#443f38] mb-8">
           Օտարվող գույք
         </h1>
 
-        {/* Աղյուսակ */}
         <div className="w-full overflow-x-auto border border-gray-200 rounded-lg shadow-sm mb-6">
           <table className="w-full border-collapse text-left">
             <thead>
@@ -66,7 +51,7 @@ const AlienatedProperty = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 text-sm text-[#443f38]">
-              {propertyData.map((item) => (
+              {properties.map((item) => (
                 <tr
                   key={item.id}
                   className="hover:bg-gray-50/50 transition-colors"
@@ -96,7 +81,6 @@ const AlienatedProperty = () => {
           </table>
         </div>
 
-        {/* Ամսաթիվ աջ անկյունում */}
         <div className="text-right text-xs text-gray-400 font-sans">
           Թարմացվել է՝ 06/10/2025 10:00
         </div>
