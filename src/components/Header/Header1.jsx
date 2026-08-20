@@ -115,12 +115,12 @@ const Header1 = ({ onOpenMenu }) => {
   const cleanPath = normalizePath
     ? normalizePath(location.pathname)
     : location.pathname;
-    
+
   if (cleanPath === "/evocaLogin" || cleanPath.includes("evocalogin")) {
     return null;
   }
   return (
-    <div className="w-full border-b border-gray-200 bg-white shadow-sm z-40 relative">
+    <div className="w-full border-b border-gray-200 bg-white shadow-sm z-[100] relative">
       <div className="mx-auto flex items-center justify-between w-full px-4 sm:px-6 md:px-5 lg:px-7 xl:px-10 2xl:px-12 md:max-w-[770px] lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1536px]">
         {/* LEFT SECTION: Tabs */}
         <div className="hidden lg:flex items-center lg:gap-5 xl:gap-6 2xl:gap-8">

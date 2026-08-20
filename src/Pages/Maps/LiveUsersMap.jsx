@@ -6,18 +6,19 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import ScrollHeader from "../../components/Header/ScrollHeader";
 
-// 1. КОМПОНЕНТ АВТО-ЦЕНТРИРОВАНИЯ
 const AutoZoomToBounds = ({ users }) => {
   const map = useMap();
+  const [hasZoomed, setHasZoomed] = useState(false);
 
   useEffect(() => {
-    if (users && users.length > 0) {
+    if (users && users.length > 0 && !hasZoomed) {
       const bounds = L.latLngBounds(
         users.map((u) => [u.location.lat, u.location.lng]),
       );
       map.fitBounds(bounds, { padding: [60, 60], maxZoom: 15, animate: true });
+      setHasZoomed(true);
     }
-  }, [map, users]);
+  }, [map, users, hasZoomed]);
 
   return null;
 };
@@ -25,7 +26,7 @@ const AutoZoomToBounds = ({ users }) => {
 // 2. ФУНКЦИЯ СОЗДАНИЯ ИКОНОК
 const createGmailAvatar = (user) => {
   const isOnline = user.isOnline;
-  const statusColor = isOnline ? "#10b981" : "#ef4444"; // Зеленый / Красный
+  const statusColor = isOnline ? "#10b981" : "#ef4444";
 
   let innerContent = "";
   if (user.photoURL) {
@@ -38,7 +39,6 @@ const createGmailAvatar = (user) => {
       />
     `;
   } else {
-    // Безопасное получение начальной буквы
     const name = user.displayName || user.email || "Ա";
     const initial = name.length > 0 ? name.charAt(0).toUpperCase() : "Ա";
 
@@ -59,16 +59,9 @@ const createGmailAvatar = (user) => {
 
     innerContent = `
       <div style="
-        width: 100%; 
-        height: 100%; 
-        background-color: ${bgColor}; 
-        color: white; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-        font-family: sans-serif;
-        font-weight: 800; 
-        font-size: 18px;
+        width: 100%; height: 100%; background-color: ${bgColor}; 
+        color: white; display: flex; align-items: center; justify-content: center; 
+        font-family: sans-serif; font-weight: 800; font-size: 18px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
       ">
         ${initial}
@@ -81,42 +74,23 @@ const createGmailAvatar = (user) => {
     html: `
       <div style="position: relative; width: 42px; height: 42px;">
         <div style="
-          width: 42px; 
-          height: 42px; 
-          border-radius: 50%; 
-          border: 3px solid white;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-          overflow: hidden;
-          background-color: white;
-          position: relative;
-          z-index: 10;
+          width: 42px; height: 42px; border-radius: 50%; border: 3px solid white;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.3); overflow: hidden;
+          background-color: white; position: relative; z-index: 10;
         ">
           ${innerContent}
         </div>
-        
         <div style="
-          position: absolute;
-          bottom: 0px;
-          right: 0px;
-          width: 13px;
-          height: 13px;
-          background-color: ${statusColor};
-          border: 2px solid white;
-          border-radius: 50%;
-          z-index: 20;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+          position: absolute; bottom: 0px; right: 0px; width: 13px; height: 13px;
+          background-color: ${statusColor}; border: 2px solid white;
+          border-radius: 50%; z-index: 20; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         "></div>
       </div>
       <div style="
-        width: 0; 
-        height: 0; 
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 10px solid white;
-        margin: -4px auto 0;
-        filter: drop-shadow(0 4px 2px rgba(0,0,0,0.2));
-        position: relative;
-        z-index: 5;
+        width: 0; height: 0; border-left: 8px solid transparent;
+        border-right: 8px solid transparent; border-top: 10px solid white;
+        margin: -4px auto 0; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.2));
+        position: relative; z-index: 5;
       "></div>
     `,
     iconSize: [42, 52],
@@ -166,7 +140,6 @@ const LiveUsersMap = () => {
       <ScrollHeader onOpenMenu={() => {}} />
 
       <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px] lg:pt-[64px] pb-4 md:pb-6 flex flex-col gap-4">
-        {/* Header Section */}
         <div className="flex-shrink-0 relative overflow-hidden flex flex-col sm:flex-row justify-between items-center sm:items-center gap-4 bg-white p-5 md:p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-purple-50">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-purple-400/10 blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-blue-400/10 blur-[80px] pointer-events-none"></div>
@@ -229,9 +202,7 @@ const LiveUsersMap = () => {
 
         {/* Map Section */}
         <div className="flex-1 relative w-full rounded-[2rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border-[6px] border-white z-0 bg-gray-50">
-          {isLoading ? (
-            null
-          ) : (
+          {isLoading ? null : (
             <MapContainer
               center={[40.1811, 44.5136]}
               zoom={12}

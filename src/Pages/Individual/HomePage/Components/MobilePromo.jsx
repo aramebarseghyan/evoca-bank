@@ -15,6 +15,15 @@ import evocaBestShape2 from "../../../../assets/img/evoca-best-shape2.png";
 const MobilePromo = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
+  // Функция для открытия ссылки в новой вкладке
+  const handleBecomeCustomer = () => {
+    window.open(
+      "https://online.evoca.am/InternetBank/MainForm.wgx",
+      "_blank",
+      "noopener,noreferrer",
+    );
+  };
+
   return (
     <div className="w-full bg-[#580BD4] rounded-tl-[60px] sm:rounded-tl-[80px] md:rounded-tl-[100px] xl:rounded-tl-[200px] 2xl:rounded-tl-[240px] text-white font-sans relative overflow-hidden shadow-2xl mt-[350px] md:mt-16 py-12 px-6 sm:px-10 md:px-16 2xl:px-20">
       {/* 3D Декоративные фигуры */}
@@ -178,7 +187,11 @@ const MobilePromo = () => {
             կիրառմամբ:
           </p>
 
-          <button className="px-8 sm:px-10 py-3.5 bg-white text-[#580BD4] font-bold rounded-full text-[15px] sm:text-[16px] hover:bg-gray-100 transition-all shadow-md active:scale-95">
+          {/* Добавлен onClick для перехода по ссылке */}
+          <button
+            onClick={handleBecomeCustomer}
+            className="px-8 sm:px-10 py-3.5 bg-white text-[#580BD4] font-bold rounded-full text-[15px] sm:text-[16px] hover:bg-gray-100 transition-all shadow-md active:scale-95"
+          >
             Դառնալ հաճախորդ
           </button>
 

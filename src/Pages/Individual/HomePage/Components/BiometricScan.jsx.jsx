@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import face1 from "../../../../assets/img/face1.png";
 import face2 from "../../../../assets/img/face2.png";
@@ -35,6 +36,7 @@ const MESH_PATH = `
 function BiometricSection() {
   const [currentFaceIndex, setCurrentFaceIndex] = useState(0);
   const [animKey, setAnimKey] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (faces.length <= 1) return;
@@ -51,6 +53,10 @@ function BiometricSection() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleNavigate = () => {
+    navigate("/evocatouch");
+  };
 
   return (
     <section className="w-full bg-white py-12 md:py-20 lg:py-20 2xl:py-28 px-4 sm:px-6 md:px-10 lg:px-10 xl:px-16 2xl:px-20 flex flex-col items-center lg:flex-row lg:items-center justify-center lg:justify-between xl:justify-center max-w-[1240px] 2xl:max-w-[1480px] mx-auto select-none overflow-hidden gap-10 md:gap-6 lg:gap-10 xl:gap-16 2xl:gap-24">
@@ -136,7 +142,10 @@ function BiometricSection() {
         </p>
 
         {/* Մոբայլ կոճակ */}
-        <button className="md:hidden w-full sm:w-auto self-start sm:min-w-[230px] py-1.5 px-12 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[13px] transition-all shadow-md">
+        <button
+          onClick={handleNavigate}
+          className="md:hidden w-full sm:w-auto self-start sm:min-w-[230px] py-1.5 px-12 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[13px] transition-all shadow-md"
+        >
           Իմանալ ավելին
         </button>
 
@@ -147,7 +156,10 @@ function BiometricSection() {
             alt="EvocaTOUCH QR Code"
             className="w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[125px] lg:h-[125px] xl:w-[145px] xl:h-[145px] 2xl:w-[170px] 2xl:h-[170px] object-contain shrink-0"
           />
-          <button className="py-2 px-12 md:py-3 md:px-14 lg:py-2.5 lg:px-16 xl:py-3 xl:px-20 2xl:py-3.5 2xl:px-24 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[13px] md:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] transition-all shadow-md md:mb-1.5 lg:mb-0">
+          <button
+            onClick={handleNavigate}
+            className="py-2 px-12 md:py-3 md:px-14 lg:py-2.5 lg:px-16 xl:py-3 xl:px-20 2xl:py-3.5 2xl:px-24 bg-[#6000ff] hover:bg-[#5200cc] active:scale-[0.98] text-white font-medium rounded-full text-[13px] md:text-[15px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] transition-all shadow-md md:mb-1.5 lg:mb-0"
+          >
             Իմանալ ավելին
           </button>
         </div>

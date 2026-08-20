@@ -12,3 +12,6 @@
     clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
   }
 }
+.leaflet-marker-icon.custom-avatar-icon {
+  transition: transform 1s linear !important;
+}
